@@ -30,7 +30,7 @@
 # About
 
 Gistr allows you to embed gists that have been created from two different services:
-- [OpenGist](https://github.com/thomiceli/opengist) server.
+- [OpenGist](https://github.com/thomiceli/opengist) (self-hosted)
 - [Github Gist](https://gist.github.com)
 
 <br />
@@ -88,7 +88,7 @@ The following instructions explain how to install this plugin for Obsidian.
 ```
 - Launch Obsidian and click the Settings Cog Icon `⚙️`
 - On the left, select **Community Plugins**
-- In the Plugins List, locate `Gistr` and click the button to enable it. <img src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" data-canonical-src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" height=20px />
+- Locate `Gistr` and enable it. <img src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" data-canonical-src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" height=20px />
 
 <br />
 <br />
@@ -110,7 +110,7 @@ Plugin can also be installed utilizing the [BRAT](https://github.com/TfTHacker/o
 <br />
 
 # Usage
-To embed an OpenGist or Github Gist paste into your notes, add a new code block:
+To embed an OpenGist or Github Gist sniipet, add a new code block:
 
 <br />
 
