@@ -12,6 +12,19 @@
 
 <br />
 
+- [Submitting Bugs](#submitting-bugs)
+- [Contributing](#contributing)
+  - [Vertical alignment](#vertical-alignment)
+  - [Spaces Instead Of Tabs](#spaces-instead-of-tabs)
+  - [Indentation Style](#indentation-style)
+  - [Commenting](#commenting)
+  - [Casing](#casing)
+
+
+---
+
+<br />
+
 ## Submitting Bugs
 
 Please ensure that when you submit bugs; you are detailed.
@@ -29,6 +42,28 @@ Please ensure that when you submit bugs; you are detailed.
 ## Contributing
 
 The source is here for everyone to collectively share and colaborate on. If you think you have a possible solution to a problem; don't be afraid to get your hands dirty.
+
+Unless you are fixing a known bug, we strongly recommend discussing it with the core team via a GitHub issue before getting started to ensure your work does not conflict with future plans.
+
+All contributions are made via pull requests. To make a pull request, you will need a GitHub account; if you are unclear on this process, see [GitHub's documentation on forking and pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork). Pull requests should be targeted at the master branch. 
+
+<br />
+
+Pull requests eligible for review
+
+- Follow the repository's code formatting conventions (see below);
+- include tests that prove that the change works as intended and does not add regressions;
+- document the changes in the code and/or the project's documentation;
+- pass the CI pipeline;
+- include a proper git commit message following the [Conventional Commit Specification](https://www.conventionalcommits.org/en/v1.0.0/#specification).
+
+<br />
+
+If all of these items are checked, the pull request is ready to be reviewed and you should change the status to "Ready for review" and request review from a maintainer.
+
+Reviewers will approve the pull request once they are satisfied with the patch.
+
+<br />
 
 If you wish to submit your own contribution, simply follow a few guidelines:
 
