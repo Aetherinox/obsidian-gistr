@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-opengist?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-opengist/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-opengist?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-opengist?color=b43bcc)
+![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
 </div>
 
@@ -12,7 +12,7 @@
 
 # About
 
-Gistr allows you to embed gists that have been created through two different services:
+Gistr allows you to embed gists that have been created from two different services:
 - [OpenGist](https://github.com/thomiceli/opengist) server.
 - [Github Gist](https://gist.github.com)
 
@@ -24,13 +24,14 @@ Gistr allows you to embed gists that have been created through two different ser
 
 To use this plugin, you must:
 - Download and install [Obsidian.md](obsidian.md/)
-- Utilize Github to store gists, OR;
+- Utilize Github to store [https://gist.github.com](gists), OR;
 - Configure a new or use an existing [OpenGist](https://github.com/thomiceli/opengist) Server
 
 <br />
 
 <div align="center">
 
+[![OG-Demo](https://img.shields.io/badge/%20-%20Try%20%20OpenGist%20Demo-%20%236c2368?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://demo.opengist.io/all)
 [![OG-Download](https://img.shields.io/badge/%20-%20Download%20OpenGist-%20%23de2343?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/thomiceli/opengist/releases)
 [![OG-Docs](https://img.shields.io/badge/%20-%20View%20%20OpenGist%20Docs-%20%23296ca7?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/thomiceli/opengist/blob/master/docs/index.md)
 
@@ -193,4 +194,4 @@ This Obsidian Opengist plugin makes use of the JSON being hosted on your webserv
 
 # Shoutouts
 - [thomiceli](https://github.com/thomiceli)  over at [OpenGist](https://github.com/thomiceli/opengist) for implementing the JSON functionality request.
-- [linjunpop](https://github.com/linjunpop) for developing the first Obsidian [Gist](https://github.com/linjunpop/obsidian-gist) plugin. It was a a top choice in my list of plugins used.
+- [linjunpop](https://github.com/linjunpop) for developing the first Obsidian [Gist](https://github.com/linjunpop/obsidian-gist) plugin. It was a top choice in my list of plugins used.
