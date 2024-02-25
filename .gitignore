@@ -52,6 +52,7 @@
 # ----------------------------------------
 !*manifest.json
 !*package.json
+!*package-lock.json
 !*rollup.config.js
 !*tsconfig.json
 !*versions.json
