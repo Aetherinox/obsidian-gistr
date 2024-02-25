@@ -167,7 +167,7 @@ https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#file1
 # OpenGist - How It Works
 The following explains the procedure behind this plugin and OpenGist.
 
-As of v1.6.0, [OpenGist](https://github.com/thomiceli/opengist) added a new set of features that work much like Github. Every time you upload a new gist to your OpenGist website, you can view that gist normally by going to the associated link:
+As of v1.6.0, [OpenGist](https://github.com/thomiceli/opengist) includes a feature which works much like Github. Every time you upload a new gist to your OpenGist website, you can view that gist normally by going to the associated link:
 
 ```
 https://gist.yourdomain.com/username/000abcdef1234567abcdef1234567abc
@@ -175,11 +175,11 @@ https://gist.yourdomain.com/username/000abcdef1234567abcdef1234567abc
 
 <br />
 
-OpenGist has now added the ability to fetch `JSON` information about your gist, and the ability to include your gist in outside programs (such as Obsidian), complete with the required javascript and CSS you will need.
+With OpenGist, you may now fetch `JSON` information about a gist, and include your gist in outside programs such as Obsidian.md.
 
 <br />
 
-To manually view the JSON, HTML, Javascript, and CSS feeds for each of your gists, take your normal OpenGist url, and append `.json` to the end of your URL:
+To manually view the JSON, HTML, Javascript, and CSS feeds for each of your OpenGists, append `.json` to the end of your URL:
 
 ```
 https://gist.yourdomain.com/username/000abcdef1234567abcdef1234567abc.json
@@ -216,10 +216,6 @@ You will be presented with JSON which defines the values associated to your crea
   "visibility": "unlisted"
 }
 ```
-
-<br />
-
-This Obsidian Opengist plugin makes use of the JSON being hosted on your webserver by loading up the CSS and Javascript associated to your gist file, and then displays the gist file in your Obsidian notes.
 
 <br />
 
