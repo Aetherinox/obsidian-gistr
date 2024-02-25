@@ -10,6 +10,23 @@
 
 <br />
 
+- [About](#about)
+- [Install](#install)
+  - [Manual](#manual)
+  - [BRAT Plugin Manager](#brat-plugin-manager)
+- [Usage](#usage)
+  - [OpenGist](#opengist)
+  - [Github Gist](#github-gist)
+- [OpenGist - How It Works](#opengist---how-it-works)
+- [Shoutouts](#shoutouts)
+
+
+<br />
+
+---
+
+<br />
+
 # About
 
 Gistr allows you to embed gists that have been created from two different services:
@@ -43,7 +60,13 @@ To use this plugin, you must:
 
 <br />
 
-# Install (Manual)
+# Install
+The following instructions explain how to install this plugin for Obsidian.
+
+<br />
+
+## Manual
+
 - Install [Obsidian.md](obsidian.md/)
 - Go to the [Releases](https://github.com/Aetherinox/obsidian-gistr/releases) tab in this Github repo, and download the associated files:
   - `main.js`
@@ -67,6 +90,18 @@ To use this plugin, you must:
 - On the left, select **Community Plugins**
 - In the Plugins List, locate `Gistr` and click the button to enable it. <img src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" data-canonical-src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" height=20px />
 
+<br />
+<br />
+
+## BRAT Plugin Manager
+
+Plugin can also be installed utilizing the [BRAT](https://github.com/TfTHacker/obsidian42-brat) plugin.
+- Install [BRAT](https://github.com/TfTHacker/obsidian42-brat) using the Obsidian Plugin manager
+- In your Obsidian settings on the left, select **BRAT** in the list.
+- In BRAT settings, click the button **Add Beta Plugin**
+- In the textbox, supply the URL to this repo
+  - `https://github.com/Aetherinox/obsidian-gistr`
+- Once Gistr is isntalled, activate it in your Obsidian settings. <img src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" data-canonical-src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" height=20px />
 
 <br />
 
