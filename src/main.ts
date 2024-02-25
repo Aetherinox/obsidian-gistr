@@ -170,7 +170,6 @@ class OG_Tab_Settings extends PluginSettingTab
 
     createHeader( elm: HTMLElement )
     {
-
         elm.empty( )
         elm.createEl( "h1", { text: lng( "cfg_title" ) } )
         elm.createEl( "p",
@@ -180,8 +179,7 @@ class OG_Tab_Settings extends PluginSettingTab
             {
                 style: 'padding-bottom: 25px'
             },
-        } );
-        
+        } );   
     }
 
     /*
@@ -204,7 +202,6 @@ class OG_Tab_Settings extends PluginSettingTab
 
         this.Tab_Support_ShowSettings( this.tab_support )
 	}
-
 
     /*
         Tab > General > New
