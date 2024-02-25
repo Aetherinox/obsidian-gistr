@@ -58,3 +58,5 @@
 !*tsconfig.json
 !*versions.json
 !sign.bat
+!*SHA*.asc
+!*SHA*.sig
