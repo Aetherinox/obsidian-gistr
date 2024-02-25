@@ -24,7 +24,8 @@ Gistr allows you to embed gists that have been created through two different ser
 
 To use this plugin, you must:
 - Download and install [Obsidian.md](obsidian.md/)
-- Configure a new or use an existing [OpenGist](https://github.com/thomiceli/opengist) Server; OR create a new Github Gist paste.
+- Utilize Github to store gists, OR;
+- Configure a new or use an existing [OpenGist](https://github.com/thomiceli/opengist) Server
 
 <br />
 
@@ -47,9 +48,11 @@ To use this plugin, you must:
   - `main.js`
   - `manifest.json`
   - `styles.css`
+  - <small>all releases also include a `.zip` with the files above.</small>
+
 - Locate your Obsidian Plugins Folder `X:\.obsidian\plugins`
-- Create new folder in **Plugins** folder called `gistr`
-- Inside the new folder, paste the files you have downloaded from Github.
+- Create new folder in **Plugins** folder labeled `gistr`
+- Inside the new folder, paste the files you have downloaded from this Github repo.
 
 ```
 📂 .obsidian
@@ -61,7 +64,7 @@ To use this plugin, you must:
 ```
 - Launch Obsidian and click the Settings Cog Icon `⚙️`
 - On the left, select **Community Plugins**
-- In the Plugins List, locate `OpenGist Integration` and click the button to enable it. <img src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" data-canonical-src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" height=20px />
+- In the Plugins List, locate `Gistr` and click the button to enable it. <img src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" data-canonical-src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" height=20px />
 
 
 <br />
@@ -80,6 +83,7 @@ To embed an OpenGist or Github Gist paste into your notes, add a new code block:
 ````shell
 ```gistr
 https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 ````
 
@@ -96,6 +100,7 @@ https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ````shell
 ```gistr
 https://gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 ````
 
@@ -181,3 +186,11 @@ You will be presented with JSON which defines the values associated to your crea
 This Obsidian Opengist plugin makes use of the JSON being hosted on your webserver by loading up the CSS and Javascript associated to your gist file, and then displays the gist file in your Obsidian notes.
 
 <br />
+
+---
+
+<br />
+
+# Shoutouts
+- [thomiceli](https://github.com/thomiceli)  over at [OpenGist](https://github.com/thomiceli/opengist) for implementing the JSON functionality request.
+- [linjunpop](https://github.com/linjunpop) for developing the first Obsidian [Gist](https://github.com/linjunpop/obsidian-gist) plugin. It was a a top choice in my list of plugins used.
