@@ -3,7 +3,7 @@ name: Publish Release
 on: workflow_dispatch
 
 env:
-    PLUGIN_NAME: gist-opengist-integration
+    PLUGIN_NAME: gistr
 jobs:
     build:
         runs-on: ubuntu-latest
