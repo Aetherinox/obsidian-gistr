@@ -31,3 +31,5 @@ updates:
   directory: "/"
   schedule:
     interval: "daily"
+  labels:
+  - "Pending"
