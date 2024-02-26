@@ -2,14 +2,14 @@
     Languages Helper
 */
 
-import { moment } from "obsidian";
-import en from "./locale/en";
+import { moment } from "obsidian"
+import en from "./locale/en"
 
 /*
     get plugin name
 */
 
-export function PluginID( ): string
+export function PluginID( ) : string
 {
     return 'gistr'
 }
@@ -18,30 +18,30 @@ export function PluginID( ): string
     Language entries
 */
 
-const SetupLocale: { [ i: string ]: Partial<typeof en> } =
+const SetupLocale: { [ i: string ]: Partial< typeof en > } =
 {
     en,
-};
+}
 
 /*
     get locale val
 */
 
-const locale = SetupLocale[ moment.locale( ) ];
+const locale = SetupLocale[ moment.locale( ) ]
 
 /*
     Language Method
 */
 
-export function lng( item: keyof typeof en, ...args: any[] ): string
+export function lng( item: keyof typeof en, ...args: any[] ) : string
 {
     if ( !locale )
-        console.error( "Gistr language not found", moment.locale( ) );
+        console.error( "Gistr language not found", moment.locale( ) )
 
-    let val = ( locale && locale[ item ] ) || en[ item ];
+    let val = ( locale && locale[ item ] ) || en[ item ]
     return val.replace( /{(\d+)}/g, ( match, index ) =>
     {
-        const replace = args[ index ];
-        return typeof replace !== 'undefined' ? replace : match;
-    } );
+        const replace = args[ index ]
+        return typeof replace !== 'undefined' ? replace : match
+    } )
 }
