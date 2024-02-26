@@ -185,7 +185,6 @@ class GistrBackend
                     html, body { height: 100%; margin: 0; padding: 0; }
                 </style>
 
-                ${ct_Parent.outerHTML}
                 ${this.EventListener( gid )}
 
                 <!-- Gistr: css embedded json src -->
