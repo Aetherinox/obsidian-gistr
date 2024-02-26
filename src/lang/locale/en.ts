@@ -5,6 +5,11 @@
 export default
 {
 
+    err_gist_loading_fail_name:         '⚠️ Gistr: Failed to load gist:',
+    err_gist_loading_fail_resp:         '{0}',
+    err_gist_loading_fail_detail:       'Could not load a valid Javascript from gist url: {0}',
+    err_gist_loading_fail_url:          'Could not find gist id -- Make sure correct URL is specified. {0}',
+
     /*
         Tab > Settings > Header
     */

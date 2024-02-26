@@ -706,7 +706,11 @@ class OG_Tab_Settings extends PluginSettingTab
 
 }
 
-function calc( str : string) : string
+/*
+    Calculate colors when converting hsl and rgb
+*/
+
+function CalcColor( str : string ) : string
 {
 	const strSplit = str.trim( ).replace( /(\d*)%/g, "$1" ).split( " " )
 
@@ -753,8 +757,8 @@ function CSS_GetValue( property: CLR_VAR ): CLR_HEX
 	else if ( value.startsWith( "hsl" ) )
 		return `#${ ColorTranslator.toHEXA
         ( 
-            value.replace( /calc\((.*?)\)/g, ( match, capture ) =>
-            calc( capture ) )
+            value.replace( /CalcColor\((.*?)\)/g, ( match, capture ) =>
+            CalcColor( capture ) )
         ).substring( 1 ) }`
 
     /*
@@ -765,8 +769,8 @@ function CSS_GetValue( property: CLR_VAR ): CLR_HEX
 	else if ( value.startsWith( "rgb" ) )
 		return `#${ ColorTranslator.toHEXA
         (
-            value.replace( /calc\((.*?)\)/g, ( match, capture ) =>
-            calc( capture ) )
+            value.replace( /CalcColor\((.*?)\)/g, ( match, capture ) =>
+            CalcColor( capture ) )
         ).substring( 1 ) }`
 
     /*

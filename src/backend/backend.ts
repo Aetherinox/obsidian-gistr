@@ -76,7 +76,7 @@ class GistrBackend
         */
 
         if ( typeof uuid === undefined )
-            return this.ThrowError( el, data, `Could not find gist id -- Make sure correct URL is specified. ( ${host} )` )
+            return this.ThrowError( el, data, lng( "err_gist_loading_fail_url", host ) )
 
         /*
             compile url to gist
@@ -104,7 +104,7 @@ class GistrBackend
         create new iframe for each gist, assign it a uid, set the needed attributes, and generate the css, js
     */
 
-    private EventListener( uuid: string ): string
+    private EventListener( uuid: string ) : string
     {
         return `
         <script>
@@ -221,24 +221,24 @@ class GistrBackend
         Throw Error
     */
 
-    private async ThrowError( el: HTMLElement, gistInfo: String, err: String = '' )
+    private async ThrowError( el: HTMLElement, gistInfo: string, err: string = '' )
     {
-        el.createEl( 'div',     { text: "⚠️ Gistr: Failed to load gist:", attr: { style: 'color: #de1f73; font-weight: bold;' } } )
-        el.createEl( 'div',     { text: "" + gistInfo, attr: { style: 'padding-bottom: 5px; padding-left: 20px' } } )
-        el.createEl( 'small',   { text: "Error: " + err } )
+        el.createEl( 'div',     { text: lng( "err_gist_loading_fail_name" ), attr: { cls: 'gistr-load-error-l1' } } )
+        el.createEl( 'div',     { text: "" + gistInfo, attr: { cls: 'gistr-load-error-l2' } } )
+        el.createEl( 'small',   { text: lng( "err_gist_loading_fail_resp", err ) } )
     }
 
     /*
         Get Javascript
     */
 
-    private async GetJavascript( el: HTMLElement, data: String, url: string )
+    private async GetJavascript( el: HTMLElement, data: string, url: string )
     {
         const reqUrlParams: RequestUrlParam = { url: url, method: "GET", headers: { "Accept": "text/javascript" } }
-        try { return await request( reqUrlParams ); }
+        try { return await request( reqUrlParams ) }
         catch ( err )
         {
-            return this.ThrowError( el, data, `Could not load a valid Javascript from gist url. ( ${err} )` )
+            return this.ThrowError( el, data, lng( "err_gist_loading_fail_detail", err ) )
         }
     }
 
@@ -246,13 +246,13 @@ class GistrBackend
         Get CSS
     */
 
-    private async GetCSS( el: HTMLElement, data: String, url: string )
+    private async GetCSS( el: HTMLElement, data: string, url: string )
     {
-        const reqUrlParams: RequestUrlParam = { url: url, method: "GET", headers: { "Accept": "text/css" } }
+        const reqUrlParams: RequestUrlParam = { url : url, method: "GET", headers: { "Accept": "text/css" } }
         try { return await request( reqUrlParams ) }
         catch ( err )
         {
-            return this.ThrowError( el, data, `Could not load a valid Stylesheet from gist url. ( ${err} )` )
+            return this.ThrowError( el, data, lng( "err_gist_loading_fail_detail", err ) )
         }
     }
     
