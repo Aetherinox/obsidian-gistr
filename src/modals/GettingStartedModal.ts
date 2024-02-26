@@ -4,7 +4,6 @@
 
 import { App, Modal, ButtonComponent, MarkdownRenderer } from "obsidian";
 import { lng } from 'src/lang/helpers';
-export const CFG_CBLK_PREFIX = "";
 
 /*
 	Modal > Getting Started > Class
@@ -112,7 +111,7 @@ export default class ModalGettingStarted extends Modal
 		this.cblk_preview = contentEl.createDiv( );
 
 		const gs_UsageCodeblock = "```````" + "\n" + "```" + this.plugin.settings.keyword + "\n" + "gist.domain.com/username/YOUR_GIST_ID" + "\n" + "```" + "\n```````";
-		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock, this.cblk_preview, CFG_CBLK_PREFIX + gs_UsageCodeblock, this.plugin );
+		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock, this.cblk_preview, gs_UsageCodeblock, this.plugin );
 
 		AddLine( contentEl, "", "div", "padding-bottom: 15px;" );
 
@@ -126,7 +125,7 @@ export default class ModalGettingStarted extends Modal
 		this.cblk_preview = contentEl.createDiv( );
 
 		const gs_UsageCodeblock_gh = "```````" + "\n" + "```" + this.plugin.settings.keyword + "\n" + "gist.github.com/username/YOUR_GIST_ID" + "\n" + "gist.github.com/username/YOUR_GIST_ID#file_name" + "\n" + "```" + "\n```````";
-		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock_gh, this.cblk_preview, CFG_CBLK_PREFIX + gs_UsageCodeblock_gh, this.plugin );
+		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock_gh, this.cblk_preview, gs_UsageCodeblock_gh, this.plugin );
 
 		/*
 			Footer Buttons
