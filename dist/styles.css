@@ -1,12 +1,12 @@
 body
 {
-    --header-btn-dur: 240ms;
+    --header-btn-dur:       240ms;
 }
 
 .block-language-gistr > iframe
 {
-  width: 100%;
-  border: 0;
+    width:                  100%;
+    border:                 0;
 }
 
 .gistr-modal-getting-started
