@@ -32,6 +32,8 @@
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "@simonwep/pickr": "github:simonwep/pickr",
+    "colortranslator": "^4.1.0",
     "nanoid": "^4.0"
   }
 }

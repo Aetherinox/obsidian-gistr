@@ -1,7 +1,7 @@
 {
   "id": "gistr",
   "name": "Gistr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "minAppVersion": "1.0.0",
   "description": "Integrate OpenGist and Github gist snippets in your notes.",
   "author": "Aetherinox",
