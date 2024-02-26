@@ -24,6 +24,8 @@ jobs:
                   npm run build
                   zip -jr ${{ env.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip dist/*
                   ls
+            - name: Checkout sources
+              uses: actions/checkout@v2
             - name: Download Artifacts
               uses: actions/download-artifact@v2
               with:
