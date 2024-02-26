@@ -14,7 +14,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
-          LABELS: Accepted
+          LABELS: "Status: Accepted"
       - run: gh issue edit "$NUMBER" --add-assignee "$ASSIGNEE"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

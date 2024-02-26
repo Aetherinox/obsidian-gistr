@@ -26,10 +26,16 @@ updates:
   directory: "/"
   schedule:
     interval: daily
+  labels:
+  - "Dependency"
+  - "NPM"
+  - "Status: Pending"
 
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
     interval: "daily"
   labels:
-  - "Pending"
+  - "Dependency"
+  - "Github Action"
+  - "Status: Pending"
