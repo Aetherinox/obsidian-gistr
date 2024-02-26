@@ -2,10 +2,10 @@
     Import
 */
 
-import { request, App, RequestUrlParam  } from "obsidian";
-import GistrSettings from 'src/settings/settings';
-import { lng, PluginID } from 'src/lang/helpers';
-import { nanoid } from 'nanoid';
+import { request, App, RequestUrlParam  } from "obsidian"
+import GistrSettings from 'src/settings/settings'
+import { lng, PluginID } from 'src/lang/helpers'
+import { nanoid } from 'nanoid'
 
 /*
     Basic Declrations
@@ -69,7 +69,7 @@ class GistrBackend
             Since opengist can really be any website, check for matching github links
         */
 
-        const bMatchGithub  = /((https?:\/\/)?(.+?\.)?github\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/g.test( host );
+        const bMatchGithub  = /((https?:\/\/)?(.+?\.)?github\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/g.test( host )
 
         /*
             No UUID match
@@ -115,7 +115,7 @@ class GistrBackend
                     sender:         '${PID}',
                     gid:            '${uuid}',
                     scrollHeight:   document.body.scrollHeight
-                }, '${AppBase}');
+                }, '${AppBase}')
             } )
         </script>
         `
@@ -135,13 +135,13 @@ class GistrBackend
         */
 
         const gid               = `${PID}-${uuid}-${nanoid( )}`
-        const ct_iframe         = document.createElement( 'iframe' );
+        const ct_iframe         = document.createElement( 'iframe' )
         ct_iframe.id            = gid
     
         ct_iframe.classList.add ( `${PID}-container` )
         ct_iframe.setAttribute  ( 'sandbox',    'allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation' )
         ct_iframe.setAttribute  ( 'loading',    'lazy' )
-        ct_iframe.setAttribute  ( 'width',      '100%' );
+        ct_iframe.setAttribute  ( 'width',      '100%' )
 
         /*
             https://fonts.googleapis.com
@@ -262,8 +262,8 @@ class GistrBackend
 
     messageEventHandler = ( evn: MessageEvent ) =>
     {
-        if ( evn.origin !== 'null' ) return;
-        if ( evn.data.sender !== PID ) return;
+        if ( evn.origin !== 'null' ) return
+        if ( evn.data.sender !== PID ) return
 
         const uuid                          = evn.data.gid
         const scrollHeight                  = evn.data.scrollHeight
@@ -287,7 +287,7 @@ class GistrBackend
                 return this.GistHandle( el, gist )
             } )
         )
-    };
+    }
     
 
 }
