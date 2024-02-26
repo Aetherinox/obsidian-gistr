@@ -7,7 +7,6 @@ import GistrSettings from 'src/settings/settings'
 import { GistrBackend } from 'src/backend/backend'
 import ModalGettingStarted from "./modals/GettingStartedModal"
 import { lng, PluginID } from 'src/lang/helpers'
-import Pickr from "@simonwep/pickr"
 import { ColorTranslator } from "colortranslator"
 
 /*
@@ -167,7 +166,6 @@ class OG_Tab_Settings extends PluginSettingTab
     tab_github:     HTMLElement
     tab_opengist:   HTMLElement
     tab_support:    HTMLElement
-    cPickr:         Record<string,ColorPicker>
 
     /*
         Class > Constructor
@@ -181,71 +179,7 @@ class OG_Tab_Settings extends PluginSettingTab
 		this.HideGithub     = true
 		this.HideOpengist   = true
 		this.HideSupport    = false
-        this.cPickr         = {}
     }
-
-    /*
-        Create Object > Color Picker
-
-        @arg    : bHidden
-                  associated to hovering color picker, not color element
-    */
-
-	new_ColorPicker( plugin: GistrPlugin, el: HTMLElement, setting: Setting, id: keyof ColorPickrOpts, bHidden?: ( ) => boolean )
-    {
-		const pickr: ColorPicker = new ColorPicker( plugin, el, setting )
-
-		pickr
-            .on( "init", ( colour: Pickr.HSVaColor, instance: Pickr ) =>
-            {
-                const currColor = this.plugin.settings[ id ]
-                pickr.setColor( currColor )
-            } )
-
-			.on( "show", ( colour: Pickr.HSVaColor, instance: Pickr ) =>
-            {
-                if ( typeof bHidden !== "undefined" && bHidden( ) )
-                    instance.hide( )
-			} )
-
-			.on( "save", ( colour: Pickr.HSVaColor, instance: ColorPicker ) =>
-            {
-
-				const clr : Color = `#${ colour.toHEXA( ).toString( ).substring( 1 ) }`
-
-                this.plugin.settings[ id ] = clr
-                this.plugin.saveSettings( )
-
-				instance.hide( )
-				instance.addSwatch( clr )
-				instance.ActionSave( clr )
-			} )
-
-			.on( "cancel", ( instance: ColorPicker ) =>
-            {
-                instance.hide( )
-            } )
-
-		    setting.addExtraButton
-            (
-                ( btn ) =>
-                {
-                    pickr.AddButtonReset = btn
-
-                    .setIcon        ( "reset" )
-                    .setDisabled    ( false )
-                    .setTooltip     ( "Restore default colour" )
-                    .onClick( ( ) =>
-                    {
-                        const resetColour: Color = ColorPickrDefaults[ id ]
-                        pickr.setColor      ( GetColor( resetColour ) )
-                        pickr.ActionSave    ( resetColour )
-                    } )
-		        }
-            )
-
-		this.cPickr[ id ] = pickr
-	}
 
     /*
         Display
@@ -416,31 +350,42 @@ class OG_Tab_Settings extends PluginSettingTab
             const md_notFinished    = "> [!NOTE] " + lng( "base_underdev_title" ) + "\n> <small>" + lng( "base_underdev_msg" ) + "</small>"
             MarkdownRenderer.render( this.plugin.app, md_notFinished, ct_Note, "" + md_notFinished, this.plugin )
 
+
             /*
-                Codeblock > OpenGist > Light
+                Background color (Light)
             */
 
             new Setting( elm )
                 .setName( lng( "cfg_tab_og_cblk_light_name" ) )
                 .setDesc( lng( "cfg_tab_og_cblk_light_desc" ) )
-                .then( ( setting ) => { this.new_ColorPicker
-                (
-                    this.plugin, elm, setting,
-                    "og_clr_bg_light",
-                ) } )
+                .addText( text =>
+                {
+                    text.setPlaceholder( "cbcbcb" )
+                        .setValue( this.plugin.settings.og_clr_bg_light )
+                        .onChange( async ( val ) =>
+                        {
+                            this.plugin.settings.og_clr_bg_light = val;
+                            this.plugin.saveSettings( );
+                        } );
+                } );
 
             /*
-                Codeblock > OpenGist > Dark
+                Background color (Dark)
             */
 
             new Setting( elm )
-            .setName( lng( "cfg_tab_og_cblk_dark_name" ) )
-            .setDesc( lng( "cfg_tab_og_cblk_dark_desc" ) )
-                .then( ( setting ) => { this.new_ColorPicker
-                (
-                    this.plugin, elm, setting,
-                    "og_clr_bg_dark",
-                ) } )
+                .setName( lng( "cfg_tab_og_cblk_dark_name" ) )
+                .setDesc( lng( "cfg_tab_og_cblk_dark_desc" ) )
+                    .addText( text =>
+                    {
+                        text.setPlaceholder( "121315" )
+                            .setValue( this.plugin.settings.og_clr_bg_dark )
+                            .onChange( async ( val ) =>
+                            {
+                                this.plugin.settings.og_clr_bg_dark = val;
+                                this.plugin.saveSettings( );
+                            } );
+                    } );
 
             /*
                 Codeblock > Padding > Top
@@ -850,82 +795,4 @@ export function GetColor( clr: Color ): Color
 export function bValidCSS( css: string ): css is CLR_VAR
 {
 	return typeof css === "string" && css.startsWith( "--" )
-}
-
-/*
-    Color Picker
-*/
-
-class ColorPicker extends Pickr
-{
-	ActionSave:         ( ActionSave: Color ) => void
-	ColorReset:         ( ) => void
-	AddButtonReset:     ExtraButtonComponent
-
-	constructor( plugin : GistrPlugin, el : HTMLElement, setting : Setting, tip? : string )
-    {
-		const settings : Pickr.Options =
-        {
-			el: setting.controlEl.createDiv( { cls: "picker" } ),
-			theme:          "nano",
-			default:        "#FFFFFF",
-			position:       "left-middle",
-			lockOpacity:    false,
-			components:
-            {
-				preview:    true,
-				hue:        true,
-				opacity:    true,
-				interaction:
-                {
-					hex:    true,
-					rgba:   true,
-					hsla:   true,
-					input:  true,
-					cancel: true,
-					save:   true,
-				},
-			},
-			i18n:
-            {
-				"ui:dialog":        "Color Picker",
-				"btn:swatch":       "Color Swatch",
-				"btn:toggle":       ( typeof tip !== "undefined" ) ? tip : "Pick Color",
-				"btn:last-color":   "Use Last Color",
-                "btn:save":         "Save",
-                "btn:cancel":       "Cancel",
-                "btn:clear":        "Clear",
-			}
-		}
-
-		if ( el.parentElement !== null )
-			settings.container = el.parentElement
-    
-        super( settings )
-
-        /*
-            Colorpicker > Save
-        */
-    
-        this.ActionSave = ( ActionSave: Color ) =>
-        {
-            (
-                async ( ) =>
-                {
-                    await plugin.saveSettings( )
-                } 
-            )( )
-        }
-
-        /*
-            Colorpicker > Reset Color
-        */
-
-		this.ColorReset = ( ) =>
-        {
-			const clr: Color    = "#FFFFFF"
-			this.setColor       ( GetColor( clr ) )
-			this.ActionSave     ( clr )
-		}
-	}
 }

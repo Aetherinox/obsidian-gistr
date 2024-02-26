@@ -152,13 +152,6 @@ class GistrBackend
         ct_iframe.setAttribute  ( 'csp', "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' ${host} ;" )
 
         /*
-            define parent
-        */
-
-        const ct_Parent         = document.createElement( 'base' )
-        ct_Parent.target        = "_parent"
-
-        /*
             assign css, body, js
         */
 

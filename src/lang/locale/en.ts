@@ -32,7 +32,7 @@ export default
 
     cfg_tab_og_cblk_light_name:         'Codeblock Background Color (Light)',
     cfg_tab_og_cblk_light_desc:         'Color for Opengist codeblock background color (Light Theme)',
-    cfg_tab_og_cblk_dark_name:          'Codeblock Background Color (Light)',
+    cfg_tab_og_cblk_dark_name:          'Codeblock Background Color (Dark)',
     cfg_tab_og_cblk_dark_desc:          'Color for Opengist codeblock background color (Dark Theme)',
     cfg_tab_og_padding_top_name:        'Top Padding',
     cfg_tab_og_padding_top_desc:        'Padding between gist codeblock header and code.',
