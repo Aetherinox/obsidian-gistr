@@ -2,7 +2,7 @@ name: "💡 Feature Request"
 description: Got a suggestion?  Submit your request here.
 title: "💡 [REQUEST] - <title>"
 labels: [
-  "feature-request"
+  "#Feature"
 ]
 body:
   - type: markdown
