@@ -224,7 +224,7 @@ class GistrBackend
     private async ThrowError( el: HTMLElement, gistInfo: string, err: string = '' )
     {
         el.createEl( 'div',     { text: lng( "err_gist_loading_fail_name" ), attr: { cls: 'gistr-load-error-l1' } } )
-        el.createEl( 'div',     { text: "" + gistInfo, attr: { cls: 'gistr-load-error-l2' } } )
+        el.createEl( 'div',     { text: gistInfo, attr: { cls: 'gistr-load-error-l2' } } )
         el.createEl( 'small',   { text: lng( "err_gist_loading_fail_resp", err ) } )
     }
 
