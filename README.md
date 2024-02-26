@@ -1,3 +1,4 @@
+<p align="center"><img src="https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/main/Docs/images/banner.png" width="860"></p>
 <h1 align="center"><b>Obsidian: Gistr</b></h1>
 
 <div align="center">
