@@ -2,8 +2,8 @@
 	Modal > Getting Started
 */
 
-import { App, Modal, ButtonComponent, MarkdownRenderer } from "obsidian";
-import { lng } from 'src/lang/helpers';
+import { App, Modal, ButtonComponent, MarkdownRenderer } from "obsidian"
+import { lng } from 'src/lang/helpers'
 
 /*
 	Modal > Getting Started > Class
@@ -11,19 +11,23 @@ import { lng } from 'src/lang/helpers';
 
 export default class ModalGettingStarted extends Modal
 {
-	private resolve: ( ( value: string ) => void );
+	private resolve: (		 ( value: string ) => void )
+	private firststart: 	boolean
+	private manifest: 		any
+	private plugin: 		any
+	private cblk_preview: 	HTMLElement
 
-	private firststart: 	boolean;
-	private manifest: 		any;
-	private plugin: 		any;
-	private cblk_preview: 	HTMLElement;
+	/*
+		Getting Started > Constructor
+	*/
 
 	constructor( plugin: any, app: App, bFirstLoad: boolean  )
 	{
-		super( app );
+		super( app )
+
 		this.plugin 		= plugin
-		this.manifest 		= plugin.manifest;
-		this.firststart 	= bFirstLoad;
+		this.manifest 		= plugin.manifest
+		this.firststart 	= bFirstLoad
 	}
 
 	/*
@@ -34,9 +38,9 @@ export default class ModalGettingStarted extends Modal
 	{
 		return new Promise<string>( ( call ) =>
 		{
-			this.resolve = call;
-			this.open( );
-		} );
+			this.resolve = call
+			this.open( )
+		} )
 	}
 
 	/*
@@ -45,7 +49,7 @@ export default class ModalGettingStarted extends Modal
 
 	onOpen( )
 	{
-		const { contentEl } = this;
+		const { contentEl } = this
 
 		/*
 			Helper method for handling add each line of content
@@ -54,13 +58,13 @@ export default class ModalGettingStarted extends Modal
 		const AddLine = ( elmParent: HTMLElement, value: string, htmltag: keyof HTMLElementTagNameMap | null = null, attr: string | null = null ) =>
 		{
 			if ( htmltag )
-				return elmParent.createEl( htmltag, { text: value,  attr: { style: attr } } );
+				return elmParent.createEl( htmltag, { text: value,  attr: { style: attr } } )
 			else
 			{
-				elmParent.appendText( value );
-				return elmParent;
+				elmParent.appendText( value )
+				return elmParent
 			}
-		};
+		}
 
 		/*
 			Customize moodal stylesheet
@@ -72,18 +76,18 @@ export default class ModalGettingStarted extends Modal
 			Modal > Getting Started > Content > Header
 		*/
 
-		AddLine( contentEl, this.manifest.name, "h1" );
-		AddLine( contentEl, "v" + this.manifest.version, "h6", "margin-top: -12px;" );
-		AddLine( contentEl, lng( "gs_base_header" ), "small" );
+		AddLine( contentEl, this.manifest.name, "h1" )
+		AddLine( contentEl, "v" + this.manifest.version, "h6", "margin-top: -12px;" )
+		AddLine( contentEl, lng( "gs_base_header" ), "small" )
 
-		AddLine( contentEl, "", "div", "padding-bottom: 15px;" );
+		AddLine( contentEl, "", "div", "padding-bottom: 15px;" )
 
 		/*
 			Modal > Getting Started > Content > Getting Started
 		*/
 
-		AddLine( contentEl, lng( "gs_og_name" ), "h2" );
-		AddLine( contentEl, lng( "gs_og_desc" ), "small" );
+		AddLine( contentEl, lng( "gs_og_name" ), "h2" )
+		AddLine( contentEl, lng( "gs_og_desc" ), "small" )
 
 		const div_GettingStarted = contentEl.createDiv( { cls: "gistr-modal-button-container" } )
 
@@ -93,39 +97,39 @@ export default class ModalGettingStarted extends Modal
 			.onClick( ( ) =>
 			{
 				window.open( lng( "cfg_tab_su_ogrepo_url" ) )
-			});
+			} )
 
 		new ButtonComponent( div_GettingStarted )
 			.setButtonText( lng( "gs_og_btn_docs" ) )
 			.onClick( ( ) =>
 			{
 				window.open( lng( "cfg_tab_su_ogdocs_url" ) )
-			});
+			} )
 
-		AddLine( contentEl, lng( "gs_og_sub_1" ), "small" );
+		AddLine( contentEl, lng( "gs_og_sub_1" ), "small" )
 
 		/*
 			Markdown Render Preview
 		*/
 
-		this.cblk_preview = contentEl.createDiv( );
+		this.cblk_preview = contentEl.createDiv( )
 
-		const gs_UsageCodeblock = "```````" + "\n" + "```" + this.plugin.settings.keyword + "\n" + "gist.domain.com/username/YOUR_GIST_ID" + "\n" + "```" + "\n```````";
-		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock, this.cblk_preview, gs_UsageCodeblock, this.plugin );
+		const gs_UsageCodeblock = "```````" + "\n" + "```" + this.plugin.settings.keyword + "\n" + "gist.domain.com/username/YOUR_GIST_ID" + "\n" + "```" + "\n```````"
+		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock, this.cblk_preview, gs_UsageCodeblock, this.plugin )
 
-		AddLine( contentEl, "", "div", "padding-bottom: 15px;" );
+		AddLine( contentEl, "", "div", "padding-bottom: 15px;" )
 
 		/*
 			Modal > Getting Started > Content > Getting Started
 		*/
 
-		AddLine( contentEl, lng( "gs_gh_name" ), "h2" );
-		AddLine( contentEl, lng( "gs_gh_desc" ), "small" );
+		AddLine( contentEl, lng( "gs_gh_name" ), "h2" )
+		AddLine( contentEl, lng( "gs_gh_desc" ), "small" )
 
-		this.cblk_preview = contentEl.createDiv( );
+		this.cblk_preview = contentEl.createDiv( )
 
-		const gs_UsageCodeblock_gh = "```````" + "\n" + "```" + this.plugin.settings.keyword + "\n" + "gist.github.com/username/YOUR_GIST_ID" + "\n" + "gist.github.com/username/YOUR_GIST_ID#file_name" + "\n" + "```" + "\n```````";
-		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock_gh, this.cblk_preview, gs_UsageCodeblock_gh, this.plugin );
+		const gs_UsageCodeblock_gh = "```````" + "\n" + "```" + this.plugin.settings.keyword + "\n" + "gist.github.com/username/YOUR_GIST_ID" + "\n" + "gist.github.com/username/YOUR_GIST_ID#file_name" + "\n" + "```" + "\n```````"
+		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock_gh, this.cblk_preview, gs_UsageCodeblock_gh, this.plugin )
 
 		/*
 			Footer Buttons
@@ -141,15 +145,15 @@ export default class ModalGettingStarted extends Modal
 				.onClick( ( ) =>
 				{
 					this.resolve( "settings-open" )
-					this.close( );
-				});
+					this.close( )
+				} )
 
 			new ButtonComponent( div_Footer )
 				.setButtonText( lng( "gs_btn_close" ) )
 				.onClick( ( ) =>
 				{
-					this.close();
-				} );
+					this.close()
+				} )
 		}
 		else
 		{
@@ -157,8 +161,8 @@ export default class ModalGettingStarted extends Modal
 				.setButtonText( lng( "gs_btn_close" ) )
 				.onClick( ( ) =>
 				{
-					this.close( );
-				} );
+					this.close( )
+				} )
 		}
 	}
 
@@ -168,8 +172,8 @@ export default class ModalGettingStarted extends Modal
 
 	close( )
 	{
-		this.resolve( "" );
-		super.close( );
+		this.resolve( "" )
+		super.close( )
 	}
 
 	/*
@@ -178,6 +182,6 @@ export default class ModalGettingStarted extends Modal
 
 	onClose( ): void
 	{
-		this.contentEl.empty( );
+		this.contentEl.empty( )
 	}
 }
