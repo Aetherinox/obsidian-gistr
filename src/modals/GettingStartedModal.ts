@@ -67,10 +67,7 @@ export default class ModalGettingStarted extends Modal
 			Customize moodal stylesheet
 		*/
 
-		this.modalEl.style.width 			= "40%";
-		this.modalEl.style.paddingLeft 		= "35px";
-		this.modalEl.style.paddingRight 	= "35px";
-		this.modalEl.style.paddingBottom 	= "35px";
+		this.modalEl.classList.add( 'gistr-modal-getting-started' )
 
 		/*
 			Modal > Getting Started > Content > Header
@@ -96,14 +93,14 @@ export default class ModalGettingStarted extends Modal
 			.setCta( )
 			.onClick( ( ) =>
 			{
-				window.open( lng( "cfg_sec_support_ogrepo_url" ) )
+				window.open( lng( "cfg_tab_su_ogrepo_url" ) )
 			});
 
 		new ButtonComponent( div_GettingStarted )
 			.setButtonText( lng( "gs_og_btn_docs" ) )
 			.onClick( ( ) =>
 			{
-				window.open( lng( "cfg_sec_support_ogdocs_url" ) )
+				window.open( lng( "cfg_tab_su_ogdocs_url" ) )
 			});
 
 		AddLine( contentEl, lng( "gs_og_sub_1" ), "small" );

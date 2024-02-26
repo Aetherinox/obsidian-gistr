@@ -460,14 +460,11 @@ class OG_Tab_Settings extends PluginSettingTab
 
                         this.plugin.saveSettings( )
                     } )
-                )
-                .settingEl.createDiv( '', ( el ) =>
+                ).settingEl.createDiv( '', ( el ) =>
                 {
                     val_st_padding          = el
-                    el.style.minWidth       = "30px"
-                    el.style.textAlign      = "right"
                     el.innerText            = " " + this.plugin.settings.blk_pad_t.toString( )
-                } )
+                } ).classList.add( 'gistr-settings-elm-slider-preview' )
 
             /*
                 Codeblock > Padding > Bottom
@@ -491,10 +488,8 @@ class OG_Tab_Settings extends PluginSettingTab
                 .settingEl.createDiv( '', ( el ) =>
                 {
                     val_sb_padding          = el
-                    el.style.minWidth       = "30px"
-                    el.style.textAlign      = "right"
                     el.innerText            = " " + this.plugin.settings.blk_pad_b.toString( )
-                } )
+                } ).classList.add( 'gistr-settings-elm-slider-preview' )
 
             /*
                 Codeblock > Theme

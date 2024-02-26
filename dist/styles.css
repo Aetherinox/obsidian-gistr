@@ -9,6 +9,20 @@ body
   border: 0;
 }
 
+.gistr-modal-getting-started
+{
+    width:                  40%;
+    padding-left:           35px;
+    padding-right:          35px;
+    padding-bottom:         35px;
+}
+
+.gistr-settings-elm-slider-preview
+{
+    min-width:              30px;
+    text-align:             right;
+}
+
 .gistr-modal-button-container
 {
     margin-top:             1.5em;
