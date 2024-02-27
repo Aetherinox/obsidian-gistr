@@ -11,7 +11,7 @@
 # ---------------------------------------------------------------------------------------
 
 name: "New Issue: Handle"
-run-name: "New Issue: ${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
+run-name: "New Issue: Assign Label - ${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
 
 on:
   issues:
@@ -53,11 +53,11 @@ jobs:
       - name: ${{ env.LABEL_BUG }} [ Title ] - Check"
         if: |
           github.event.issue &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_1 }} &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_2 }} &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.bug_title.outputs.lowercase, 'bug' ) ||
-          contains( steps.bug_body.outputs.lowercase, 'issue' ) ||
-          contains( steps.bug_body.outputs.lowercase, 'broke' ) ||
+          contains( steps.bug_title.outputs.lowercase, 'issue' ) ||
+          contains( steps.bug_title.outputs.lowercase, 'broke' ) ||
           contains( steps.bug_title.outputs.lowercase, 'fails' ) ||
           contains( steps.bug_title.outputs.lowercase, 'failed' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
@@ -73,17 +73,17 @@ jobs:
         id: bug_body
         uses: ASzc/change-string-case-action@v6
         with:
-          string: ${{ github.event.issue.title }}
+          string: ${{ github.event.issue.body }}
 
       - name: ${{ env.LABEL_BUG }} [ Body ] - Check
         if: |
           github.event.issue &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_1 }} &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_2 }} &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.bug_body.outputs.lowercase, 'bug' ) ||
           contains( steps.bug_body.outputs.lowercase, 'issue' ) ||
           contains( steps.bug_body.outputs.lowercase, 'broke' ) ||
-          contains( steps.bug_title.outputs.lowercase, 'fails' ) ||
+          contains( steps.bug_body.outputs.lowercase, 'fails' ) ||
           contains( steps.bug_body.outputs.lowercase, 'failed' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
@@ -93,7 +93,7 @@ jobs:
           LABELS: ${{ env.LABEL_BUG }}
 
   # ---------------------------------------------------------------------------------------
-  # Check Label: BUG
+  # Check Label: Feature
   # ---------------------------------------------------------------------------------------
 
   Submission_CheckLabel_Feature:
@@ -113,8 +113,8 @@ jobs:
       - name: ${{ env.LABEL_FEATURE }} [ Title ] - Check
         if: |
           github.event.issue &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_1 }} &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_2 }} &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.feature_title.outputs.lowercase, 'feature' ) ||
           contains( steps.feature_title.outputs.lowercase, 'new' ) ||
           contains( steps.feature_title.outputs.lowercase, 'request' ) )
@@ -131,13 +131,13 @@ jobs:
         id: feature_body
         uses: ASzc/change-string-case-action@v6
         with:
-          string: ${{ github.event.issue.title }}
+          string: ${{ github.event.issue.body }}
 
-      - name: "$env.LABEL_FEATURE : [ Body ] - Check"
+      - name: ${{ env.LABEL_FEATURE }} [ Body ] - Check
         if: |
           github.event.issue &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_1 }} &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_2 }} &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.feature_body.outputs.lowercase, 'feature' ) ||
           contains( steps.feature_body.outputs.lowercase, 'new' ) ||
           contains( steps.feature_body.outputs.lowercase, 'request' ) )
@@ -169,8 +169,8 @@ jobs:
       - name: ${{ env.LABEL_URGEMT }} [ Title ] - Check
         if: |
           github.event.issue &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_1 }} &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_2 }} &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.urgent_title.outputs.lowercase, 'urgent' ) ||
           contains( steps.urgent_title.outputs.lowercase, 'emergency' ) ||
           contains( steps.urgent_title.outputs.lowercase, 'important' ) )
@@ -187,13 +187,13 @@ jobs:
         id: urgent_body
         uses: ASzc/change-string-case-action@v6
         with:
-          string: ${{ github.event.issue.title }}
+          string: ${{ github.event.issue.body }}
 
       - name: ${{ env.LABEL_URGEMT }} [ Body ] - Check
         if: |
           github.event.issue &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_1 }} &&
-          github.event.issue.user.login != ${{ env.BOT_NAME_2 }} &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.urgent_body.outputs.lowercase, 'urgent' ) ||
           contains( steps.urgent_body.outputs.lowercase, 'emergency' ) ||
           contains( steps.urgent_body.outputs.lowercase, 'important' ) )
