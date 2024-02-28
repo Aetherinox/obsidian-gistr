@@ -1,0 +1,23 @@
+name: "PR: Accepted"
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.event.issue.pull_request && contains(github.event.comment.body, '/accept') && github.event.comment.user.login == 'Aetherinox'
+    steps:
+      - run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: "Status: Accepted"
+      - run: gh issue edit "$NUMBER" --add-assignee "$ASSIGNEE"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          ASSIGNEE: Aetherinox
