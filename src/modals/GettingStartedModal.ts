@@ -70,7 +70,7 @@ export default class ModalGettingStarted extends Modal
 			Customize moodal stylesheet
 		*/
 
-		this.modalEl.classList.add( 'gistr-modal-getting-started' )
+		this.modalEl.classList.add( 'gistr-gs-modal' )
 
 		/*
 			Modal > Getting Started > Content > Header
@@ -89,7 +89,7 @@ export default class ModalGettingStarted extends Modal
 		AddLine( contentEl, lng( "gs_og_name" ), "h2" )
 		AddLine( contentEl, lng( "gs_og_desc" ), "small" )
 
-		const div_GettingStarted = contentEl.createDiv( { cls: "gistr-modal-button-container" } )
+		const div_GettingStarted = contentEl.createDiv( { cls: "gistr-gs-modal-button-container" } )
 
 		new ButtonComponent( div_GettingStarted )
 			.setButtonText( lng( "gs_og_btn_repo" ) )
