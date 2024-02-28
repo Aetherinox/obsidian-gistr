@@ -33,6 +33,42 @@ env:
 jobs:
 
   # ---------------------------------------------------------------------------------------
+  # Check Title
+  # ---------------------------------------------------------------------------------------
+
+  Submission_CheckTitle_Bug:
+    name:  "Title [Bugs]: Check"
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+
+      # Check Submission TITLE to assign "BUG" label
+
+      - name: ${{ env.LABEL_BUG }} [ Title ] - String Manipulation
+        id: bug_title
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.issue.title }}
+
+      - name: ${{ env.LABEL_BUG }} [ Title ] - Check"
+        if: |
+          github.event.issue &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
+          ( contains( steps.bug_title.outputs.lowercase, 'bug' ) ||
+          contains( steps.bug_title.outputs.lowercase, 'issue' ) ||
+          contains( steps.bug_title.outputs.lowercase, 'broke' ) ||
+          contains( steps.bug_title.outputs.lowercase, 'fails' ) ||
+          contains( steps.bug_title.outputs.lowercase, 'failed' ) &&
+          ( !startsWith( steps.bug_title.outputs.lowercase, 'bug' ) ) )
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          TITLE: "Bug: $github.event.issue.title"
+
+  # ---------------------------------------------------------------------------------------
   # Check Label: BUG
   # ---------------------------------------------------------------------------------------
 

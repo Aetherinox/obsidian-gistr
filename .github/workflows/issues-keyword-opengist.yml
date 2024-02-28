@@ -1,3 +1,10 @@
+# ---------------------------------------------------------------------------------------
+#   @parent     : github workflow
+#   @desc       : checks for certain phrases in an issue title and body
+#   @author     : Aetherinox
+#   @url        : https://github.com/Aetherinox
+# ---------------------------------------------------------------------------------------
+
 name: "New Issue: OpenGist Check"
 run-name: "New Issue: OpenGist Check - ${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
 

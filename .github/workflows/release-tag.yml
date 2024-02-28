@@ -1,4 +1,12 @@
-name: Publish Release
+# ---------------------------------------------------------------------------------------
+#   @parent     : github workflow
+#   @desc       : push release (tag)
+#   @author     : Aetherinox
+#   @url        : https://github.com/Aetherinox
+# ---------------------------------------------------------------------------------------
+
+name: "Publish Release [Tag]"
+run-name: "Release [Tag] - ${{ github.event.workflow_run.id }}"
 
 on: workflow_dispatch
 
