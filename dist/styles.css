@@ -18,6 +18,17 @@ body
 }
 
 /*
+    Gistr Codeblock > Error
+*/
+
+.block-language-gistr > .gistr-container-error
+{
+    padding:                15px;
+    background-color:       rgba( 5, 5, 5, .6 );
+    border:                 1px solid rgba( 255, 255, 255, .15 );
+}
+
+/*
     Settings
 */
 
