@@ -3,8 +3,8 @@
 */
 
 import { App, Plugin, PluginSettingTab, Setting, sanitizeHTMLToDom, ExtraButtonComponent, MarkdownRenderer } from 'obsidian'
-import GistrSettings from 'src/settings/settings'
 import { GistrBackend } from 'src/backend/backend'
+import GistrSettings from 'src/settings/settings'
 import ModalGettingStarted from "./modals/GettingStartedModal"
 import { lng, PluginID } from 'src/lang/helpers'
 import { ColorTranslator } from "colortranslator"
@@ -52,8 +52,8 @@ export interface ColorPickrOpts
 
 const ColorPickrDefaults: Record< string, Color > =
 {
-	"og_clr_bg_light": "#cbcbcb",
-	"og_clr_bg_dark": "#121315",
+	"og_clr_bg_light":  "#cbcbcb",
+	"og_clr_bg_dark":   "#121315",
 }
 
 /*
@@ -62,14 +62,14 @@ const ColorPickrDefaults: Record< string, Color > =
 
 export enum Themes
 {
-    LIGHT = "Light",
-    DARK = "Dark",
+    LIGHT   = "Light",
+    DARK    = "Dark",
 }
 
 export const Themes_GetName: { [ key in Themes ]: string } =
 {
-	[ Themes.LIGHT ]: "Light",
-	[ Themes.DARK ]: "Dark",
+	[ Themes.LIGHT ]:   "Light",
+	[ Themes.DARK ]:    "Dark",
 }
 
 /*
@@ -101,7 +101,6 @@ export default class GistrPlugin extends Plugin
         await this.loadSettings     ( )
         this.addSettingTab          ( new OG_Tab_Settings( this.app, this ) )
 
-		// activate initial load
 		this.app.workspace.onLayoutReady( async ( ) =>
         {
 			if ( this.settings.firststart === true )
@@ -118,9 +117,9 @@ export default class GistrPlugin extends Plugin
                     */
 
 					// @ts-ignore
-					this.app.setting.open( "${PluginName}" )
+					this.app.setting.open( "${ PluginName }" )
 					// @ts-ignore
-					this.app.setting.openTabById( "${PluginName}" )
+					this.app.setting.openTabById( "${ PluginName }" )
 				}
 			}
 
@@ -158,14 +157,14 @@ export default class GistrPlugin extends Plugin
 class OG_Tab_Settings extends PluginSettingTab
 {
     plugin:         GistrPlugin
-	HideGeneral:    boolean
-	HideGithub:     boolean
-	HideOpengist:   boolean
-	HideSupport:    boolean
-    tab_general:    HTMLElement
-    tab_github:     HTMLElement
-    tab_opengist:   HTMLElement
-    tab_support:    HTMLElement
+    Hide_General:   boolean
+    Hide_Github:     boolean
+    Hide_Opengist:   boolean
+    Hide_Support:    boolean
+    Tab_General:    HTMLElement
+    Tab_Github:     HTMLElement
+    Tab_OpenGist:   HTMLElement
+    Tab_Support:    HTMLElement
 
     /*
         Class > Constructor
@@ -174,11 +173,11 @@ class OG_Tab_Settings extends PluginSettingTab
     {
         super( app, plugin )
 
-        this.plugin         = plugin
-		this.HideGeneral    = true
-		this.HideGithub     = true
-		this.HideOpengist   = true
-		this.HideSupport    = false
+        this.plugin             = plugin
+		this.Hide_General       = true
+		this.Hide_Github        = true
+		this.Hide_Opengist      = true
+		this.Hide_Support       = false
     }
 
     /*
@@ -189,10 +188,10 @@ class OG_Tab_Settings extends PluginSettingTab
     {
         const { containerEl }   = this
 
-        this.HideGeneral        = true
-		this.HideGithub         = true
-		this.HideOpengist       = true
-		this.HideSupport        = false
+        this.Hide_General       = true
+		this.Hide_Github        = true
+		this.Hide_Opengist      = true
+		this.Hide_Support       = false
 
         this.createHeader       ( containerEl )
 		this.createMenus        ( containerEl )
@@ -222,18 +221,18 @@ class OG_Tab_Settings extends PluginSettingTab
 	createMenus( elm: HTMLElement )
     {
         this.Tab_General_New    ( elm )
-		this.tab_general        = elm.createDiv( )
+		this.Tab_General        = elm.createDiv( )
 
         this.Tab_OpenGist_New   ( elm )
-		this.tab_opengist       = elm.createDiv( )
+		this.Tab_OpenGist       = elm.createDiv( )
 
         this.Tab_Github_New     ( elm )
-		this.tab_github         = elm.createDiv( )
+		this.Tab_Github         = elm.createDiv( )
 
         this.Tab_Support_New    ( elm )
-		this.tab_support        = elm.createDiv( )
+		this.Tab_Support        = elm.createDiv( )
 
-        this.Tab_Support_ShowSettings( this.tab_support )
+        this.Tab_Support_ShowSettings( this.Tab_Support )
 	}
 
 
@@ -243,21 +242,21 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_General_New( elm: HTMLElement )
         {
-            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_ge_title" ), cls: `gistr-settings-header${ this.HideGeneral?" isfold" : "" }` } )
+            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_ge_title" ), cls: `gistr-settings-header${ this.Hide_General?" isfold" : "" }` } )
             tab_og.addEventListener( "click", ( )=>
             {
-                this.HideGeneral = !this.HideGeneral
-                tab_og.classList.toggle( "isfold", this.HideGeneral )
+                this.Hide_General = !this.Hide_General
+                tab_og.classList.toggle( "isfold", this.Hide_General )
                 this.Tab_General_CreateSettings( )
             } )
         }
 
         Tab_General_CreateSettings( )
         {
-            this.tab_general.empty( )
-            if ( this.HideGeneral ) return
+            this.Tab_General.empty( )
+            if ( this.Hide_General ) return
             
-            this.Tab_General_ShowSettings( this.tab_general )
+            this.Tab_General_ShowSettings( this.Tab_General )
         }
 
         Tab_General_ShowSettings( elm: HTMLElement )
@@ -307,21 +306,21 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_OpenGist_New( elm: HTMLElement )
         {
-            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_og_title" ), cls: `gistr-settings-header${ this.HideOpengist?" isfold" : "" }` } )
+            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_og_title" ), cls: `gistr-settings-header${ this.Hide_Opengist?" isfold" : "" }` } )
             tab_og.addEventListener( "click", ( )=>
             {
-                this.HideOpengist = !this.HideOpengist
-                tab_og.classList.toggle( "isfold", this.HideOpengist )
+                this.Hide_Opengist = !this.Hide_Opengist
+                tab_og.classList.toggle( "isfold", this.Hide_Opengist )
                 this.Tab_OpenGist_CreateSettings( )
             } )
         }
 
         Tab_OpenGist_CreateSettings( )
         {
-            this.tab_opengist.empty( )
-            if ( this.HideOpengist ) return
+            this.Tab_OpenGist.empty( )
+            if ( this.Hide_Opengist ) return
             
-            this.Tab_OpenGist_ShowSettings( this.tab_opengist )
+            this.Tab_OpenGist_ShowSettings( this.Tab_OpenGist )
         }
 
         Tab_OpenGist_ShowSettings( elm: HTMLElement )
@@ -351,7 +350,7 @@ class OG_Tab_Settings extends PluginSettingTab
                 .setDesc( lng( "cfg_tab_og_cblk_light_desc" ) )
                 .addText( text =>
                 {
-                    text.setPlaceholder( "cbcbcb" )
+                    text.setPlaceholder( CFG_DEFAULT.og_clr_bg_light )
                         .setValue( this.plugin.settings.og_clr_bg_light )
                         .onChange( async ( val ) =>
                         {
@@ -369,7 +368,7 @@ class OG_Tab_Settings extends PluginSettingTab
                 .setDesc( lng( "cfg_tab_og_cblk_dark_desc" ) )
                     .addText( text =>
                     {
-                        text.setPlaceholder( "121315" )
+                        text.setPlaceholder( CFG_DEFAULT.og_clr_bg_dark )
                             .setValue( this.plugin.settings.og_clr_bg_dark )
                             .onChange( async ( val ) =>
                             {
@@ -482,21 +481,21 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_Github_New( elm: HTMLElement )
         {
-            const tab_gh = elm.createEl( "h2", { text: lng( "cfg_tab_gh_title" ), cls: `gistr-settings-header${ this.HideGithub?" isfold" : "" }` } )
+            const tab_gh = elm.createEl( "h2", { text: lng( "cfg_tab_gh_title" ), cls: `gistr-settings-header${ this.Hide_Github?" isfold" : "" }` } )
             tab_gh.addEventListener( "click", ( )=>
             {
-                this.HideGithub = !this.HideGithub
-                tab_gh.classList.toggle( "isfold", this.HideGithub )
+                this.Hide_Github = !this.Hide_Github
+                tab_gh.classList.toggle( "isfold", this.Hide_Github )
                 this.Tab_Github_CreateSettings( )
             } )
         }
 
         Tab_Github_CreateSettings( )
         {
-            this.tab_github.empty( )
-            if ( this.HideGithub ) return
+            this.Tab_Github.empty( )
+            if ( this.Hide_Github ) return
             
-            this.Tab_Github_ShowSettings( this.tab_github )
+            this.Tab_Github_ShowSettings( this.Tab_Github )
         }
 
         Tab_Github_ShowSettings( elm: HTMLElement )
@@ -547,21 +546,21 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_Support_New( elm: HTMLElement )
         {
-            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_sp_title" ), cls: `gistr-settings-header${ this.HideSupport?" isfold" : "" }` } )
+            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_sp_title" ), cls: `gistr-settings-header${ this.Hide_Support?" isfold" : "" }` } )
             tab_og.addEventListener( "click", ( )=>
             {
-                this.HideSupport = !this.HideSupport
-                tab_og.classList.toggle( "isfold", this.HideSupport )
+                this.Hide_Support = !this.Hide_Support
+                tab_og.classList.toggle( "isfold", this.Hide_Support )
                 this.Tab_Support_CreateSettings( )
             } )
         }
 
         Tab_Support_CreateSettings( )
         {
-            this.tab_support.empty( )
-            if ( this.HideSupport ) return
+            this.Tab_Support.empty( )
+            if ( this.Hide_Support ) return
             
-            this.Tab_Support_ShowSettings( this.tab_support )
+            this.Tab_Support_ShowSettings( this.Tab_Support )
         }
 
         Tab_Support_ShowSettings( elm: HTMLElement )
