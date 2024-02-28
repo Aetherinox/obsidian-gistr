@@ -195,7 +195,7 @@ export class GistrBackend
 
                     .opengist-embed .html
                     {
-                        background-color: #${css_bg_color};
+                        background-color:   ${css_bg_color};
                     }
                 </style>
 
