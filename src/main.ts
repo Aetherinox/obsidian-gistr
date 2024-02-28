@@ -205,11 +205,11 @@ class OG_Tab_Settings extends PluginSettingTab
     {
 
         elm.empty( )
-        elm.createEl( "h1", { text: lng( "cfg_title" ) } )
+        elm.createEl( "h1", { text: lng( "cfg_modal_title" ) } )
         elm.createEl( "p",
         {
             cls: "gistr-settings-section-header",
-            text: lng( "cfg_desc" ),
+            text: lng( "cfg_modal_desc" ),
         } )
         
     }

@@ -5,17 +5,12 @@
 export default
 {
 
-    err_gist_loading_fail_name:         '⚠️ Gistr: Failed to load gist:',
-    err_gist_loading_fail_resp:         '{0}',
-    err_gist_loading_fail_detail:       'Could not load a valid Javascript from gist url: {0}',
-    err_gist_loading_fail_url:          'Could not find gist id -- Make sure correct URL is specified. {0}',
-
     /*
         Tab > Settings > Header
     */
 
-    cfg_title:                          'Gistr - Gist Integration',
-    cfg_desc:                           'The Gistr plugin allows you to embed OpenGist and Github Gist snippets within your Obsidian notes.',
+    cfg_modal_title:                    'Gistr - Gist Integration',
+    cfg_modal_desc:                     'The Gistr plugin allows you to embed OpenGist and Github Gist snippets within your Obsidian notes.',
 
     /*
         Tab > Settings > General
@@ -97,4 +92,13 @@ export default
     gs_btn_close:                       'Close',
     base_underdev_title:                'Feature Under Development',
     base_underdev_msg:                  'I am currently working with the developer of OpenGist to make minor changes to how OpenGist pastes appear, including moving the "view raw" button to the bottom so that Obsidian\'s edit button does not overlap.',
-};
+
+    /*
+        Gist Load Error
+    */
+
+    err_gist_loading_fail_name:         '⚠️ Gistr: Failed to load gist:',
+    err_gist_loading_fail_resp:         '{0}',
+    err_gist_loading_fail_detail:       'Could not load a valid Javascript from gist url: {0}',
+    err_gist_loading_fail_url:          'Could not find gist id -- Make sure correct URL is specified. {0}',
+}
