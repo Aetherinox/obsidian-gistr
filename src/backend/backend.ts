@@ -94,7 +94,7 @@ export class GistrBackend
         }
         catch ( err )
         {
-            return this.ThrowError( el, data, `Invalid gist url ${gistSrcURL} ( Error: ${err} )` )
+            return this.ThrowError( el, data, `Invalid gist url ${gistSrcURL} ( ${err} )` )
         }
     }
 
