@@ -209,11 +209,8 @@ class OG_Tab_Settings extends PluginSettingTab
         elm.createEl( "h1", { text: lng( "cfg_title" ) } )
         elm.createEl( "p",
         {
+            cls: "gistr-settings-section-header",
             text: lng( "cfg_desc" ),
-            attr:
-            {
-                style: 'padding-bottom: 25px'
-            },
         } )
         
     }
@@ -268,10 +265,7 @@ class OG_Tab_Settings extends PluginSettingTab
         
             elm.createEl( 'small',
             {
-                attr:
-                {
-                    style: 'display: block; margin-bottom: 25px'
-                },
+                cls: "gistr-settings-section-description",
                 text: lng( "cfg_tab_ge_header" )
             } )
 
@@ -301,10 +295,7 @@ class OG_Tab_Settings extends PluginSettingTab
 
             elm.createEl( 'div',
             {
-                attr:
-                {
-                    style: 'padding-bottom: 40px'
-                },
+                cls: "gistr-settings-section-footer",
                 text: ""
             } )
 
@@ -338,7 +329,7 @@ class OG_Tab_Settings extends PluginSettingTab
 
             elm.createEl( 'small',
             {
-                attr: { style: 'display: block; margin-bottom: 25px' },
+                cls: "gistr-settings-section-description",
                 text: lng( "cfg_tab_og_header" )
             } )
 
@@ -479,10 +470,7 @@ class OG_Tab_Settings extends PluginSettingTab
 
             elm.createEl( 'div',
             {
-                attr:
-                {
-                    style: 'padding-bottom: 40px'
-                },
+                cls: "gistr-settings-section-footer",
                 text: ""
             } )
 
@@ -546,10 +534,7 @@ class OG_Tab_Settings extends PluginSettingTab
 
                 elm.createEl( 'div',
                 {
-                    attr:
-                    {
-                        style: 'padding-bottom: 40px'
-                    },
+                    cls: "gistr-settings-section-footer",
                     text: ""
                 } )
 
@@ -588,10 +573,7 @@ class OG_Tab_Settings extends PluginSettingTab
 
             elm.createEl( 'small',
             {
-                attr:
-                {
-                    style: 'display: block; margin-bottom: 25px'
-                },
+                cls: "gistr-settings-section-description",
                 text: lng( "cfg_tab_su_desc" )
             } )
 

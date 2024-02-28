@@ -43,7 +43,7 @@ export interface ItemJSON
     Gistr Backend
 */
 
-class GistrBackend
+export class GistrBackend
 {
     settings: GistrSettings
 
@@ -59,11 +59,11 @@ class GistrBackend
     private async GistHandle( el: HTMLElement, data: string )
     {
         const pattern       = /(?<protocol>https?:\/\/)?(?<host>[^/]+\/)?((?<username>[\w-]+)\/)?(?<uuid>\w+)(\#(?<filename>.+))?/
-        const match         = data.match( pattern ).groups
-        const host          = match.host
-        const username      = match.username
-        const uuid          = match.uuid
-        const file          = match.filename
+        const find          = data.match( pattern ).groups
+        const host          = find.host
+        const username      = find.username
+        const uuid          = find.uuid
+        const file          = find.filename
 
         /*
             Since opengist can really be any website, check for matching github links
@@ -134,11 +134,11 @@ class GistrBackend
             create uuid and iframe
         */
 
-        const gid               = `${PID}-${uuid}-${nanoid( )}`
+        const gid               = `${ PID }-${ uuid }-${ nanoid( ) }`
         const ct_iframe         = document.createElement( 'iframe' )
         ct_iframe.id            = gid
     
-        ct_iframe.classList.add ( `${PID}-container` )
+        ct_iframe.classList.add ( `${ PID }-container` )
         ct_iframe.setAttribute  ( 'sandbox',    'allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation' )
         ct_iframe.setAttribute  ( 'loading',    'lazy' )
         ct_iframe.setAttribute  ( 'width',      '100%' )
@@ -180,15 +180,12 @@ class GistrBackend
 
                 ${this.EventListener( gid )}
 
-                <!-- Gistr: css embedded json src -->
                 <style>
                     ${content_css}
                 </style>
 
-                <!-- Gistr: css override -->
                 <style>
                     ${css_override}
-
                     .opengist-embed .code
                     {
                         padding-top:        ${this.settings.blk_pad_t}px;
@@ -200,7 +197,6 @@ class GistrBackend
                     {
                         background-color: #${css_bg_color} !important;
                     }
-
                 </style>
 
                 <script>
@@ -223,8 +219,8 @@ class GistrBackend
 
     private async ThrowError( el: HTMLElement, gistInfo: string, err: string = '' )
     {
-        el.createEl( 'div',     { text: lng( "err_gist_loading_fail_name" ), attr: { cls: 'gistr-load-error-l1' } } )
-        el.createEl( 'div',     { text: gistInfo, attr: { cls: 'gistr-load-error-l2' } } )
+        el.createEl( 'div',     { text: lng( "err_gist_loading_fail_name" ), cls: 'gistr-load-error-l1' } )
+        el.createEl( 'div',     { text: gistInfo, cls: "gistr-load-error-l2" } )
         el.createEl( 'small',   { text: lng( "err_gist_loading_fail_resp", err ) } )
     }
 
@@ -288,8 +284,4 @@ class GistrBackend
             } )
         )
     }
-    
-
 }
-
-export { GistrBackend }

@@ -17,6 +17,22 @@ body
     padding-bottom:         35px;
 }
 
+.gistr-settings-section-description
+{
+    display:                block;
+    margin-bottom:          25px;
+}
+
+.gistr-settings-section-header
+{
+    padding-bottom:         25px;
+}
+
+.gistr-settings-section-footer
+{
+    padding-bottom:         40px;
+}
+
 .gistr-settings-elm-slider-preview
 {
     min-width:              30px;
