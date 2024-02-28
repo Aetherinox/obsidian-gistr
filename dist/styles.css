@@ -50,6 +50,16 @@ body
     font-size:              var( --font-ui-medium );
 }
 
+.gistr-gs-header
+{
+    margin-top:             -12px;
+}
+
+.gistr-gs-separator
+{
+    padding-bottom:         15px;
+}
+
 .gistr-settings-header::after
 {
     position:               relative;

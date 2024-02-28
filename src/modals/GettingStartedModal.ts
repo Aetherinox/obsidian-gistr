@@ -55,10 +55,10 @@ export default class ModalGettingStarted extends Modal
 			Helper method for handling add each line of content
 		*/
 
-		const AddLine = ( elmParent: HTMLElement, value: string, htmltag: keyof HTMLElementTagNameMap | null = null, attr: string | null = null ) =>
+		const AddLine = ( elmParent: HTMLElement, value: string, htmltag: keyof HTMLElementTagNameMap | null = null, cls: string | null = null ) =>
 		{
 			if ( htmltag )
-				return elmParent.createEl( htmltag, { text: value,  attr: { style: attr } } )
+				return elmParent.createEl( htmltag, { text: value,  cls: cls } )
 			else
 			{
 				elmParent.appendText( value )
@@ -77,10 +77,10 @@ export default class ModalGettingStarted extends Modal
 		*/
 
 		AddLine( contentEl, this.manifest.name, "h1" )
-		AddLine( contentEl, "v" + this.manifest.version, "h6", "margin-top: -12px;" )
+		AddLine( contentEl, "v" + this.manifest.version, "h6", "gistr-gs-header" )
 		AddLine( contentEl, lng( "gs_base_header" ), "small" )
 
-		AddLine( contentEl, "", "div", "padding-bottom: 15px;" )
+		AddLine( contentEl, "", "div", "gistr-gs-separator" )
 
 		/*
 			Modal > Getting Started > Content > Getting Started
@@ -117,7 +117,7 @@ export default class ModalGettingStarted extends Modal
 		const gs_UsageCodeblock = "```````" + "\n" + "```" + this.plugin.settings.keyword + "\n" + "gist.domain.com/username/YOUR_GIST_ID" + "\n" + "```" + "\n```````"
 		MarkdownRenderer.render( this.plugin.app, gs_UsageCodeblock, this.cblk_preview, gs_UsageCodeblock, this.plugin )
 
-		AddLine( contentEl, "", "div", "padding-bottom: 15px;" )
+		AddLine( contentEl, "", "div", "gistr-gs-separator" )
 
 		/*
 			Modal > Getting Started > Content > Getting Started
