@@ -219,10 +219,10 @@ export class GistrBackend
 
     private async ThrowError( el: HTMLElement, gistInfo: string, err: string = '' )
     {
-        const gist_error = el.createEl( 'div',  { text: "", cls: 'gistr-container-error' } )
-        gist_error.createEl( 'div',             { text: lng( "err_gist_loading_fail_name" ), cls: 'gistr-load-error-l1' } )
-        gist_error.createEl( 'div',             { text: gistInfo, cls: "gistr-load-error-l2" } )
-        gist_error.createEl( 'small',           { text: lng( "err_gist_loading_fail_resp", err ) } )
+        const div_Error = el.createEl( 'div',   { text: "", cls: 'gistr-container-error' } )
+        div_Error.createEl( 'div',              { text: lng( "err_gist_loading_fail_name" ), cls: 'gistr-load-error-l1' } )
+        div_Error.createEl( 'div',              { text: gistInfo, cls: "gistr-load-error-l2" } )
+        div_Error.createEl( 'small',            { text: lng( "err_gist_loading_fail_resp", err ) } )
     }
 
     /*
