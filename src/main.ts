@@ -88,8 +88,8 @@ export default class GistrPlugin extends Plugin
 {
     private bLayoutReady = false
 
-    settings:   GistrSettings
-    plugin:     GistrPlugin
+    readonly settings:  GistrSettings
+    readonly plugin:    GistrPlugin
 
     /*
         Settings > Load
@@ -97,7 +97,6 @@ export default class GistrPlugin extends Plugin
 
     async onload( )
     {
-        // load settings tab
         await this.loadSettings     ( )
         this.addSettingTab          ( new OG_Tab_Settings( this.app, this ) )
 
@@ -156,15 +155,15 @@ export default class GistrPlugin extends Plugin
 
 class OG_Tab_Settings extends PluginSettingTab
 {
-    plugin:         GistrPlugin
-    Hide_General:   boolean
-    Hide_Github:     boolean
-    Hide_Opengist:   boolean
-    Hide_Support:    boolean
-    Tab_General:    HTMLElement
-    Tab_Github:     HTMLElement
-    Tab_OpenGist:   HTMLElement
-    Tab_Support:    HTMLElement
+    readonly plugin:        GistrPlugin
+    private Hide_General:   boolean
+    private Hide_Github:    boolean
+    private Hide_Opengist:  boolean
+    private Hide_Support:   boolean
+    private Tab_General:    HTMLElement
+    private Tab_Github:     HTMLElement
+    private Tab_OpenGist:   HTMLElement
+    private Tab_Support:    HTMLElement
 
     /*
         Class > Constructor
@@ -242,11 +241,11 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_General_New( elm: HTMLElement )
         {
-            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_ge_title" ), cls: `gistr-settings-header${ this.Hide_General?" isfold" : "" }` } )
-            tab_og.addEventListener( "click", ( )=>
+            const Tab_GN = elm.createEl( "h2", { text: lng( "cfg_tab_ge_title" ), cls: `gistr-settings-header${ this.Hide_General?" isfold" : "" }` } )
+            Tab_GN.addEventListener( "click", ( )=>
             {
                 this.Hide_General = !this.Hide_General
-                tab_og.classList.toggle( "isfold", this.Hide_General )
+                Tab_GN.classList.toggle( "isfold", this.Hide_General )
                 this.Tab_General_CreateSettings( )
             } )
         }
@@ -297,7 +296,6 @@ class OG_Tab_Settings extends PluginSettingTab
                 cls: "gistr-settings-section-footer",
                 text: ""
             } )
-
         }
 
     /*
@@ -306,11 +304,11 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_OpenGist_New( elm: HTMLElement )
         {
-            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_og_title" ), cls: `gistr-settings-header${ this.Hide_Opengist?" isfold" : "" }` } )
-            tab_og.addEventListener( "click", ( )=>
+            const Tab_OG = elm.createEl( "h2", { text: lng( "cfg_tab_og_title" ), cls: `gistr-settings-header${ this.Hide_Opengist?" isfold" : "" }` } )
+            Tab_OG.addEventListener( "click", ( )=>
             {
                 this.Hide_Opengist = !this.Hide_Opengist
-                tab_og.classList.toggle( "isfold", this.Hide_Opengist )
+                Tab_OG.classList.toggle( "isfold", this.Hide_Opengist )
                 this.Tab_OpenGist_CreateSettings( )
             } )
         }
@@ -390,7 +388,7 @@ class OG_Tab_Settings extends PluginSettingTab
                     .setValue( this.plugin.settings.blk_pad_t )
                     .onChange( async ( val ) =>
                     {
-                        val_st_padding.innerText            = " " + val.toString()
+                        val_st_padding.innerText            = " " + val.toString( )
                         this.plugin.settings.blk_pad_t      = val
 
                         this.plugin.saveSettings( )
@@ -453,7 +451,9 @@ class OG_Tab_Settings extends PluginSettingTab
             new Setting( elm )
                 .setName( lng( "cfg_tab_og_css_name" ) )
                 .setDesc( lng( "cfg_tab_og_css_desc" ) )
-                .addTextArea( text => text
+                .addTextArea
+                (
+                    text => text
                     .setPlaceholder( lng( "cfg_tab_og_css_pholder" ) )
                     .setValue( this.plugin.settings.css_og )
                     .onChange( async ( val ) =>
@@ -461,7 +461,7 @@ class OG_Tab_Settings extends PluginSettingTab
                         this.plugin.settings.css_og = val
                         await this.plugin.saveSettings( )
                     }
-                ))
+                ) )
 
             /*
                 Tab Footer Spacer
@@ -472,7 +472,6 @@ class OG_Tab_Settings extends PluginSettingTab
                 cls: "gistr-settings-section-footer",
                 text: ""
             } )
-
         }
 
     /*
@@ -481,11 +480,11 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_Github_New( elm: HTMLElement )
         {
-            const tab_gh = elm.createEl( "h2", { text: lng( "cfg_tab_gh_title" ), cls: `gistr-settings-header${ this.Hide_Github?" isfold" : "" }` } )
-            tab_gh.addEventListener( "click", ( )=>
+            const Tab_GH = elm.createEl( "h2", { text: lng( "cfg_tab_gh_title" ), cls: `gistr-settings-header${ this.Hide_Github?" isfold" : "" }` } )
+            Tab_GH.addEventListener( "click", ( )=>
             {
                 this.Hide_Github = !this.Hide_Github
-                tab_gh.classList.toggle( "isfold", this.Hide_Github )
+                Tab_GH.classList.toggle( "isfold", this.Hide_Github )
                 this.Tab_Github_CreateSettings( )
             } )
         }
@@ -503,10 +502,7 @@ class OG_Tab_Settings extends PluginSettingTab
 
             elm.createEl( 'small',
             {
-                attr:
-                {
-                    style: 'display: block'
-                },
+                attr: { style: 'display: block' },
                 text: lng( "cfg_tab_gh_header" )
             } )
 
@@ -531,12 +527,11 @@ class OG_Tab_Settings extends PluginSettingTab
                 Tab Footer Spacer
             */
 
-                elm.createEl( 'div',
-                {
-                    cls: "gistr-settings-section-footer",
-                    text: ""
-                } )
-
+            elm.createEl( 'div',
+            {
+                cls: "gistr-settings-section-footer",
+                text: ""
+            } )
         }
 
 

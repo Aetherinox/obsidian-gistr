@@ -112,10 +112,10 @@ export class GistrBackend
             {
                 window.top.postMessage(
                 {
-                    sender:         '${PID}',
-                    gid:            '${uuid}',
+                    sender:         '${ PID }',
+                    gid:            '${ uuid }',
                     scrollHeight:   document.body.scrollHeight
-                }, '${AppBase}')
+                }, '${ AppBase }')
             } )
         </script>
         `
