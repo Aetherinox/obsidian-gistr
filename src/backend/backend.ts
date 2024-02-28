@@ -190,12 +190,12 @@ export class GistrBackend
                     {
                         padding-top:        ${this.settings.blk_pad_t}px;
                         padding-bottom:     ${this.settings.blk_pad_b}px;
-                        background-color:   #${css_bg_color} !important;
+                        background-color:   ${css_bg_color};
                     }
 
                     .opengist-embed .html
                     {
-                        background-color: #${css_bg_color} !important;
+                        background-color: #${css_bg_color};
                     }
                 </style>
 
