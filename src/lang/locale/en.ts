@@ -6,7 +6,7 @@ export default
 {
 
     /*
-        Tab > Settings > Header
+        Tab > Settings > Expand Section
     */
 
     cfg_modal_expand:                   'Expand',
