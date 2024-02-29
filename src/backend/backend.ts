@@ -185,7 +185,7 @@ export class GistrBackend
                           working with OpenGist developer to re-do the HTML generated when embedding a gist.
         */
 
-        let css_og_append =
+        const css_og_append =
         `
         .opengist-embed .code
         {
@@ -197,15 +197,15 @@ export class GistrBackend
 
         .opengist-embed .whitespace-pre
         {
-            text-wrap: wrap;
+            text-wrap:          wrap;
         }
         
         .opengist-embed .mb-4
         {
-            margin-bottom: 1rem;
-            backdrop-filter: opacity(0);
-            --tw-bg-opacity: 1;
-            background-color: ${css_bg_og_header};
+            margin-bottom:      1rem;
+            backdrop-filter:    opacity(0);
+            --tw-bg-opacity:    1;
+            background-color:   ${css_bg_og_header};
         }
         </style>
         `
