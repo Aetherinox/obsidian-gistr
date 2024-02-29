@@ -200,11 +200,7 @@ created  in 1.1s
 
 <br />
 
-You may now edit the code, it will be re-built each time you save a file.
-
-<br />
-
-Every time a change is made and the files are built, they will be placed in a subfolder of the directory you're working in named `dist`. They'll need to be manually moved to a plugin folder for Obsidian in order to use them in the program.
+You may now edit the code, it will be re-built each time you save a file. Built files will be placed in a subfolder of the directory you're working in named `dist`. They'll need to be manually moved to a plugin folder for Obsidian in order to use them in the program.
 
 <br />
 
