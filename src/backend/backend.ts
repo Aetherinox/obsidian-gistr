@@ -83,6 +83,7 @@ export class GistrBackend
         */
 
         let gistSrcURL = ( file !== undefined ? `https://${host}${username}/${uuid}.json?file=${file}` : `https://${host}${username}/${uuid}.json` )
+        let og_ThemeOV = ( bMatchGithub == false && file !== undefined  ) ? file : ""
 
         const reqUrlParams: RequestUrlParam = { url: gistSrcURL, method: "GET", headers: { "Accept": "application/json" } }
         try
@@ -90,7 +91,7 @@ export class GistrBackend
             const req           = await request( reqUrlParams )
             const json          = JSON.parse( req ) as ItemJSON
 
-            return this.GistGenerate( el, host, uuid, json, bMatchGithub )
+            return this.GistGenerate( el, host, uuid, json, bMatchGithub, og_ThemeOV )
         }
         catch ( err )
         {
@@ -127,7 +128,7 @@ export class GistrBackend
         create new iframe for each gist, assign it a uid, set the needed attributes, and generate the css, js
     */
 
-    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean )
+    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, themeovr: string )
     {
 
         /*
@@ -159,13 +160,22 @@ export class GistrBackend
             assign css, body, js
         */
 
+        // returns either "" blank OR "File"    Only for OpenGist
+        let css_theme_ovr           = ( themeovr !== "" ) ? themeovr.toLowerCase( ) : ""
+        let css_theme_sel           =   ( css_theme_ovr !== "" ) ? css_theme_ovr : 
+        ( this.settings.theme == "Dark" ) ? "dark" :
+        ( this.settings.theme == "Light" ) ? "light"  : "light"
+
+
+        console.log( css_theme_sel )
+
         const content_css           = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
         const content_body          = ( bGithub ? json.div : "" )
-        const content_js            = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( this.settings.theme == "Dark" ? json.embed.js_dark : json.embed.js ) ) )
-        const css_bg_color          = ( this.settings.theme == "Dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
-        const css_sb_color          = ( this.settings.theme == "Dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
-        const css_bg_og_header_bg   = ( this.settings.theme == "Dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
-        const css_bg_og_header_bor  = ( this.settings.theme == "Dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
+        const content_js            = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( css_theme_sel == "dark" ? json.embed.js_dark : json.embed.js ) ) )
+        const css_bg_color          = ( css_theme_sel == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
+        const css_sb_color          = ( css_theme_sel == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
+        const css_bg_og_header_bg   = ( css_theme_sel == "dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
+        const css_bg_og_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
         let css_og                  = ""
 
         /*
