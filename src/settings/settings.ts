@@ -9,4 +9,6 @@ export default interface GistrSettings
     blk_pad_b:          number | 15
     og_clr_bg_light:    string | "cbcbcb"
     og_clr_bg_dark:     string | "121315"
+    og_clr_sb_light:    string | "#808080"
+    og_clr_sb_dark:     string | "#363636"
 }

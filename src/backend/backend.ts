@@ -163,6 +163,7 @@ export class GistrBackend
         const content_body          = ( bGithub ? json.div : "" )
         const content_js            = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( this.settings.theme == "Dark" ? json.embed.js_dark : json.embed.js ) ) )
         const css_bg_color          = ( this.settings.theme == "Dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
+        const css_sb_color          = ( this.settings.theme == "Dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
         const css_bg_og_header_bg   = ( this.settings.theme == "Dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
         const css_bg_og_header_bor  = ( this.settings.theme == "Dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
         let css_og                  = ""
@@ -225,6 +226,23 @@ export class GistrBackend
             <head>
                 <style>
                     html, body { height: 100%; margin: 0; padding: 0; }
+                    ::-webkit-scrollbar
+                    {
+                        height:             10px;
+                    }
+                    
+                    ::-webkit-scrollbar-track
+                    {
+                        background-color:   transparent;
+                        border-radius:      5px;
+                        margin:             1px;
+                    }
+                    
+                    ::-webkit-scrollbar-thumb
+                    {
+                        border-radius:      10px;
+                        background-color:   ${css_sb_color};
+                    }
                 </style>
 
                 ${this.EventListener( gid )}

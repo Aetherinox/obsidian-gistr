@@ -11,11 +11,23 @@ body
     Gistr Codeblock
 */
 
+.block-language-gistr
+{
+    margin-top: 32px;
+}
+
 .block-language-gistr > iframe
 {
     width:                  100%;
     border:                 0;
 }
+
+/*
+.block-language-gistr + .edit-block-button
+{
+    display:                none !important;
+}
+*/
 
 /*
     Gistr Codeblock > Error

@@ -30,7 +30,9 @@ const CFG_DEFAULT: GistrSettings =
     blk_pad_t:          10,
     blk_pad_b:          20,
     og_clr_bg_light:    "#cbcbcb",
-    og_clr_bg_dark:     "#121315"
+    og_clr_bg_dark:     "#121315",
+    og_clr_sb_light:    "#808080",
+    og_clr_sb_dark:     "#363636"
 }
 
 /*
@@ -366,6 +368,38 @@ class OG_Tab_Settings extends PluginSettingTab
                     .onChange( val =>
                     {
                         this.plugin.settings.og_clr_bg_dark = val;
+                        this.plugin.saveSettings( );
+                    })
+                );
+
+            /*
+                Scrollbar Track Color (Light)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_og_sb_light_name" ) )
+                .setDesc( lng( "cfg_tab_og_sb_light_desc" ) )
+                .addColorPicker( clr => clr
+                    .setValue( this.plugin.settings.og_clr_sb_light )
+                    .onChange( val =>
+                    {
+                        this.plugin.settings.og_clr_sb_light = val;
+                        this.plugin.saveSettings( );
+                    })
+                );
+
+            /*
+                Scrollbar Track Color (Dark)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_og_sb_dark_name" ) )
+                .setDesc( lng( "cfg_tab_og_sb_dark_desc" ) )
+                .addColorPicker( clr => clr
+                    .setValue( this.plugin.settings.og_clr_sb_dark )
+                    .onChange( val =>
+                    {
+                        this.plugin.settings.og_clr_sb_dark = val;
                         this.plugin.saveSettings( );
                     })
                 );
