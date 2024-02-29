@@ -3,7 +3,20 @@
 */
 
 import { App, Modal, ButtonComponent, MarkdownRenderer } from "obsidian"
+import GistrPlugin from "src/main"
 import { lng } from 'src/lang/helpers'
+
+/*
+    Declare Json
+*/
+
+export interface ManifestJson
+{
+	id: 			string
+	description: 	string
+    name:     		string
+    version:  		string
+}
 
 /*
 	Modal > Getting Started > Class
@@ -11,17 +24,17 @@ import { lng } from 'src/lang/helpers'
 
 export default class ModalGettingStarted extends Modal
 {
-	private resolve: (		 ( value: string ) => void )
+	private resolve: 		( ( value: string ) => void )
 	private firststart: 	boolean
-	private manifest: 		any
-	private plugin: 		any
+	private manifest: 		ManifestJson
+	private plugin: 		GistrPlugin
 	private cblk_preview: 	HTMLElement
 
 	/*
 		Getting Started > Constructor
 	*/
 
-	constructor( plugin: any, app: App, bFirstLoad: boolean  )
+	constructor( plugin: GistrPlugin, app: App, bFirstLoad: boolean  )
 	{
 		super( app )
 

@@ -45,7 +45,7 @@ export interface ItemJSON
 
 export class GistrBackend
 {
-    settings: GistrSettings
+    private readonly settings: GistrSettings
 
     constructor( settings: GistrSettings )
     {

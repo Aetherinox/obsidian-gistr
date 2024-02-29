@@ -94,7 +94,7 @@ export default class GistrPlugin extends Plugin
 {
     private bLayoutReady = false
 
-    settings:           GistrSettings
+    public settings:    GistrSettings
     readonly plugin:    GistrPlugin
 
     /*
@@ -161,15 +161,15 @@ export default class GistrPlugin extends Plugin
 
 class OG_Tab_Settings extends PluginSettingTab
 {
-    readonly plugin:        GistrPlugin
-    private Hide_General:   boolean
-    private Hide_Github:    boolean
-    private Hide_Opengist:  boolean
-    private Hide_Support:   boolean
-    private Tab_General:    HTMLElement
-    private Tab_Github:     HTMLElement
-    private Tab_OpenGist:   HTMLElement
-    private Tab_Support:    HTMLElement
+    readonly plugin:            GistrPlugin
+    private Hide_General:       boolean
+    private Hide_Github:        boolean
+    private Hide_Opengist:      boolean
+    private Hide_Support:       boolean
+    private Tab_General:        HTMLElement
+    private Tab_Github:         HTMLElement
+    private Tab_OpenGist:       HTMLElement
+    private Tab_Support:        HTMLElement
 
     /*
         Class > Constructor
