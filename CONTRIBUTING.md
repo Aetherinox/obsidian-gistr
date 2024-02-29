@@ -122,12 +122,12 @@ feat(core): allow overriding of webpack config
 <br />
 
 ### References
-If you are pushing a commit which addresses an issue, reference your issue in the description of your commit.
+If you are pushing a commit which addresses a submitted issue, reference your issue in the description of your commit. You may also optionally add the major issue to the end of your commit title.
 
-Refernces should be on their own line, following the word `Ref` or `Refs`
+References should be on their own line, following the word `Ref` or `Refs`
 
 ```
-Title:          fix(opengist): fix error message displayed for users.
+Title:          fix(opengist): fix error message displayed for users. [#22]
 Description:    The description of your commit
 
                 Ref: #22, #34, #37
