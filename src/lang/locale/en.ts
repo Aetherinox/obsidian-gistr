@@ -31,7 +31,7 @@ export default
     cfg_tab_og_cblk_light_desc:         'Color for Opengist codeblock background color (Light Theme)',
     cfg_tab_og_cblk_dark_name:          'Codeblock background color (dark)',
     cfg_tab_og_cblk_dark_desc:          'Color for Opengist codeblock background color (Dark Theme)',
-    cfg_tab_og_sb_light_name:           'Scrollbar track color (Light)',
+    cfg_tab_og_sb_light_name:           'Scrollbar track color (light)',
     cfg_tab_og_sb_light_desc:           'Color for gist scrollbar track (Light Theme)',
     cfg_tab_og_sb_dark_name:            'Scrollbar track color (dark)',
     cfg_tab_og_sb_dark_desc:            'Color for gist scrollbar track (Dark Theme)',
