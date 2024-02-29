@@ -80,7 +80,7 @@ var en = {
     /*
         Tab > Settings > Github
     */
-    cfg_tab_gh_css_name: 'Custom CSS',
+    cfg_tab_gh_css_name: 'Custom css',
     cfg_tab_gh_css_desc: 'Paste CSS properties to override existing colors.',
     cfg_tab_gh_css_pholder: 'Paste CSS here',
     /*
