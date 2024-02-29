@@ -196,6 +196,7 @@ export class GistrBackend
             border-top:         ${css_bg_og_header_bor};
             background-color:   ${css_bg_color};
             width:              fit-content;
+            margin:             -1px;
         }
 
         .opengist-embed .whitespace-pre
