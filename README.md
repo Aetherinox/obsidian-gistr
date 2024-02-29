@@ -63,7 +63,7 @@ To use this plugin, you must:
 <br />
 
 # Usage
-To embed an OpenGist or Github Gist sniipet, add a new code block:
+To embed an OpenGist or Github Gist snippet, add a new code block:
 
 <br />
 
