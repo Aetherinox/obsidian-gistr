@@ -20,7 +20,7 @@ export default
     cfg_tab_gh_title:                   'Github',
     cfg_tab_gh_header:                  'Github Gists let you store and distribute code snippets without setting up a full-fledged repository. Store snippets such as strings, bash scripts, markdown, text files, and other small pieces of data.',
     cfg_tab_sp_title:                   'Support',
-    cfg_tab_ge_keyword_name:            'Trigger Keyword',
+    cfg_tab_ge_keyword_name:            'Trigger keyword',
     cfg_tab_ge_keyword_desc:            'Word to use inside codeblocks to designate as a portal for showing gists',
 
     /*
