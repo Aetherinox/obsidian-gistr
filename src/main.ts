@@ -88,7 +88,7 @@ export default class GistrPlugin extends Plugin
 {
     private bLayoutReady = false
 
-    readonly settings:  GistrSettings
+    settings:           GistrSettings
     readonly plugin:    GistrPlugin
 
     /*
@@ -338,7 +338,6 @@ class OG_Tab_Settings extends PluginSettingTab
             const md_notFinished    = "> [!NOTE] " + lng( "base_underdev_title" ) + "\n> <small>" + lng( "base_underdev_msg" ) + "</small>"
             MarkdownRenderer.render( this.plugin.app, md_notFinished, ct_Note, "" + md_notFinished, this.plugin )
 
-
             /*
                 Background color (Light)
             */
@@ -346,16 +345,14 @@ class OG_Tab_Settings extends PluginSettingTab
             new Setting( elm )
                 .setName( lng( "cfg_tab_og_cblk_light_name" ) )
                 .setDesc( lng( "cfg_tab_og_cblk_light_desc" ) )
-                .addText( text =>
-                {
-                    text.setPlaceholder( CFG_DEFAULT.og_clr_bg_light )
-                        .setValue( this.plugin.settings.og_clr_bg_light )
-                        .onChange( async ( val ) =>
-                        {
-                            this.plugin.settings.og_clr_bg_light = val;
-                            this.plugin.saveSettings( );
-                        } );
-                } );
+                .addColorPicker( clr => clr
+                    .setValue( this.plugin.settings.og_clr_bg_light )
+                    .onChange( val =>
+                    {
+                        this.plugin.settings.og_clr_bg_light = val;
+                        this.plugin.saveSettings( );
+                    })
+                );
 
             /*
                 Background color (Dark)
@@ -364,16 +361,14 @@ class OG_Tab_Settings extends PluginSettingTab
             new Setting( elm )
                 .setName( lng( "cfg_tab_og_cblk_dark_name" ) )
                 .setDesc( lng( "cfg_tab_og_cblk_dark_desc" ) )
-                    .addText( text =>
+                .addColorPicker( clr => clr
+                    .setValue( this.plugin.settings.og_clr_bg_dark )
+                    .onChange( val =>
                     {
-                        text.setPlaceholder( CFG_DEFAULT.og_clr_bg_dark )
-                            .setValue( this.plugin.settings.og_clr_bg_dark )
-                            .onChange( async ( val ) =>
-                            {
-                                this.plugin.settings.og_clr_bg_dark = val;
-                                this.plugin.saveSettings( );
-                            } );
-                    } );
+                        this.plugin.settings.og_clr_bg_dark = val;
+                        this.plugin.saveSettings( );
+                    })
+                );
 
             /*
                 Codeblock > Padding > Top
