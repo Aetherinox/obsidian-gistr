@@ -14,6 +14,10 @@
 
 - [Submitting Bugs](#submitting-bugs)
 - [Contributing](#contributing)
+  - [Pull requests eligible for review](#pull-requests-eligible-for-review)
+  - [Conventional Commit Specification](#conventional-commit-specification)
+    - [Types](#types)
+  - [References](#references)
   - [Vertical alignment](#vertical-alignment)
   - [Spaces Instead Of Tabs](#spaces-instead-of-tabs)
   - [Indentation Style](#indentation-style)
@@ -49,13 +53,13 @@ All contributions are made via pull requests. To make a pull request, you will n
 
 <br />
 
-Pull requests eligible for review
+### Pull requests eligible for review
 
 - Follow the repository's code formatting conventions (see below);
-- include tests that prove that the change works as intended and does not add regressions;
-- document the changes in the code and/or the project's documentation;
-- pass the CI pipeline;
-- include a proper git commit message following the [Conventional Commit Specification](https://www.conventionalcommits.org/en/v1.0.0/#specification).
+- Include tests that prove that the change works as intended and does not add regressions;
+- Document the changes in the code and/or the project's documentation;
+- Pass the CI pipeline;
+- Include a proper git commit message following the [Conventional Commit Specification](https://www.conventionalcommits.org/en/v1.0.0/#specification).
 
 <br />
 
@@ -65,7 +69,69 @@ Reviewers will approve the pull request once they are satisfied with the patch.
 
 <br />
 
-If you wish to submit your own contribution, simply follow a few guidelines:
+### Conventional Commit Specification
+
+When commiting your changes, we require you to follow the Conventional Commit Specification, described below.
+
+**The Conventional Commits** is a specification for the format and content of a commit message. The concept behind Conventional Commits is to provide a rich commit history that can be read and understood by both humans and automated tools. Conventional Commits have the following format:
+
+<br />
+
+```
+<type>[(optional <scope>)]: <description>
+
+[optional <body>]
+
+[optional <footer(s)>]
+```
+
+#### Types
+| Type | Description |
+| --- | --- |
+| `feat` | Introduces a new feature |
+| `fix` | A bug fix for the end user |
+| `docs` | A change to the website or Markdown documents |
+| `build` | The commit alters the build system or external dependencies of the product (adding, removing, or upgrading dependencies). |
+| `test` | Adds missing tests, refactoring tests; no production code change. Usually changes the suite of automated tests for the product. |
+| `pref` | Improves performance of algorithms or general execution time of the product, but does not fundamentally change an existing feature. |
+| `style` | Updates or reformats the style of the source code, but does not otherwise change the product implementation. Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) |
+| `refactor` | A change to production code that leads to no behavior difference, e.g. splitting files, renaming internal variables, improving code style, etc. |
+| `change` | Changes the implementation of an existing feature. |
+| `chore` | Includes a technical or preventative maintenance task that is necessary for managing the product or the repository, but is not tied to any specific feature. E.g. updating dependencies. These are usually done for maintanence purposes. |
+| `ci` | Changes related to Continuous Integration (usually `yml` and other configuration files). |
+| `misc` | Anything else that doesn't change production code, yet is not ci, test or chore. |
+| `revert` | Revert to a previous commit |
+| `remove` | Removes a feature from the product. Typically features are deprecated first for a period of time before being removed. Removing a feature from the product may be considered a breaking change that will require a major version number increment. |
+| `deprecate` | Deprecates existing functionality, but does not remove it from the product. |
+
+<br />
+
+Example:
+
+```
+feat(core): allow overriding of webpack config
+^--^^----^  ^------------^
+|   |       |
+|   |       +-> (DESC): Summary in present tense. Use lower case not title case!
+|   |
+|   +-> (SCOPE): The package(s) that this change affects
+|
++-------> (TYPE): see above for the list
+```
+
+<br />
+
+### References
+If you are pushing a commit which addresses an issue, reference your issue in the description of your commit.
+
+Refernces should be on their own line, following the word `Ref` or `Refs`
+
+```
+Title:          fix(opengist): fix error message displayed for users.
+Description:    The description of your commit
+
+                Ref: #22, #34, #37
+```
 
 <br />
 
@@ -100,7 +166,6 @@ Try to stick to `Allman` as your style for indentations. This style puts the bra
 ```typescript
 createHeader( elm: HTMLElement )
 {
-
     elm.empty( )
     elm.createEl( "h1", { text: lng( "cfg_title" ) } )
     elm.createEl( "p",
@@ -111,14 +176,13 @@ createHeader( elm: HTMLElement )
             style: 'padding-bottom: 25px'
         },
     } );
-    
 }
 ```
 
 <br />
 
 ### Commenting
-Please comment your code. If someone else comes along, they should be able to do a quick glance and have an idea of what is going on. Plus it helps novice readers with better understanding the process.
+Comment your code. If someone else comes along, they should be able to do a quick glance and have an idea of what is going on. Plus it helps novice readers to better understand the process.
 
 You may use block style commenting, or single lines:
 
@@ -146,4 +210,4 @@ When writing your code, stick to one of three different styles:
 
 <br />
 
-The case style depends on the length of a method or variable name.
+The case style may vary and we're not extremely picky on this, but ensure it is labeled properly and not generic.
