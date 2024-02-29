@@ -12,12 +12,13 @@
 <br />
 
 - [About](#about)
-- [Install](#install)
-  - [Manual](#manual)
-  - [BRAT Plugin Manager](#brat-plugin-manager)
 - [Usage](#usage)
   - [OpenGist](#opengist)
   - [Github Gist](#github-gist)
+- [Install](#install)
+  - [Manual](#manual)
+  - [BRAT Plugin Manager](#brat-plugin-manager)
+- [Build](#build)
 - [OpenGist - How It Works](#opengist---how-it-works)
 - [Shoutouts](#shoutouts)
 
@@ -54,6 +55,62 @@ To use this plugin, you must:
 [![OG-Docs](https://img.shields.io/badge/%20-%20View%20%20OpenGist%20Docs-%20%23296ca7?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/thomiceli/opengist/blob/master/docs/index.md)
 
 </div>
+
+<br />
+
+---
+
+<br />
+
+# Usage
+To embed an OpenGist or Github Gist sniipet, add a new code block:
+
+<br />
+
+## OpenGist
+
+````shell
+```gistr
+https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+````
+
+<br />
+
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="Docs/images/3.png"></p>
+
+<br />
+
+<br />
+
+## Github Gist
+
+````shell
+```gistr
+https://gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+````
+
+<br />
+
+This plugin can also fetch a Gist which contains multiple notes in a single gist collection:
+
+<br />
+
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="Docs/images/2.png"></p>
+
+<br />
+
+To target a specific note inside a gist, append `#filename` to the end of your gist url:
+
+````shell
+```gistr
+https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#file1
+```
+````
+
 
 <br />
 
@@ -110,54 +167,91 @@ Plugin can also be installed utilizing the [BRAT](https://github.com/TfTHacker/o
 
 <br />
 
-# Usage
-To embed an OpenGist or Github Gist sniipet, add a new code block:
+# Build
+The following instructions are for users who want to edit this plugin with their own changes and build a new version to install in Obsidian.md:
 
 <br />
 
-## OpenGist
+Required:
+- [NodeJS](https://nodejs.org/en/download/)
+- [npm](https://phoenixnap.com/kb/install-node-js-npm-on-windows)
+- [Copy of this plugin's `src` folder placed in a local directory](https://github.com/Aetherinox/obsidian-gistr/tree/main/src)
 
-````shell
-```gistr
-https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+<br />
+
+Download the `src` files to a folder.
+
+To re-build the src files every time you make a change, launch a Terminal window in the folder where the src files are loacted, and run:
+```shell
+npm run dev
 ```
-````
 
 <br />
 
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="Docs/images/3.png"></p>
+If properly set up, you should see:
 
-<br />
-
-<br />
-
-## Github Gist
-
-````shell
-```gistr
-https://gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
-````
+rollup v2.79.1
+bundles src/main.ts → ...
+created  in 1.1s
 
-<br />
-
-This plugin can also fetch a Gist which contains multiple notes in a single gist collection:
-
-<br />
-
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="Docs/images/2.png"></p>
-
-<br />
-
-To target a specific note inside a gist, append `#filename` to the end of your gist url:
-
-````shell
-```gistr
-https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#file1
+[2024-02-29 05:08:38] waiting for changes...
 ```
-````
+
+<br />
+
+You may now edit the code, it will be re-built each time you save a file.
+
+<br />
+
+Every time a change is made and the files are built, they will be placed in a subfolder of the directory you're working in named `dist`. They'll need to be manually moved to a plugin folder for Obsidian in order to use them in the program.
+
+<br />
+
+To change the output directory for built files, open `rollup.config.js` and modify `output.dir`:
+
+```js
+output: {
+  dir: 'dist/',
+  sourcemap: 'inline',
+  sourcemapExcludeSources: isProd,
+  format: 'cjs',
+  exports: 'named',
+  banner,
+},
+```
+
+<br />
+
+To build in the same folder as the source files instead of the `dist` folder, change `output.dir` to:
+
+```js
+output: {
+  dir: './',
+},
+```
+
+<br />
+
+When you have completely finished making changes to the plugin, you should do a final production build, which will clean up the code and give you a significantly smaller filesize. In terminal, execute:
+```shell
+npm run build
+```
+
+<br />
+ 
+The above command will spit out one final `main.js` which needs to be placed inside your obsidian plugins folder:
+
+```
+\.obsidian\plugins\gistr
+```
+
+<br />
+
+Make sure your Obsidian plugin folder has the following files:
+- main.js
+- style.css
+- manifest.json
 
 <br />
 
