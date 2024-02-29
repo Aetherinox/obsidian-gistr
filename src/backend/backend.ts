@@ -160,14 +160,9 @@ export class GistrBackend
             assign css, body, js
         */
 
-        // returns either "" blank OR "File"    Only for OpenGist
         let css_theme_ovr           = ( themeovr !== "" ) ? themeovr.toLowerCase( ) : ""
-        let css_theme_sel           =   ( css_theme_ovr !== "" ) ? css_theme_ovr : 
-        ( this.settings.theme == "Dark" ) ? "dark" :
-        ( this.settings.theme == "Light" ) ? "light"  : "light"
-
-
-        console.log( css_theme_sel )
+        let css_theme_sel           =   ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme == "Dark" ) ? "dark" : ( this.settings.theme == "Light" ) ? "light"  : "light"
+        let css_og                  = ""
 
         const content_css           = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
         const content_body          = ( bGithub ? json.div : "" )
@@ -176,7 +171,6 @@ export class GistrBackend
         const css_sb_color          = ( css_theme_sel == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
         const css_bg_og_header_bg   = ( css_theme_sel == "dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
         const css_bg_og_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
-        let css_og                  = ""
 
         /*
             Declare custom css override
