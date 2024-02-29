@@ -189,6 +189,13 @@ export class GistrBackend
 
         const css_og_append =
         `
+
+        ::-webkit-scrollbar
+        {
+            width:              6px;
+            height:             10px;
+        }
+
         .opengist-embed .code
         {
             padding-top:        ${this.settings.blk_pad_t}px;
@@ -196,7 +203,7 @@ export class GistrBackend
             border-top:         ${css_bg_og_header_bor};
             background-color:   ${css_bg_color};
             width:              fit-content;
-            margin:             -1px;
+            margin-top:         -1px;
         }
 
         .opengist-embed .whitespace-pre
