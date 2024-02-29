@@ -128,7 +128,7 @@ export class GistrBackend
         create new iframe for each gist, assign it a uid, set the needed attributes, and generate the css, js
     */
 
-    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, themeovr: string )
+    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, theme: string )
     {
 
         /*
@@ -160,7 +160,7 @@ export class GistrBackend
             assign css, body, js
         */
 
-        let css_theme_ovr           = ( themeovr !== "" ) ? themeovr.toLowerCase( ) : ""
+        let css_theme_ovr           = ( theme !== "" ) ? theme.toLowerCase( ) : ""
         let css_theme_sel           =   ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme == "Dark" ) ? "dark" : ( this.settings.theme == "Light" ) ? "light"  : "light"
         let css_og                  = ""
 
