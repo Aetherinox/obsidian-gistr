@@ -1,0 +1,13 @@
+{
+  "keyword": "gistr",
+  "firststart": false,
+  "css_og": null,
+  "css_gh": null,
+  "theme": "Light",
+  "blk_pad_t": 10,
+  "blk_pad_b": 20,
+  "og_clr_bg_light": "#cbcbcb",
+  "og_clr_bg_dark": "#121315",
+  "og_clr_sb_light": "#808080",
+  "og_clr_sb_dark": "#363636"
+}
