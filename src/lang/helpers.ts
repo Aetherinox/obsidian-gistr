@@ -33,7 +33,7 @@ const locale = SetupLocale[ moment.locale( ) ]
     Language Method
 */
 
-export function lng( item: keyof typeof en, ...args: any[] ) : string
+export function lng( item: keyof typeof en, ...args: string[] ) : string
 {
     if ( !locale )
         console.error( "Gistr language not found", moment.locale( ) )
