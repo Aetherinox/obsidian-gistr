@@ -162,11 +162,9 @@ export default class GistrPlugin extends Plugin
 class OG_Tab_Settings extends PluginSettingTab
 {
     readonly plugin:            GistrPlugin
-    private Hide_General:       boolean
     private Hide_Github:        boolean
     private Hide_Opengist:      boolean
     private Hide_Support:       boolean
-    private Tab_General:        HTMLElement
     private Tab_Github:         HTMLElement
     private Tab_OpenGist:       HTMLElement
     private Tab_Support:        HTMLElement
@@ -179,7 +177,6 @@ class OG_Tab_Settings extends PluginSettingTab
         super( app, plugin )
 
         this.plugin             = plugin
-		this.Hide_General       = true
 		this.Hide_Github        = true
 		this.Hide_Opengist      = true
 		this.Hide_Support       = false
@@ -193,30 +190,11 @@ class OG_Tab_Settings extends PluginSettingTab
     {
         const { containerEl }   = this
 
-        this.Hide_General       = true
 		this.Hide_Github        = true
 		this.Hide_Opengist      = true
 		this.Hide_Support       = false
 
-        this.createHeader       ( containerEl )
 		this.createMenus        ( containerEl )
-    }
-
-    /*
-        Section -> Header
-    */
-
-    createHeader( elm: HTMLElement )
-    {
-
-        elm.empty( )
-        elm.createEl( "h1", { text: lng( "cfg_modal_title" ) } )
-        elm.createEl( "p",
-        {
-            cls: "gistr-settings-section-header",
-            text: lng( "cfg_modal_desc" ),
-        } )
-        
     }
 
     /*
@@ -225,8 +203,26 @@ class OG_Tab_Settings extends PluginSettingTab
 
 	createMenus( elm: HTMLElement )
     {
-        this.Tab_General_New    ( elm )
-		this.Tab_General        = elm.createDiv( )
+
+        /*
+            Command Keyword
+
+            changing this will cause all opengist portals to not function until the keyword is changed
+            within the box.
+        */
+
+        new Setting( elm )
+            .setName( lng( "cfg_tab_ge_keyword_name" ) )
+            .setDesc( lng( "cfg_tab_ge_keyword_desc" ) )
+            .addText( text =>
+            {
+                text.setValue( this.plugin.settings.keyword.toString( ) )
+                .onChange( async ( val ) =>
+                {
+                    this.plugin.settings.keyword = val
+                    await this.plugin.saveSettings( )
+                } )
+            } )
 
         this.Tab_OpenGist_New   ( elm )
 		this.Tab_OpenGist       = elm.createDiv( )
@@ -240,77 +236,14 @@ class OG_Tab_Settings extends PluginSettingTab
         this.Tab_Support_ShowSettings( this.Tab_Support )
 	}
 
-
-    /*
-        Tab > General > New
-    */
-
-        Tab_General_New( elm: HTMLElement )
-        {
-            const Tab_GN = elm.createEl( "h2", { text: lng( "cfg_tab_ge_title" ), cls: `gistr-settings-header${ this.Hide_General?" isfold" : "" }` } )
-            Tab_GN.addEventListener( "click", ( )=>
-            {
-                this.Hide_General = !this.Hide_General
-                Tab_GN.classList.toggle( "isfold", this.Hide_General )
-                this.Tab_General_CreateSettings( )
-            } )
-        }
-
-        Tab_General_CreateSettings( )
-        {
-            this.Tab_General.empty( )
-            if ( this.Hide_General ) return
-            
-            this.Tab_General_ShowSettings( this.Tab_General )
-        }
-
-        Tab_General_ShowSettings( elm: HTMLElement )
-        {
-        
-            elm.createEl( 'small',
-            {
-                cls: "gistr-settings-section-description",
-                text: lng( "cfg_tab_ge_header" )
-            } )
-
-            /*
-                Command Keyword
-
-                changing this will cause all opengist portals to not function until the keyword is changed
-                within the box.
-            */
-
-            new Setting( elm )
-                .setName( lng( "cfg_tab_ge_keyword_name" ) )
-                .setDesc( lng( "cfg_tab_ge_keyword_desc" ) )
-                .addText( text =>
-                {
-                    text.setValue( this.plugin.settings.keyword.toString( ) )
-                    .onChange( async ( val ) =>
-                    {
-                        this.plugin.settings.keyword = val
-                        await this.plugin.saveSettings( )
-                    } )
-                } )
-
-            /*
-                Tab Footer Spacer
-            */
-
-            elm.createEl( 'div',
-            {
-                cls: "gistr-settings-section-footer",
-                text: ""
-            } )
-        }
-
     /*
         Tab > OpenGist > New
     */
 
         Tab_OpenGist_New( elm: HTMLElement )
         {
-            const Tab_OG = elm.createEl( "h2", { text: lng( "cfg_tab_og_title" ), cls: `gistr-settings-header${ this.Hide_Opengist?" isfold" : "" }` } )
+            new Setting( elm ).setName( lng( "cfg_tab_og_title" ) ).setHeading( )
+            const Tab_OG = elm.createEl( "div", { text: lng( "cfg_modal_expand" ), cls: `gistr-settings-expand${ this.Hide_Opengist?" isfold" : "" }` } )
             Tab_OG.addEventListener( "click", ( )=>
             {
                 this.Hide_Opengist = !this.Hide_Opengist
@@ -513,7 +446,8 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_Github_New( elm: HTMLElement )
         {
-            const Tab_GH = elm.createEl( "h2", { text: lng( "cfg_tab_gh_title" ), cls: `gistr-settings-header${ this.Hide_Github?" isfold" : "" }` } )
+            new Setting( elm ).setName( lng( "cfg_tab_gh_title" ) ).setHeading( )
+            const Tab_GH = elm.createEl( "div", { text: lng( "cfg_modal_expand" ), cls: `gistr-settings-expand${ this.Hide_Github?" isfold" : "" }` } )
             Tab_GH.addEventListener( "click", ( )=>
             {
                 this.Hide_Github = !this.Hide_Github
@@ -574,7 +508,8 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_Support_New( elm: HTMLElement )
         {
-            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_sp_title" ), cls: `gistr-settings-header${ this.Hide_Support?" isfold" : "" }` } )
+            new Setting( elm ).setName( lng( "cfg_tab_sp_title" ) ).setHeading( )
+            const tab_og = elm.createEl( "div", { text: lng( "cfg_tab_sp_title" ), cls: `gistr-settings-expand${ this.Hide_Support?" isfold" : "" }` } )
             tab_og.addEventListener( "click", ( )=>
             {
                 this.Hide_Support = !this.Hide_Support

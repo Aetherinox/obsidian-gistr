@@ -1,6 +1,19 @@
+/*
+    Variables
+*/
+
 body
 {
     --header-btn-dur:       240ms;
+}
+
+/*
+    Gistr Codeblock
+*/
+
+.block-language-gistr
+{
+    margin-top: 32px;
 }
 
 .block-language-gistr > iframe
@@ -9,12 +22,42 @@ body
     border:                 0;
 }
 
-.gistr-modal-getting-started
+/*
+.block-language-gistr + .edit-block-button
 {
-    width:                  40%;
-    padding-left:           35px;
-    padding-right:          35px;
-    padding-bottom:         35px;
+    display:                none !important;
+}
+*/
+
+/*
+    Gistr Codeblock > Error
+*/
+
+.block-language-gistr > .gistr-container-error
+{
+    padding:                15px;
+    background-color:       rgba( 5, 5, 5, .6 );
+    border:                 1px solid rgba( 255, 255, 255, .15 );
+}
+
+/*
+    Settings
+*/
+
+.gistr-settings-section-description
+{
+    display:                block;
+    margin-bottom:          25px;
+}
+
+.gistr-settings-section-header
+{
+    padding-bottom:         25px;
+}
+
+.gistr-settings-section-footer
+{
+    padding-bottom:         40px;
 }
 
 .gistr-settings-elm-slider-preview
@@ -23,18 +66,12 @@ body
     text-align:             right;
 }
 
-.gistr-modal-button-container
+.gistr-settings-expand
 {
-    margin-top:             1.5em;
-    margin-bottom:          3em;
-    display:                flex;
-    justify-content:        flex-start;
-    gap:                    var( --size-4-2 );
-    flex-wrap:              wrap;
-    font-size:              var( --font-ui-medium );
+    padding-bottom:         20px;
 }
 
-.gistr-settings-header::after
+.gistr-settings-expand::after
 {
     position:               relative;
     display:                inline-block;
@@ -58,10 +95,47 @@ body
         scale               var( --header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
 }
 
-.gistr-settings-header.isfold::after
+.gistr-settings-expand.isfold::after
 {
     transform:              rotate( -90deg );
 }
+
+/*
+    Modal > Getting Started
+*/
+
+.gistr-gs-modal
+{
+    width:                  40%;
+    padding-left:           35px;
+    padding-right:          35px;
+    padding-bottom:         35px;
+}
+
+.gistr-gs-modal-button-container
+{
+    margin-top:             1.5em;
+    margin-bottom:          3em;
+    display:                flex;
+    justify-content:        flex-start;
+    gap:                    var( --size-4-2 );
+    flex-wrap:              wrap;
+    font-size:              var( --font-ui-medium );
+}
+
+.gistr-gs-header
+{
+    margin-top:             -12px;
+}
+
+.gistr-gs-separator
+{
+    padding-bottom:         15px;
+}
+
+/*
+    Gist loading error
+*/
 
 .gistr-load-error-l1
 {
@@ -75,6 +149,10 @@ body
     padding-left:           20px;
 }
 
+/*
+    Donate Button
+*/
+
 .gistr-donate
 {
     padding-top:            20px;
@@ -84,13 +162,17 @@ body
 
 .gistr-donate > .setting-item > .setting-item-info
 {
-    width:                  100% !important;
+    width:                  100%;
 }
 
 .gistr-donate > .setting-item-control
 {
     display:                none;
 }
+
+/*
+    Dependency > Pickr
+*/
 
 .pcr-app
 {
