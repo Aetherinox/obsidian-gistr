@@ -91,7 +91,7 @@ When commiting your changes, we require you to follow the Conventional Commit Sp
 | `feat` | Introduces a new feature |
 | `fix` | A bug fix for the end user |
 | `docs` | A change to the website or Markdown documents |
-| `build` | The commit alters the build system or external dependencies of the product (adding, removing, or upgrading dependencies). |
+| `build` | The commit alters the build process. E.g: creating a new build task, updating the release script, editing Makefile. |
 | `test` | Adds missing tests, refactoring tests; no production code change. Usually changes the suite of automated tests for the product. |
 | `pref` | Improves performance of algorithms or general execution time of the product, but does not fundamentally change an existing feature. |
 | `style` | Updates or reformats the style of the source code, but does not otherwise change the product implementation. Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) |
