@@ -162,15 +162,15 @@ export class GistrBackend
         const content_css       = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
         const content_body      = ( bGithub ? json.div : "" )
         const content_js        = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( this.settings.theme == "Dark" ? json.embed.js_dark : json.embed.js ) ) )
-        let css_bg_color        = ( this.settings.theme == "Dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
-        let css_bg_og_header    = ( this.settings.theme == "Dark" ? "background-color: rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
+        const css_bg_color      = ( this.settings.theme == "Dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
+        const css_bg_og_header  = ( this.settings.theme == "Dark" ? "background-color: rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
         let css_og              = ""
 
         /*
             Declare custom css override
         */
 
-        let css_override        = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
+        const css_override      = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
 
         /*
             OpenGist specific CSS
