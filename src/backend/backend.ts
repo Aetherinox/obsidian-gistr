@@ -139,6 +139,10 @@ export class GistrBackend
         ct_iframe.id            = gid
     
         ct_iframe.classList.add ( `${ PID }-container` )
+
+        if ( bGithub === true )
+            ct_iframe.classList.add ( `full-dark-gist` )
+
         ct_iframe.setAttribute  ( 'sandbox',    'allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation' )
         ct_iframe.setAttribute  ( 'loading',    'lazy' )
         ct_iframe.setAttribute  ( 'width',      '100%' )
@@ -159,6 +163,8 @@ export class GistrBackend
         const content_body      = ( bGithub ? json.div : "" )
         const content_js        = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( this.settings.theme == "Dark" ? json.embed.js_dark : json.embed.js ) ) )
         let css_bg_color        = ( this.settings.theme == "Dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
+        let css_bg_og_header    = ( this.settings.theme == "Dark" ? "background-color: rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
+        let css_og              = ""
 
         /*
             Declare custom css override
@@ -167,10 +173,51 @@ export class GistrBackend
         let css_override        = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
 
         /*
-            Create Iframe
+            OpenGist specific CSS
+
+            @note       : these are edits the user should not need to edit.
+                          OpenGist needs these edits in order to look right with the header
+                          and footer.
+
+                          obviously this condition doesn't matter even if it is injected into Github pastes,
+                          but it would be usless code.
+
+                          working with OpenGist developer to re-do the HTML generated when embedding a gist.
         */
 
-        ct_iframe.srcdoc =
+        let css_og_append =
+        `
+        .opengist-embed .code
+        {
+            padding-top:        ${this.settings.blk_pad_t}px;
+            padding-bottom:     ${this.settings.blk_pad_b}px;
+            background-color:   ${css_bg_color};
+            width:              fit-content;
+        }
+
+        .opengist-embed .whitespace-pre
+        {
+            text-wrap: wrap;
+        }
+        
+        .opengist-embed .mb-4
+        {
+            margin-bottom: 1rem;
+            backdrop-filter: opacity(0);
+            --tw-bg-opacity: 1;
+            background-color: ${css_bg_og_header};
+        }
+        </style>
+        `
+
+        if ( bGithub === false )
+            css_og = css_og_append
+
+        /*
+            generate html output
+        */
+
+        const html_output =
         `
         <html>
             <head>
@@ -184,19 +231,10 @@ export class GistrBackend
                     ${content_css}
                 </style>
 
+                <! –– Injected CSS ––>
                 <style>
-                    ${css_override}
-                    .opengist-embed .code
-                    {
-                        padding-top:        ${this.settings.blk_pad_t}px;
-                        padding-bottom:     ${this.settings.blk_pad_b}px;
-                        background-color:   ${css_bg_color};
-                    }
-
-                    .opengist-embed .html
-                    {
-                        background-color:   ${css_bg_color};
-                    }
+                ${css_override}
+                ${css_og}
                 </style>
 
                 <script>
@@ -210,6 +248,8 @@ export class GistrBackend
             </body>
         </html>
         `
+
+        ct_iframe.srcdoc = html_output
         el.appendChild( ct_iframe )
     }
 
