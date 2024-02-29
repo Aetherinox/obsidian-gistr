@@ -46,6 +46,8 @@ export interface ColorPickrOpts
 {
     'og_clr_bg_light'?: string
     'og_clr_bg_dark'?: string
+    'og_clr_sb_light'?: string
+    'og_clr_sb_dark'?: string
 }
 
 /*
@@ -56,6 +58,8 @@ const ColorPickrDefaults: Record< string, Color > =
 {
 	"og_clr_bg_light":  "#cbcbcb",
 	"og_clr_bg_dark":   "#121315",
+	"og_clr_sb_light":  "#808080",
+	"og_clr_sb_dark":   "#363636",
 }
 
 /*
