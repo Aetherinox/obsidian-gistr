@@ -168,86 +168,8 @@ Plugin can also be installed utilizing the [BRAT](https://github.com/TfTHacker/o
 <br />
 
 # Build
-The following instructions are for users who want to edit this plugin with their own changes and build a new version to install in Obsidian.md:
-
-<br />
-
-Required:
-- [NodeJS](https://nodejs.org/en/download/)
-- [npm](https://phoenixnap.com/kb/install-node-js-npm-on-windows)
-- [Copy of this plugin's `src` folder placed in a local directory](https://github.com/Aetherinox/obsidian-gistr/tree/main/src)
-
-<br />
-
-Download the `src` files to a folder.
-
-To re-build the src files every time you make a change, launch a Terminal window in the folder where the src files are loacted, and run:
-```shell
-npm run dev
-```
-
-<br />
-
-If properly set up, you should see:
-
-```
-rollup v2.79.1
-bundles src/main.ts → ...
-created  in 1.1s
-
-[2024-02-29 05:08:38] waiting for changes...
-```
-
-<br />
-
-You may now edit the code, it will be re-built each time you save a file. Built files will be placed in a subfolder of the directory you're working in named `dist`. They'll need to be manually moved to a plugin folder for Obsidian in order to use them in the program.
-
-<br />
-
-To change the output directory for built files, open `rollup.config.js` and modify `output.dir`:
-
-```js
-output: {
-  dir: 'dist/',
-  sourcemap: 'inline',
-  sourcemapExcludeSources: isProd,
-  format: 'cjs',
-  exports: 'named',
-  banner,
-},
-```
-
-<br />
-
-To build in the same folder as the source files instead of the `dist` folder, change `output.dir` to:
-
-```js
-output: {
-  dir: './',
-},
-```
-
-<br />
-
-When you have completely finished making changes to the plugin, you should do a final production build, which will clean up the code and give you a significantly smaller filesize. In terminal, execute:
-```shell
-npm run build
-```
-
-<br />
- 
-The above command will spit out one final `main.js` which needs to be placed inside your obsidian plugins folder:
-
-```
-\.obsidian\plugins\gistr
-```
-
-<br />
-
-Make sure your Obsidian plugin folder has the following files:
-- main.js
-- style.css
-- manifest.json
+For a detailed set of instructions on how to download this plugin's source files and compile your own version, check out the wiki link below:
+- [How to Build Gistr](https://github.com/Aetherinox/obsidian-gistr/wiki/Build)
 
 <br />
 
