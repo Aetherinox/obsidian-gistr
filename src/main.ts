@@ -204,6 +204,8 @@ class OG_Tab_Settings extends PluginSettingTab
 	createMenus( elm: HTMLElement )
     {
 
+        elm.empty( )
+
         /*
             Command Keyword
 
