@@ -8,7 +8,14 @@
 name: "Publish Release [Tag]"
 run-name: "Release [Tag] - ${{ github.event.workflow_run.id }}"
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      prerelease:
+        description: "prerelease"
+        required: true
+        default: false
+        type: boolean
 
 env:
     PLUGIN_NAME: gistr
