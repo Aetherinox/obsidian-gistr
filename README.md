@@ -169,7 +169,7 @@ Plugin can also be installed utilizing the [BRAT](https://github.com/TfTHacker/o
 
 # Build
 For a detailed set of instructions on how to download this plugin's source files and compile your own version, check out the wiki link below:
-- [How to Build Gistr](https://github.com/Aetherinox/obsidian-gistr/wiki/Build)
+- [How to Build Gistr](https://github.com/Aetherinox/obsidian-gistr/wiki/3.-Build)
 
 <br />
 
