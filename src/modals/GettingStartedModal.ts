@@ -89,8 +89,7 @@ export default class ModalGettingStarted extends Modal
 			Modal > Getting Started > Content > Header
 		*/
 
-		AddLine( contentEl, this.manifest.name, "h1" )
-		AddLine( contentEl, "v" + this.manifest.version, "h6", "gistr-gs-header" )
+		AddLine( contentEl, this.manifest.name + " " + "v" + this.manifest.version, "h2" )
 		AddLine( contentEl, lng( "gs_base_header" ), "small" )
 
 		AddLine( contentEl, "", "div", "gistr-gs-separator" )
@@ -99,7 +98,7 @@ export default class ModalGettingStarted extends Modal
 			Modal > Getting Started > Content > Getting Started
 		*/
 
-		AddLine( contentEl, lng( "gs_og_name" ), "h2" )
+		AddLine( contentEl, lng( "gs_og_name" ), "h3" )
 		AddLine( contentEl, lng( "gs_og_desc" ), "small" )
 
 		const div_GettingStarted = contentEl.createDiv( { cls: "gistr-gs-modal-button-container" } )
@@ -136,7 +135,7 @@ export default class ModalGettingStarted extends Modal
 			Modal > Getting Started > Content > Getting Started
 		*/
 
-		AddLine( contentEl, lng( "gs_gh_name" ), "h2" )
+		AddLine( contentEl, lng( "gs_gh_name" ), "h3" )
 		AddLine( contentEl, lng( "gs_gh_desc" ), "small" )
 
 		this.cblk_preview = contentEl.createDiv( )

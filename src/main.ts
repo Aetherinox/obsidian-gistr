@@ -7,7 +7,9 @@ import { GistrBackend } from 'src/backend/backend'
 import GistrSettings from 'src/settings/settings'
 import ModalGettingStarted from "./modals/GettingStartedModal"
 import { lng, PluginID } from 'src/lang/helpers'
-import { ColorTranslator } from "colortranslator"
+import Pickr from "@simonwep/pickr"
+import ColorPicker from 'src/backend/colorpicker'
+import { GetColor } from 'src/backend/colorpicker'
 
 /*
     Basic Declrations
@@ -44,10 +46,10 @@ const CFG_DEFAULT: GistrSettings =
 
 export interface ColorPickrOpts
 {
-    'og_clr_bg_light'?: string
-    'og_clr_bg_dark'?: string
-    'og_clr_sb_light'?: string
-    'og_clr_sb_dark'?: string
+    'og_clr_bg_light'?:     string
+    'og_clr_bg_dark'?:      string
+    'og_clr_sb_light'?:     string
+    'og_clr_sb_dark'?:      string
 }
 
 /*
@@ -162,12 +164,15 @@ export default class GistrPlugin extends Plugin
 class OG_Tab_Settings extends PluginSettingTab
 {
     readonly plugin:            GistrPlugin
+    private Hide_Global:        boolean
     private Hide_Github:        boolean
     private Hide_Opengist:      boolean
     private Hide_Support:       boolean
+    private Tab_Gobal:          HTMLElement
     private Tab_Github:         HTMLElement
     private Tab_OpenGist:       HTMLElement
     private Tab_Support:        HTMLElement
+    cPickr:                     Record<string, ColorPicker>
 
     /*
         Class > Constructor
@@ -177,9 +182,75 @@ class OG_Tab_Settings extends PluginSettingTab
         super( app, plugin )
 
         this.plugin             = plugin
+		this.Hide_Global        = true
 		this.Hide_Github        = true
 		this.Hide_Opengist      = true
 		this.Hide_Support       = false
+        this.cPickr             = { }
+    }
+
+
+    /*
+        Create Object > Color Picker
+
+        @arg    : bHidden
+                  associated to hovering color picker, not color element
+    */
+
+    new_ColorPicker( plugin: GistrPlugin, el: HTMLElement, setting: Setting, id: keyof ColorPickrOpts, bHidden?: ( ) => boolean )
+    {
+        const pickr: ColorPicker = new ColorPicker( plugin, el, setting )
+
+        pickr
+            .on( "init", ( colour: Pickr.HSVaColor, instance: Pickr ) =>
+            {
+                const currColor = this.plugin.settings[ id ]
+                pickr.setColor( currColor )
+            } )
+
+            .on( "show", ( colour: Pickr.HSVaColor, instance: Pickr ) =>
+            {
+                if ( typeof bHidden !== "undefined" && bHidden( ) )
+                    instance.hide( )
+            } )
+
+            .on( "save", ( colour: Pickr.HSVaColor, instance: ColorPicker ) =>
+            {
+
+                const clr : Color = `#${ colour.toHEXA( ).toString( ).substring( 1 ) }`
+
+                this.plugin.settings[ id ] = clr
+                this.plugin.saveSettings( )
+
+                instance.hide( )
+                instance.addSwatch( clr )
+                instance.ActionSave( clr )
+            } )
+
+            .on( "cancel", ( instance: ColorPicker ) =>
+            {
+                instance.hide( )
+            } )
+
+            setting.addExtraButton
+            (
+                ( btn ) =>
+                {
+                    pickr.AddButtonReset = btn
+
+                    .setIcon        ( "reset" )
+                    .setDisabled    ( false )
+                    .setTooltip     ( lng( "pickr_tip_restore_default" ) )
+                    .onClick( ( ) =>
+                    {
+                        const resetColour:  Color = ColorPickrDefaults[ id ]
+                        pickr.setColor      ( GetColor( resetColour ) )
+                        pickr.ActionSave    ( resetColour )
+                    } )
+                }
+            )
+
+        this.cPickr[ id ] = pickr
     }
 
     /*
@@ -190,11 +261,29 @@ class OG_Tab_Settings extends PluginSettingTab
     {
         const { containerEl }   = this
 
+        this.Hide_Global        = true
 		this.Hide_Github        = true
 		this.Hide_Opengist      = true
 		this.Hide_Support       = false
 
+        this.createHeader       ( containerEl )
 		this.createMenus        ( containerEl )
+    }
+
+    /*
+        Section -> Header
+    */
+
+    createHeader( elm: HTMLElement )
+    {
+
+        elm.empty( )
+        elm.createEl( "p",
+        {
+            cls: "gistr-settings-section-header",
+            text: lng( "cfg_modal_desc" ),
+        } )
+        
     }
 
     /*
@@ -203,28 +292,8 @@ class OG_Tab_Settings extends PluginSettingTab
 
 	createMenus( elm: HTMLElement )
     {
-
-        elm.empty( )
-
-        /*
-            Command Keyword
-
-            changing this will cause all opengist portals to not function until the keyword is changed
-            within the box.
-        */
-
-        new Setting( elm )
-            .setName( lng( "cfg_tab_ge_keyword_name" ) )
-            .setDesc( lng( "cfg_tab_ge_keyword_desc" ) )
-            .addText( text =>
-            {
-                text.setValue( this.plugin.settings.keyword.toString( ) )
-                .onChange( async ( val ) =>
-                {
-                    this.plugin.settings.keyword = val
-                    await this.plugin.saveSettings( )
-                } )
-            } )
+        this.Tab_Gobal_New      ( elm )
+		this.Tab_Gobal          = elm.createDiv( )
 
         this.Tab_OpenGist_New   ( elm )
 		this.Tab_OpenGist       = elm.createDiv( )
@@ -239,13 +308,67 @@ class OG_Tab_Settings extends PluginSettingTab
 	}
 
     /*
+        Tab > General > New
+    */
+
+        Tab_Gobal_New( elm: HTMLElement )
+        {
+            const Tab_GN = elm.createEl( "h2", { text: lng( "cfg_tab_ge_title" ), cls: `gistr-settings-header${ this.Hide_Global?" isfold" : "" }` } )
+            Tab_GN.addEventListener( "click", ( )=>
+            {
+                this.Hide_Global = !this.Hide_Global
+                Tab_GN.classList.toggle( "isfold", this.Hide_Global )
+                this.Tab_Gobal_CreateSettings( )
+            } )
+        }
+
+        Tab_Gobal_CreateSettings( )
+        {
+            this.Tab_Gobal.empty( )
+            if ( this.Hide_Global ) return
+            
+            this.Tab_Gobal_ShowSettings( this.Tab_Gobal )
+        }
+
+        Tab_Gobal_ShowSettings( elm: HTMLElement )
+        {
+        
+            elm.createEl( 'small', { cls: "gistr-settings-section-description", text: lng( "cfg_tab_ge_header" ) } )
+
+            /*
+                Command Keyword
+
+                changing this will cause all opengist portals to not function until the keyword is changed
+                within the box.
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_ge_keyword_name" ) )
+                .setDesc( lng( "cfg_tab_ge_keyword_desc" ) )
+                .addText( text =>
+                {
+                    text.setValue( this.plugin.settings.keyword.toString( ) )
+                    .onChange( async ( val ) =>
+                    {
+                        this.plugin.settings.keyword = val
+                        await this.plugin.saveSettings( )
+                    } )
+                } )
+
+            /*
+                Tab Footer Spacer
+            */
+
+            elm.createEl( 'div', { cls: "gistr-settings-section-footer", text: "" } )
+        }
+
+    /*
         Tab > OpenGist > New
     */
 
         Tab_OpenGist_New( elm: HTMLElement )
         {
-            new Setting( elm ).setName( lng( "cfg_tab_og_title" ) ).setHeading( )
-            const Tab_OG = elm.createEl( "div", { text: lng( "cfg_modal_expand" ), cls: `gistr-settings-expand${ this.Hide_Opengist?" isfold" : "" }` } )
+            const Tab_OG = elm.createEl( "h2", { text: lng( "cfg_tab_og_title" ), cls: `gistr-settings-header${ this.Hide_Opengist?" isfold" : "" }` } )
             Tab_OG.addEventListener( "click", ( )=>
             {
                 this.Hide_Opengist = !this.Hide_Opengist
@@ -265,11 +388,7 @@ class OG_Tab_Settings extends PluginSettingTab
         Tab_OpenGist_ShowSettings( elm: HTMLElement )
         {
 
-            elm.createEl( 'small',
-            {
-                cls: "gistr-settings-section-description",
-                text: lng( "cfg_tab_og_header" )
-            } )
+            elm.createEl( 'small', { cls: "gistr-settings-section-description", text: lng( "cfg_tab_og_header" ) } )
 
             /*
                 Development notice
@@ -284,32 +403,27 @@ class OG_Tab_Settings extends PluginSettingTab
             */
 
             new Setting( elm )
-                .setName( lng( "cfg_tab_og_cblk_light_name" ) )
-                .setDesc( lng( "cfg_tab_og_cblk_light_desc" ) )
-                .addColorPicker( clr => clr
-                    .setValue( this.plugin.settings.og_clr_bg_light )
-                    .onChange( val =>
-                    {
-                        this.plugin.settings.og_clr_bg_light = val;
-                        this.plugin.saveSettings( );
-                    })
-                );
+                .setName( lng( "cfg_tab_og_cb_light_name" ) )
+                .setDesc( lng( "cfg_tab_og_cb_light_desc" ) )
+                .then( ( setting ) => { this.new_ColorPicker
+                (
+                    this.plugin, elm, setting,
+                    "og_clr_bg_light",
+                ) } )
+
 
             /*
                 Background color (Dark)
             */
 
             new Setting( elm )
-                .setName( lng( "cfg_tab_og_cblk_dark_name" ) )
-                .setDesc( lng( "cfg_tab_og_cblk_dark_desc" ) )
-                .addColorPicker( clr => clr
-                    .setValue( this.plugin.settings.og_clr_bg_dark )
-                    .onChange( val =>
-                    {
-                        this.plugin.settings.og_clr_bg_dark = val;
-                        this.plugin.saveSettings( );
-                    })
-                );
+                .setName( lng( "cfg_tab_og_cb_dark_name" ) )
+                .setDesc( lng( "cfg_tab_og_cb_dark_desc" ) )
+                    .then( ( setting ) => { this.new_ColorPicker
+                    (
+                        this.plugin, elm, setting,
+                        "og_clr_bg_dark",
+                ) } )
 
             /*
                 Scrollbar Track Color (Light)
@@ -318,14 +432,11 @@ class OG_Tab_Settings extends PluginSettingTab
             new Setting( elm )
                 .setName( lng( "cfg_tab_og_sb_light_name" ) )
                 .setDesc( lng( "cfg_tab_og_sb_light_desc" ) )
-                .addColorPicker( clr => clr
-                    .setValue( this.plugin.settings.og_clr_sb_light )
-                    .onChange( val =>
-                    {
-                        this.plugin.settings.og_clr_sb_light = val;
-                        this.plugin.saveSettings( );
-                    })
-                );
+                    .then( ( setting ) => { this.new_ColorPicker
+                    (
+                        this.plugin, elm, setting,
+                        "og_clr_sb_light",
+                ) } )
 
             /*
                 Scrollbar Track Color (Dark)
@@ -334,14 +445,11 @@ class OG_Tab_Settings extends PluginSettingTab
             new Setting( elm )
                 .setName( lng( "cfg_tab_og_sb_dark_name" ) )
                 .setDesc( lng( "cfg_tab_og_sb_dark_desc" ) )
-                .addColorPicker( clr => clr
-                    .setValue( this.plugin.settings.og_clr_sb_dark )
-                    .onChange( val =>
-                    {
-                        this.plugin.settings.og_clr_sb_dark = val;
-                        this.plugin.saveSettings( );
-                    })
-                );
+                    .then( ( setting ) => { this.new_ColorPicker
+                    (
+                        this.plugin, elm, setting,
+                        "og_clr_sb_dark",
+                ) } )
 
             /*
                 Codeblock > Padding > Top
@@ -435,11 +543,7 @@ class OG_Tab_Settings extends PluginSettingTab
                 Tab Footer Spacer
             */
 
-            elm.createEl( 'div',
-            {
-                cls: "gistr-settings-section-footer",
-                text: ""
-            } )
+            elm.createEl( 'div', { cls: "gistr-settings-section-footer", text: "" } )
         }
 
     /*
@@ -448,8 +552,7 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_Github_New( elm: HTMLElement )
         {
-            new Setting( elm ).setName( lng( "cfg_tab_gh_title" ) ).setHeading( )
-            const Tab_GH = elm.createEl( "div", { text: lng( "cfg_modal_expand" ), cls: `gistr-settings-expand${ this.Hide_Github?" isfold" : "" }` } )
+            const Tab_GH = elm.createEl( "h2", { text: lng( "cfg_tab_gh_title" ), cls: `gistr-settings-header${ this.Hide_Github?" isfold" : "" }` } )
             Tab_GH.addEventListener( "click", ( )=>
             {
                 this.Hide_Github = !this.Hide_Github
@@ -496,11 +599,7 @@ class OG_Tab_Settings extends PluginSettingTab
                 Tab Footer Spacer
             */
 
-            elm.createEl( 'div',
-            {
-                cls: "gistr-settings-section-footer",
-                text: ""
-            } )
+            elm.createEl( 'div', { cls: "gistr-settings-section-footer", text: "" } )
         }
 
 
@@ -510,8 +609,7 @@ class OG_Tab_Settings extends PluginSettingTab
 
         Tab_Support_New( elm: HTMLElement )
         {
-            new Setting( elm ).setName( lng( "cfg_tab_sp_title" ) ).setHeading( )
-            const tab_og = elm.createEl( "div", { text: lng( "cfg_tab_sp_title" ), cls: `gistr-settings-expand${ this.Hide_Support?" isfold" : "" }` } )
+            const tab_og = elm.createEl( "h2", { text: lng( "cfg_tab_sp_title" ), cls: `gistr-settings-header${ this.Hide_Support?" isfold" : "" }` } )
             tab_og.addEventListener( "click", ( )=>
             {
                 this.Hide_Support = !this.Hide_Support
@@ -535,11 +633,7 @@ class OG_Tab_Settings extends PluginSettingTab
                 Section -> Support Buttons
             */
 
-            elm.createEl( 'small',
-            {
-                cls: "gistr-settings-section-description",
-                text: lng( "cfg_tab_su_desc" )
-            } )
+            elm.createEl( 'small', { cls: "gistr-settings-section-description", text: lng( "cfg_tab_su_desc" ) } )
 
             /*
                 Button > Getting Started > Open Interface
@@ -570,6 +664,21 @@ class OG_Tab_Settings extends PluginSettingTab
                     btn.setButtonText( lng( "cfg_tab_su_repo_btn" ) ).onClick( ( ) =>
                     {
                         window.open( lng( "cfg_tab_su_repo_url" ) )
+                    } )
+                } )
+
+            /*
+                Button -> Plugin Demo Vault
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_su_vault_label" ) )
+                .setDesc( lng( "cfg_tab_su_vault_url" ) )
+                .addButton( ( btn ) =>
+                {
+                    btn.setButtonText( lng( "cfg_tab_su_vault_btn" ) ).onClick( ( ) =>
+                    {
+                        window.open( lng( "cfg_tab_su_vault_url" ) )
                     } )
                 } )
 
@@ -650,99 +759,4 @@ class OG_Tab_Settings extends PluginSettingTab
             new Setting( div_Donate ).setDesc( lnk_Donate )
         }
 
-}
-
-/*
-    Calculate colors when converting hsl and rgb
-*/
-
-function CalcColor( str : string ) : string
-{
-	const strSplit = str.trim( ).replace( /(\d*)%/g, "$1" ).split( " " )
-
-	const operators: { [ key: string ] : ( n1 : number, n2 : number ) => number } =
-    {
-		"+" : ( n1 : number, n2 : number ) : number => Math.max( n1 + n2, 0 ),
-		"-" : ( n1 : number, n2 : number ) : number => Math.max( n1 - n2, 0 ),
-	}
-
-	if ( strSplit.length === 3 )
-    {
-		if ( strSplit[ 1 ] in operators )
-        {
-            console.log( operators )
-			return `${ operators[ strSplit[ 1 ] ]( parseFloat( strSplit[ 0 ] ), parseFloat( strSplit[ 2 ] ) ) }%`
-        }
-    }
-
-    return str
-}
-
-/*
-    CSS > Get Value
-*/
-
-function CSS_GetValue( property: CLR_VAR ): CLR_HEX
-{
-
-	const value = window.getComputedStyle( document.body ).getPropertyValue( property ).trim( )
-
-    /*
-        type    : hex
-                  #ff0000
-    */
-
-	if ( typeof value === "string" && value.startsWith( "#" ) )
-		return `#${ value.trim( ).substring( 1 ) }`
-
-    /*
-        type    : hsl
-                  hsl( 0, 100%, 50% )
-    */
-
-	else if ( value.startsWith( "hsl" ) )
-		return `#${ ColorTranslator.toHEXA
-        ( 
-            value.replace( /CalcColor\((.*?)\)/g, ( match, capture ) =>
-            CalcColor( capture ) )
-        ).substring( 1 ) }`
-
-    /*
-        type    : rgb
-                  rgb( 255, 0, 0 )
-    */
-
-	else if ( value.startsWith( "rgb" ) )
-		return `#${ ColorTranslator.toHEXA
-        (
-            value.replace( /CalcColor\((.*?)\)/g, ( match, capture ) =>
-            CalcColor( capture ) )
-        ).substring( 1 ) }`
-
-    /*
-        Unknown type
-    */
-
-	else
-		console.warn( `Gistr: Unknown color format - ${value}` )
-
-	return `#${ ColorTranslator.toHEXA( value ).substring( 1 ) }`
-}
-
-/*
-    Get Color from CSS Value
-*/
-
-export function GetColor( clr: Color ): Color
-{
-	return bValidCSS( clr ) ? CSS_GetValue( clr ) : clr
-}
-
-/*
-    Check Valid CSS
-*/
-
-export function bValidCSS( css: string ): css is CLR_VAR
-{
-	return typeof css === "string" && css.startsWith( "--" )
 }
