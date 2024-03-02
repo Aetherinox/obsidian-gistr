@@ -8,9 +8,10 @@
 #     - bug
 #     - feature
 #     - urgent
+#     - roadmap
 # ---------------------------------------------------------------------------------------
 
-name: "New Issue: Handle"
+name: "New Issue: Assign"
 run-name: "New Issue: Assign Label - ${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
 
 on:
@@ -23,15 +24,69 @@ on:
       - opened
 
 env:
-  LABEL_BUG: Bug
-  LABEL_FEATURE: Feature
-  LABEL_URGENT: Urgent
-  LABEL_ROADMAP: Roadmap
-  ASSIGN_USER: Aetherinox
-  BOT_NAME_1: AdminServ
-  BOT_NAME_2: AdminServX
+  LABEL_BUG:      Bug
+  LABEL_FEATURE:  Feature
+  LABEL_URGENT:   Urgent
+  LABEL_ROADMAP:  Roadmap
+  ASSIGN_USER:    Aetherinox
+  BOT_NAME_1:     AdminServ
+  BOT_NAME_2:     AdminServX
+  LABELS_JSON: |
+    [
+      { "name": "Bug", "color": "d73a4a", "description": "Something isn't working" },
+      { "name": "Feature", "color": "36552B", "description": "Feature request" },
+      { "name": "Urgent", "color": "ccb11d", "description": "This issue required priority." },
+      { "name": "Roadmap", "color": "8F1784", "description": "Feature or bug currently planned for implementation." }
+    ]
+
 
 jobs:
+
+  # ---------------------------------------------------------------------------------------
+  #   Verify Existing Labels
+  #   This job will ensure you have labels already created in your repo.
+  #
+  #   All labels come from the JSON table LABELS_JSON.
+  # ---------------------------------------------------------------------------------------
+
+  Submission_Labels_Verify:
+    name: "Labels: Verify"
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+
+      - name: Verify Existing Labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = JSON.parse( process.env.LABELS_JSON );
+            for ( const label of labels )
+            {
+                try
+                {
+                    await github.rest.issues.createLabel(
+                    {
+                        owner:        context.repo.owner,
+                        repo:         context.repo.repo,
+                        name:         label.name,
+                        description:  label.description || '',
+                        color:        label.color
+                    });
+                }
+                catch ( err )
+                {
+                    // label already exists
+                    if ( err.status === 422 )
+                    {
+                        console.log( `Label '${label.name}' already exists. Skipping.` );
+                    }
+                    else
+                    {
+                        // Log other errors
+                        console.error( `Error creating label '${label.name}': ${err}` );
+                    }
+                }
+            }
 
   # ---------------------------------------------------------------------------------------
   # Check Title
