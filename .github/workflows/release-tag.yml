@@ -1,50 +1,260 @@
 # ---------------------------------------------------------------------------------------
 #   @parent     : github workflow
-#   @desc       : push release (tag)
+#   @desc       : push release
 #   @author     : Aetherinox
 #   @url        : https://github.com/Aetherinox
 # ---------------------------------------------------------------------------------------
 
-name: "Publish Release [Tag]"
-run-name: "Release [Tag] - ${{ github.event.workflow_run.id }}"
+name: "Release Product"
+run-name: "Release Product"
 
 on:
   workflow_dispatch:
     inputs:
-      prerelease:
-        description: "prerelease"
-        required: true
-        default: false
-        type: boolean
+      PLUGIN_NAME:
+
+      # ---------------------------------------------------------------------------------------
+      #   Name of the plugin to use when creating the release zip filename
+      #     e.g: gistr-v1.0.0.zip
+      # ---------------------------------------------------------------------------------------
+
+        description:  'Name of Plugin'
+        required:     true
+        default:      'gistr'
+        type:         string
+
+      # ---------------------------------------------------------------------------------------
+      #   ENABLE:   released version will be marked as pre-release
+      #   DISABLE:  release version will be marked as stable / normal release
+      # ---------------------------------------------------------------------------------------
+
+      PRERELEASE:
+        description:  "Build RC (Pre-release)"
+        required:     true
+        default:      false
+        type:         boolean
+
+      # ---------------------------------------------------------------------------------------
+      #   ENABLE:   the changelog generated in releases tab will only display single commits.
+      #   DISABLE:  the changelog shows pull requests completed based on their labels
+      # ---------------------------------------------------------------------------------------
+
+      CHANGELOG_MODE_COMMIT:
+        description:  "Commit Instead of Pull Changelog"
+        required:     true
+        default:      false
+        type:         boolean
+
+      # ---------------------------------------------------------------------------------------
+      #   Release Candidate version number
+      #   this will be added to the end of your released app in the releases page.
+      #     e.g: gistr-v1.0.0-rc.1
+      # ---------------------------------------------------------------------------------------
+
+      VERSION_RC:
+        description:  "RC (Pre-release) Ver (plugin-rc.v1)"
+        required:     false
+        type:         string
+        default:      1
+
+# ---------------------------------------------------------------------------------------
+#   environment variables
+# ---------------------------------------------------------------------------------------
 
 env:
     PLUGIN_NAME: gistr
+
+# ---------------------------------------------------------------------------------------
+#   jobs
+# ---------------------------------------------------------------------------------------
+
 jobs:
     build:
         runs-on: ubuntu-latest
+        permissions:
+          contents: write
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
+              with:
+                fetch-depth: 0
             - name: Use Node.js
               uses: actions/setup-node@v1
+              id: checkout
               with:
                   node-version: "20.x"
+
+            # ---------------------------------------------------------------------------------------
+            #   Get version from package.json VERSION value
+            # ---------------------------------------------------------------------------------------
+
             - name: Get Package Version
               id: get_package_version
               run: echo "PACKAGE_VERSION=$(cat package.json | jq -r '.version')" >> $GITHUB_ENV
-            - name: Build
-              id: build
+
+            # ---------------------------------------------------------------------------------------
+            #   Build Zip
+            # ---------------------------------------------------------------------------------------
+
+            - name: "[Build]: Stable"
+              id: build-st
+              if: ${{ startsWith( inputs.PRERELEASE, false ) }}
               run: |
-                  echo Building package .zip PACKAGE_VERSION
+                  echo Building STABLE Package .zip PACKAGE_VERSION
                   npm ci
                   npm run build
-                  zip -jr ${{ env.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip dist/*
+                  zip -jr ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip dist/*
                   ls
-            - name: Release
-              uses: softprops/action-gh-release@v1
+
+            - name: "[Build]: Release Candidate"
+              id: build-rc
+              if: ${{ startsWith( inputs.PRERELEASE, true ) }}
+              run: |
+                  echo Building PRE-RELEASE Package .zip PACKAGE_VERSION
+                  npm ci
+                  npm run build
+                  zip -jr ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}-rc.${{ inputs.VERSION_RC }}.zip dist/*
+                  ls
+
+            # ---------------------------------------------------------------------------------------
+            #   [ Release Candidate ]: Checksum
+            # ---------------------------------------------------------------------------------------
+
+            - name: "[Checksum]: Stable"
+              id: checksum-st
+              if: ${{ startsWith( inputs.PRERELEASE, false ) }}
+              run: |
+                shasum --algorithm 256 ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip > SHA256SUMS.txt
+
+            - name: "[Checksum]: Release Candidate"
+              id: checksum-rc
+              if: ${{ startsWith( inputs.PRERELEASE, true ) }}
+              run: |
+                shasum --algorithm 256 ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}-rc.${{ inputs.VERSION_RC }}.zip > SHA256SUMS.txt
+
+            # ---------------------------------------------------------------------------------------
+            #   Contributor Images
+            # ---------------------------------------------------------------------------------------
+
+            - name: "[Contributors]: Generate"
+              id: contribs-generate
+              uses: jaywcjlove/github-action-contributors@main
               with:
-                  tag_name: ${{ env.PACKAGE_VERSION }}
-                  files: |
-                      ${{ env.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip
-                      dist/main.js
-                      dist/manifest.json
-                      dist/styles.css
+                filter-author: (renovate\[bot\]|renovate-bot|dependabot\[bot\])
+                output: CONTRIBUTORS.svg
+                avatarSize: 42
+
+            # ---------------------------------------------------------------------------------------
+            #   Generate Changelog
+            #
+            #   generates a changelog from the github api. requires a PREVIOUS_TAG in order to figure
+            #   out the changes made between the two versions.
+            #
+            #   outputs:
+            #     ${{ steps.changelog.outputs.changelog }}
+            # ---------------------------------------------------------------------------------------
+
+            - name: "Build Changelog: Pre Setup"
+              run: |
+                echo "TAG_LAST=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
+                echo "COMMIT_LAST=$(git rev-parse HEAD)" >> $GITHUB_ENV
+
+            - name: Build Changelog
+              id: changelog
+              uses: mikepenz/release-changelog-builder-action@v3
+              with:
+                fromTag: "${{ env.TAG_LAST }}"
+                toTag: ${{ github.ref }}
+                configuration: ".github/changelog-configuration.json"
+                ignorePreReleases: false
+                commitMode: ${{ inputs.CHANGELOG_MODE_COMMIT }}
+                fetchReleaseInformation: true
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            # ---------------------------------------------------------------------------------------
+            #   Fetch Changelog
+            # ---------------------------------------------------------------------------------------
+
+            - name: "[Changelog]: Get"
+              run: |
+                echo "${{ steps.changelog.outputs.changelog }}"
+
+            # ---------------------------------------------------------------------------------------
+            #   [ Release ]: Post Release
+            #
+            #   outputs:
+            #     [RELEASE ID]:
+            #       ${{ steps.bundle-rc.outputs.id
+            #       ${{ steps.bundle-st.outputs.id
+            # ---------------------------------------------------------------------------------------
+
+            - name: "[Post]: Stable"
+              if: ${{ startsWith( inputs.PRERELEASE, false ) }}
+              uses: softprops/action-gh-release@v1
+              id: bundle-st
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                name: v${{ env.PACKAGE_VERSION }}
+                tag_name: ${{ env.PACKAGE_VERSION }}
+                target_commitish: ${{ github.event.inputs.branch }}
+                draft: false
+                generate_release_notes: false
+                files: |
+                  ${{ inputs.PLUGIN_NAME }}-${{ inputs.PLUGIN_NAME }}.zip
+                  dist/main.js
+                  dist/manifest.json
+                  dist/styles.css
+                  checksum.txt
+                prerelease: false
+                body: |
+                  ${{ steps.changelog.outputs.changelog }}
+                  ---
+
+            - name: "[Post]: Release Candidate"
+              if: ${{ startsWith( inputs.PRERELEASE, true ) }}
+              uses: softprops/action-gh-release@v1
+              id: bundle-rc
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                name: v${{ env.PACKAGE_VERSION }}
+                tag_name: ${{ env.PACKAGE_VERSION }}
+                target_commitish: ${{ github.event.inputs.branch }}
+                draft: false
+                generate_release_notes: false
+                files: |
+                  ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip
+                  dist/main.js
+                  dist/manifest.json
+                  dist/styles.css
+                  checksum.txt
+                prerelease: false
+                body: |
+                  > [!WARNING]
+                  > This is a **release candidate**, which means it is not a stable release and could contain bugs. You should download it at your own risk.
+
+                  ${{ steps.changelog.outputs.changelog }}
+                  ---
+
+            # ---------------------------------------------------------------------------------------
+            #   Print Status
+            # ---------------------------------------------------------------------------------------
+
+            - name: "[Status]: Print"
+              run: |
+                echo "Printing Variables"
+                echo 
+                echo "---- CHANGELOG ---------------------------------------------------------------"
+                echo "${{ steps.changelog.outputs.changelog }}"
+                echo "---- CHANGELOG ---------------------------------------------------------------"
+                echo ""
+                echo ""
+                echo "---- VARIABLES ---------------------------------------------------------------"
+                echo "Package Version ............ ${{ env.PACKAGE_VERSION }}"
+                echo "Tag: Previous .............. ${{ env.TAG_LAST }}"
+                echo "Tag: Now.... ............... ${{ github.ref }}"
+                echo "Last Commit ................ ${{ env.COMMIT_LAST }}"
+                echo "ST Output ID ............... ${{ steps.bundle-st.outputs.id }}"
+                echo "RC Output ID ............... ${{ steps.bundle-rc.outputs.id }}"
+                echo "---- CHANGELOG ---------------------------------------------------------------"
