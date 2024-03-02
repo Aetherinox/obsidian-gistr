@@ -26,6 +26,7 @@ env:
   LABEL_BUG: Bug
   LABEL_FEATURE: Feature
   LABEL_URGENT: Urgent
+  LABEL_ROADMAP: Roadmap
   ASSIGN_USER: Aetherinox
   BOT_NAME_1: AdminServ
   BOT_NAME_2: AdminServX
@@ -63,7 +64,7 @@ jobs:
           ( !startsWith( steps.bug_title.outputs.lowercase, 'bug' ) ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           TITLE: "Bug: $github.event.issue.title"
@@ -98,7 +99,7 @@ jobs:
           contains( steps.bug_title.outputs.lowercase, 'failed' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_BUG }}
@@ -123,7 +124,7 @@ jobs:
           contains( steps.bug_body.outputs.lowercase, 'failed' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_BUG }}
@@ -156,7 +157,7 @@ jobs:
           contains( steps.feature_title.outputs.lowercase, 'request' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_FEATURE }}
@@ -179,7 +180,7 @@ jobs:
           contains( steps.feature_body.outputs.lowercase, 'request' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_FEATURE }}
@@ -212,7 +213,7 @@ jobs:
           contains( steps.urgent_title.outputs.lowercase, 'important' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_URGENT }}
@@ -235,10 +236,68 @@ jobs:
           contains( steps.urgent_body.outputs.lowercase, 'important' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_URGENT }}
+
+
+  # ---------------------------------------------------------------------------------------
+  # Check Label: Roadmap
+  # ---------------------------------------------------------------------------------------
+
+  Submission_CheckLabel_Roadmap:
+    name:  "Label [Roadmap]: Check"
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+
+      # Check Submission TITLE to assign "ROADMAP" label
+
+      - name: ${{ env.ROADMAP_URGEMT }} [ Title ] - String Manipulation
+        id: roadmap_title
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.issue.title }}
+
+      - name: ${{ env.ROADMAP_URGEMT }} [ Title ] - Check
+        if: |
+          github.event.issue &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
+          ( contains( steps.roadmap_title.outputs.lowercase, 'roadmap' ) ||
+          contains( steps.roadmap_title.outputs.lowercase, 'road map' ) ||
+          contains( steps.roadmap_title.outputs.lowercase, 'planned' ) )
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: ${{ env.LABEL_URGENT }}
+
+      # Check Submission BODY to assign "ROADMAP" label
+
+      - name: ${{ env.ROADMAP_URGEMT }} [ Body ] - String Manipulation
+        id: roadmap_body
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.issue.body }}
+
+      - name: ${{ env.ROADMAP_URGEMT }} [ Body ] - Check
+        if: |
+          github.event.issue &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
+          ( contains( steps.roadmap_body.outputs.lowercase, 'roadmap' ) ||
+          contains( steps.roadmap_body.outputs.lowercase, 'road map' ) ||
+          contains( steps.roadmap_body.outputs.lowercase, 'planned' ) )
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: ${{ env.LABEL_URGENT }}
+
 
   # ----------------------------------------
   # Assign
@@ -252,7 +311,7 @@ jobs:
       - name: "Add Assignee"
         run: gh issue edit "$NUMBER" --add-assignee "$ASSIGNEE"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           ASSIGNEE: ${{ env.ASSIGN_USER }}
