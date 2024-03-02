@@ -66,12 +66,7 @@ body
     text-align:             right;
 }
 
-.gistr-settings-expand
-{
-    padding-bottom:         20px;
-}
-
-.gistr-settings-expand::after
+.gistr-settings-header::after
 {
     position:               relative;
     display:                inline-block;
@@ -95,7 +90,7 @@ body
         scale               var( --header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
 }
 
-.gistr-settings-expand.isfold::after
+.gistr-settings-header.isfold::after
 {
     transform:              rotate( -90deg );
 }
