@@ -241,7 +241,6 @@ jobs:
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_URGENT }}
 
-
   # ---------------------------------------------------------------------------------------
   # Check Label: Roadmap
   # ---------------------------------------------------------------------------------------
@@ -254,13 +253,13 @@ jobs:
 
       # Check Submission TITLE to assign "ROADMAP" label
 
-      - name: ${{ env.ROADMAP_URGEMT }} [ Title ] - String Manipulation
+      - name: ${{ env.LABEL_ROADMAP }} [ Title ] - String Manipulation
         id: roadmap_title
         uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ github.event.issue.title }}
 
-      - name: ${{ env.ROADMAP_URGEMT }} [ Title ] - Check
+      - name: ${{ env.LABEL_ROADMAP }} [ Title ] - Check
         if: |
           github.event.issue &&
           github.event.issue.user.login != '$env.BOT_NAME_1' &&
@@ -273,17 +272,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
-          LABELS: ${{ env.LABEL_URGENT }}
+          LABELS: ${{ env.LABEL_ROADMAP }}
 
       # Check Submission BODY to assign "ROADMAP" label
 
-      - name: ${{ env.ROADMAP_URGEMT }} [ Body ] - String Manipulation
+      - name: ${{ env.LABEL_ROADMAP }} [ Body ] - String Manipulation
         id: roadmap_body
         uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ github.event.issue.body }}
 
-      - name: ${{ env.ROADMAP_URGEMT }} [ Body ] - Check
+      - name: ${{ env.LABEL_ROADMAP }} [ Body ] - Check
         if: |
           github.event.issue &&
           github.event.issue.user.login != '$env.BOT_NAME_1' &&
@@ -296,7 +295,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
-          LABELS: ${{ env.LABEL_URGENT }}
+          LABELS: ${{ env.LABEL_ROADMAP }}
 
 
   # ----------------------------------------
