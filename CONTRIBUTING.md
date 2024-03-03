@@ -17,6 +17,8 @@
   - [Pull requests eligible for review](#pull-requests-eligible-for-review)
   - [Conventional Commit Specification](#conventional-commit-specification)
     - [Types](#types)
+      - [Example 1:](#example-1)
+      - [Example 2:](#example-2)
   - [References](#references)
   - [Vertical alignment](#vertical-alignment)
   - [Spaces Instead Of Tabs](#spaces-instead-of-tabs)
@@ -93,7 +95,7 @@ When commiting your changes, we require you to follow the Conventional Commit Sp
 | `docs` | A change to the website or Markdown documents |
 | `build` | The commit alters the build process. E.g: creating a new build task, updating the release script, editing Makefile. |
 | `test` | Adds missing tests, refactoring tests; no production code change. Usually changes the suite of automated tests for the product. |
-| `pref` | Improves performance of algorithms or general execution time of the product, but does not fundamentally change an existing feature. |
+| `perf` | Improves performance of algorithms or general execution time of the product, but does not fundamentally change an existing feature. |
 | `style` | Updates or reformats the style of the source code, but does not otherwise change the product implementation. Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) |
 | `refactor` | A change to production code that leads to no behavior difference, e.g. splitting files, renaming internal variables, improving code style, etc. |
 | `change` | Changes the implementation of an existing feature. |
@@ -106,17 +108,35 @@ When commiting your changes, we require you to follow the Conventional Commit Sp
 
 <br />
 
-Example:
+##### Example 1:
 
 ```
 feat(core): allow overriding of webpack config
-^--^^----^  ^------------^
-|   |       |
-|   |       +-> (DESC): Summary in present tense. Use lower case not title case!
-|   |
-|   +-> (SCOPE): The package(s) that this change affects
-|
-+-------> (TYPE): see above for the list
+^───^────^  ^────────────────────────────────^
+│   │       │
+│   │       └───⫸ (DESC):   Summary in present tense. Use lower case not title case!
+│   │
+│   └───────────⫸ (SCOPE):  The package(s) that this change affects
+│
+└───────────────⫸ (TYPE):   See list above
+```
+
+<br />
+
+##### Example 2:
+```
+<type>(<scope>): <short summary>
+  │       │             │
+  │       │             └─⫸ Summary in present tense. Not capitalized. No period at the end.
+  │       │
+  │       └─⫸ Commit Scope: animations|bazel|benchpress|common|compiler|compiler-cli|core|
+  │                          elements|forms|http|language-service|localize|platform-browser|
+  │                          platform-browser-dynamic|platform-server|router|service-worker|
+  │                          upgrade|zone.js|packaging|changelog|docs-infra|migrations|ngcc|ve|
+  │                          devtools....
+  │
+  └─⫸ Commit Type: build|ci|doc|docs|feat|fix|perf|refactor|test
+                    website|chore|style|type|revert|deprecate
 ```
 
 <br />
