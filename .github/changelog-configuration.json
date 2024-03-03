@@ -6,14 +6,14 @@
         },
         {
             "title": "### ✨ Optimizations",
-            "labels": [ "kind/pref", "optimization", "perf", "optimize" ]
+            "labels": [ "kind/pref", "optimization", "pref", "optimize" ]
         },
         {
             "title": "### 🐛 Bugfixes",
             "labels": [ "kind/bug", "fix", "bug" ]
         },
         {
-            "title": "### 🧹 Changes",
+            "title": "### 🔧 Changes",
             "labels": [ "kind/chore", "change", "chore" ]
         },
         {
@@ -25,7 +25,7 @@
             "labels": [ "kind/test", "test" ]
         },
         {
-            "title": "## 📦 Dependencies",
+            "title": "## 📦 Build & Dependencies",
             "labels": [ "kind/build", "build", "dependency", "package" ]
         },
         {
@@ -33,8 +33,16 @@
             "labels": [ "kind/security", "security" ]
         },
         {
+            "title": "### 🧹 Housekeeping",
+            "labels": [ "kind/refactor", "refactor", "style" ]
+        },
+        {
+            "title": "### 🐒 Miscellaneous",
+            "labels": [ "kind/misc", "misc" ]
+        },
+        {
             "title": "## ⛔ Deprecated",
-            "labels": [ "kind/deprecated", "deprecate" ]
+            "labels": [ "kind/deprecate", "deprecate" ]
         },
         {
             "title": "## ⛔ Removed",
@@ -50,18 +58,19 @@
           "name": "TITLE_ONLY",
           "source": "TITLE",
           "transformer": {
-            "pattern": "^(\\w+:\\s?)?(.+)",
-            "target": "$2"
+            "method": "regexr",
+            "pattern": "(\\w+(\\(.+\\))?: ?)?(.+)",
+            "target": "$2 $3"
           }
         }
       ],
     "label_extractor": [
         {
-        "pattern": "^(build|ci|change|chore|doc|docs|wiki||remove|deprecate|security|dependency|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|revert|style|test):(.*)",
+        "pattern": "^(build|ci|change|chore|doc|docs|wiki||remove|deprecate|security|dependency|package|feat|feature|fix|bug|pref|optimize|optimization|refactor|revert|style|test):(.*)",
         "target": "$1"
         },
         {
-        "pattern": "^(build|ci|change|chore|doc|docs|wiki||remove|deprecate|security|dependency|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|revert|style|test){1}(\\([\\w\\-\\.]+\\))?(!)?:(.*)",
+        "pattern": "^(build|ci|change|chore|doc|docs|wiki||remove|deprecate|security|dependency|package|feat|feature|fix|bug|pref|optimize|optimization|refactor|revert|style|test){1}(\\([\\w\\-\\.]+\\))?(!)?:(.*)",
         "target": "$1"
         }
     ],
