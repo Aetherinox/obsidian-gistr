@@ -201,7 +201,7 @@ jobs:
                 draft: false
                 generate_release_notes: false
                 files: |
-                  ${{ inputs.PLUGIN_NAME }}-${{ inputs.PACKAGE_VERSION }}.zip
+                  ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip
                   dist/main.js
                   dist/manifest.json
                   dist/styles.css
