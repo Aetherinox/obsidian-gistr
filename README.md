@@ -82,6 +82,25 @@ gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 <br />
 
+As of `v1.1.0`, this plugin now supports the ability to override a theme with OpenGist. No matter what theme you have selected in your Obsidian plugin settings; you can set a specific gist to use any of the themes available by appending `#themename` to the end of your gist url.
+
+<br />
+
+**Theme Options:**
+- `dark`
+- `light`
+
+<br />
+
+```
+https://gist.yourdomain.com/Username/Gist_ID#light
+https://gist.yourdomain.com/Username/Gist_ID#dark
+```
+
+<br />
+
+<p align="center"><img style="width: 65%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/89283b6f-474c-40c5-b008-2966f506e9e1"></p>
+
 <br />
 
 ## Github Gist
