@@ -141,9 +141,6 @@ export class GistrBackend
     
         ct_iframe.classList.add ( `${ PID }-container` )
 
-        if ( bGithub === true )
-            ct_iframe.classList.add ( `full-dark-gist` )
-
         ct_iframe.setAttribute  ( 'sandbox',    'allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation' )
         ct_iframe.setAttribute  ( 'loading',    'lazy' )
         ct_iframe.setAttribute  ( 'width',      '100%' )
@@ -163,20 +160,37 @@ export class GistrBackend
         let css_theme_ovr           = ( theme !== "" ) ? theme.toLowerCase( ) : ""
         let css_theme_sel           =   ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme == "Dark" ) ? "dark" : ( this.settings.theme == "Light" ) ? "light"  : "light"
         let css_og                  = ""
+        let css_gh                  = ""
 
         const content_css           = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
         const content_body          = ( bGithub ? json.div : "" )
         const content_js            = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( css_theme_sel == "dark" ? json.embed.js_dark : json.embed.js ) ) )
-        const css_bg_color          = ( css_theme_sel == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
-        const css_sb_color          = ( css_theme_sel == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
-        const css_bg_og_header_bg   = ( css_theme_sel == "dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
-        const css_bg_og_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
+
+        /*
+            CSS Overrides > Github
+        */
+
+        const css_gh_bg_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
+        const css_gh_sb_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
+        const css_gh_bg_header_bg   = ( css_theme_sel == "dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
+        const css_gh_bg_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
+        const css_gh_tx_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
+
+        /*
+            CSS Overrides > OpenGist
+        */
+
+        const css_og_bg_color       = ( css_theme_sel == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
+        const css_og_sb_color       = ( css_theme_sel == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
+        const css_og_bg_header_bg   = ( css_theme_sel == "dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
+        const css_og_bg_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
+        const css_og_tx_color       = ( css_theme_sel == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
 
         /*
             Declare custom css override
         */
 
-        const css_override      = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
+        const css_override          = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
 
         /*
             OpenGist specific CSS
@@ -193,19 +207,31 @@ export class GistrBackend
 
         const css_og_append =
         `
-
         ::-webkit-scrollbar
         {
             width:              6px;
             height:             10px;
+        }
+        
+        ::-webkit-scrollbar-track
+        {
+            background-color:   transparent;
+            border-radius:      5px;
+            margin:             1px;
+        }
+        
+        ::-webkit-scrollbar-thumb
+        {
+            border-radius:      10px;
+            background-color:   ${css_og_sb_color};
         }
 
         .opengist-embed .code
         {
             padding-top:        ${this.settings.blk_pad_t}px;
             padding-bottom:     ${this.settings.blk_pad_b}px;
-            border-top:         ${css_bg_og_header_bor};
-            background-color:   ${css_bg_color};
+            border-top:         ${css_og_bg_header_bor};
+            background-color:   ${css_og_bg_color};
             width:              fit-content;
             margin-top:         -1px;
         }
@@ -220,13 +246,326 @@ export class GistrBackend
             margin-bottom:      1rem;
             backdrop-filter:    opacity(0);
             --tw-bg-opacity:    1;
-            background-color:   ${css_bg_og_header_bg};
+            background-color:   ${css_og_bg_header_bg};
         }
+
+        .opengist-embed .line-code
+        {
+            color:              ${css_og_tx_color};
+        }
+
+        .opengist-embed .code .line-num
+        {
+            color:              ${css_og_tx_color};
+            opacity:            0.5;
+        }
+
+        .opengist-embed .code .line-num:hover
+        {
+            color:              ${css_og_tx_color};
+            opacity:            1;
+        }
+
         </style>
         `
 
+        /*
+            Github > Light Theme
+        */
+
+        const css_gh_light_append =
+        `
+        ::-webkit-scrollbar
+        {
+            width:              6px;
+            height:             10px;
+        }
+        
+        ::-webkit-scrollbar-track
+        {
+            background-color:   transparent;
+            border-radius:      5px;
+            margin:             1px;
+        }
+        
+        ::-webkit-scrollbar-thumb
+        {
+            border-radius:      10px;
+            background-color:   ${css_gh_sb_color};
+        }
+
+        body
+        {
+            --tw-bg-opacity:        1;
+            --tw-border-opacity:    1;
+        }
+
+        body .gist .highlight
+        {
+            background:             transparent;
+        }
+
+        body .gist .blob-wrapper
+        {
+            padding-bottom:         6px !important;
+        }
+
+        body .gist .gist-data
+        {
+            padding-left:           8px;
+            padding-right:          8px;
+            padding-top:            13px;
+            padding-bottom:         10px;
+            background-color:       ${css_gh_bg_color};
+        }
+
+        body .gist .markdown-body
+        {
+            color:                  ${css_gh_tx_color};
+            line-height:            18.2px;
+            font-size:              0.8em;
+            border-spacing:         0;
+            border-collapse:        collapse;
+            font-family:            Menlo,Consolas,Liberation Mono,monospace;
+        }
+        `
+
+        /*
+            Github > Dark Theme
+        */
+
+        const css_gh_dark_append =
+        `
+        ::-webkit-scrollbar
+        {
+            width:              6px;
+            height:             10px;
+        }
+        
+        ::-webkit-scrollbar-track
+        {
+            background-color:   transparent;
+            border-radius:      5px;
+            margin:             1px;
+        }
+        
+        ::-webkit-scrollbar-thumb
+        {
+            border-radius:      10px;
+            background-color:   ${css_gh_sb_color};
+        }
+
+        body
+        {
+            --tw-bg-opacity:        1;
+            --tw-border-opacity:    1;
+        }
+
+        body .gist .gist-file
+        {
+            backdrop-filter:        opacity( 0 );
+            background-color:       rgb( 35 36 41/var( --tw-bg-opacity ) );
+            border-color:           rgb( 35 36 41/var( --tw-border-opacity) );
+        }
+
+        body .gist .gist-data
+        {
+            padding-left:           8px;
+            padding-right:          8px;
+            padding-top:            13px;
+            padding-bottom:         10px;
+            border-color:           #121315;
+            background-color:       ${css_gh_bg_color};
+        }
+
+        body .gist .markdown-body
+        {
+            color:                  ${css_gh_tx_color};
+            line-height:            18.2px;
+            font-size:              0.8em;
+            border-spacing:         0;
+            border-collapse:        collapse;
+            font-family:            Menlo,Consolas,Liberation Mono,monospace;
+        }
+
+        body .gist .gist-meta
+        {
+            color:                  ${css_gh_tx_color};
+            border-top:             ${css_gh_bg_header_bor};
+            background-color:       ${css_gh_bg_header_bg};
+            padding-left:           16px;
+            padding-right:          16px;
+            padding-top:            8px;
+            padding-bottom:         8px;
+        }
+
+        body .gist .gist-meta a
+        {
+            color:                  rgb(186 188 197/var(--tw-text-opacity));
+        }
+
+        body .gist .gist-meta a.Link--inTextBlock:hover
+        {
+            color:                  #FFFFFF;
+        }
+
+        body .gist .gist-meta a.Link--inTextBlock
+        {
+            padding-right:          8px;
+            color:                  ${css_gh_tx_color};
+            opacity:                0.9;
+        }
+
+        body .gist .gist-data .pl-s .pl-s1
+        {
+            color:                  #a5c261
+        }
+
+        body .gist .highlight
+        {
+            background:             transparent;
+        }
+        
+        body .gist .blob-wrapper
+        {
+            padding-bottom:         6px !important;
+        }
+
+        body .gist .pl-s2, body .gist .pl-stj, body .gist .pl-vo,
+        body .gist .pl-id, body .gist .pl-ii
+        {
+            color:                  ${css_gh_tx_color};
+        }
+
+        body .gist .blob-code
+        {
+            color:                  ${css_gh_tx_color};  
+        }
+
+        body .gist .blob-num, body .gist .blob-code-inner,
+        {
+            color:                  ${css_gh_tx_color};
+            opacity:                0.5;
+        }
+
+        body .gist .blob-num:hover
+        {
+            color:                  ${css_gh_tx_color};
+            opacity:                1;
+        }
+
+        body .gist .pl-enti, body .gist .pl-mb, body .gist .pl-pdb
+        {
+            font-weight:            700;
+        }
+
+        body .gist .pl-c, body .gist .pl-c span, body .gist .pl-pdc
+        {
+            color:                 #bc9458;
+            font-style:            italic;
+        }
+
+        body .gist .pl-c1, body .gist .pl-pdc1, body .gist .pl-scp
+        {
+            color:                 #6c99bb;
+        }
+
+        body .gist .pl-ent, body .gist .pl-eoa, body .gist .pl-eoai, body .gist .pl-eoai .pl-pde,
+        body .gist .pl-ko, body .gist .pl-kolp, body .gist .pl-mc, body .gist .pl-mr, body .gist .pl-ms,
+        body .gist .pl-s3, body .gist .pl-sok
+        {
+            color:                 #ffe5bb;
+        }
+
+        body .gist .pl-mdh, body .gist .pl-mdi, body .gist .pl-mdr
+        {
+            font-weight:           400;
+        }
+        
+        body .gist .pl-mi, body .gist .pl-pdi
+        {
+            color:                 #ffe5bb;
+            font-style:            italic;
+        }
+
+        body .gist .pl-sra,
+        body .gist .pl-src,
+        body .gist .pl-sre
+        {
+            color:                 #cc3;
+        }
+
+        body .gist .pl-mdht, body .gist .pl-mi1
+        {
+            color:                 #a5c261;
+            background:            #121315;
+        }
+
+        body .gist .pl-md, body .gist .pl-mdhf
+        {
+            color:                 #b83426;
+            background:            #121315;
+        }
+
+        body .gist .pl-ib, body .gist .pl-id,
+        body .gist .pl-ii, body .gist .pl-iu
+        {
+            background:            #121315;
+        }
+
+        body .gist .pl-ms1
+        {
+            background:            #121315;
+        }
+
+        body .gist .highlight-text-html-basic .pl-ent,
+        body .gist .pl-cce, body .gist .pl-cn, body .gist .pl-coc, body .gist .pl-enc,
+        body .gist .pl-ens, body .gist .pl-k, body .gist .pl-kos, body .gist .pl-kou,
+        body .gist .pl-mh .pl-pdh, body .gist .pl-mp, body .gist .pl-mp .pl-s3,
+        body .gist .pl-mp1 .pl-sf, body .gist .pl-mq, body .gist .pl-mri,
+        body .gist .pl-pde, body .gist .pl-pse, body .gist .pl-pse .pl-s2,
+        body .gist .pl-s, body .gist .pl-st, body .gist .pl-stp, body .gist .pl-sv,
+        body .gist .pl-v, body .gist .pl-va, body .gist .pl-vi, body .gist .pl-vpf,
+        body .gist .pl-vpu, body .gist .pl-mdr
+        {
+                color: #cc7833;
+        }
+
+        body .gist .pl-cos, body .gist .pl-ml, body .gist .pl-pds,
+        body .gist .pl-s1, body .gist .pl-sol, body .gist .pl-mb,
+        body .gist .pl-pdb
+        {
+                color: #a5c261;
+        }
+        
+        body .gist .pl-e, body .gist .pl-en, body .gist .pl-entl,
+        body .gist .pl-mo, body .gist .pl-sc, body .gist .pl-sf,
+        body .gist .pl-smi, body .gist .pl-smp, body .gist .pl-mdh,
+        body .gist .pl-mdi
+        {
+                color: #ffc66d;
+        }
+
+        body .gist .pl-ef, body .gist .pl-enf, body .gist .pl-enm, body .gist .pl-entc,
+        body .gist .pl-entm, body .gist .pl-eoac, body .gist .pl-eoac .pl-pde, body .gist .pl-eoi,
+        body .gist .pl-mai .pl-sf, body .gist .pl-mm, body .gist .pl-pdv, body .gist .pl-smc,
+        body .gist .pl-som, body .gist .pl-sr, body .gist .pl-enti
+        {
+                color: #b83426;
+        }
+
+        </style>
+        `
+    
         if ( bGithub === false )
             css_og = css_og_append
+        else
+        {
+            if ( css_theme_sel == "dark" )
+                css_gh = css_gh_dark_append
+            else if ( css_theme_sel == "light" )
+                css_gh = css_gh_light_append
+        }
 
         /*
             generate html output
@@ -238,23 +577,6 @@ export class GistrBackend
             <head>
                 <style>
                     html, body { height: 100%; margin: 0; padding: 0; }
-                    ::-webkit-scrollbar
-                    {
-                        height:             10px;
-                    }
-                    
-                    ::-webkit-scrollbar-track
-                    {
-                        background-color:   transparent;
-                        border-radius:      5px;
-                        margin:             1px;
-                    }
-                    
-                    ::-webkit-scrollbar-thumb
-                    {
-                        border-radius:      10px;
-                        background-color:   ${css_sb_color};
-                    }
                 </style>
 
                 ${this.EventListener( gid )}
@@ -267,6 +589,7 @@ export class GistrBackend
                 <style>
                 ${css_override}
                 ${css_og}
+                ${css_gh}
                 </style>
 
                 <script>

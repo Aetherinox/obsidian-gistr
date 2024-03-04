@@ -31,10 +31,20 @@ const CFG_DEFAULT: GistrSettings =
     theme:              "Light",
     blk_pad_t:          10,
     blk_pad_b:          20,
+
     og_clr_bg_light:    "#cbcbcb",
     og_clr_bg_dark:     "#121315",
     og_clr_sb_light:    "#808080",
-    og_clr_sb_dark:     "#363636"
+    og_clr_sb_dark:     "#363636",
+    og_clr_tx_light:    "#2A2626",
+    og_clr_tx_dark:     "#CAD3F5",
+
+    gh_clr_bg_light:    "#E5E5E5",
+    gh_clr_bg_dark:     "#121315",
+    gh_clr_sb_light:    "#3d85c4",
+    gh_clr_sb_dark:     "#363636",
+    gh_clr_tx_light:    "#2A2626",
+    gh_clr_tx_dark:     "#CAD3F5"
 }
 
 /*
@@ -50,6 +60,15 @@ export interface ColorPickrOpts
     'og_clr_bg_dark'?:      string
     'og_clr_sb_light'?:     string
     'og_clr_sb_dark'?:      string
+    'og_clr_tx_light'?:     string
+    'og_clr_tx_dark'?:      string
+
+    'gh_clr_bg_light'?:     string
+    'gh_clr_bg_dark'?:      string
+    'gh_clr_sb_light'?:     string
+    'gh_clr_sb_dark'?:      string
+    'gh_clr_tx_light'?:     string
+    'gh_clr_tx_dark'?:      string
 }
 
 /*
@@ -62,6 +81,15 @@ const ColorPickrDefaults: Record< string, Color > =
 	"og_clr_bg_dark":   "#121315",
 	"og_clr_sb_light":  "#808080",
 	"og_clr_sb_dark":   "#363636",
+	"og_clr_tx_light":  "#2A2626",
+	"og_clr_tx_dark":   "#CAD3F5",
+
+	"gh_clr_bg_light":  "#E5E5E5",
+	"gh_clr_bg_dark":   "#121315",
+	"gh_clr_sb_light":  "#3d85c4",
+	"gh_clr_sb_dark":   "#363636",
+	"gh_clr_tx_light":  "#2A2626",
+	"gh_clr_tx_dark":   "#CAD3F5",
 }
 
 /*
@@ -336,6 +364,26 @@ class OG_Tab_Settings extends PluginSettingTab
             elm.createEl( 'small', { cls: "gistr-settings-section-description", text: lng( "cfg_tab_ge_header" ) } )
 
             /*
+                Codeblock > Theme
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_ge_theme_name" ) )
+                .setDesc( lng( "cfg_tab_ge_theme_desc" ) )
+                .addDropdown( dropdown =>
+                {
+                    dropdown
+                        .addOption( Themes.LIGHT, Themes_GetName[ Themes.LIGHT ] )
+                        .addOption( Themes.DARK, Themes_GetName[ Themes.DARK ] )
+                        .setValue( this.plugin.settings.theme )
+                        .onChange( async ( val ) =>
+                        {
+                            this.plugin.settings.theme = val
+                            await this.plugin.saveSettings( )
+                        } )
+                } )
+
+            /*
                 Command Keyword
 
                 changing this will cause all opengist portals to not function until the keyword is changed
@@ -411,7 +459,6 @@ class OG_Tab_Settings extends PluginSettingTab
                     "og_clr_bg_light",
                 ) } )
 
-
             /*
                 Background color (Dark)
             */
@@ -423,6 +470,32 @@ class OG_Tab_Settings extends PluginSettingTab
                     (
                         this.plugin, elm, setting,
                         "og_clr_bg_dark",
+                ) } )
+
+            /*
+                Text color (Light)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_og_tx_light_name" ) )
+                .setDesc( lng( "cfg_tab_og_tx_light_desc" ) )
+                .then( ( setting ) => { this.new_ColorPicker
+                (
+                    this.plugin, elm, setting,
+                    "og_clr_tx_light",
+                ) } )
+
+            /*
+                Text color (Dark)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_og_tx_dark_name" ) )
+                .setDesc( lng( "cfg_tab_og_tx_dark_desc" ) )
+                    .then( ( setting ) => { this.new_ColorPicker
+                    (
+                        this.plugin, elm, setting,
+                        "og_clr_tx_dark",
                 ) } )
 
             /*
@@ -501,26 +574,6 @@ class OG_Tab_Settings extends PluginSettingTab
                 } ).classList.add( 'gistr-settings-elm-slider-preview' )
 
             /*
-                Codeblock > Theme
-            */
-
-            new Setting( elm )
-                .setName( lng( "cfg_tab_og_theme_name" ) )
-                .setDesc( lng( "cfg_tab_og_theme_desc" ) )
-                .addDropdown( dropdown =>
-                {
-                    dropdown
-                        .addOption( Themes.LIGHT, Themes_GetName[ Themes.LIGHT ] )
-                        .addOption( Themes.DARK, Themes_GetName[ Themes.DARK ] )
-                        .setValue( this.plugin.settings.theme )
-                        .onChange( async ( val ) =>
-                        {
-                            this.plugin.settings.theme = val
-                            await this.plugin.saveSettings( )
-                        } )
-                } )
-
-            /*
                 Codeblock > CSS Override
             */
 
@@ -577,6 +630,86 @@ class OG_Tab_Settings extends PluginSettingTab
                 attr: { style: 'display: block' },
                 text: lng( "cfg_tab_gh_header" )
             } )
+
+            /*
+                Background color (Light)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_gh_cb_light_name" ) )
+                .setDesc( lng( "cfg_tab_gh_cb_light_desc" ) )
+                .then( ( setting ) => { this.new_ColorPicker
+                (
+                    this.plugin, elm, setting,
+                    "gh_clr_bg_light",
+                ) } )
+
+            /*
+                Background color (Dark)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_gh_cb_dark_name" ) )
+                .setDesc( lng( "cfg_tab_gh_cb_dark_desc" ) )
+                    .then( ( setting ) => { this.new_ColorPicker
+                    (
+                        this.plugin, elm, setting,
+                        "gh_clr_bg_dark",
+                ) } )
+
+            /*
+                Text color (Light)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_gh_tx_light_name" ) )
+                .setDesc( lng( "cfg_tab_gh_tx_light_desc" ) )
+                .then( ( setting ) => { this.new_ColorPicker
+                (
+                    this.plugin, elm, setting,
+                    "gh_clr_tx_light",
+                ) } )
+
+            /*
+                Text color (Dark)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_gh_tx_dark_name" ) )
+                .setDesc( lng( "cfg_tab_gh_tx_dark_desc" ) )
+                    .then( ( setting ) => { this.new_ColorPicker
+                    (
+                        this.plugin, elm, setting,
+                        "gh_clr_tx_dark",
+                ) } )
+
+
+            /*
+                Scrollbar Track Color (Light)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_gh_sb_light_name" ) )
+                .setDesc( lng( "cfg_tab_gh_sb_light_desc" ) )
+                    .then( ( setting ) => { this.new_ColorPicker
+                    (
+                        this.plugin, elm, setting,
+                        "gh_clr_sb_light",
+                ) } )
+
+            /*
+                Scrollbar Track Color (Dark)
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_gh_sb_dark_name" ) )
+                .setDesc( lng( "cfg_tab_gh_sb_dark_desc" ) )
+                    .then( ( setting ) => { this.new_ColorPicker
+                    (
+                        this.plugin, elm, setting,
+                        "gh_clr_sb_dark",
+                ) } )
+
 
             /*
                 Codeblock > CSS Override
