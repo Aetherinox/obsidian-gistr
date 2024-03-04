@@ -1,6 +1,30 @@
+
+## What is OpenGist?
+[OpenGist](https://github.com/thomiceli/opengist) is a self-hosted solution that works in a similar manner to Github Gists, but with the added bonus that you control the entire site. It is great for private gist hosting, and also supports other users being able to register on your site and host their own gists. It also includes its own API, and is compatible with [Github CLI (command-line)](https://cli.github.com/)
+
+This guide will not go into detailed instructions on how to install and configure an OpenGist server, however, you can use the buttons below for a very detailed set of instructions for getting started with your own self-hosted gist solution.
+
+OpenGist currently supports hosting your own gist server on
+
+- Windows
+- MacOS
+- Linux
+
+A list of useful links are provided below:
+- [Try OpenGist Demo](https://demo.opengist.io/all)
+- [Download OpenGist](https://github.com/thomiceli/opengist/releases)
+- [View OpenGist Docs](https://github.com/thomiceli/opengist/blob/master/docs/index.md)
+- [View Gistr Wiki](https://github.com/Aetherinox/obsidian-gistr/wiki)
+
+
+
+---
+
+
+## Using Gistr with OpenGist (Examples)
 The following examples show you how to integrate an OpenGist snippet into your notes.
 
-## Single Gist
+### Single Gist
 This is a single note specified by the base URL associated with your Github Gist snippet.
 ```gistr
 https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946
@@ -11,7 +35,7 @@ https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946
 ---
 
 
-## Multiple Gists
+### Multiple Gists
 This example shows a gist which has multiple files associated to it.
 
 ```gistr
@@ -22,7 +46,7 @@ https://demo.opengist.io/Aetherinox/51ea8c19c4ce4df586372abd91af6bb2
 ---
 
 
-## Multiple Gist (Select)
+### Multiple Gist (Select One)
 
 > [!IMPORTANT]
 > Currently, OpenGIst does not support picking out a particular file from a gist that hosts multiple. I am working with the developer to integrate this feature.
@@ -32,22 +56,26 @@ https://demo.opengist.io/Aetherinox/51ea8c19c4ce4df586372abd91af6bb2
 ---
 
 
-## Specify Theme
-With this example, despite what theme you have selected in Gistr's settings for a theme, you can override that theme selection for one particular gist by appending `#light` or `#dark` to the URL.
+### Theme Override
+In the `Gistr Settings` tab, you can select which theme you wish to use
+- Light
+- Dark
 
-### Light
-You can use the light theme by appending `#light` to the end of your URL.
-IE: `https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946#light`
+However, if you wish to force a particular theme for only one gist, you can append `&themename` on the end of your gist url. Replacing `themename` with either `dark` or `light`.
+
+#### Light
+You can use the light theme by appending `&light` to the end of your URL.
+IE: `https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946&light`
 ```gistr
-https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946#light
+https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946&light
 ```
 
 
-### Dark
-You can use the dark theme by appending `#dark` to the end of your URL.
-IE: `https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946#dark`
+#### Dark
+You can use the dark theme by appending `&dark` to the end of your URL.
+IE: `https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946&dark`
 ```gistr
-https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946#dark
+https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946&dark
 ```
 
 
@@ -55,7 +83,7 @@ https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e86946#dark
 ---
 
 
-## Gist Error
+### Gist Error
 This will display when the URL you have specified is invalid.
 ```gistr
 https://demo.opengist.io/Aetherinox/0f0cafd0b9474041a228dc2d41e00000
