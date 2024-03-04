@@ -5,8 +5,8 @@ export default interface GistrSettings
     css_og:             string | null
     css_gh:             string | null
     theme:              string | null
-    blk_pad_t:          number | 10
-    blk_pad_b:          number | 15
+    blk_pad_t:          number | 16
+    blk_pad_b:          number | 18
 
     og_clr_bg_light:    string | "cbcbcb"
     og_clr_bg_dark:     string | "121315"

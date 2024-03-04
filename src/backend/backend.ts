@@ -58,12 +58,13 @@ export class GistrBackend
 
     private async GistHandle( el: HTMLElement, data: string )
     {
-        const pattern       = /(?<protocol>https?:\/\/)?(?<host>[^/]+\/)?((?<username>[\w-]+)\/)?(?<uuid>\w+)(\#(?<filename>.+))?/
+        const pattern       = /(?<protocol>https?:\/\/)?(?<host>[^/]+\/)?((?<username>[\w-]+)\/)?(?<uuid>\w+)(\#(?<filename>\w+))?(\&(?<theme>\w+))?/
         const find          = data.match( pattern ).groups
         const host          = find.host
         const username      = find.username
         const uuid          = find.uuid
         const file          = find.filename
+        const theme         = find.theme
 
         /*
             Since opengist can really be any website, check for matching github links
@@ -83,7 +84,7 @@ export class GistrBackend
         */
 
         let gistSrcURL = ( file !== undefined ? `https://${host}${username}/${uuid}.json?file=${file}` : `https://${host}${username}/${uuid}.json` )
-        let og_ThemeOV = ( bMatchGithub == false && file !== undefined  ) ? file : ""
+        let og_ThemeOV = ( theme !== undefined  ) ? theme : ""
 
         const reqUrlParams: RequestUrlParam = { url: gistSrcURL, method: "GET", headers: { "Accept": "application/json" } }
         try
@@ -140,7 +141,6 @@ export class GistrBackend
         ct_iframe.id            = gid
     
         ct_iframe.classList.add ( `${ PID }-container` )
-
         ct_iframe.setAttribute  ( 'sandbox',    'allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation' )
         ct_iframe.setAttribute  ( 'loading',    'lazy' )
         ct_iframe.setAttribute  ( 'width',      '100%' )
@@ -158,33 +158,23 @@ export class GistrBackend
         */
 
         let css_theme_ovr           = ( theme !== "" ) ? theme.toLowerCase( ) : ""
-        let css_theme_sel           =   ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme == "Dark" ) ? "dark" : ( this.settings.theme == "Light" ) ? "light"  : "light"
+        let css_theme_sel           = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme == "Dark" ) ? "dark" : ( this.settings.theme == "Light" ) ? "light"  : "light"
         let css_og                  = ""
         let css_gh                  = ""
 
         const content_css           = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
         const content_body          = ( bGithub ? json.div : "" )
         const content_js            = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( css_theme_sel == "dark" ? json.embed.js_dark : json.embed.js ) ) )
-
+    
         /*
             CSS Overrides > Github
         */
 
         const css_gh_bg_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
         const css_gh_sb_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
-        const css_gh_bg_header_bg   = ( css_theme_sel == "dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
-        const css_gh_bg_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
+        const css_gh_bg_header_bg   = ( css_theme_sel == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
+        const css_gh_bg_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
         const css_gh_tx_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
-
-        /*
-            CSS Overrides > OpenGist
-        */
-
-        const css_og_bg_color       = ( css_theme_sel == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
-        const css_og_sb_color       = ( css_theme_sel == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
-        const css_og_bg_header_bg   = ( css_theme_sel == "dark" ? "rgb(35 36 41/var(--tw-bg-opacity))" : "rgb(238 239 241/var(--tw-bg-opacity))" )
-        const css_og_bg_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb(54 56 64/var(--tw-border-opacity))" : "rgb(222 223 227/var(--tw-border-opacity))" )
-        const css_og_tx_color       = ( css_theme_sel == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
 
         /*
             Declare custom css override
@@ -205,8 +195,73 @@ export class GistrBackend
                           working with OpenGist developer to re-do the HTML generated when embedding a gist.
         */
 
-        const css_og_append =
+        const css_og_append         = this.CSS_Get_OpenGist( css_theme_sel )
+        const css_gh_append         = this.CSS_Load_Github( css_theme_sel )
+
+        /*
+            Github > Dark Theme
+        */
+    
+        if ( bGithub === false )
+            css_og = css_og_append
+        else
+            css_gh = css_gh_append
+
+        /*
+            generate html output
+        */
+
+        const html_output =
         `
+        <html>
+            <head>
+                <style>
+                    html, body { height: 100%; margin: 0; padding: 0; }
+                </style>
+
+                ${ this.EventListener( gid ) }
+
+                <style>
+                    ${ content_css }
+                </style>
+
+                <! –– Injected CSS ––>
+                <style>
+                ${ css_override }
+                ${ css_og }
+                ${ css_gh }
+                </style>
+
+                <script>
+                    ${ content_js }
+                </script>
+
+            </head>
+
+            <body>
+                ${ content_body }
+            </body>
+        </html>
+        `
+
+        ct_iframe.srcdoc = html_output
+        el.appendChild( ct_iframe )
+    }
+
+    /*
+        Theme > OpenGist
+    */
+
+    private CSS_Get_OpenGist( theme: string )
+    {
+
+        const css_og_bg_color       = ( theme == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
+        const css_og_sb_color       = ( theme == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
+        const css_og_bg_header_bg   = ( theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
+        const css_og_bg_header_bor  = ( theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
+        const css_og_tx_color       = ( theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
+
+        return `
         ::-webkit-scrollbar
         {
             width:              6px;
@@ -265,94 +320,39 @@ export class GistrBackend
             color:              ${css_og_tx_color};
             opacity:            1;
         }
-
-        </style>
         `
+    }
 
-        /*
-            Github > Light Theme
-        */
+    /*
+        Theme > Github
+    */
 
-        const css_gh_light_append =
-        `
+    private CSS_Load_Github( theme: string = 'light' )
+    {
+        const css_gh_bg_color       = ( theme == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
+        const css_gh_sb_color       = ( theme == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
+        const css_gh_bg_header_bg   = ( theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
+        const css_gh_bg_header_bor  = ( theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
+        const css_gh_tx_color       = ( theme == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
+    
+        return `
         ::-webkit-scrollbar
         {
-            width:              6px;
-            height:             10px;
+            width:                  6px;
+            height:                 10px;
         }
         
         ::-webkit-scrollbar-track
         {
-            background-color:   transparent;
-            border-radius:      5px;
-            margin:             1px;
+            background-color:       transparent;
+            border-radius:          5px;
+            margin:                 1px;
         }
         
         ::-webkit-scrollbar-thumb
         {
-            border-radius:      10px;
-            background-color:   ${css_gh_sb_color};
-        }
-
-        body
-        {
-            --tw-bg-opacity:        1;
-            --tw-border-opacity:    1;
-        }
-
-        body .gist .highlight
-        {
-            background:             transparent;
-        }
-
-        body .gist .blob-wrapper
-        {
-            padding-bottom:         6px !important;
-        }
-
-        body .gist .gist-data
-        {
-            padding-left:           8px;
-            padding-right:          8px;
-            padding-top:            13px;
-            padding-bottom:         10px;
-            background-color:       ${css_gh_bg_color};
-        }
-
-        body .gist .markdown-body
-        {
-            color:                  ${css_gh_tx_color};
-            line-height:            18.2px;
-            font-size:              0.8em;
-            border-spacing:         0;
-            border-collapse:        collapse;
-            font-family:            Menlo,Consolas,Liberation Mono,monospace;
-        }
-        `
-
-        /*
-            Github > Dark Theme
-        */
-
-        const css_gh_dark_append =
-        `
-        ::-webkit-scrollbar
-        {
-            width:              6px;
-            height:             10px;
-        }
-        
-        ::-webkit-scrollbar-track
-        {
-            background-color:   transparent;
-            border-radius:      5px;
-            margin:             1px;
-        }
-        
-        ::-webkit-scrollbar-thumb
-        {
-            border-radius:      10px;
-            background-color:   ${css_gh_sb_color};
+            border-radius:          10px;
+            background-color:       ${css_gh_sb_color};
         }
 
         body
@@ -365,17 +365,23 @@ export class GistrBackend
         {
             backdrop-filter:        opacity( 0 );
             background-color:       rgb( 35 36 41/var( --tw-bg-opacity ) );
-            border-color:           rgb( 35 36 41/var( --tw-border-opacity) );
+            border:                 2px solid rgba( 255, 255, 255, 0.1 );
         }
 
         body .gist .gist-data
         {
-            padding-left:           8px;
-            padding-right:          8px;
-            padding-top:            13px;
-            padding-bottom:         10px;
-            border-color:           #121315;
+            padding-left:           12px;
+            padding-right:          12px;
+            padding-top:            15px;
+            padding-bottom:         6px;
+            border-color:           ${css_gh_bg_header_bor};
             background-color:       ${css_gh_bg_color};
+        }
+
+        .gist .markdown-body>*:last-child
+        {
+            margin-bottom: 0 !important;
+            padding-bottom: 5px;
         }
 
         body .gist .markdown-body
@@ -390,10 +396,10 @@ export class GistrBackend
 
         body .gist .gist-meta
         {
-            color:                  ${css_gh_tx_color};
+            color:                  #6b869f;
             border-top:             ${css_gh_bg_header_bor};
             background-color:       ${css_gh_bg_header_bg};
-            padding-left:           16px;
+            padding-left:           22px;
             padding-right:          16px;
             padding-top:            8px;
             padding-bottom:         8px;
@@ -401,19 +407,26 @@ export class GistrBackend
 
         body .gist .gist-meta a
         {
-            color:                  rgb(186 188 197/var(--tw-text-opacity));
+            color:                  rgb( 186 188 197/var( --tw-text-opacity ) );
+            opacity:                0.9;
         }
 
         body .gist .gist-meta a.Link--inTextBlock:hover
         {
-            color:                  #FFFFFF;
+            color:                  ${css_gh_tx_color};
+            opacity:                0.5;
         }
 
         body .gist .gist-meta a.Link--inTextBlock
         {
-            padding-right:          8px;
+            padding-left:           0px;
+            padding-right:          7px;
             color:                  ${css_gh_tx_color};
-            opacity:                0.9;
+        }
+
+        body .gist .gist-meta > a:nth-child( 3 )
+        {
+            padding-left:           5px;
         }
 
         body .gist .gist-data .pl-s .pl-s1
@@ -553,59 +566,7 @@ export class GistrBackend
         {
                 color: #b83426;
         }
-
-        </style>
         `
-    
-        if ( bGithub === false )
-            css_og = css_og_append
-        else
-        {
-            if ( css_theme_sel == "dark" )
-                css_gh = css_gh_dark_append
-            else if ( css_theme_sel == "light" )
-                css_gh = css_gh_light_append
-        }
-
-        /*
-            generate html output
-        */
-
-        const html_output =
-        `
-        <html>
-            <head>
-                <style>
-                    html, body { height: 100%; margin: 0; padding: 0; }
-                </style>
-
-                ${this.EventListener( gid )}
-
-                <style>
-                    ${content_css}
-                </style>
-
-                <! –– Injected CSS ––>
-                <style>
-                ${css_override}
-                ${css_og}
-                ${css_gh}
-                </style>
-
-                <script>
-                    ${content_js}
-                </script>
-
-            </head>
-
-            <body>
-                ${content_body}
-            </body>
-        </html>
-        `
-
-        ct_iframe.srcdoc = html_output
-        el.appendChild( ct_iframe )
     }
 
     /*
