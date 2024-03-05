@@ -214,6 +214,8 @@ jobs:
 
                 const bFileSkip         = files_skipList.some( s => s.includes( file_current ) || file_current.includes( s ) );
 
+                console.log( "bFileSkip ..... " + bFileSkip )
+
                 if ( bFileSkip == true )
                 {
                     files_skipped.push( file_current );
