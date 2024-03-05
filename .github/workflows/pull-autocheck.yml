@@ -100,7 +100,7 @@ jobs:
             let message         = [ "\n<br />\n" ]
             message.push        ( "## Automatic Self-Check - #" + context.issue.number + "\n" );
             message.push        ( `The details of our automated scan for your pull request are listed below. If our scan detected errors, they must be corrected before this pull request will be advanced to the review stage:\n` );
-            message.push        ( "\n<br />\n\n---\n<br />\n\n" );
+            message.push        ( "\n<br />\n\n---\n\n<br />\n\n" );
             message.push        ( "### About\nThis pull request includes the following information:" );
 
             let bHasError       = false;
@@ -138,6 +138,15 @@ jobs:
             */
 
             const files_skipped     = [];
+
+            const files_skipList =
+            [
+                "package.json",
+                "package-lock.json",
+                "index.js",
+                ".github",
+                ".yml",
+            ];
 
             for ( const file of files_Array )
             {
@@ -186,11 +195,19 @@ jobs:
                 const bContainsGeneric              = /(?:^|(?<= ))(MyPlugin|MyPluginSettings|SampleSettings|SampleSettingTab|SampleModal|Sample Plugin|my-plugin)(?:(?= )|$)/gim.test( filesData );
                 const check_depGetUnpinnedLeaf      = "app.workspace.getUnpinnedLeaf"
 
+                const bFileSkip         = files_skipList.some( s => s.includes( file_current ) || file_current.includes( s ) );
+
+                if ( bFileSkip == true )
+                {
+                    files_skipped.push( file_current );
+                    continue;
+                }
+
                 /*
                     Header
                 */
 
-                message.push        ( "\n<br />\n\n---\n<br />\n" );
+                message.push        ( "\n<br />\n\n---\n\n<br />\n" );
                 message.push        ( "### 📄 " + file_current + "\n" );
                 message             = message.concat( warnings );
 
@@ -202,25 +219,6 @@ jobs:
                     E.g:    any file which resides in the .github folder will be skipped.
                             any file which ends in .yml will be skipped.
                 */
-
-                const files_skipList =
-                [
-                    "package.json",
-                    "package-lock.json",
-                    "index.js",
-                    ".github",
-                    ".yml",
-                ];
-
-                const bFileSkip         = files_skipList.some( s => s.includes( file_current ) || file_current.includes( s ) );
-
-                console.log( "bFileSkip ..... " + bFileSkip )
-
-                if ( bFileSkip == true )
-                {
-                    files_skipped.push( file_current );
-                    continue;
-                }
 
                 /*
                     ( Deprecated ) app.workspace.getUnpinnedLeaf
@@ -403,24 +401,30 @@ jobs:
 
                     if ( warnings.length > 0 )
                     {
+                        if ( errors.length > 0 )
+                        {
+                            message.push    ( "\n<br />\n<br />\n" )
+                        }
                         message.push    ( "\n\n\n> [!WARNING]\n> Warnings are suggestions that do not require fixing, but are recommended before this pull request is reviewed and accepted.<br />The file `" + file + "` contains the following warnings:\n\n<br>\n\n" );
                         message         = message.concat( warnings );
                     }
                 }
                 else
                 {
-                    message.push    ( "\n<br>\n\n> [!NOTE]\n> The file `" + file + "` contains no errors\n\n<br>\n\n" );
+                    message.push    ( "\n\n\n> [!NOTE]\n> The file `" + file + "` contains no errors\n\n<br>\n\n" );
                 }
             }
 
             if ( files_skipped.length > 0 )
             {
+                message.push        ( "\n<br />\n\n---\n<br />\n" );
+                message.push        ( "### ❌ Skipped Files\n" );
+
                 message.push    ( "\n\n\n> [!TIP]\n> The following file(s) have been skipped:\n\n<br>\n\n" );
-                message         = message.concat( warnings );
 
                 for ( const file_skipped of files_skipped )
                 {
-                    message.push    ( "\n- " + file_skipped + "\n" );
+                    message.push    ( "- " + file_skipped );
                 }
             }
 
@@ -447,13 +451,24 @@ jobs:
 
             if ( bHasError == false )
             {
-                await github.rest.pulls.update(
+
+                /*
+                    change pr title
+                */
+
+                const pr_title          = `${ context.payload.pull_request.title }`;
+                const pr_title_append   = `PR ${ context.issue.number }:`;
+
+                if ( !pr_title.startsWith( pr_title_append ) )
                 {
-                    owner:        context.repo.owner,
-                    repo:         context.repo.repo,
-                    pull_number:  context.issue.number,
-                    title:        `PR ${ context.issue.number }: ${ context.payload.pull_request.title }`
-                } );
+                    await github.rest.pulls.update(
+                    {
+                        owner:        context.repo.owner,
+                        repo:         context.repo.repo,
+                        pull_number:  context.issue.number,
+                        title:        `${ pr_title_append } ${ context.payload.pull_request.title }`
+                    } );
+                }
 
                 if ( !context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_CHANGES_REQ }}" ).length > 0 )
                     labels.push( "${{ env.LABEL_CHECK_REVIEW_READY }}" );
