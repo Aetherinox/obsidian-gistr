@@ -38,7 +38,7 @@ Gistr allows you to embed gists that have been created from two different servic
 
 <br />
 
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/059e0a8b-562d-40b6-931b-e0ac26868a19"></p>
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/2275ea7f-b94c-47d5-87ec-f623b1cbf0c5"></p>
 
 <br />
 
@@ -105,7 +105,7 @@ gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 <br />
 
-As of `v1.1.0`, this plugin now supports the ability to override a theme with OpenGist. No matter what theme you have selected in your Obsidian plugin settings; you can set a specific gist to use any of the themes available by appending `#themename` to the end of your gist url.
+To force a specific theme, append `&themename` at the end of the url
 
 <br />
 
@@ -115,14 +115,14 @@ As of `v1.1.0`, this plugin now supports the ability to override a theme with Op
 
 <br />
 
-```
-https://gist.yourdomain.com/Username/Gist_ID#light
-https://gist.yourdomain.com/Username/Gist_ID#dark
+```shell
+https://gist.yourdomain.com/Username/Gist_ID&light
+https://gist.yourdomain.com/Username/Gist_ID&dark
 ```
 
 <br />
 
-<p align="center"><img style="width: 65%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/89283b6f-474c-40c5-b008-2966f506e9e1"></p>
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/89283b6f-474c-40c5-b008-2966f506e9e1"></p>
 
 <br />
 
@@ -141,7 +141,7 @@ This plugin can also fetch a Gist which contains multiple notes in a single gist
 
 <br />
 
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/81918399-c6f2-4390-9c20-79ffa5fae076"></p>
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/062f2dc0-c14a-4d4f-a3e0-5358458a528a"></p>
 
 <br />
 
@@ -153,6 +153,23 @@ https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#file1
 ```
 ````
 
+<br />
+
+To force a specific theme, append `&themename` at the end of the url
+
+<br />
+
+**Theme Options:**
+- `dark`
+- `light`
+
+<br />
+
+````shell
+```gistr
+https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&dark
+```
+````
 
 <br />
 
