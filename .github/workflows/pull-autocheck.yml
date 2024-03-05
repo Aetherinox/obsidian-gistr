@@ -90,7 +90,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const fs            = require('fs');
+            const fs            = require( 'fs' );
             const escape_html   = ( unsafe ) => unsafe.replace( /&/g, '&amp;' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' ).replace( /"/g, '&quot;' ).replace( /'/g, '&#039;' );
             const labels        = [];
 
@@ -105,15 +105,46 @@ jobs:
 
             let bHasError       = false;
             let bHasWarning     = false;
+
+            let date = new Date( `${ context.payload.pull_request.created_at }` );
+            date.toISOString( )
+
+
+            const dateTimeformat = ( date ) =>
+            {
+                let month 		    = date.getMonth( ) + 1;
+                month 				= month.toString( ).padStart( 2, '0' );
+                let day 			= date.getDate( ).toString( ).padStart( 2, '0' );
+                let year 			= date.getFullYear( ).toString( ).padStart( 2, '0' );
+
+                let hours 		    = date.getHours();
+                let minutes 	    = date.getMinutes();
+                let x 				= hours >= 12 ? 'PM' : 'AM';
+                hours 				= hours % 12;
+                hours 				= hours ? hours : 12;
+                minutes 			= minutes.toString( ).padStart( 2, '0' );
+
+                let mergeTime       = month + '.' + day + '.' + year + ' ' + hours + ':' + minutes + ' ' + x;
+
+                return mergeTime;
+            }
+
+            let date_created    = dateTimeformat( date ) + " UTC";
             
+            /*
+                context.payload.pull_request.base.repo.owner.login
+            */
+
             let md_table =
             `
               | Category | Value |
               | --- | --- |
+              | Title | [ ` + context.payload.pull_request.title + ` ](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/pull/` + context.payload.pull_request.number + `) |
+              | Created | [ ` + date_created + ` ](https://worldtimebuddy.com) |
+              | ID | ` + context.payload.pull_request.html_url + ` |
+              | Author | [ ` + context.payload.pull_request.user.login + ` ](https://github.com/` + context.repo.owner + `/) |
               | Repo | [ ` + context.repo.repo + ` ](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `) |
-              | Author | ` + context.payload.pull_request.user.login + `
-              | Branch: Source | [ ` + context.payload.pull_request.base.ref + `](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/tree/` + context.payload.pull_request.base.ref + `) |
-              | Branch: Target | [ ` + context.payload.pull_request.head.ref + `](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/tree/` + context.payload.pull_request.head.ref + `) |
+              | Branch | [ ` + context.payload.pull_request.head.ref + `](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/tree/` + context.payload.pull_request.head.ref + `) ⇁ [ ` + context.payload.pull_request.base.ref + `](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/tree/` + context.payload.pull_request.base.ref + `) |
               | Added Files | ${{ steps.changed-files.outputs.added_files_count }} |
               | Modified Files | ${{ steps.changed-files.outputs.all_modified_files_count }} |
               | Renamed Files | ${{ steps.changed-files.outputs.renamed_files_count }} |
@@ -138,7 +169,7 @@ jobs:
                 Loop files
             */
 
-            const files_skipped     = [];
+            const files_skipped = [];
 
             const files_skipList =
             [
@@ -146,7 +177,11 @@ jobs:
                 "package-lock.json",
                 "index.js",
                 ".github",
+                ".gitea",
+                ".gitnignore",
+                ".md",
                 ".yml",
+                "plugins.json",
             ];
 
             for ( const file of files_Array )
@@ -156,7 +191,7 @@ jobs:
                 const addError    = ( error ) =>
                 {
                     errors.push   ( `:x: ${error}` );
-                    console.log   ( 'Found issue: ' + error );
+                    console.log   ( 'Found Issues: ' + error );
 
                     bHasError     = true;
                 };
@@ -165,7 +200,7 @@ jobs:
                 const addWarning  = ( warning ) =>
                 {
                     warnings.push ( `:warning: ${warning}` );
-                    console.log   ( 'Found issue: ' + warning );
+                    console.log   ( 'Found Warnings: ' + warning );
 
                     bHasWarning   = true;
                 }
