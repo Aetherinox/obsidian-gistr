@@ -27,23 +27,27 @@ export default
     cfg_tab_ge_keyword_desc:            'Word to use inside codeblocks to designate as a portal for showing gists',
     cfg_tab_ge_theme_name:              'Theme',
     cfg_tab_ge_theme_desc:              'This determines what color scheme will be used for gists. You can however, customize the colors in the Github and OpenGist categories below. MUST reload your note for the new stylesheet to be loaded.',
+    cfg_tab_ge_wrap_name:               'Text wrapping',
+    cfg_tab_ge_wrap_desc:               'If enabled, text will wrap to the next line. If disabled, you will see a horizontal scrollbar. This does not include gists that have no spaces anywhere in the body.',
 
     /*
         Tab > Settings > OpenGist
     */
 
     cfg_tab_og_cb_light_name:           'Codeblock bg (Light)',
-    cfg_tab_og_cb_light_desc:           'Color for Github codeblock background color (Light Theme)',
+    cfg_tab_og_cb_light_desc:           'Color for Github codeblock background color <span class="gistr-settings-lbl-theme-light">(Light Theme)</span>',
     cfg_tab_og_cb_dark_name:            'Codeblock bg (Dark)',
-    cfg_tab_og_cb_dark_desc:            'Color for Github codeblock background color (Dark Theme)',
+    cfg_tab_og_cb_dark_desc:            'Color for Github codeblock background color <span class="gistr-settings-lbl-theme-dark">(Dark Theme)</span>',
     cfg_tab_og_sb_light_name:           'Scrollbar track (Light)',
-    cfg_tab_og_sb_light_desc:           'Color for gist scrollbar track (Light Theme)',
+    cfg_tab_og_sb_light_desc:           'Color for gist scrollbar track <span class="gistr-settings-lbl-theme-light">(Light Theme)</span>',
     cfg_tab_og_sb_dark_name:            'Scrollbar track (Dark)',
-    cfg_tab_og_sb_dark_desc:            'Color for gist scrollbar track (Dark Theme)',
+    cfg_tab_og_sb_dark_desc:            'Color for gist scrollbar track <span class="gistr-settings-lbl-theme-dark">(Dark Theme)</span>',
     cfg_tab_og_tx_light_name:           'Codeblock text (Light)',
-    cfg_tab_og_tx_light_desc:           'Color for codeblock text color (Light Theme)',
+    cfg_tab_og_tx_light_desc:           'Color for codeblock text color <span class="gistr-settings-lbl-theme-light">(Light Theme)</span>',
     cfg_tab_og_tx_dark_name:            'Codeblock text (Dark)',
-    cfg_tab_og_tx_dark_desc:            'Color for codeblock text color (Dark Theme)',
+    cfg_tab_og_tx_dark_desc:            'Color for codeblock text color <span class="gistr-settings-lbl-theme-dark">(Dark Theme)</span>',
+    cfg_tab_og_opacity_name:            'Codeblock opacity',
+    cfg_tab_og_opacity_desc:            'Total opacity for codeblock. Do not set this too low, or your codeblocks will be invisible',
     cfg_tab_og_padding_top_name:        'Padding: top',
     cfg_tab_og_padding_top_desc:        'Padding between gist codeblock header and code.',
     cfg_tab_og_padding_bottom_name:     'Padding: bottom',
@@ -57,20 +61,43 @@ export default
     */
 
     cfg_tab_gh_cb_light_name:           'Codeblock bg (Light)',
-    cfg_tab_gh_cb_light_desc:           'Color for Opengist codeblock background color (Light Theme)',
+    cfg_tab_gh_cb_light_desc:           'Color for Opengist codeblock background color <span class="gistr-settings-lbl-theme-light">(Light Theme)</span>',
     cfg_tab_gh_cb_dark_name:            'Codeblock bg (Dark)',
-    cfg_tab_gh_cb_dark_desc:            'Color for Opengist codeblock background color (Dark Theme)',
+    cfg_tab_gh_cb_dark_desc:            'Color for Opengist codeblock background color <span class="gistr-settings-lbl-theme-dark">(Dark Theme)</span>',
     cfg_tab_gh_sb_light_name:           'Scrollbar track (Light)',
-    cfg_tab_gh_sb_light_desc:           'Color for gist scrollbar track (Light Theme)',
+    cfg_tab_gh_sb_light_desc:           'Color for gist scrollbar track <span class="gistr-settings-lbl-theme-light">(Light Theme)</span>',
     cfg_tab_gh_sb_dark_name:            'Scrollbar track (Dark)',
-    cfg_tab_gh_sb_dark_desc:            'Color for gist scrollbar track (Dark Theme)',
+    cfg_tab_gh_sb_dark_desc:            'Color for gist scrollbar track <span class="gistr-settings-lbl-theme-dark">(Dark Theme)</span>',
     cfg_tab_gh_tx_light_name:           'Codeblock text (Light)',
-    cfg_tab_gh_tx_light_desc:           'Color for codeblock text color (Light Theme)',
+    cfg_tab_gh_tx_light_desc:           'Color for codeblock text color <span class="gistr-settings-lbl-theme-light">(Light Theme)</span>',
     cfg_tab_gh_tx_dark_name:            'Codeblock text (Dark)',
-    cfg_tab_gh_tx_dark_desc:            'Color for codeblock text color (Dark Theme)',
+    cfg_tab_gh_tx_dark_desc:            'Color for codeblock text color <span class="gistr-settings-lbl-theme-dark">(Dark Theme)</span>',
+    cfg_tab_gh_opacity_name:            'Codeblock opacity',
+    cfg_tab_gh_opacity_desc:            'Total opacity for codeblock. Do not set this too low, or your codeblocks will be invisible',
     cfg_tab_gh_css_name:                'Custom CSS',
     cfg_tab_gh_css_desc:                'This textarea allows you to enter custom CSS properties to override existing colors.',
     cfg_tab_gh_css_pholder:             'Paste CSS here',
+    cfg_tab_gh_pat_name:                'Personal Access Token',
+    cfg_tab_gh_pat_desc:                'The personal access token (PAT) generated on Github.com which allows you to write gists from your Obsidian vault to Github gist.',
+    cfg_tab_gh_pat_pholder:             'githubpat_XXXXXX',
+    cfg_tab_gh_pat_state_show:          'Show token',
+    cfg_tab_gh_pat_state_hide:          'Hide token',
+    cfg_tab_gh_pat_desc_l1:             'This token allows you to authenticate with the GitHub API.<br>Create Token: <a href="https://github.com/settings/tokens?type=beta">here</a>',
+    cfg_tab_gh_pat_desc_l2:             'For this to function with private gists, select <span class="gistr-settings-lbl-important">"All repositories"</span> or <span class="gistr-settings-lbl-important">"Only select repositories"</span> from the dropdown on the Github Token page. The token must have at least the following permissions:',
+    cfg_tab_gh_pat_perm_1:              '<span class="gistr-settings-elm-li-title">Account Permissions ► Gists</span> <span class="gistr-settings-elm-li-perm">                                                                          Read-and-write</span>',
+    cfg_tab_gh_pat_perm_2:              '<span class="gistr-settings-elm-li-title">Repository Permissions ► Pull Requests</span> <span class="gistr-settings-elm-li-perm">                                      Read-only</span>',
+    cfg_tab_gh_pat_perm_3:              '<span class="gistr-settings-elm-li-title">Repository Permissions ► Contents</span> <span class="gistr-settings-elm-li-perm">                                                    Read-only</span>',
+    cfg_tab_gh_pat_perm_4:              '<span class="gistr-settings-elm-li-title">Repository Permissions ► Issues</span> <span class="gistr-settings-elm-li-perm">                                                              Read-only</span>',
+    cfg_tab_gh_pat_footer:              'Github icon to the right will turn into a checkmark when you\'ve entered a valid token.',
+    cfg_tab_gh_pat_help:                '<b>What is this for?</b> <a href="https://github.com/Aetherinox/obsidian-gistr/wiki/2.-Usage#github-tab">Read the docs</a>',
+    cfg_tab_gh_pat_btn_tip:             'Generate Github API Token',
+    cfg_tab_gh_pat_btn_url:             'https://github.com/settings/tokens?type=beta',
+    cfg_tab_gh_pat_btn_tip_ok:          'Valid Github API Token',
+    cfg_tab_gh_pat_btn_tip_bad:         'Invalid Github API Token entered\n\nClick here to generate one',
+    cfg_tab_gh_pat_btn_tip_invalid:     'Github API token is not valid, ensure you type it correctly\n\nClick here to generate one',
+    cfg_tag_gh_pat_notice_msg:          'Gistr has detected a valid Github personal access token which has been saved',
+    cfg_tab_gh_pat_notice_type_fine:    'Fine-Grained Github Token Detected',
+    cfg_tab_gh_pat_notice_type_classic: 'Classic Github Token Detected',
 
     /*
         Tab > Settings > Support
@@ -115,6 +142,10 @@ export default
     gs_btn_close:                       'Close',
     base_underdev_title:                'Feature Under Development',
     base_underdev_msg:                  'I am currently working with the developer of OpenGist to make minor changes to how OpenGist pastes appear, including moving the "view raw" button to the bottom so that Obsidian\'s edit button does not overlap.',
+    base_opt_enabled:                   'Enabled',
+    base_opt_disabled:                  'Disabled',
+    base_theme_light:                   'Light',
+    base_theme_dark:                    'Dark',
 
     /*
         Element > Color Picker
@@ -134,7 +165,7 @@ export default
         Gist Load Error
     */
 
-    err_gist_loading_fail_name:         '⚠️ Gistr: Failed to load gist:',
+    err_gist_loading_fail_name:         '⚠️ Gistr: Failed to load the specified gist:',
     err_gist_loading_fail_resp:         '{0}',
     err_gist_loading_fail_detail:       'Could not load a valid Javascript from gist url: {0}',
     err_gist_loading_fail_url:          'Could not find gist id -- Make sure correct URL is specified. {0}',

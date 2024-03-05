@@ -260,6 +260,8 @@ export class GistrBackend
         const css_og_bg_header_bg   = ( theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
         const css_og_bg_header_bor  = ( theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
         const css_og_tx_color       = ( theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
+        const css_og_wrap           = ( this.settings.textwrap == "Enabled" ? "normal" : "pre" )
+        const css_og_opacity        = ( this.settings.og_opacity ) || 1
 
         return `
         ::-webkit-scrollbar
@@ -291,17 +293,13 @@ export class GistrBackend
             margin-top:         -1px;
         }
 
-        .opengist-embed .whitespace-pre
-        {
-            text-wrap:          wrap;
-        }
-        
         .opengist-embed .mb-4
         {
             margin-bottom:      1rem;
             backdrop-filter:    opacity(0);
             --tw-bg-opacity:    1;
             background-color:   ${css_og_bg_header_bg};
+            opacity:            ${css_og_opacity};
         }
 
         .opengist-embed .line-code
@@ -320,6 +318,11 @@ export class GistrBackend
             color:              ${css_og_tx_color};
             opacity:            1;
         }
+
+        .opengist-embed .whitespace-pre
+        {
+            white-space:        ${css_og_wrap};
+        }
         `
     }
 
@@ -334,7 +337,9 @@ export class GistrBackend
         const css_gh_bg_header_bg   = ( theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
         const css_gh_bg_header_bor  = ( theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
         const css_gh_tx_color       = ( theme == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
-    
+        const css_gh_wrap           = ( this.settings.textwrap == "Enabled" ? "wrap" : "nowrap" )
+        const css_gh_opacity        = ( this.settings.gh_opacity ) || 1
+
         return `
         ::-webkit-scrollbar
         {
@@ -366,6 +371,7 @@ export class GistrBackend
             backdrop-filter:        opacity( 0 );
             background-color:       rgb( 35 36 41/var( --tw-bg-opacity ) );
             border:                 2px solid rgba( 255, 255, 255, 0.1 );
+            opacity:                ${css_gh_opacity};
         }
 
         body .gist .gist-data
@@ -465,6 +471,11 @@ export class GistrBackend
         {
             color:                  ${css_gh_tx_color};
             opacity:                1;
+        }
+
+        body .gist .blob-wrapper tr:first-child td
+        {
+            text-wrap:              ${css_gh_wrap};
         }
 
         body .gist .pl-enti, body .gist .pl-mb, body .gist .pl-pdb
