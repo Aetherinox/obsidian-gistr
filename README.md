@@ -77,6 +77,7 @@ Functionality
 - Line numbering
 - Link access to view Github Gist or Opengist snippets on website (opens in browser)
 - Display single gist from groups with multiple files
+- Enable / Disable text wrapping and horizontal scrollbar
 
 <br />
 
