@@ -111,6 +111,7 @@ jobs:
               | Category | Value |
               | --- | --- |
               | Repo | [ ` + context.repo.repo + ` ](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `) |
+              | Author | ` + context.payload.pull_request.user.login + `
               | Branch: Source | [ ` + context.payload.pull_request.base.ref + `](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/tree/` + context.payload.pull_request.base.ref + `) |
               | Branch: Target | [ ` + context.payload.pull_request.head.ref + `](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/tree/` + context.payload.pull_request.head.ref + `) |
               | Added Files | ${{ steps.changed-files.outputs.added_files_count }} |
