@@ -61,19 +61,22 @@ To use this plugin, you must either have a Github account for Github Gists, or a
 <br />
 
 # Features
-Services:
-- [Github GIsts](https://gist.github.com)
+**Services**:
+- [Github Gists](https://gist.github.com)
 - [OpenGist Server](https://github.com/thomiceli/opengist)
 
-Themes
+<br />
+
+**Themes**:
 - Includes **Light** & **Dark** mode for both services
 - Ability to customize individual colors
-- CSS stylesheet Override
+- CSS stylesheet override
 - Thinner and customizable scrollbar
 - Force theme on each individual gist paste
 
-Functionality
-- Supports horizontal scrolling
+<br />
+
+**Functionality**:
 - Line numbering
 - Link access to view Github Gist or Opengist snippets on website (opens in browser)
 - Display single gist from groups with multiple files
