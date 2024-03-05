@@ -19,9 +19,6 @@ on:
     types:
       - reopened
       - opened
-  pull_request:
-    typed:
-      - opened
 
 env:
   LABEL_BUG:      Bug
