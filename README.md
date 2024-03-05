@@ -12,6 +12,7 @@
 <br />
 
 - [About](#about)
+- [Features](#features)
 - [Usage](#usage)
   - [OpenGist](#opengist)
   - [Github Gist](#github-gist)
@@ -37,14 +38,11 @@ Gistr allows you to embed gists that have been created from two different servic
 
 <br />
 
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="Docs/images/1.png"></p>
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/059e0a8b-562d-40b6-931b-e0ac26868a19"></p>
 
 <br />
 
-To use this plugin, you must:
-- Download and install [Obsidian.md](obsidian.md/)
-- Utilize Github to store [https://gist.github.com](gists), OR;
-- Configure a new or use an existing [OpenGist](https://github.com/thomiceli/opengist) Server
+To use this plugin, you must either have a Github account for Github Gists, or an installation of [OpenGist](https://github.com/thomiceli/opengist)
 
 <br />
 
@@ -55,6 +53,30 @@ To use this plugin, you must:
 [![OG-Docs](https://img.shields.io/badge/%20-%20View%20%20OpenGist%20Docs-%20%23296ca7?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/thomiceli/opengist/blob/master/docs/index.md)
 
 </div>
+
+<br />
+
+---
+
+<br />
+
+# Features
+Services:
+- [Github GIsts](https://gist.github.com)
+- [OpenGist Server](https://github.com/thomiceli/opengist)
+
+Themes
+- Includes **Light** & **Dark** mode for both services
+- Ability to customize individual colors
+- CSS stylesheet Override
+- Thinner and customizable scrollbar
+- Force theme on each individual gist paste
+
+Functionality
+- Supports horizontal scrolling
+- Line numbering
+- Link access to view Github Gist or Opengist snippets on website (opens in browser)
+- Display single gist from groups with multiple files
 
 <br />
 
@@ -118,7 +140,7 @@ This plugin can also fetch a Gist which contains multiple notes in a single gist
 
 <br />
 
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="Docs/images/2.png"></p>
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/81918399-c6f2-4390-9c20-79ffa5fae076"></p>
 
 <br />
 
