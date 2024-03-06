@@ -114,13 +114,17 @@ This plugin can also fetch a Gist which contains multiple notes in a single gist
 
 <br />
 
-To target a specific note inside a gist, append `#filename` to the end of your gist url:
+If your gist contains multiple files, you may  target a specific note inside a gist, append `#filename` to the end of your gist url:
 
 ````shell
 ```gistr
 https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#file1
 ```
 ````
+
+<br />
+
+If you do not target a specific file on a gist which contains multiple files, all files with that matching URL will be displayed on top of each other.
 
 <br />
 
