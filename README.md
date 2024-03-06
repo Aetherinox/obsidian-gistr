@@ -14,8 +14,8 @@
 - [About](#about)
 - [Features](#features)
 - [Usage](#usage)
-  - [OpenGist](#opengist)
   - [Github Gist](#github-gist)
+  - [OpenGist](#opengist)
 - [Install](#install)
   - [Manual](#manual)
   - [BRAT Plugin Manager](#brat-plugin-manager)
@@ -33,8 +33,8 @@
 # About
 
 Gistr allows you to embed gists that have been created from two different services:
-- [OpenGist](https://github.com/thomiceli/opengist) (self-hosted)
 - [Github Gist](https://gist.github.com)
+- [OpenGist](https://github.com/thomiceli/opengist) (self-hosted)
 
 <br />
 
@@ -81,6 +81,8 @@ To use this plugin, you must either have a Github account for Github Gists, or a
 - Link access to view Github Gist or Opengist snippets on website (opens in browser)
 - Display single gist from groups with multiple files
 - Enable / Disable text wrapping and horizontal scrollbar
+- Auto-refresh any edits to your settings in reading mode
+- Creating & sharing gists between your Obsidian vault and Github **(coming soon)**
 
 <br />
 
@@ -89,43 +91,7 @@ To use this plugin, you must either have a Github account for Github Gists, or a
 <br />
 
 # Usage
-To embed an OpenGist or Github Gist snippet, add a new code block:
-
-<br />
-
-## OpenGist
-
-````shell
-```gistr
-https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-```
-````
-
-<br />
-
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="Docs/images/3.png"></p>
-
-<br />
-
-To force a specific theme, append `&themename` at the end of the url
-
-<br />
-
-**Theme Options:**
-- `dark`
-- `light`
-
-<br />
-
-```shell
-https://gist.yourdomain.com/Username/Gist_ID&light
-https://gist.yourdomain.com/Username/Gist_ID&dark
-```
-
-<br />
-
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/89283b6f-474c-40c5-b008-2966f506e9e1"></p>
+To embed a Github Gist snippet or OpenGist, add a new code block:
 
 <br />
 
@@ -158,7 +124,7 @@ https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#file1
 
 <br />
 
-To force a specific theme, append `&themename` at the end of the url
+Despite whatever theme you have selected in the Gistr settings, you can force a gist note to use a specific theme by appending `&themename` to the end of the url
 
 <br />
 
@@ -173,6 +139,47 @@ To force a specific theme, append `&themename` at the end of the url
 https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&dark
 ```
 ````
+
+<br />
+
+<br />
+
+## OpenGist
+Showing gists from your OpenGist server work in a similar manner to Github. To display gists from OpenGist, create a new codeblock and add your gist URL:
+
+<br />
+
+````shell
+```gistr
+https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+````
+
+<br />
+
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="Docs/images/3.png"></p>
+
+<br />
+
+To force a specific theme, append `&themename` at the end of the url
+
+<br />
+
+**Theme Options:**
+- `dark`
+- `light`
+
+<br />
+
+```shell
+https://gist.yourdomain.com/Username/Gist_ID&light
+https://gist.yourdomain.com/Username/Gist_ID&dark
+```
+
+<br />
+
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/89283b6f-474c-40c5-b008-2966f506e9e1"></p>
 
 <br />
 
@@ -221,7 +228,7 @@ Plugin can also be installed utilizing the [BRAT](https://github.com/TfTHacker/o
 - In BRAT settings, click the button **Add Beta Plugin**
 - In the textbox, supply the URL to this repo
   - `https://github.com/Aetherinox/obsidian-gistr`
-- Once Gistr is isntalled, activate it in your Obsidian settings. <img src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" data-canonical-src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" height=20px />
+- Once Gistr is installed, activate it in your Obsidian settings. <img src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" data-canonical-src="https://raw.githubusercontent.com/Aetherinox/obsidian-opengist/main/Docs/images/ui/obsidian-enable.png" height=20px />
 
 <br />
 
