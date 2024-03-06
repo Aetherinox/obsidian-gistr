@@ -171,17 +171,27 @@ jobs:
 
             const files_skipped = [];
 
+            /*
+                List of files to skip check
+                Entries are CASE sensitive
+                For folders, append / at the end of the parent directory
+            */
+
             const files_skipList =
             [
-                "package.json",
-                "package-lock.json",
-                "index.js",
                 ".github",
                 ".gitea",
-                ".gitnignore",
+                ".gitignore",
+                "LICENSE",
                 ".md",
                 ".yml",
                 "plugins.json",
+                "package.json",
+                "package-lock.json",
+                "rollup.config.js",
+                "index.js",
+                "Docs/",
+                "tests/"
             ];
 
             for ( const file of files_Array )
