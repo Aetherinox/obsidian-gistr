@@ -1,6 +1,7 @@
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import {terser} from "rollup-plugin-terser";
 
 const isProd = (process.env.BUILD === 'production');
 
@@ -19,7 +20,7 @@ dir: './',
 export default {
   input: 'src/main.ts',
   output: {
-    dir: 'dist/',
+    dir: './',
     sourcemap: 'inline',
     sourcemapExcludeSources: isProd,
     format: 'cjs',
@@ -31,5 +32,15 @@ export default {
     typescript(),
     nodeResolve({ browser: true }),
     commonjs(),
+    terser({
+      ecma: 2020,
+      mangle: { toplevel: true },
+      compress: {
+        module: true,
+        toplevel: true,
+        unsafe_arrows: true
+      },
+      format: {comments: false }
+    })
   ]
 };
