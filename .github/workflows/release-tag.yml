@@ -190,7 +190,7 @@ jobs:
 
             - name: "[Post]: Stable"
               if: ${{ startsWith( inputs.PRERELEASE, false ) }}
-              uses: softprops/action-gh-release@v1
+              uses: softprops/action-gh-release@v2
               id: bundle-st
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -213,7 +213,7 @@ jobs:
 
             - name: "[Post]: Release Candidate"
               if: ${{ startsWith( inputs.PRERELEASE, true ) }}
-              uses: softprops/action-gh-release@v1
+              uses: softprops/action-gh-release@v2
               id: bundle-rc
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
