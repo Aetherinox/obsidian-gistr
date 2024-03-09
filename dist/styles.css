@@ -120,13 +120,6 @@ body
 }
 
 /*
-.block-language-gistr + .edit-block-button
-{
-    display:                none !important;
-}
-*/
-
-/*
     Gistr Codeblock > Error
 */
 
@@ -438,6 +431,11 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
     padding-bottom:         35px;
 }
 
+.gistr-gs-modal button
+{
+    cursor:                 pointer;
+}
+
 .gistr-gs-modal-button-container
 {
     margin-top:             1.5em;
@@ -457,6 +455,61 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
 .gistr-gs-separator
 {
     padding-bottom:         15px;
+}
+
+.gistr-gs-header-int-l
+{
+    cursor:                 pointer;
+    float:                  left;
+    width:                  40%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+}
+
+.gistr-gs-header-int-r
+{
+    cursor:                 pointer;
+    float:                  right;
+    width:                  8%;
+    margin-top:             10px;
+    margin-bottom:          2px;
+    height:                 0px;
+}
+
+.gistr-gs-header-int-r .setting-item-info
+{
+    display:                none;
+}
+
+.gistr-gs-header-int-r .setting-item
+{
+    padding:                0px !important;
+    width:                  100%;
+    margin-top:             -7px;
+}
+
+.gistr-gs-header-int-r  .setting-item-control
+{
+    flex:                   none;
+    width:                  100%;
+}
+
+.gistr-gs-header-int-r .setting-item-control > input
+{
+    background:             none;
+    border:                 0px;
+    text-align:             right;
+}
+
+.gistr-gs-header-int-r .setting-item-control > input:hover, input:active
+{
+    background:             none;
+    border:                 0px;
+}
+
+.gistr-gs-header-int-c
+{
+    clear:                  both;
 }
 
 /*
