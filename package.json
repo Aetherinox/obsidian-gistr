@@ -43,6 +43,6 @@
     "@simonwep/pickr": "github:simonwep/pickr",
     "colortranslator": "^4.1.0",
     "front-matter": "^4.0.2",
-    "nanoid": "^4.0"
+    "nanoid": "^5.0"
   }
 }
