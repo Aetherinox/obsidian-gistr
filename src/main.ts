@@ -133,27 +133,25 @@ export default class GistrPlugin extends Plugin
 
 		this.app.workspace.onLayoutReady( async ( ) =>
         {
-			if ( this.settings.firststart === true )
+            if ( this.settings.firststart === true )
             {
-				this.settings.firststart = false
-				this.saveSettings( )
-	
-				const opt_selected = await new ModalGettingStarted( this.plugin, this.app, true ).openAndAwait( )
-				if ( opt_selected === "settings-open" )
+                const opt_selected = await new ModalGettingStarted( this.app, this.plugin, this.manifest, this.settings, true ).openAndAwait( )
+                if ( opt_selected === "settings-open" )
                 {
-
+    
                     /*
                         Mute
                     */
-
-					// @ts-ignore
-					this.app.setting.open( "${ PluginName }" )
-					// @ts-ignore
-					this.app.setting.openTabById( "${ PluginName }" )
-				}
-			}
-
-			this.bLayoutReady = true
+    
+                    // @ts-ignore
+                    this.app.setting.open( "${ PluginName }" )
+                    // @ts-ignore
+                    this.app.setting.openTabById( "${ PluginName }" )
+                }
+    
+                this.settings.firststart = false
+                this.saveSettings( )
+            }
 		} )
 
         /*
@@ -201,6 +199,7 @@ export default class GistrPlugin extends Plugin
         this.registerDomEvent                   ( window, "message", gistBackend.messageEventHandler )
         this.registerMarkdownCodeBlockProcessor ( this.settings.keyword, gistBackend.processor )
         this.registerEvent                      ( this.app.workspace.on( "editor-menu", this.GetContextMenu ) )
+
     }
 
     /*

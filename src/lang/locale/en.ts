@@ -196,6 +196,7 @@ export default
     gist_upload_success:                    'File {0} has been updated successfully to your gist service.',
     gist_status_connecting:                 'connecting ...',
     gist_status_operational:                'operational',
+    gist_status_connected:                  'Connected to API ...',
     gist_status_issues:                     'service issues',
     gist_status_btn_connecting:             'Connecting to Github ...',
     gist_status_btn_success:                'Connected to Github API',

@@ -1,10 +1,9 @@
-import { App, Plugin, PluginSettingTab, Setting, sanitizeHTMLToDom, ExtraButtonComponent, MarkdownRenderer, Notice, requestUrl } from 'obsidian'
+import { App, Plugin, PluginManifest, PluginSettingTab, Setting, sanitizeHTMLToDom, ExtraButtonComponent, MarkdownRenderer, Notice, requestUrl } from 'obsidian'
 import GistrPlugin from "src/main"
 import GistrSettings from 'src/settings/settings'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
 import { lng, PluginID } from 'src/lang/helpers'
 import { GithubTokenGet, GithubTokenSet } from 'src/backend/tokens/github'
-import { OpengistTokenGet, OpengistTokenSet } from 'src/backend/tokens/opengist'
 import Pickr from "@simonwep/pickr"
 import ColorPicker from 'src/backend/colorpicker'
 import { GetColor } from 'src/backend/colorpicker'
@@ -668,7 +667,7 @@ export class SettingsTab extends PluginSettingTab
                             const controlEl = Tab_GH_R.querySelector( ".setting-item-control" )
                             controlEl.removeClass( "gistr-settings-github-status-connecting" )
                             controlEl.addClass( "gistr-settings-github-status-operational" )
-                            text.setValue( github_status )
+                            text.setValue( lng( "gist_status_connected" ) )
                         }
                         else
                         {
@@ -1344,7 +1343,7 @@ export class SettingsTab extends PluginSettingTab
                         .setCta( )
                         .onClick( async( ) =>
                         {
-                            const action = await new ModalGettingStarted( this.plugin, this.app, false ).openAndAwait( )
+                            const action = await new ModalGettingStarted( this.app, this.plugin, this.plugin.manifest, this.plugin.settings, false ).openAndAwait( )
                         } )
                 } )
 
