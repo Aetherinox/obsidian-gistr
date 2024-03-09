@@ -531,7 +531,7 @@ export class SettingsTab extends PluginSettingTab
                 .addSlider( ( slider ) =>
                 {
                     slider
-                    .setLimits( 0.10, 1, 0.05 )
+                    .setLimits( 0.20, 1, 0.05 )
                     .setDynamicTooltip( )
                     .setValue( this.plugin.settings.og_opacity )
                     .onChange( async ( val ) =>
@@ -1039,7 +1039,7 @@ export class SettingsTab extends PluginSettingTab
                 .addSlider( ( slider ) =>
                 {
                     slider
-                    .setLimits( 0, 1, 0.05 )
+                    .setLimits( 0.20, 1, 0.05 )
                     .setDynamicTooltip( )
                     .setValue( this.plugin.settings.gh_opacity )
                     .onChange( async ( val ) =>
