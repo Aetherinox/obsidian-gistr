@@ -1,9 +1,15 @@
 {
-  "obsidian42-brat:BRAT-allCommands": [
+  "app:open-help": [],
+  "command-palette:open": [
+    {
+      "modifiers": [
+        "Mod"
+      ],
+      "key": "P"
+    },
     {
       "modifiers": [],
       "key": "F1"
     }
-  ],
-  "app:open-help": []
+  ]
 }

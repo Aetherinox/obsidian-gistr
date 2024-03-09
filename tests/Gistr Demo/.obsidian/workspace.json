@@ -98,7 +98,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Github.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +114,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Github.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +136,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Github.md"
+                "file": "dasd.md"
               }
             }
           }
@@ -160,9 +158,9 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "fcd78753d78d610b",
+  "active": "54ecdcd3cd84c89f",
   "lastOpenFiles": [
-    "OpenGist.md",
-    "Github.md"
+    "Github.md",
+    "OpenGist.md"
   ]
 }
