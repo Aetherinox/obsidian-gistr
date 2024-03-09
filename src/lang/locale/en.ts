@@ -169,7 +169,7 @@ export default
     cfg_tab_sy_tog_autosave_enable_tip:     '',
 
     cfg_tab_sy_tog_autosave_strict_name:    'Enable autosave strict saving',
-    cfg_tab_sy_tog_autosave_strict_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: your notes will be saved to the gist service precisely on time every <span class="gistr-settings-elm-note">{0} seconds</span>, whether you are still typing or not.<br><br><span class="gistr-settings-elm-important">Disabled</span>: time until save will not start until you have finished typing in that note. If you continue typing, the saving countdown will not start unless the last key is pressed.<br><br>Autosave duration can be modified further down in these settings.',
+    cfg_tab_sy_tog_autosave_strict_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: your notes will be saved to the gist service precisely on time every <span class="gistr-settings-elm-note">{0} seconds</span>, whether you are still typing or not.<br><br><span class="gistr-settings-elm-important">Disabled</span>: time until save will not start until you have finished typing in that note. If you continue typing, the saving countdown will not start until your final key is pressed.<br><br>Autosave duration can be modified further down in these settings.',
     cfg_tab_sy_tog_autosave_strict_tip:     '',
 
     cfg_tab_sy_tog_autosave_noti_name:      'Enable autosave notices',
@@ -177,7 +177,7 @@ export default
     cfg_tab_sy_tog_autosave_noti_tip:       '',
 
     cfg_tab_sy_num_save_dur_name:           'Autosave duration',
-    cfg_tab_sy_num_save_dur_desc:           'How often autosave will execute <span class="gistr-settings-elm-note">in seconds</span> Set this to a fair amount so that the calls aren\'t being ran excessively to the gist service API.<br><br>Save will trigger shortly after you stop typing when the next duration has arrived.',
+    cfg_tab_sy_num_save_dur_desc:           'How often autosave will execute <span class="gistr-settings-elm-note">in seconds</span>. Set this to a fair amount so that the calls aren\'t being ran excessively to the gist API server (Github or OpenGist).<br><br>The save countdown timer will begin shortly after you stop typing.<br><br>If you wish to change this to save precisely every <span class="gistr-settings-elm-note">{0} seconds</span>, enable the setting <span class="gistr-settings-elm-note">Autosave Strict Saving</span> located above.',
 
     cfg_tab_sy_tog_inc_fm_name:             'Include frontmatter',
     cfg_tab_sy_tog_inc_fm_desc:             'When saving a note as a new gist, frontmatter will be added to the top of your note with information about the gist.<br><br><span class="gistr-settings-elm-note">Enabled</span>: the note will be cleaned before it is pushed to the gist service and no frontmatter fields will be present in the online version.<br><br><span class="gistr-settings-elm-important">Disabled</span>: frontmatter added to your notes will be included when your note is pushed to a gist service.<br><br>Frontmatter can be found at the very top of each note, in-between <span class="gistr-settings-elm-note"> `---` </span>',

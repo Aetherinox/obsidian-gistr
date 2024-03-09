@@ -1217,32 +1217,35 @@ export class SettingsTab extends PluginSettingTab
 
             const cfg_tab_sy_num_save_dur_desc = new DocumentFragment( )
             cfg_tab_sy_num_save_dur_desc.append(
-                sanitizeHTMLToDom(`${ lng( "cfg_tab_sy_num_save_dur_desc" ) }`),
+                sanitizeHTMLToDom(`${ lng( "cfg_tab_sy_num_save_dur_desc", this.plugin.settings.sy_save_duration.toString( ) ) }`),
             )
 
+            let val_save_dur: HTMLDivElement
             const elm_Dur = new Setting( elm )
                 .setName( lng( "cfg_tab_sy_num_save_dur_name" ) )
                 .setDesc( cfg_tab_sy_num_save_dur_desc )
                 .setClass( "gistr-slider" )
-                .addSlider( ( slider ) =>
-                {
-                    slider
+                .addSlider( slider => slider
                     .setLimits( 0, 300, 1 )
                     .setDynamicTooltip( )
                     .setValue( this.plugin.settings.sy_save_duration )
                     .onChange( async ( val ) =>
                     {
+                        val_save_dur.innerText      = " " + val.toString( ) + "s"
                         this.plugin.settings.sy_save_duration = val
                         await this.plugin.saveSettings( )
                     } )
-                    slider.sliderEl.width = 70;
-                } )
+                    ).settingEl.createDiv( '', ( el ) =>
+                    {
+                        val_save_dur          = el
+                        el.innerText            = " " + this.plugin.settings.sy_save_duration.toString( ) + "s"
+                    } ).classList.add( 'gistr-settings-elm-slider-preview' )
 
-                if ( elm_Dur )
-                {
-                    //elm_Dur.setDisabled( true )
-                    //elm_Dur.settingEl.style.opacity = "0.5"
-                }
+                   // if ( elm_Dur )
+                   // {
+                        //elm_Dur.setDisabled( true )
+                        //elm_Dur.settingEl.style.opacity = "0.5"
+                    //}
 
             elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
 

@@ -344,9 +344,9 @@ export default class GistrPlugin extends Plugin
         */
 
 		if ( ver_running?.indexOf( "beta" ) !== -1 && ver_running !== ver_beta )
-	        new Notice( lng( "ver_update_beta" ), this.settings.notitime * 1000 )
+	        new Notice( lng( "ver_update_beta" ), 0 )
         else if ( ver_running !== ver_stable )
-			new Notice( lng( "ver_update_stable" ), this.settings.notitime * 1000 )
+			new Notice( lng( "ver_update_stable" ), 0 )
 	}
 
 }
