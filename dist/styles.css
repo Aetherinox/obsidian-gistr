@@ -1,35 +1,31 @@
 /*
-    Animations
-*/
-
-/*
     Anim > Rotate
 */
 
 @-moz-keyframes spin
 {
-    100% { -moz-transform: rotate( 360deg ); } 
+    100% { -moz-transform:      rotate( 360deg ); } 
 }
 
 @-webkit-keyframes spin
 {
-    100% { -webkit-transform: rotate( 360deg ); } 
+    100% { -webkit-transform:   rotate( 360deg ); } 
 }
 
 @keyframes spin
 {
     100%
     {
-        -webkit-transform: rotate( 360deg ); 
-        transform:rotate( 360deg ); 
+        -webkit-transform:      rotate( 360deg ); 
+        transform:rotate        ( 360deg ); 
     } 
 }
 
 .gistr-anim-spin
 {
-    -webkit-animation:spin 4s linear infinite;
-    -moz-animation:spin 4s linear infinite;
-    animation:spin 4s linear infinite;
+    -webkit-animation:          spin 4s linear infinite;
+    -moz-animation:             spin 4s linear infinite;
+    animation:                  spin 4s linear infinite;
 }
 
 /*
@@ -38,8 +34,14 @@
 
 @keyframes gistr_fadeInOut
 { 
-    from { opacity: 0.6; }
-    to { opacity: 1; } 
+    from
+    {
+        opacity:                0.6;
+    }
+    to
+    {
+        opacity:                1;
+    } 
 }
 
 /*
@@ -48,23 +50,23 @@
 
 .glow
 {
-    font-size:          13px;
-    color:              #fff;
-    text-align:         center;
-    -webkit-animation:  glow 1s ease-in-out infinite alternate;
-    -moz-animation:     glow 1s ease-in-out infinite alternate;
-    animation:          glow 1s ease-in-out infinite alternate;
+    font-size:              13px;
+    color:                  #fff;
+    text-align:             center;
+    -webkit-animation:      glow 1s ease-in-out infinite alternate;
+    -moz-animation:         glow 1s ease-in-out infinite alternate;
+    animation:              glow 1s ease-in-out infinite alternate;
 }
 
 @keyframes glow
 {
     from
     {
-        text-shadow:      0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+        text-shadow:        0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
     }
     to
     {
-        text-shadow:      0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+        text-shadow:        0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
     }
 }
 
@@ -76,20 +78,20 @@
 {
 	0%
     {
-		transform: scale(0.95);
-		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+		transform:          scale(0.95);
+		box-shadow:         0 0 0 0 rgba(0, 0, 0, 0.7);
 	}
 
 	70%
     {
-		transform: scale(1);
-		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+		transform:          scale(1);
+		box-shadow:         0 0 0 10px rgba(0, 0, 0, 0);
 	}
 
 	100%
     {
-		transform: scale(0.95);
-		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+		transform:          scale(0.95);
+		box-shadow:         0 0 0 0 rgba(0, 0, 0, 0);
 	}
 }
 
@@ -108,7 +110,7 @@ body
 
 .block-language-gistr
 {
-    margin-top: 32px;
+    margin-top:             32px;
 }
 
 .block-language-gistr > iframe
