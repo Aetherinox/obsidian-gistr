@@ -1,61 +1,97 @@
 /*
-    Animations
+    Anim > Rotate
 */
 
+@-moz-keyframes spin
+{
+    100% { -moz-transform:      rotate( 360deg ); } 
+}
+
+@-webkit-keyframes spin
+{
+    100% { -webkit-transform:   rotate( 360deg ); } 
+}
+
+@keyframes spin
+{
+    100%
+    {
+        -webkit-transform:      rotate( 360deg ); 
+        transform:rotate        ( 360deg ); 
+    } 
+}
+
+.gistr-anim-spin
+{
+    -webkit-animation:          spin 4s linear infinite;
+    -moz-animation:             spin 4s linear infinite;
+    animation:                  spin 4s linear infinite;
+}
+
 /*
-    General >  Animation: Glow
+    Anim > Fade in / Out
 */
 
 @keyframes gistr_fadeInOut
 { 
-    from { opacity: 0.6; }
-    to { opacity: 1; } 
+    from
+    {
+        opacity:                0.6;
+    }
+    to
+    {
+        opacity:                1;
+    } 
 }
 
 /*
-    General >  Animation: Glow
+    Anim > Glow
 */
 
 .glow
 {
-    font-size:          13px;
-    color:              #fff;
-    text-align:         center;
-    -webkit-animation:  glow 1s ease-in-out infinite alternate;
-    -moz-animation:     glow 1s ease-in-out infinite alternate;
-    animation:          glow 1s ease-in-out infinite alternate;
+    font-size:              13px;
+    color:                  #fff;
+    text-align:             center;
+    -webkit-animation:      glow 1s ease-in-out infinite alternate;
+    -moz-animation:         glow 1s ease-in-out infinite alternate;
+    animation:              glow 1s ease-in-out infinite alternate;
 }
 
 @keyframes glow
 {
     from
     {
-        text-shadow:      0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+        text-shadow:        0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
     }
     to
     {
-        text-shadow:      0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+        text-shadow:        0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
     }
 }
+
+/*
+    Anim > Pulse
+*/
 
 @keyframes pulse
 {
 	0%
     {
-		transform: scale(0.95);
-		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
+		transform:          scale(0.95);
+		box-shadow:         0 0 0 0 rgba(0, 0, 0, 0.7);
 	}
 
 	70%
     {
-		transform: scale(1);
-		box-shadow: 0 0 0 10px rgba(0, 0, 0, 0);
+		transform:          scale(1);
+		box-shadow:         0 0 0 10px rgba(0, 0, 0, 0);
 	}
 
 	100%
     {
-		transform: scale(0.95);
-		box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
+		transform:          scale(0.95);
+		box-shadow:         0 0 0 0 rgba(0, 0, 0, 0);
 	}
 }
 
@@ -74,7 +110,7 @@ body
 
 .block-language-gistr
 {
-    margin-top: 32px;
+    margin-top:             32px;
 }
 
 .block-language-gistr > iframe
@@ -82,13 +118,6 @@ body
     width:                  100%;
     border:                 0;
 }
-
-/*
-.block-language-gistr + .edit-block-button
-{
-    display:                none !important;
-}
-*/
 
 /*
     Gistr Codeblock > Error
@@ -119,6 +148,11 @@ body
 .gistr-settings-section-footer
 {
     padding-bottom:         40px;
+}
+
+.gistr-settings-section-separator
+{
+    padding-bottom:         20px;
 }
 
 .gistr-settings-elm-slider-preview
@@ -156,9 +190,43 @@ body
     animation:              gistr_fadeInOut 1s infinite alternate;
 }
 
+.clickable-icon.setting-editor-extra-setting-button.gistr-settings-icon-ok:hover
+{
+    color:                  #FFFFFF !important;
+    background-color:       #ff2869;
+}
+
+.clickable-icon.setting-editor-extra-setting-button.gistr-settings-icon-error
+{
+    color:                  #e02f6a !important;
+    animation:              gistr_fadeInOut 1s infinite alternate;
+}
+
 .gistr-settings-icon-cur
 {
     cursor:                 pointer;
+}
+
+.gistr-settings-status-connecting
+{
+    color:                  #f1c638;
+}
+
+.gistr-settings-header-int-r .gistr-settings-status-connecting > input
+{
+    color:                  #f1c638;
+}
+
+.gistr-settings-elm-important
+{
+    color:                  var( --accent-strong );
+    font-weight:            var( --font-semibold );
+}
+
+.gistr-settings-elm-note
+{
+    color:                  var( --accent-em );
+    font-weight:            var( --font-semibold );
 }
 
 .gistr-settings-elm-li
@@ -192,19 +260,20 @@ body
     color:                  var( --accent-strong );
 }
 
-.gistr-settings-header:hover
+.gistr-settings-header::before, .gistr-settings-header-int-l::before
 {
-    cursor:                 pointer;
+    padding-top:            2px;
 }
 
-.gistr-settings-header::after
+.gistr-settings-header::before
 {
     position:               relative;
     display:                inline-block;
-    width:                  20px;
+    width:                  24px;
     height:                 20px;
     margin:                 auto;
-    margin-left:            4px;
+    margin-top: 2px;
+    margin-left:            -5px;
     opacity:                1;
     scale:                  0.8;
     visibility:             visible;
@@ -221,9 +290,133 @@ body
         scale               var( --header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
 }
 
-.gistr-settings-header.isfold::after
+.gistr-settings-header:hover
+{
+    cursor:                 pointer;
+}
+
+.gistr-settings-header.isfold::before
 {
     transform:              rotate( -90deg );
+}
+
+.gistr-settings-header-int-l
+{
+    cursor:                 pointer;
+    float:                  left;
+    width:                  40%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+}
+
+.gistr-settings-header-int-r
+{
+    cursor:                 pointer;
+    float:                  right;
+    width:                  8%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+    height: 0px;
+}
+
+.gistr-settings-header-int-c
+{
+    clear:                  both;
+}
+
+.gistr-settings-header-int-l::before
+{
+    position:               relative;
+    display:                inline-block;
+    width:                  24px;
+    height:                 20px;
+    margin:                 auto;
+    margin-left:            -5px;
+    opacity:                1;
+    scale:                  0.8;
+    visibility:             visible;
+    background-color:       var( --text-muted );
+    content:                "\200b";
+    -webkit-mask-repeat:    no-repeat;
+    mask-repeat:            no-repeat;
+    -webkit-mask-image:     url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' xml:space='preserve'%3E%3Cpath d='M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z'/%3E%3Cpath fill='none' d='M0 0h32v32H0z'/%3E%3C/svg%3E" );
+    mask-image:             url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E" );
+    transition:
+        transform           var( --header-btn-dur ) ease-out,
+        visibility          var( --header-btn-dur ),
+        opacity             var( --header-btn-dur ),
+        scale               var( --header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
+}
+
+.gistr-settings-header-int-l.isfold::before
+{
+    transform:              rotate( -90deg );
+}
+
+
+.gistr-settings-header-int-r .setting-item-info
+{
+    display:                none;
+}
+
+.gistr-settings-header-int-r .setting-item
+{
+    padding:                0px !important;
+    width:                  100%;
+    margin-top:             -7px;
+}
+
+.gistr-settings-header-int-r  .setting-item-control
+{
+    flex:                   none;
+    width:                  100%;
+}
+
+.gistr-settings-header-int-r .setting-item-control > input
+{
+    background:             none;
+    border:                 0px;
+    text-align:             right;
+}
+
+.gistr-settings-header-int-r .setting-item-control > input:hover, input:active
+{
+    background:             none;
+    border:                 0px;
+}
+
+
+.gistr-slider input[ type="range" ]
+{
+    width:                  90%;
+}
+
+/*
+    Target first div after h2.gistr-settings-header
+    <h2 class=""></h2> 
+    div >
+        div >
+            div >
+                div class="setting-item-description></div>
+*/
+
+/*
+h2.gistr-settings-header + div > div > div > .setting-item-description
+{
+    font-size:              9pt;
+}
+*/
+
+.gistr-settings-github-status-operational > input
+{
+    color:                  #4c9155 !important;
+    font-weight:            bold;
+}
+
+.gistr-settings-github-status-issues > input
+{
+    color:                  #ccac1f !important;
+    font-weight:            bold;
 }
 
 /*
@@ -236,6 +429,11 @@ body
     padding-left:           35px;
     padding-right:          35px;
     padding-bottom:         35px;
+}
+
+.gistr-gs-modal button
+{
+    cursor:                 pointer;
 }
 
 .gistr-gs-modal-button-container
@@ -257,6 +455,61 @@ body
 .gistr-gs-separator
 {
     padding-bottom:         15px;
+}
+
+.gistr-gs-header-int-l
+{
+    cursor:                 pointer;
+    float:                  left;
+    width:                  40%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+}
+
+.gistr-gs-header-int-r
+{
+    cursor:                 pointer;
+    float:                  right;
+    width:                  8%;
+    margin-top:             10px;
+    margin-bottom:          2px;
+    height:                 0px;
+}
+
+.gistr-gs-header-int-r .setting-item-info
+{
+    display:                none;
+}
+
+.gistr-gs-header-int-r .setting-item
+{
+    padding:                0px !important;
+    width:                  100%;
+    margin-top:             -7px;
+}
+
+.gistr-gs-header-int-r  .setting-item-control
+{
+    flex:                   none;
+    width:                  100%;
+}
+
+.gistr-gs-header-int-r .setting-item-control > input
+{
+    background:             none;
+    border:                 0px;
+    text-align:             right;
+}
+
+.gistr-gs-header-int-r .setting-item-control > input:hover, input:active
+{
+    background:             none;
+    border:                 0px;
+}
+
+.gistr-gs-header-int-c
+{
+    clear:                  both;
 }
 
 /*
@@ -294,6 +547,93 @@ body
 .gistr-donate > .setting-item-control
 {
     display:                none;
+}
+
+/*
+    Create Gist > Suggestions
+*/
+
+.gistr-suggest-icon
+{
+    float:                  left;
+    position:               relative;
+    font-size:              7px;
+    animation:              none;
+    width:                  32px;
+    padding-top:            1px;
+}
+
+.gistr-suggest-icon > svg
+{
+    width:                  32px;
+}
+
+.gistr-suggest-container
+{
+    height:                 32px;
+    cursor:                 pointer;
+}
+
+.gistr-suggest-sub-time
+{
+    padding-left:           12px;
+    font-size:              9pt;
+    cursor:                 pointer;
+    color:                  #878787;
+}
+
+.gistr-suggest-clear
+{
+    clear:                  both;
+}
+
+.gistr-suggest-sub-container
+{
+    float:                  left;
+    width:                  95%;
+}
+
+.gistr-suggest-sub-container-l
+{
+    float:                  left;
+    width:                  80%;
+}
+
+.gistr-suggest-sub-container-r
+{
+    float:                  right;
+    width:                  10%;
+}
+
+.gistr-suggest-sub-title
+{
+    float:                  left;
+    padding-left:           12px;
+    text-overflow:          ellipsis;
+}
+
+.gistr-suggest-sub-scope
+{
+    font-size:              10pt;
+    text-align:             right;
+    height:                 32px;
+    line-height:            32px;
+    color:                  var( --accent-strong );
+    font-weight:            var( --font-semibold );
+}
+
+.gistr-suggest-create
+{
+    cursor:                 pointer;
+    height:                 26px;
+    line-height:            26px;
+}
+
+.suggestion-item .gistr-suggest-container
+{
+    margin-block-start:     3px;
+    margin-block-end:       7px;
+    height:                 32px;
 }
 
 /*
