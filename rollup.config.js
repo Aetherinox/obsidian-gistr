@@ -13,7 +13,7 @@ import define from 'rollup-plugin-define';
 import license from 'rollup-plugin-license'
 import {readFileSync} from 'fs';
 
-const { name, author, version, respository } = JSON.parse(readFileSync('./package.json'));
+const { name, author, version, repository } = JSON.parse(readFileSync('./package.json'));
 const bIsProduction = ( process.env.BUILD === 'production' );
 const bIsDev = ( process.env.BUILD === 'dev' );
 const year = new Date().getFullYear();
@@ -21,7 +21,7 @@ const year = new Date().getFullYear();
 const topBanner = `
 @name:        ${ name } v${ version }
 @author:      ${ author }
-@url:         ${ respository }
+@url:         ${ repository.url }
 @copyright:   (c) ${ year } ${ author }
 @license:     MIT
 @build:       ${ new Date( ).toLocaleString( ) }
@@ -72,19 +72,11 @@ export default {
       format: { comments: false }
     }),
     license({
+      sourcemap: true,
       banner: {
-        sourcemap: true,
         content:  `${ topBanner }`,
         commentStyle: 'regular',
       },
     }),
-  ],
-  onLog(level, log, handler)
-  {
-    if (level === 'warn') {
-      handler( 'error', log );
-    } else {
-      handler( level, log );
-    }
-  }
+  ]
 };
