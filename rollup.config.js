@@ -78,5 +78,13 @@ export default {
         commentStyle: 'regular',
       },
     }),
-  ]
+  ],
+  onLog(level, log, handler)
+  {
+    if (level === 'warn') {
+      handler( 'error', log );
+    } else {
+      handler( level, log );
+    }
+  }
 };
