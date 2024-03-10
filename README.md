@@ -77,6 +77,9 @@ To use this plugin, you must either have a Github account for Github Gists, or a
 <br />
 
 **Functionality**:
+- Save notes from Obsidian as public or secret gists
+  - Manually create or autosave
+  - Requires Github [[Personal Access Token]](https://github.com/settings/tokens?type=beta)
 - Line numbering
 - Link access to view Github Gist or Opengist snippets on website (opens in browser)
 - Display single gist from groups with multiple files
