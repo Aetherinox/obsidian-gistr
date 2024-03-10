@@ -54,14 +54,14 @@ The following is an outline of what Gistr can do for you:
 
 **Functionality**:
 - Save notes from Obsidian as public or secret gists
-  - Manually create or autosave
-  - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta)
+  - Choose when you want to save a gist, or enable autosave to tracks changes
+  - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta) (free). Open Gistr settings in Obsidian to configure.
 - Line numbering
-- Link access to view Github Gist or Opengist snippets on website (opens in browser)
-- Display single gist from groups with multiple files
+- Open embedded Github Gist or Opengist snippets from your notes in your browser
+- Filter out specific snippets from a gist which contain multiple files
 - Enable / Disable text wrapping and horizontal scrollbar
 - Auto-refresh any edits to your settings in reading mode
-- Creating & sharing gists between your Obsidian vault and Github **(coming soon)**
+- Complete customization, including changing the keyword that triggers a codeblock to show gists.
 
 <br />
 
