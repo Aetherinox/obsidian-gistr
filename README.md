@@ -47,7 +47,7 @@ The following is an outline of what Gistr can do for you:
 - Includes **Light** & **Dark** mode for both services
 - Ability to customize individual colors
 - CSS stylesheet override
-- Thinner and customizable scrollbar
+- Thin and customizable scrollbar
 - Force theme on each individual gist paste
 
 <br />
