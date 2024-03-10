@@ -82,7 +82,8 @@ jobs:
               id: checkout
               with:
                   node-version: "20.x"
-
+                  registry-url: https://npm.pkg.github.com/
+                  
             # ---------------------------------------------------------------------------------------
             #   Get version from package.json VERSION value
             # ---------------------------------------------------------------------------------------
@@ -104,6 +105,8 @@ jobs:
                   npm run build
                   zip -jr ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip dist/*
                   ls
+              env:
+                NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
 
             - name: "[Build]: Release Candidate"
               id: build-rc
