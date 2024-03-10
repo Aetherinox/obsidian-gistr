@@ -18,6 +18,8 @@ export default
     base_time_am:                           'AM',
     base_time_pm:                           'PM',
     base_debug_loading:                     'Loading {0} v{1} [ {2} ]',
+    base_debug_updater_1:                   '{0} Update Check',
+    base_debug_updater_2:                   '{0} {1}',
     base_context_nofocus:                   'Obsidian does not have focus, please open a file',
 
     /*
