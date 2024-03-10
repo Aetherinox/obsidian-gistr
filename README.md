@@ -54,7 +54,7 @@ The following is an outline of what Gistr can do for you:
 
 **Functionality**:
 - Save notes from Obsidian as public or secret gists
-  - Choose when you want to save a gist, or enable autosave to tracks changes
+  - Choose when you want to save a gist, or enable autosave to track changes
   - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta) (free). Open Gistr settings in Obsidian to configure.
 - Line numbering
 - Open embedded Github Gist or Opengist snippets from your notes in your browser
