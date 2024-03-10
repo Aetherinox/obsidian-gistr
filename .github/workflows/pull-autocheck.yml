@@ -112,8 +112,8 @@ jobs:
   
       - name: List all added files
         run: |
-          for file in ${MODIFIED_FILES}; do
-            echo "$file was added"
+          for file in ${CHANGED_FILES}; do
+            echo "$file was changed"
           done
         env:
           ADDED_FILES:      ${{ steps.changed-files.outputs.added_files }}
@@ -133,7 +133,7 @@ jobs:
             const escape_html   = ( unsafe ) => unsafe.replace( /&/g, '&amp;' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' ).replace( /"/g, '&quot;' ).replace( /'/g, '&#039;' );
             const labels        = [];
 
-            const files_List    = `${{ steps.changed-files.outputs.all_changed_files }}`
+            const files_List    = `${{ steps.changed-files.outputs.all_changed_files }}` || ''
             const files_Array   = files_List.split(',')
 
             let message         = [ "\n<br />\n" ]
