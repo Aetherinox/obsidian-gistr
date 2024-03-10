@@ -32,9 +32,13 @@
 
 # About
 
-Gistr allows you to embed gists that have been created from two different services:
-- [Github Gist](https://gist.github.com)
-- [OpenGist](https://github.com/thomiceli/opengist) (self-hosted)
+Gistr allows the following:
+- Take certain Obsidian notes and upload them as gists
+  - Public and secret gists supported
+  - Manual upload or enable autosave
+- Integrate gist snippets into your notes with any of the following services:
+  - [Github Gist](https://gist.github.com)
+  - [OpenGist](https://github.com/thomiceli/opengist) (self-hosted)
 
 <br />
 
