@@ -1,5 +1,8 @@
 /*
     Import
+
+    @note       : semver has issues with rollup. do not import semver's entire package.
+                  import the methods you need individually, otherwise you'll receive circular dependencies error.
 */
 
 import { Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownView, PluginManifest, Notice, requestUrl } from 'obsidian'
@@ -11,6 +14,8 @@ import { lng, PluginID } from 'src/lang/helpers'
 import { Github_GetGist, Github_CopyGist, HandleFrontmatter, Github_UpdateExistingGist } from 'src/backend/services/github'
 import { GistrAPI, GistrEditor } from "src/api/types"
 import ShowContextMenu from "src/menus/context"
+import lt from "semver/functions/lt";
+import gt from "semver/functions/gt";
 
 /*
     Basic Declrations
@@ -129,7 +134,6 @@ export default class GistrPlugin extends Plugin
         console.debug( lng( "base_debug_loading", process.env.NAME, process.env.PLUGIN_VERSION, process.env.AUTHOR ) )
 
         await this.loadSettings     ( )
-        this.versionCheck           ( )
         this.addSettingTab          ( new SettingsTab( this.app, this ) )
 
 		this.app.workspace.onLayoutReady( async ( ) =>
@@ -201,6 +205,14 @@ export default class GistrPlugin extends Plugin
         this.registerMarkdownCodeBlockProcessor ( this.settings.keyword, gistBackend.processor )
         this.registerEvent                      ( this.app.workspace.on( "editor-menu", this.GetContextMenu ) )
 
+        /*
+            Version checking
+        */
+
+        if ( this.settings.ge_enable_updatenoti )
+        {
+            this.versionCheck( )
+        }
     }
 
     /*
@@ -343,10 +355,19 @@ export default class GistrPlugin extends Plugin
             Output notice to user on possible updates
         */
 
-		if ( ver_running?.indexOf( "beta" ) !== -1 && ver_running !== ver_beta )
-	        new Notice( lng( "ver_update_beta" ), 0 )
-        else if ( ver_running !== ver_stable )
-			new Notice( lng( "ver_update_stable" ), 0 )
+        console.debug( lng( "base_debug_updater_1", process.env.NAME ) )
+        console.debug( lng( "base_debug_updater_2", "Current : ..... ", ver_running ) )
+        console.debug( lng( "base_debug_updater_2", "Stable  : ..... ", ver_stable ) )
+        console.debug( lng( "base_debug_updater_2", "Beta    : ..... ", ver_beta ) )
+
+        if ( gt( ver_beta, ver_stable ) && lt( ver_running, ver_beta ) )
+        {
+            new Notice( lng( "ver_update_beta" ), 0 )
+        }
+        else if ( lt( ver_beta, ver_stable ) && lt( ver_running, ver_stable ) )
+        {
+            new Notice( lng( "ver_update_stable" ), 0 )
+        }
 	}
 
 }
