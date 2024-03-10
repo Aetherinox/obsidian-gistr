@@ -13,6 +13,8 @@
 
 - [About](#about)
 - [Features](#features)
+  - [Integrated Gists:](#integrated-gists)
+  - [Convert Note to Gist:](#convert-note-to-gist)
 - [Usage](#usage)
   - [Github Gist](#github-gist)
   - [OpenGist](#opengist)
@@ -31,41 +33,11 @@
 <br />
 
 # About
-
-Gistr allows the following:
-- Take certain Obsidian notes and upload them as gists
-  - Public and secret gists supported
-  - Manual upload or enable autosave
-- Integrate gist snippets into your notes as codeblocks with any of the following services:
-  - [Github Gist](https://gist.github.com)
-  - [OpenGist](https://github.com/thomiceli/opengist) (self-hosted)
+The following is an outline of what Gistr can do for you:
 
 <br />
 
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/2275ea7f-b94c-47d5-87ec-f623b1cbf0c5"></p>
-
-<br />
-
-To use this plugin, you must either have a Github account for Github Gists, or an installation of [OpenGist](https://github.com/thomiceli/opengist)
-
-<br />
-
-<div align="center">
-
-[![OG-Demo](https://img.shields.io/badge/%20-%20Try%20%20OpenGist%20Demo-%20%236c2368?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://demo.opengist.io/all)
-[![OG-Download](https://img.shields.io/badge/%20-%20Download%20OpenGist-%20%23de2343?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/thomiceli/opengist/releases)
-[![OG-Docs](https://img.shields.io/badge/%20-%20View%20%20OpenGist%20Docs-%20%23296ca7?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/thomiceli/opengist/blob/master/docs/index.md)
-
-</div>
-
-<br />
-
----
-
-<br />
-
-# Features
-**Services**:
+**Supported Services**:
 - [Github Gists](https://gist.github.com)
 - [OpenGist Server](https://github.com/thomiceli/opengist)
 
@@ -83,13 +55,53 @@ To use this plugin, you must either have a Github account for Github Gists, or a
 **Functionality**:
 - Save notes from Obsidian as public or secret gists
   - Manually create or autosave
-  - Requires Github [[Personal Access Token]](https://github.com/settings/tokens?type=beta)
+  - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta)
 - Line numbering
 - Link access to view Github Gist or Opengist snippets on website (opens in browser)
 - Display single gist from groups with multiple files
 - Enable / Disable text wrapping and horizontal scrollbar
 - Auto-refresh any edits to your settings in reading mode
 - Creating & sharing gists between your Obsidian vault and Github **(coming soon)**
+
+<br />
+
+---
+
+<br />
+
+# Features
+This section gives a brief explanation of what Gistr can do:
+
+<br />
+
+## Integrated Gists:
+This feature allows you to take gists from Github and OpenGist and place them within your notes in a codeblock. You can integrate any gist by specifying hte URL to that gist; they don't have to be your own.
+
+<br />
+
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/2275ea7f-b94c-47d5-87ec-f623b1cbf0c5"></p>
+
+<br />
+<br />
+
+## Convert Note to Gist:
+This feature allows you to take notes currently in Obsidian and convert them over to gists which will be hosted on services like Github.
+
+<br />
+
+After writing your note in Obsidian, right-click anywhere in your note and select **Save Gist** as either a public or secret note.
+
+<br />
+
+If you have a note as an existing gist saved, Gistr will confirm you wanting to save your gist by listing it in the suggestion box.  Click the note name to push your changes.
+
+<br />
+
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/d787bb1c-1179-4293-bf67-d2bc3dbf0e5b"></p>
+
+<br />
+
+To convert your notes into gists, you must register for a [Personal Access Token](https://github.com/settings/tokens?type=beta) on Github.
 
 <br />
 
@@ -191,6 +203,20 @@ https://gist.yourdomain.com/Username/Gist_ID&dark
 <br />
 
 <p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/89283b6f-474c-40c5-b008-2966f506e9e1"></p>
+
+<br />
+
+To use Opengist, you must install the program on your system as a service, or you can rent a web server. To view a demo of Opengist, as well as full documentation; visit the links below:
+
+<br />
+
+<div align="center">
+
+[![OG-Demo](https://img.shields.io/badge/%20-%20Try%20%20OpenGist%20Demo-%20%236c2368?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://demo.opengist.io/all)
+[![OG-Download](https://img.shields.io/badge/%20-%20Download%20OpenGist-%20%23de2343?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/thomiceli/opengist/releases)
+[![OG-Docs](https://img.shields.io/badge/%20-%20View%20%20OpenGist%20Docs-%20%23296ca7?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/thomiceli/opengist/blob/master/docs/index.md)
+
+</div>
 
 <br />
 
