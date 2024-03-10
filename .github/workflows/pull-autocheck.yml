@@ -12,6 +12,8 @@ on:
   pull_request:
     branches:
       - main
+  issue_comment:                                     
+    types: [created]
 
 # ---------------------------------------------------------------------------------------
 #   environment variables
@@ -33,10 +35,13 @@ env:
     LABEL_CHECK_STATUS_FAILED:    Validation Failed
     LABEL_CHECK_SCAN_SKIPPED:     Skipped Code Scan
     LABEL_CHECK_PULL_REQ:         Pull Request
+    LABEL_DEPENDENCY:             Dependency
+    LABEL_NPM:                    NPM
 
-    ASSIGN_USER:    Aetherinox
-    BOT_NAME_1:     AdminServ
-    BOT_NAME_2:     AdminServX
+    ASSIGN_USER:                  Aetherinox
+    BOT_NAME_1:                   AdminServ
+    BOT_NAME_2:                   AdminServX
+    BOT_NAME_DEPENDABOT:          dependabot[bot]
     LABELS_JSON: |
       [
         { "name": "Autocheck Failed",           "color": "d73a4a", "description": "Autocheck failed to run through a complete cycle, requires investigation" },
@@ -58,10 +63,44 @@ jobs:
   plugin-validation:
     runs-on: ubuntu-latest
     steps:
+
+      # ---------------------------------------------------------------------------------------
+      #   action needed if using 'pull_request' and 'issue_comment'
+      #   to get the pull request, you would normally use ${{ github.event.number }}
+      #   however this isnt available for 'issue_comment'
+      # ---------------------------------------------------------------------------------------
+
+      - uses: actions/github-script@v6
+        id: get_issue_number
+        with:
+          script: |
+            if (context.issue.number) {
+              // Return issue number if present
+              return context.issue.number;
+            } else {
+              // Otherwise return issue number from commit
+              return (
+                await github.rest.repos.listPullRequestsAssociatedWithCommit({
+                  commit_sha: context.sha,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                })
+              ).data[0].number;
+            }
+          result-encoding: string
+      - name: Issue number
+        run: echo '${{ steps.get_issue_number.outputs.result }}'
+
+      # ---------------------------------------------------------------------------------------
+      #   action > checkout
+      # ---------------------------------------------------------------------------------------
+        
       - uses: actions/checkout@v4
+        if: ( github.event_name == 'pull_request' ) || ( github.event_name == 'issue_comment' && contains( github.event.comment.html_url, '/pull/' ) && contains( github.event.comment.body, '/rescan' ) )
         with:
           fetch-depth: 0
-          ref: "refs/pull/${{ github.event.number }}/merge"
+          ref: "refs/pull/${{ steps.get_issue_number.outputs.result }}/merge"
+          
       - name: Use Node.js
         uses: actions/setup-node@v2
 
@@ -87,7 +126,7 @@ jobs:
           COUNT_COPIED:     ${{ steps.changed-files.outputs.copied_files_count }}
 
       - name: Run Check
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         with:
           script: |
             const fs            = require( 'fs' );
@@ -106,25 +145,26 @@ jobs:
             let bHasError       = false;
             let bHasWarning     = false;
 
-            let date = new Date( `${ context.payload.pull_request.created_at }` );
+            let date            = new Date( `${ context.payload.pull_request.created_at }` );
             date.toISOString( )
 
+            const actor         = '${{ github.actor }}';
 
             const dateTimeformat = ( date ) =>
             {
-                let month 		    = date.getMonth( ) + 1;
-                month 				= month.toString( ).padStart( 2, '0' );
-                let day 			= date.getDate( ).toString( ).padStart( 2, '0' );
-                let year 			= date.getFullYear( ).toString( ).padStart( 2, '0' );
+                let month       = date.getMonth( ) + 1;
+                month 				  = month.toString( ).padStart( 2, '0' );
+                let day 			  = date.getDate( ).toString( ).padStart( 2, '0' );
+                let year 			  = date.getFullYear( ).toString( ).padStart( 2, '0' );
 
-                let hours 		    = date.getHours();
-                let minutes 	    = date.getMinutes();
-                let x 				= hours >= 12 ? 'PM' : 'AM';
-                hours 				= hours % 12;
-                hours 				= hours ? hours : 12;
-                minutes 			= minutes.toString( ).padStart( 2, '0' );
+                let hours       = date.getHours();
+                let minutes     = date.getMinutes();
+                let x 				  = hours >= 12 ? 'PM' : 'AM';
+                hours 				  = hours % 12;
+                hours 				  = hours ? hours : 12;
+                minutes 			  = minutes.toString( ).padStart( 2, '0' );
 
-                let mergeTime       = month + '.' + day + '.' + year + ' ' + hours + ':' + minutes + ' ' + x;
+                let mergeTime   = month + '.' + day + '.' + year + ' ' + hours + ':' + minutes + ' ' + x;
 
                 return mergeTime;
             }
@@ -521,8 +561,11 @@ jobs:
             }
 
             /*
-                Determine Label
+                Determine Labels
             */
+
+            if ( actor ==  "${{ env.BOT_NAME_DEPENDABOT }}" )
+                labels.push( "${{ env.LABEL_DEPENDENCY }}" );
 
             if ( context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_CHANGES_REQ }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_CHANGES_REQ }}" );
