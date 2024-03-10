@@ -34,6 +34,7 @@ const SETTINGS_DEFAULTs: GistrSettings =
     blk_pad_b:                  18,
     textwrap:                   "Enabled",
     notitime:                   10,
+    ge_enable_updatenoti:       true,
 
     sy_clr_lst_icon:            "#757575E6",
 

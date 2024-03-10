@@ -1,3 +1,107 @@
+/* @settings
+name: ☁️ Gistr Plugin
+id: gistr-pcv1
+settings:
+-
+    id:                     gistr-pcv1-cat-settings-panel
+    title:                  '1. Settings Interface'
+    description:            'Customize the colors used within Gistrs settings interface. These settings do not modify gist codeblocks or how gists appear; only the settings interface.'
+    type:                   heading
+    level:                  1
+    collapsed:              true
+-
+        id:                 gistr-phrase-light
+        title:              'Phrase: Light Theme'
+        description:        'Text color in Gistr settings to indicate a Light theme'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#ff5d85'
+        default-dark:       '#e7e7e7'
+-
+        id:                 gistr-phrase-dark
+        title:              'Phrase: Dark Theme'
+        description:        'Text color in Gistr settings to indicate a Dark theme'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#e7e7e7'
+        default-dark:       '#ff5d85'
+-
+        id:                 gistr-accent-1
+        title:              'Accent 1'
+        description:        'Accdent color to make certain words in the Gistr settings stand out'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#e7e7e7'
+        default-dark:       '#ff5d85'
+-
+        id:                 gistr-accent-2
+        title:              'Accent 2'
+        description:        'Accdent color to make certain words in the Gistr settings stand out'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#a4ca8e'
+        default-dark:       '#a4ca8e'
+-
+        id:                 gistr-status-connecting
+        title:              'Status indicator: Connecting'
+        description:        'Color for icon and text when indicator says "Connecting"'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#f1c638'
+        default-dark:       '#f1c638'
+-
+        id:                 gistr-status-error
+        title:              'Status indicator: Error'
+        description:        'Color for icon when Github API hasnt been configured or is not valid'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#e02f6a'
+        default-dark:       '#e02f6a'
+-
+        id:                 gistr-status-issues
+        title:              'Status indicator: Issues'
+        description:        'Color for icon and text when indicator says "Issues"'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#ccac1f'
+        default-dark:       '#ccac1f'
+-
+        id:                 gistr-status-connected
+        title:              'Status indicator: Connected'
+        description:        'Color for icon and text when indicator says "Connected"'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#4c9155'
+        default-dark:       '#4c9155'
+-
+
+*/
+
+/*
+    Variables
+*/
+
+body
+{
+    --gistr-header-btn-dur:         240ms;
+    --gistr-accent-1:               #ff5d85;
+    --gistr-accent-2:               #a4ca8e;
+    --gistr-phrase-light:           #a4ca8e;
+    --gistr-phrase-dark:            #ff5d85;
+    --gistr-status-connecting:      #f1c638;
+    --gistr-status-error:           #e02f6a;
+    --gistr-status-connected:       #4c9155;
+    --gistr-status-issues:          #ccac1f;
+}
+
 /*
     Anim > Rotate
 */
@@ -96,15 +200,6 @@
 }
 
 /*
-    Variables
-*/
-
-body
-{
-    --header-btn-dur:       240ms;
-}
-
-/*
     Gistr Codeblock
 */
 
@@ -163,14 +258,13 @@ body
 
 .gistr-settings-lbl-important
 {
-    color:                  var( --accent-strong );
+    color:                  var( --gistr-accent-1 );
 }
 
 .gistr-settings-icon-github
 {
     position:               relative;
     font-size:              7px;
-    color:                  #ff3e7e;
     content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 496 512' fill='%23FFFFFF' width='18px' height='18px'%3E%3Cpath d='M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z'%3E%3C/path%3E%3C/svg%3E" );
     animation:              none;
 }
@@ -179,7 +273,6 @@ body
 {
     position:               relative;
     font-size:              7px;
-    color:                  #ff3e7e;
     content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23ff3e7e' width='18px' height='18px'%3E%3C!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath d='M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM186.3 136.5c-8.6-10.1-23.7-11.4-33.8-2.8s-11.4 23.7-2.8 33.8L224.6 256l-74.9 88.5c-8.6 10.1-7.3 25.3 2.8 33.8s25.3 7.3 33.8-2.8L256 293.2l69.7 82.3c8.6 10.1 23.7 11.4 33.8 2.8s11.4-23.7 2.8-33.8L287.4 256l74.9-88.5c8.6-10.1 7.3-25.3-2.8-33.8s-25.3-7.3-33.8 2.8L256 218.8l-69.7-82.3z'%3E%3C/path%3E%3C/svg%3E" );
     animation:              none;
 }
@@ -198,7 +291,7 @@ body
 
 .clickable-icon.setting-editor-extra-setting-button.gistr-settings-icon-error
 {
-    color:                  #e02f6a !important;
+    color:                  var( --gistr-status-error ) !important;
     animation:              gistr_fadeInOut 1s infinite alternate;
 }
 
@@ -207,25 +300,20 @@ body
     cursor:                 pointer;
 }
 
-.gistr-settings-status-connecting
+.gistr-settings-status-connecting, .gistr-settings-status-connecting > input
 {
-    color:                  #f1c638;
-}
-
-.gistr-settings-header-int-r .gistr-settings-status-connecting > input
-{
-    color:                  #f1c638;
+    color:                  var( --gistr-status-connecting );
 }
 
 .gistr-settings-elm-important
 {
-    color:                  var( --accent-strong );
+    color:                  var( --gistr-accent-1 );
     font-weight:            var( --font-semibold );
 }
 
 .gistr-settings-elm-note
 {
-    color:                  var( --accent-em );
+    color:                  var( --gistr-accent-2 );
     font-weight:            var( --font-semibold );
 }
 
@@ -236,13 +324,13 @@ body
 
 .gistr-settings-elm-li-title
 {
-    color:                  var( --accent-strong );
+    color:                  var( --gistr-accent-1 );
     font-weight:            var( --font-semibold );
 }
 
 .gistr-settings-elm-li-perm
 {
-    color:                  var( --accent-em );
+    color:                  var( --gistr-accent-2 );
 }
 
 .gistr-settings-elm-textarea textarea:not( .rename-textarea )
@@ -252,12 +340,12 @@ body
 
 .gistr-settings-lbl-theme-light
 {
-    color:                  var( --accent-em );
+    color:                  var( --gistr-phrase-light );
 }
 
 .gistr-settings-lbl-theme-dark
 {
-    color:                  var( --accent-strong );
+    color:                  var( --gistr-phrase-dark );
 }
 
 .gistr-settings-header::before, .gistr-settings-header-int-l::before
@@ -272,7 +360,7 @@ body
     width:                  24px;
     height:                 20px;
     margin:                 auto;
-    margin-top: 2px;
+    margin-top:             2px;
     margin-left:            -5px;
     opacity:                1;
     scale:                  0.8;
@@ -284,10 +372,10 @@ body
     -webkit-mask-image:     url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' xml:space='preserve'%3E%3Cpath d='M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z'/%3E%3Cpath fill='none' d='M0 0h32v32H0z'/%3E%3C/svg%3E" );
     mask-image:             url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E" );
     transition:
-        transform           var( --header-btn-dur ) ease-out,
-        visibility          var( --header-btn-dur ),
-        opacity             var( --header-btn-dur ),
-        scale               var( --header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
+        transform           var( --gistr-header-btn-dur ) ease-out,
+        visibility          var( --gistr-header-btn-dur ),
+        opacity             var( --gistr-header-btn-dur ),
+        scale               var( --gistr-header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
 }
 
 .gistr-settings-header:hover
@@ -342,10 +430,10 @@ body
     -webkit-mask-image:     url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' xml:space='preserve'%3E%3Cpath d='M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z'/%3E%3Cpath fill='none' d='M0 0h32v32H0z'/%3E%3C/svg%3E" );
     mask-image:             url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E" );
     transition:
-        transform           var( --header-btn-dur ) ease-out,
-        visibility          var( --header-btn-dur ),
-        opacity             var( --header-btn-dur ),
-        scale               var( --header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
+        transform           var( --gistr-header-btn-dur ) ease-out,
+        visibility          var( --gistr-header-btn-dur ),
+        opacity             var( --gistr-header-btn-dur ),
+        scale               var( --gistr-header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
 }
 
 .gistr-settings-header-int-l.isfold::before
@@ -407,15 +495,15 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
 }
 */
 
-.gistr-settings-github-status-operational > input
+.gistr-settings-status-connected > input
 {
-    color:                  #4c9155 !important;
+    color:                  var( --gistr-status-connected ) !important;
     font-weight:            bold;
 }
 
-.gistr-settings-github-status-issues > input
+.gistr-settings-status-issues > input
 {
-    color:                  #ccac1f !important;
+    color:                  var( --gistr-status-issues ) !important;
     font-weight:            bold;
 }
 
@@ -618,7 +706,7 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
     text-align:             right;
     height:                 32px;
     line-height:            32px;
-    color:                  var( --accent-strong );
+    color:                  var( --gistr-accent-1 );
     font-weight:            var( --font-semibold );
 }
 

@@ -341,6 +341,34 @@ export class SettingsTab extends PluginSettingTab
                     } )
                 } )
 
+            elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
+
+            /*
+                Plugin update notifications
+            */
+
+
+            const cfg_tab_ge_updatenoti_desc = new DocumentFragment( )
+            cfg_tab_ge_updatenoti_desc.append(
+                sanitizeHTMLToDom(`${ lng( "cfg_tab_ge_updatenoti_desc" ) }`),
+            )
+
+	        new Setting( elm )
+                .setName( lng( "cfg_tab_ge_updatenoti_name" ) )
+                .setDesc( cfg_tab_ge_updatenoti_desc )
+                .addToggle( toggle =>
+                {
+                    toggle.setTooltip( lng( "cfg_tab_ge_updatenoti_tip" ) )
+                        .setValue( this.plugin.settings.ge_enable_updatenoti )
+                        .onChange(async ( val ) =>
+                        {
+                            this.plugin.settings.ge_enable_updatenoti = val
+                            await this.plugin.saveSettings( )
+                        } )
+                } )
+
+            elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
+
             /*
                 Notification Time (in seconds)
             */
@@ -665,15 +693,15 @@ export class SettingsTab extends PluginSettingTab
                         if ( github_status === lng( "gist_status_operational" ) )
                         {
                             const controlEl = Tab_GH_R.querySelector( ".setting-item-control" )
-                            controlEl.removeClass( "gistr-settings-github-status-connecting" )
-                            controlEl.addClass( "gistr-settings-github-status-operational" )
+                            controlEl.removeClass( "gistr-settings-status-connecting" )
+                            controlEl.addClass( "gistr-settings-status-connected" )
                             text.setValue( lng( "gist_status_connected" ) )
                         }
                         else
                         {
-                            const controlEl = Tab_GH_R.querySelector(".setting-item-control" )
-                            controlEl.removeClass( "gistr-settings-github-status-connecting" )
-                            controlEl.addClass( "gistr-settings-github-status-issues" )
+                            const controlEl = Tab_GH_R.querySelector( ".setting-item-control" )
+                            controlEl.removeClass( "gistr-settings-status-connecting" )
+                            controlEl.addClass( "gistr-settings-status-issues" )
                             text.setValue( github_status )
                         }
                     }, json_delay )

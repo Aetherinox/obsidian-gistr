@@ -142,15 +142,15 @@ export default class ModalGettingStarted extends Modal
 					if ( github_status === lng( "gist_status_operational" ) )
 					{
 						const controlEl = Tab_GH_R.querySelector( ".setting-item-control" )
-						controlEl.removeClass( "gistr-settings-github-status-connecting" )
-						controlEl.addClass( "gistr-settings-github-status-operational" )
+						controlEl.removeClass( "gistr-settings-status-connecting" )
+						controlEl.addClass( "gistr-settings-status-connected" )
 						text.setValue( lng( "gist_status_connected" ) )
 					}
 					else
 					{
 						const controlEl = Tab_GH_R.querySelector(".setting-item-control" )
-						controlEl.removeClass( "gistr-settings-github-status-connecting" )
-						controlEl.addClass( "gistr-settings-github-status-issues" )
+						controlEl.removeClass( "gistr-settings-status-connecting" )
+						controlEl.addClass( "gistr-settings-status-issues" )
 						text.setValue( github_status )
 					}
 				}, json_delay )
