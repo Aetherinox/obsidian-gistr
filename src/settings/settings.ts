@@ -16,6 +16,7 @@ export default interface GistrSettings
     textwrap:                   string | "Enabled"
     notitime:                   number | 10
     sy_clr_lst_icon:            string | "757575E6"
+    ge_enable_updatenoti:       boolean | true
 
     og_clr_bg_light:            string | "CBCBCB"
     og_clr_bg_dark:             string | "121315"

@@ -56,6 +56,9 @@ export default
     cfg_tab_ge_wrap_desc:                   'If enabled, text will wrap to the next line. If disabled, you will see a horizontal scrollbar. This does not include gists that have no spaces anywhere in the body.',
     cfg_tab_ge_notitime_name:               'Notification duration',
     cfg_tab_ge_notitime_desc:               'How long a notification will display for (in seconds). Set to <span class="gistr-settings-elm-important">0</span> to keep notification up until user dismisses it.',
+    cfg_tab_ge_updatenoti_name:             'Enable Gistr update notifications',
+    cfg_tab_ge_updatenoti_desc:             '<span class="gistr-settings-elm-note">Enabled</span>: When launching Obsidian, you will get a notification if a new version of Gistr is available. This includes beta releases not available to the public yet.<br><br><span class="gistr-settings-elm-important">Disabled</span>: You will not get any notifications alerting you to new Gistr updates. You must manually check or use the Obsidian plugin checker.<br><br><b>Note</b>: This update notification includes beta releases of Gistr. The Obsidian plugin updater does not track beta.',
+    cfg_tab_ge_updatenoti_tip:              'Enable or disable update notifications',
 
     /*
         Tab > Settings > OpenGist
@@ -161,15 +164,15 @@ export default
     cfg_tab_sy_list_icon_desc:              'Color for icon in gist save list',
 
     cfg_tab_sy_tog_updatecreate_name:       'Allow updating gists',
-    cfg_tab_sy_tog_updatecreate_desc:       '<span class="gistr-settings-elm-note">Enabled</span>: after you initially create a new gist, the note can be updated with newer revisions.<br><br><span class="gistr-settings-elm-important">Disabled</span>: gists can only be created; no updates are allowed.<br><br>To update a gist after enabling this setting, right-click on the note, or open the Obsidian command palette and select <span class="gistr-settings-elm-note"><b>Save Gist</b></span>',
+    cfg_tab_sy_tog_updatecreate_desc:       '<span class="gistr-settings-elm-note">Enabled</span>: After you initially create a new gist, the note can be updated with newer revisions.<br><br><span class="gistr-settings-elm-important">Disabled</span>: Gists can only be created; no updates are allowed.<br><br>To update a gist after enabling this setting, right-click on the note, or open the Obsidian command palette and select <span class="gistr-settings-elm-note"><b>Save Gist</b></span>',
     cfg_tab_sy_tog_updatecreate_tip:        '',
 
     cfg_tab_sy_tog_autosave_enable_name:    'Enable autosave',
-    cfg_tab_sy_tog_autosave_enable_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: this will allow gists to be updated once they are created. It will also enable autosaving which will detect new changes and push them.<br><br><span class="gistr-settings-elm-important">Disabled</span>: you will only be able to create gists by manually doing so; there will be no way to update them.<br><br>If you wish to keep this disabled, you can create gists by right-clicking in the note and selecting <span class="gistr-settings-elm-note">Save Gist</span>. Or opening your command palette and selecting the save option from there.',
+    cfg_tab_sy_tog_autosave_enable_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: This will allow gists to be updated once they are created. It will also enable autosaving which will detect new changes and push them.<br><br><span class="gistr-settings-elm-important">Disabled</span>: You will only be able to create gists by manually doing so; there will be no way to update them.<br><br>If you wish to keep this disabled, you can create gists by right-clicking in the note and selecting <span class="gistr-settings-elm-note">Save Gist</span>. Or opening your command palette and selecting the save option from there.',
     cfg_tab_sy_tog_autosave_enable_tip:     '',
 
     cfg_tab_sy_tog_autosave_strict_name:    'Enable autosave strict saving',
-    cfg_tab_sy_tog_autosave_strict_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: your notes will be saved to the gist service precisely on time every <span class="gistr-settings-elm-note">{0} seconds</span>, whether you are still typing or not.<br><br><span class="gistr-settings-elm-important">Disabled</span>: time until save will not start until you have finished typing in that note. If you continue typing, the saving countdown will not start until your final key is pressed.<br><br>Autosave duration can be modified further down in these settings.',
+    cfg_tab_sy_tog_autosave_strict_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: Your notes will be saved to the gist service precisely on time every <span class="gistr-settings-elm-note">{0} seconds</span>, whether you are still typing or not.<br><br><span class="gistr-settings-elm-important">Disabled</span>: Time until save will not start until you have finished typing in that note. If you continue typing, the saving countdown will not start until your final key is pressed.<br><br>Autosave duration can be modified further down in these settings.',
     cfg_tab_sy_tog_autosave_strict_tip:     '',
 
     cfg_tab_sy_tog_autosave_noti_name:      'Enable autosave notices',

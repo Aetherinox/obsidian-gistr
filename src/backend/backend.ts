@@ -151,7 +151,8 @@ export class GistrBackend
             policy directive error if certain attributes arent used. doesnt affect the plugin, but erors are bad
         */
 
-        ct_iframe.setAttribute  ( 'csp', "default-src * self blob: data: gap:; font-src 'self' https://fonts.gstatic.com/; style-src 'self' https://fonts.googleapis.com/ 'unsafe-inline'; script-src * 'self' 'unsafe-eval' 'unsafe-inline' blob: data: gap:; object-src * 'self' blob: data: gap:; img-src * self 'unsafe-inline' blob: data: gap:; connect-src self * 'unsafe-inline' blob: data: gap:; frame-src * self blob: data: gap:;" )
+        ct_iframe.setAttribute  ( 'csp', "default-src * data: blob: 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';" )
+        // ct_iframe.setAttribute  ( 'csp', "default-src * self 'unsafe-inline'; font-src 'self' *fonts.gstatic.com/; style-src-elem 'self' *fonts.googleapis.com *demo.opengist.io/ *thomice.li 'unsafe-inline'; script-src * 'self' 'unsafe-eval' 'unsafe-inline'; object-src * 'self'; img-src * self 'unsafe-inline'; connect-src self * 'unsafe-inline'; frame-src * self 'unsafe-inline';" )
 
         /*
             assign css, body, js
