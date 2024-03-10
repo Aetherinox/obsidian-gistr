@@ -32,6 +32,7 @@
     "@types/node": "^14.14.37",
     "obsidian": "^1.0.0",
     "rollup": "^2.32.1",
+    "rollup-plugin-define": "^1.0.1",
     "rollup-plugin-license": "^3.2.0",
     "rollup-plugin-terser": "^7.0.2",
     "tslib": "^2.2.0",
