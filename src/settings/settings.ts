@@ -12,7 +12,7 @@ export default interface GistrSettings
     css_gh:                     string | null
     theme:                      string | null
     blk_pad_t:                  number | 16
-    blk_pad_b:                  number | 18
+    blk_pad_b:                  number | 19
     textwrap:                   string | "Enabled"
     notitime:                   number | 10
     sy_clr_lst_icon:            string | "757575E6"

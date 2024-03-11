@@ -1,0 +1,1 @@
+export { NoxComponent } from './NoxComponent';

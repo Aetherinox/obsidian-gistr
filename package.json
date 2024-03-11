@@ -1,6 +1,6 @@
 {
   "name": "gistr",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "Integrate OpenGist and Github gist snippets in your notes.",
   "main": "main.js",
   "repository": {
@@ -37,7 +37,8 @@
     "rollup-plugin-define": "^1.0.1",
     "rollup-plugin-license": "^3.2.0",
     "tslib": "^2.2.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.2.4",
+    "uuid": "^9.0.1"
   },
   "dependencies": {
     "@aetherinox/noxkit": "^1.1.0",

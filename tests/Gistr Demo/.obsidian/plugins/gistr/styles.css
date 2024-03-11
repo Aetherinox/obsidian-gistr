@@ -73,8 +73,8 @@ settings:
         default-light:      '#ccac1f'
         default-dark:       '#ccac1f'
 -
-        id:                 gistr-status-connected
-        title:              'Status indicator: Connected'
+        id:                 gistr-status-success
+        title:              'Status indicator: Success'
         description:        'Color for icon and text when indicator says "Connected"'
         type:               variable-themed-color
         opacity:            true
@@ -98,7 +98,7 @@ body
     --gistr-phrase-dark:            #ff5d85;
     --gistr-status-connecting:      #f1c638;
     --gistr-status-error:           #e02f6a;
-    --gistr-status-connected:       #4c9155;
+    --gistr-status-success:         #4c9155;
     --gistr-status-issues:          #ccac1f;
 }
 
@@ -254,6 +254,7 @@ body
 {
     min-width:              30px;
     text-align:             right;
+    font-size:              9pt;
 }
 
 .gistr-settings-lbl-important
@@ -269,11 +270,27 @@ body
     animation:              none;
 }
 
+.gistr-settings-icon-update
+{
+    position:               relative;
+    font-size:              7px;
+    content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23dea11f' width='16px' height='16px'%3E%3C!--! --%3E%3Cpath d='M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z'%3E%3C/path%3E%3C/svg%3E" );
+    animation:              none;
+}
+
+.gistr-settings-icon-update-dark
+{
+    position:               relative;
+    font-size:              7px;
+    content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23dea11f' width='16px' height='16px'%3E%3C!--! --%3E%3Cpath d='M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z'%3E%3C/path%3E%3C/svg%3E" );
+    animation:              none;
+}
+
 .gistr-settings-icon-invalid
 {
     position:               relative;
     font-size:              7px;
-    content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23ff3e7e' width='18px' height='18px'%3E%3C!--! Font Awesome Pro 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --%3E%3Cpath d='M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM186.3 136.5c-8.6-10.1-23.7-11.4-33.8-2.8s-11.4 23.7-2.8 33.8L224.6 256l-74.9 88.5c-8.6 10.1-7.3 25.3 2.8 33.8s25.3 7.3 33.8-2.8L256 293.2l69.7 82.3c8.6 10.1 23.7 11.4 33.8 2.8s11.4-23.7 2.8-33.8L287.4 256l74.9-88.5c8.6-10.1 7.3-25.3-2.8-33.8s-25.3-7.3-33.8 2.8L256 218.8l-69.7-82.3z'%3E%3C/path%3E%3C/svg%3E" );
+    content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23ff3e7e' width='18px' height='18px'%3E%3C!--! --%3E%3Cpath d='M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM186.3 136.5c-8.6-10.1-23.7-11.4-33.8-2.8s-11.4 23.7-2.8 33.8L224.6 256l-74.9 88.5c-8.6 10.1-7.3 25.3 2.8 33.8s25.3 7.3 33.8-2.8L256 293.2l69.7 82.3c8.6 10.1 23.7 11.4 33.8 2.8s11.4-23.7 2.8-33.8L287.4 256l74.9-88.5c8.6-10.1 7.3-25.3-2.8-33.8s-25.3-7.3-33.8 2.8L256 218.8l-69.7-82.3z'%3E%3C/path%3E%3C/svg%3E" );
     animation:              none;
 }
 
@@ -473,10 +490,94 @@ body
     border:                 0px;
 }
 
+.gistr-settings-modal .checkbox-container input[ type='checkbox' ], .gistr-settings-modal .checkbox-container, .gistr-settings-modal button, .gistr-settings-modal select
+{
+    cursor:                 pointer;
+}
+
+.gistr-settings-modal .setting-item
+{
+    border:                 0px;
+}
+
+.gistr-settings-modal .clickable-icon.setting-editor-extra-setting-button
+{
+    cursor:                 pointer;
+}
 
 .gistr-slider input[ type="range" ]
 {
-    width:                  90%;
+    width:                  120px;
+    height:                 3px;
+}
+
+.gistr-dropdown .dropdown
+{
+    width:                  120px;
+}
+
+/*
+    Version Info
+*/
+
+.gistr-settings-ver-int-l
+{
+    cursor:                 pointer;
+    float:                  left;
+    width:                  40%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+}
+
+.gistr-settings-ver::before, .gistr-settings-ver-int-l::before
+{
+    padding-top:            2px;
+}
+
+.gistr-settings-ver-int-r
+{
+    cursor:                 pointer;
+    float:                  right;
+    width:                  8%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+    height: 0px;
+}
+
+.gistr-settings-ver-int-r .setting-item-info
+{
+    display:                none;
+}
+
+.gistr-settings-ver-int-r .setting-item
+{
+    padding:                0px !important;
+    width:                  100%;
+    margin-top:             -7px;
+}
+
+.gistr-settings-ver-int-r  .setting-item-control
+{
+    flex:                   none;
+    width:                  100%;
+}
+
+.gistr-settings-ver-int-r .setting-item-control > input
+{
+    background:             none;
+    border:                 0px;
+    text-align:             right;
+}
+
+.gistr-settings-ver-int-r .setting-item-control > input:hover, input:active
+{
+    background:             none;
+    border:                 0px;
+}
+
+.gistr-settings-ver-int-c
+{
+    clear:                  both;
 }
 
 /*
@@ -495,15 +596,21 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
 }
 */
 
-.gistr-settings-status-connected > input
+.gistr-settings-status-success > input
 {
-    color:                  var( --gistr-status-connected ) !important;
+    color:                  var( --gistr-status-success ) !important;
     font-weight:            bold;
 }
 
-.gistr-settings-status-issues > input
+.gistr-settings-status-warning > input
 {
     color:                  var( --gistr-status-issues ) !important;
+    font-weight:            bold;
+}
+
+.gistr-settings-status-error > input
+{
+    color:                  var( --gistr-status-error ) !important;
     font-weight:            bold;
 }
 
