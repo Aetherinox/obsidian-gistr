@@ -44,7 +44,7 @@ export default
 
     cfg_tab_ge_title:                       'Global',
     cfg_tab_ge_header:                      'These settings affect all aspects of this plugin, including both Opengist and Github. If you change the trigger keyword, ensure you go back through your existing gist snippets and change the keyword at the top of each codeblock; otherwise embedded gists will not appear.',
-    cfg_tab_sy_title:                       'Save & Sync',
+    cfg_tab_sy_title:                       'Save / Sync',
     cfg_tab_sy_header:                      'These settings allow you to create gists from your notes. The contents of your notes will be directly uploaded to Github under an existing account. You may also choose to create only new notes, or manage new and existing.',
     cfg_tab_og_title:                       'OpenGist',
     cfg_tab_og_header:                      'Opengist is a self-hosted pastebin powered by Git. All snippets are stored in a Git repository and can be read and/or modified using standard Git commands, or with the web interface. It is similiar to GitHub Gist, but open-source and is self-hosted. OpenGist supports Windows, Linux, and MacOS.',
@@ -110,7 +110,7 @@ export default
     cfg_tab_gh_css_name:                    'Custom CSS',
     cfg_tab_gh_css_desc:                    'This textarea allows you to enter custom CSS properties to override existing colors.',
     cfg_tab_gh_css_pholder:                 'Paste CSS here',
-    cfg_tab_gh_pat_name:                    'Personal Access Token',
+    cfg_tab_gh_pat_name:                    'Personal access token',
     cfg_tab_gh_pat_desc:                    'The personal access token (PAT) generated on Github.com which allows you to write gists from your Obsidian vault to Github gist.',
     cfg_tab_gh_pat_pholder:                 'githubpat_XXXXXX',
     cfg_tab_gh_pat_state_show:              'Show token',
