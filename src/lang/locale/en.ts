@@ -17,6 +17,7 @@ export default
     base_theme_dark:                        'Dark',
     base_time_am:                           'AM',
     base_time_pm:                           'PM',
+    base_component_reset:                   'Reset to Default',
     base_debug_loading:                     'Loading {0} v{1} [ {2} ]',
     base_debug_updater_1:                   '{0} Update Check',
     base_debug_updater_2:                   '{0} {1}',
@@ -53,7 +54,7 @@ export default
     cfg_tab_ge_keyword_name:                'Trigger keyword',
     cfg_tab_ge_keyword_desc:                'Word to use inside codeblocks to designate as a portal for showing gists',
     cfg_tab_ge_theme_name:                  'Theme',
-    cfg_tab_ge_theme_desc:                  'This determines what color scheme will be used for gists. You can however, customize the colors in the Github and OpenGist categories below. MUST reload your note for the new stylesheet to be loaded.',
+    cfg_tab_ge_theme_desc:                  'This determines what color scheme will be used for gists. You can however, customize the colors in the Github and OpenGist categories below.<br><br><b>Note:</b> When this is changed, place your cursor in the codeblock and then leave the codeblock to refresh it. Automatic refreshing only works in <span class="gistr-settings-elm-note">reading mode</span>',
     cfg_tab_ge_wrap_name:                   'Text wrapping',
     cfg_tab_ge_wrap_desc:                   'If enabled, text will wrap to the next line. If disabled, you will see a horizontal scrollbar. This does not include gists that have no spaces anywhere in the body.',
     cfg_tab_ge_notitime_name:               'Notification duration',
@@ -157,6 +158,17 @@ export default
     cfg_tab_su_gist_label:                  'Github gist',
     cfg_tab_su_gist_url:                    'https://gist.github.com/',
     cfg_tab_su_gist_btn:                    'View',
+
+    cfg_tab_su_ver_cur:                     'Current version',
+    cfg_tab_su_ver_stable:                  'Latest stable release ',
+    cfg_tab_su_ver_beta:                    'Latest beta release ',
+    cfg_tab_su_ver_connection_issues:       'Server communication failed',
+    cfg_tab_su_ver_status_checking:         'Checking for newer version of Gistr',
+    cfg_tab_su_ver_status_uptodate:         'You are running the latest version of Gistr',
+    cfg_tab_su_ver_status_stable_avail:     'A newer stable release of Gistr is available',
+    cfg_tab_su_ver_status_beta_avail:       'A newer beta release of Gistr is available',
+    cfg_tab_su_ver_status_tip_conn_error:   'Could not communicate with the gistr server, retrying later',
+    cfg_tab_su_ver_releases:                'https://github.com/Aetherinox/obsidian-gistr/releases',
 
     /*
         Tab > Sync

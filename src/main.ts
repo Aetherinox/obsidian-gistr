@@ -7,15 +7,16 @@
 
 import { Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownView, PluginManifest, Notice, requestUrl } from 'obsidian'
 import { GistrBackend } from 'src/backend/backend'
-import { SettingsTab } from "src/settings/tab_settings";
+import { SettingsTab } from "src/settings/tab_settings"
 import GistrSettings, { GetSettings } from 'src/settings/settings'
 import ModalGettingStarted from "./modals/GettingStartedModal"
+import { SETTINGS_DEFAULTS } from 'src/settings/'
 import { lng, PluginID } from 'src/lang/helpers'
 import { Github_GetGist, Github_CopyGist, HandleFrontmatter, Github_UpdateExistingGist } from 'src/backend/services/github'
-import { GistrAPI, GistrEditor } from "src/api/types"
-import ShowContextMenu from "src/menus/context"
-import lt from "semver/functions/lt";
-import gt from "semver/functions/gt";
+import { GistrAPI, GistrEditor } from 'src/api/types'
+import ShowContextMenu from 'src/menus/context'
+import lt from 'semver/functions/lt'
+import gt from 'semver/functions/gt'
 
 /*
     Basic Declrations
@@ -23,50 +24,6 @@ import gt from "semver/functions/gt";
 
 const PluginName            = PluginID( )
 const AppBase               = 'app://obsidian.md'
-
-/*
-    Default Settings
-*/
-
-const SETTINGS_DEFAULTs: GistrSettings =
-{
-    keyword:                    "gistr",
-    firststart:                 true,
-    css_og:                     null,
-    css_gh:                     null,
-    theme:                      "Light",
-    blk_pad_t:                  16,
-    blk_pad_b:                  18,
-    textwrap:                   "Enabled",
-    notitime:                   10,
-    ge_enable_updatenoti:       true,
-
-    sy_clr_lst_icon:            "#757575E6",
-
-    og_clr_bg_light:            "#CBCBCB",
-    og_clr_bg_dark:             "#121315",
-    og_clr_sb_light:            "#BA4956",
-    og_clr_sb_dark:             "#4960ba",
-    og_clr_tx_light:            "#2A2626",
-    og_clr_tx_dark:             "#CAD3F5",
-    og_opacity:                 1,
-
-    gh_clr_bg_light:            "#E5E5E5",
-    gh_clr_bg_dark:             "#121315",
-    gh_clr_sb_light:            "#BA4956",
-    gh_clr_sb_dark:             "#BA496A",
-    gh_clr_tx_light:            "#2A2626",
-    gh_clr_tx_dark:             "#CAD3F5",
-    gh_opacity:                 1,
-
-    sy_enable_autoupdate:       true,
-    sy_enable_autosave:         false,
-    sy_enable_autosave_strict:  false,
-    sy_enable_autosave_notice:  false,
-    sy_add_frontmatter:         false,
-    sy_save_duration:           15,
-    context_sorting:            [],
-}
 
 /*
     Extend Plugin
@@ -312,7 +269,7 @@ export default class GistrPlugin extends Plugin
 
     async loadSettings( )
     {
-        this.settings = Object.assign( { }, SETTINGS_DEFAULTs, await this.loadData( ) )
+        this.settings = Object.assign( { }, SETTINGS_DEFAULTS, await this.loadData( ) )
     }
 
     /*
@@ -332,7 +289,7 @@ export default class GistrPlugin extends Plugin
 
 	async versionCheck( )
     {
-		const ver_running   = process.env.PLUGIN_VERSION
+		const ver_running   = this.manifest.version
 		const ver_stable    = await requestUrl( lng( "ver_url", "main" ) ).then( async ( res ) =>
         {
 			if ( res.status === 200 )

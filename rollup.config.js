@@ -10,7 +10,8 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
 import define from 'rollup-plugin-define';
-import license from 'rollup-plugin-license'
+import license from 'rollup-plugin-license';
+import { v5 as uuidv5 } from 'uuid';
 import {readFileSync} from 'fs';
 
 const { name, author, version, repository } = JSON.parse(readFileSync('./package.json'));
@@ -24,7 +25,8 @@ const topBanner = `
 @url:         ${ repository.url }
 @copyright:   (c) ${ year } ${ author }
 @license:     MIT
-@build:       ${ new Date( ).toLocaleString( ) }
+@build:       ${ new Date( ).toISOString( ) }
+@build-id:    ${ uuidv5( ` + repository + `, uuidv5.URL ) }
 `;
 
 console.log( topBanner );
