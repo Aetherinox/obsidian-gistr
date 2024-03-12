@@ -1,11 +1,11 @@
 import { App, Notice, SuggestModal, MarkdownView, TFile } from 'obsidian'
 import GistrPlugin from 'src/main'
-import GistrSettings, { GetSettings } from 'src/settings/settings'
-import { GithubTokenGet } from 'src/backend/tokens/github'
+import { GistrSettings, SettingsGet } from 'src/settings/settings'
+import { FrontmatterPrepare } from 'src/api'
 import Noxkit from '@aetherinox/noxkit'
 import frontmatter from 'front-matter'
 import { Octokit } from '@octokit/rest'
-import { lng } from 'src/lang/helpers'
+import { lng } from 'src/lang'
 
 /*
     Github Status
@@ -23,7 +23,7 @@ enum Status
     default api status types
 */
 
-export const GithubStatusAPI: Record< string, string > =
+export const GHStatusAPI: Record< string, string > =
 {
     'operational':              lng( "gist_status_connected" ),
 	"degraded_performance":     lng( "gist_status_degraded_performance" ),
@@ -48,17 +48,28 @@ interface GistData
 }
 
 /*
-    Github > Args
+    Github > Personal Access Token
 */
 
-interface ArgsGet   { app: App, plugin: GistrPlugin, is_public: boolean }
-interface ArgsCopy  { app: App, plugin: GistrPlugin }
+const GISTR_GITHUB_PAT = 'gistr_github_pat'
 
 /*
-    Clean Frontmatter
+    Github > Personal Access Token > Set
 */
 
-export const HandleFrontmatter    = ( body: string ): string => frontmatter( body ).body
+export const GHTokenSet = ( token: string ): void =>
+{
+    localStorage.setItem( GISTR_GITHUB_PAT, token )
+}
+
+/*
+    Github > Personal Access Token > Get
+*/
+
+export const GHTokenGet = ( ): string =>
+{
+    return localStorage.getItem( GISTR_GITHUB_PAT )
+}
 
 /*
     Interface > Gist Result
@@ -105,6 +116,13 @@ interface ParamsAutosave
     note_full:          string
     file:               TFile
 }
+
+/*
+    Github > Args
+*/
+
+interface ArgsGet   { app: App, plugin: GistrPlugin, is_public: boolean }
+interface ArgsCopy  { app: App, plugin: GistrPlugin }
 
 /*
     Gist > Get File
@@ -370,18 +388,18 @@ class SelectExistingModal extends SuggestModal < GistData >
     Initialized by Obsidian command palette and right-click menu
 */
 
-export const Github_GetGist = ( args: ArgsGet ) => async ( ) =>
+export const GHGistGet = ( args: ArgsGet ) => async ( ) =>
 {
 
     const { is_public, app, plugin }    = args
-    const token                         = GithubTokenGet( )
+    const token                         = GHTokenGet( )
     const repoTarget                    = is_public ? lng( "lst_repotype_pub" ) : lng( "lst_repotype_pri" )
     const
     {
         sy_enable_autoupdate,
         sy_add_frontmatter,
         notitime
-    } = await GetSettings( plugin )
+    } = await SettingsGet( plugin )
 
     /*
         User token not specified in settings
@@ -412,7 +430,7 @@ export const Github_GetGist = ( args: ArgsGet ) => async ( ) =>
     const editor                = getView.editor
     const noteOrig              = editor.getValue( )
     const ExistingGist          = FindExistingGist( noteOrig ).filter( ( gistArray ) => gistArray.is_public === is_public )
-    const gistContent           = sy_add_frontmatter ? noteOrig : HandleFrontmatter( noteOrig )
+    const gistContent           = sy_add_frontmatter ? noteOrig : FrontmatterPrepare( noteOrig )
 
     if ( ExistingGist.length && sy_enable_autoupdate )
     {
@@ -466,7 +484,7 @@ export const Github_GetGist = ( args: ArgsGet ) => async ( ) =>
                 const editor_newvalue = InsertFrontmatter( output.gistArray, noteOrig )
 
                 if ( process.env.ENV === "dev" )
-                    console.log( "Github_GetGist -> Insert into editor" )
+                    console.log( "GHGistGet -> Insert into editor" )
 
                 editor.setValue( editor_newvalue )
 
@@ -523,10 +541,10 @@ export const Github_GetGist = ( args: ArgsGet ) => async ( ) =>
     Copies a gist url to the user's clipboard
 */
 
-export const Github_CopyGist = ( args: ArgsCopy ) => async ( ) =>
+export const GHGistCopy = ( args: ArgsCopy ) => async ( ) =>
 {
     const { app, plugin }           = args
-    const { sy_enable_autoupdate, notitime } = await GetSettings( plugin )
+    const { sy_enable_autoupdate, notitime } = await SettingsGet( plugin )
 
     if ( !sy_enable_autoupdate )
         return new Notice( lng( "gist_upload_req_allowupload" ), notitime * 1000 )
@@ -591,16 +609,16 @@ export const Github_CopyGist = ( args: ArgsCopy ) => async ( ) =>
     the contents of the note are updated to a gist online.
 */
 
-export const Github_UpdateExistingGist = async ( args: ParamsAutosave ) =>
+export const GHGistUpdate = async ( args: ParamsAutosave ) =>
 {
     const { plugin, file, note_full: note_full } = args
-    const { sy_add_frontmatter, sy_enable_autosave_notice, notitime } = await GetSettings( plugin )
+    const { sy_add_frontmatter, sy_enable_autosave_notice, notitime } = await SettingsGet( plugin )
 
     /*
         User token not specified in settings
     */
 
-    const token = GithubTokenGet( )
+    const token = GHTokenGet( )
     
     if ( !token )
         return new Notice( lng( "err_gist_token_missing" ), notitime * 1000 )
@@ -610,7 +628,7 @@ export const Github_UpdateExistingGist = async ( args: ParamsAutosave ) =>
     */
 
     const note_existing         = FindExistingGist( note_full )
-    const content               = sy_add_frontmatter ? note_full : HandleFrontmatter( note_full )
+    const content               = sy_add_frontmatter ? note_full : FrontmatterPrepare( note_full )
   
     /*
         Validate

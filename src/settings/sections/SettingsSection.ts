@@ -1,15 +1,12 @@
-import { App, Plugin, PluginManifest, PluginSettingTab, Setting, sanitizeHTMLToDom, ExtraButtonComponent, MarkdownRenderer, Notice, requestUrl } from 'obsidian'
+import { App, PluginSettingTab, Setting, sanitizeHTMLToDom, ExtraButtonComponent, MarkdownRenderer, Notice, requestUrl } from 'obsidian'
 import GistrPlugin from "src/main"
-import { SETTINGS_DEFAULTS } from 'src/settings/defaults'
-import GistrSettings from 'src/settings/settings'
+import { SettingsDefaults } from 'src/settings/defaults'
+import { ColorPicker, GetColor } from 'src/utils'
+import { GHStatusAPI, GHTokenSet, GHTokenGet } from 'src/backend/services'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
-import { lng, PluginID } from 'src/lang/helpers'
-import { GithubTokenGet, GithubTokenSet } from 'src/backend/tokens/github'
-import { GithubStatusAPI } from 'src/backend/services/github'
+import { NoxComponent } from 'src/api'
+import { lng } from 'src/lang'
 import Pickr from "@simonwep/pickr"
-import ColorPicker from 'src/backend/colorpicker'
-import { GetColor } from 'src/backend/colorpicker'
-import { NoxComponent } from './utils'
 import lt from 'semver/functions/lt'
 import gt from 'semver/functions/gt'
 
@@ -96,7 +93,7 @@ export const GetTextwrap: { [ key in TEXTWRAP ]: string } =
     Settings Tab
 */
 
-export class SettingsTab extends PluginSettingTab
+export class SettingsSection extends PluginSettingTab
 {
     readonly plugin:            GistrPlugin
     private Hide_Global:        boolean
@@ -310,7 +307,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.theme as string
+                        SettingsDefaults.theme as string
                     ),
                 )
 
@@ -341,7 +338,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.textwrap as string
+                        SettingsDefaults.textwrap as string
                     ),
                 )
 
@@ -372,7 +369,7 @@ export class SettingsTab extends PluginSettingTab
                         }),
                         ( ) =>
                         ( 
-                            SETTINGS_DEFAULTS.keyword.toString( ) as string
+                            SettingsDefaults.keyword.toString( ) as string
                         ),
                     )
 
@@ -399,7 +396,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.ge_enable_updatenoti as boolean
+                        SettingsDefaults.ge_enable_updatenoti as boolean
                     ),
                 )
 
@@ -432,7 +429,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.notitime as number
+                        SettingsDefaults.notitime as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
                 {
@@ -622,7 +619,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.og_opacity as number
+                        SettingsDefaults.og_opacity as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
                 {
@@ -660,7 +657,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.blk_pad_t as number
+                        SettingsDefaults.blk_pad_t as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
                 {
@@ -698,7 +695,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.blk_pad_b as number
+                        SettingsDefaults.blk_pad_b as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
                 {
@@ -731,7 +728,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.css_og.toString( ) as string
+                        SettingsDefaults.css_og.toString( ) as string
                     ),
                 )
 
@@ -795,13 +792,13 @@ export class SettingsTab extends PluginSettingTab
                             Find API status language entry in array
                         */
 
-                        const gb_api_status: string = GithubStatusAPI[ github_status ]
+                        const gb_api_status: string = GHStatusAPI[ github_status ]
 
                         /*
                             Text > Github Token Not Specified
                         */
 
-                        if ( !GithubTokenGet( ) )
+                        if ( !GHTokenGet( ) )
                         {
                             const el                    = Tab_GH_R.querySelector( ".setting-item-control" )
                             el.removeClass              ( "gistr-settings-status-connecting" )
@@ -871,13 +868,13 @@ export class SettingsTab extends PluginSettingTab
                             Find API status language entry in array
                         */
 
-                        const gb_api_status:  string = GithubStatusAPI[ github_status ]
+                        const gb_api_status:  string = GHStatusAPI[ github_status ]
 
                         /*
                             Text > Github Token Not Specified
                         */
 
-                            if ( !GithubTokenGet( ) )
+                            if ( !GHTokenGet( ) )
                             {
                                 btn.setIcon     ( "circle-off" )
                                 btn.setTooltip  ( lng( "gist_status_no_api_btn_tip" ) )
@@ -948,7 +945,7 @@ export class SettingsTab extends PluginSettingTab
                 Github > Define
             */
 
-            const gistToken       = GithubTokenGet( )
+            const gistToken = GHTokenGet( )
 
             /*
                 Section -> Support Buttons
@@ -1034,7 +1031,7 @@ export class SettingsTab extends PluginSettingTab
 
                             new Notice ( lng( "cfg_tag_gh_pat_notice_msg_success" ) + "\n\n" + token_Type )
 
-                            GithubTokenSet( input_PAT )
+                            GHTokenSet( input_PAT )
 
                             this.display( )
                         }
@@ -1067,7 +1064,7 @@ export class SettingsTab extends PluginSettingTab
                                 btn_Github.extraSettingsEl.classList.remove     ( "gistr-settings-icon-ok" )
                                 btn_Github.extraSettingsEl.classList.remove     ( "gistr-settings-icon-invalid" )
 
-                                GithubTokenSet( "" )
+                                GHTokenSet( "" )
 
                                 new Notice ( lng( "cfg_tag_gh_pat_notice_msg_cleared" ) )
                             }
@@ -1284,7 +1281,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.gh_opacity as number
+                        SettingsDefaults.gh_opacity as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
                 {
@@ -1317,7 +1314,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.css_gh.toString( ) as string
+                        SettingsDefaults.css_gh.toString( ) as string
                     ),
                 )
                 
@@ -1391,7 +1388,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.sy_enable_autoupdate as boolean
+                        SettingsDefaults.sy_enable_autoupdate as boolean
                     ),
                 )
                 
@@ -1427,7 +1424,7 @@ export class SettingsTab extends PluginSettingTab
                     } ),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.sy_enable_autosave as boolean
+                        SettingsDefaults.sy_enable_autosave as boolean
                     ),
                 )
 
@@ -1454,7 +1451,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.sy_enable_autosave_strict as boolean
+                        SettingsDefaults.sy_enable_autosave_strict as boolean
                     ),
                 )
 
@@ -1484,7 +1481,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.sy_enable_autosave_notice as boolean
+                        SettingsDefaults.sy_enable_autosave_notice as boolean
                     ),
                 )
 
@@ -1528,7 +1525,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.sy_save_duration as number
+                        SettingsDefaults.sy_save_duration as number
                     ),
                 )
                 
@@ -1564,7 +1561,7 @@ export class SettingsTab extends PluginSettingTab
                     }),
                     ( ) =>
                     ( 
-                        SETTINGS_DEFAULTS.sy_add_frontmatter as boolean
+                        SettingsDefaults.sy_add_frontmatter as boolean
                     ),
                 )
 
@@ -1772,8 +1769,9 @@ export class SettingsTab extends PluginSettingTab
 
                             else if ( lt( ver_beta, ver_stable ) && lt( ver_running, ver_stable ) )
                             {
-                                btn.setTooltip  ( lng( "cfg_tab_su_ver_status_new_stable_btn_tip" ) )
-                                btn.setIcon     ( "alert" )
+                                btn.setTooltip                      ( lng( "cfg_tab_su_ver_status_new_stable_btn_tip" ) )
+                                btn.setIcon                         ( "alert" )
+                                btn.extraSettingsEl.classList.add   ( "gistr-settings-icon-update" )
                             }
 
                             /*

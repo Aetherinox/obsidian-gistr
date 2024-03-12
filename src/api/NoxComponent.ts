@@ -1,5 +1,5 @@
 import { Setting, MomentFormatComponent, DropdownComponent, TextComponent, ToggleComponent, ValueComponent, SliderComponent, TextAreaComponent } from 'obsidian'
-import { lng } from 'src/lang/helpers'
+import { lng } from 'src/lang'
 
 /*
 	Class to extend obsidian components to include a reset button

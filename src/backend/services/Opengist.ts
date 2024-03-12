@@ -4,7 +4,7 @@ const GISTR_OGIST_PAT = 'gistr_opengist_pat'
     OpenGist > Personal Access Token > Set
 */
 
-export const OpengistTokenSet = ( token: string ): void =>
+export const OGTokenSet = ( token: string ): void =>
 {
     localStorage.setItem( GISTR_OGIST_PAT, token )
 }
@@ -13,7 +13,7 @@ export const OpengistTokenSet = ( token: string ): void =>
     OpenGist > Personal Access Token > Get
 */
 
-export const OpengistTokenGet = ( ): string =>
+export const OGTokenGet = ( ): string =>
 {
     return localStorage.getItem( GISTR_OGIST_PAT )
 }

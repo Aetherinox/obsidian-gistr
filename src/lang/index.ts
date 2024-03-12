@@ -6,15 +6,6 @@ import { moment } from "obsidian"
 import en from "./locale/en"
 
 /*
-    get plugin name
-*/
-
-export function PluginID( ) : string
-{
-    return 'gistr'
-}
-
-/*
     Language entries
 */
 

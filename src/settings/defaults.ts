@@ -1,10 +1,10 @@
-import GistrSettings from 'src/settings/settings'
+import { GistrSettings } from 'src/settings'
 
 /*
     Default Settings
 */
 
-export const SETTINGS_DEFAULTS: GistrSettings =
+export const SettingsDefaults: GistrSettings =
 {
     keyword:                    "gistr",
     firststart:                 true,

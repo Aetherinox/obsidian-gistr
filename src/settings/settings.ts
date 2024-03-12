@@ -4,7 +4,7 @@ import GistrPlugin from "src/main"
     Settings
 */
 
-export default interface GistrSettings
+export interface GistrSettings
 {
     firststart:                 boolean
     keyword:                    string | "gistr"
@@ -48,7 +48,7 @@ export default interface GistrSettings
     Settings > Get
 */
 
-export const GetSettings = async ( plugin: GistrPlugin ): Promise < GistrSettings > =>
+export const SettingsGet = async ( plugin: GistrPlugin ): Promise < GistrSettings > =>
 {
     await plugin.loadSettings( )
     return plugin.settings

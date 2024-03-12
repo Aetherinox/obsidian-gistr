@@ -2,16 +2,17 @@
     Import
 */
 
-import { request, App, RequestUrlParam  } from "obsidian"
-import GistrSettings from 'src/settings/settings'
-import { lng, PluginID } from 'src/lang/helpers'
+import { request, RequestUrlParam  } from "obsidian"
+import { Env, PID } from 'src/api'
+import { GistrSettings } from 'src/settings/settings'
+import { lng } from 'src/lang'
 import { nanoid } from 'nanoid'
 
 /*
     Basic Declrations
 */
 
-const PID           = PluginID( )
+const sender        = PID( )
 const AppBase       = 'app://obsidian.md'
 
 /*
@@ -43,13 +44,15 @@ export interface ItemJSON
     Gistr Backend
 */
 
-export class GistrBackend
+export class BackendCore
 {
-    private readonly settings: GistrSettings
+    private readonly settings:  GistrSettings
+    private manifest:           Env
 
     constructor( settings: GistrSettings )
     {
         this.settings   = settings
+        this.manifest   = Env
     }
 
     /*
@@ -65,6 +68,8 @@ export class GistrBackend
         const uuid          = find.uuid
         const file          = find.filename
         const theme         = find.theme
+
+        const asd        = PID( )
 
         /*
             Since opengist can really be any website, check for matching github links
@@ -114,7 +119,7 @@ export class GistrBackend
             {
                 window.top.postMessage(
                 {
-                    sender:         '${ PID }',
+                    sender:         '${ sender }',
                     gid:            '${ uuid }',
                     scrollHeight:   document.body.scrollHeight
                 }, '${ AppBase }')
@@ -136,11 +141,11 @@ export class GistrBackend
             create uuid and iframe
         */
 
-        const gid               = `${ PID }-${ uuid }-${ nanoid( ) }`
+        const gid               = `${ sender }-${ uuid }-${ nanoid( ) }`
         const ct_iframe         = document.createElement( 'iframe' )
         ct_iframe.id            = gid
     
-        ct_iframe.classList.add ( `${ PID }-container` )
+        ct_iframe.classList.add ( `${ sender }-container` )
         ct_iframe.setAttribute  ( 'sandbox',    'allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation' )
         ct_iframe.setAttribute  ( 'loading',    'lazy' )
         ct_iframe.setAttribute  ( 'width',      '100%' )
@@ -628,7 +633,7 @@ export class GistrBackend
     messageEventHandler = ( evn: MessageEvent ) =>
     {
         if ( evn.origin !== 'null' ) return
-        if ( evn.data.sender !== PID ) return
+        if ( evn.data.sender !== sender ) return
 
         const uuid                          = evn.data.gid
         const scrollHeight                  = evn.data.scrollHeight
