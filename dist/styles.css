@@ -1,0 +1,1320 @@
+/* @settings
+name: ☁️ Gistr Plugin
+id: gistr-pcv1
+settings:
+-
+    id:                     gistr-pcv1-cat-settings-panel
+    title:                  '1. Settings Interface'
+    description:            'Customize the colors used within Gistrs settings interface. These settings do not modify gist codeblocks or how gists appear; only the settings interface.'
+    type:                   heading
+    level:                  1
+    collapsed:              true
+-
+        id:                 gistr-phrase-light
+        title:              'Phrase: Light Theme'
+        description:        'Text color in Gistr settings to indicate a Light theme'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#ff5d85'
+        default-dark:       '#e7e7e7'
+-
+        id:                 gistr-phrase-dark
+        title:              'Phrase: Dark Theme'
+        description:        'Text color in Gistr settings to indicate a Dark theme'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#e7e7e7'
+        default-dark:       '#ff5d85'
+-
+        id:                 gistr-accent-1
+        title:              'Accent 1'
+        description:        'Accdent color to make certain words in the Gistr settings stand out'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#e7e7e7'
+        default-dark:       '#ff5d85'
+-
+        id:                 gistr-accent-2
+        title:              'Accent 2'
+        description:        'Accdent color to make certain words in the Gistr settings stand out'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#a4ca8e'
+        default-dark:       '#a4ca8e'
+-
+        id:                 gistr-status-connecting
+        title:              'Status indicator: Connecting'
+        description:        'Color for icon and text when indicator says "Connecting"'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#f1c638'
+        default-dark:       '#f1c638'
+-
+        id:                 gistr-status-error
+        title:              'Status indicator: Error'
+        description:        'Color for icon when Github API hasnt been configured or is not valid'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#e02f6a'
+        default-dark:       '#e02f6a'
+-
+        id:                 gistr-status-issues
+        title:              'Status indicator: Issues'
+        description:        'Color for icon and text when indicator says "Issues"'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#ccac1f'
+        default-dark:       '#ccac1f'
+-
+        id:                 gistr-status-success
+        title:              'Status indicator: Success'
+        description:        'Color for icon and text when indicator says "Connected"'
+        type:               variable-themed-color
+        opacity:            true
+        format:             hex
+        default-light:      '#4c9155'
+        default-dark:       '#4c9155'
+-
+
+*/
+
+/*
+    Variables
+*/
+
+body
+{
+    --gistr-header-btn-dur:         240ms;
+    --gistr-accent-1:               #ff5d85;
+    --gistr-accent-2:               #a4ca8e;
+    --gistr-phrase-light:           #a4ca8e;
+    --gistr-phrase-dark:            #ff5d85;
+    --gistr-status-connecting:      #f1c638;
+    --gistr-status-error:           #e02f6a;
+    --gistr-status-success:         #4c9155;
+    --gistr-status-issues:          #ccac1f;
+}
+
+/*
+    Anim > Rotate
+*/
+
+@-moz-keyframes spin
+{
+    100% { -moz-transform:      rotate( 360deg ); } 
+}
+
+@-webkit-keyframes spin
+{
+    100% { -webkit-transform:   rotate( 360deg ); } 
+}
+
+@keyframes spin
+{
+    100%
+    {
+        -webkit-transform:      rotate( 360deg ); 
+        transform:rotate        ( 360deg ); 
+    } 
+}
+
+.gistr-anim-spin
+{
+    -webkit-animation:          spin 4s linear infinite;
+    -moz-animation:             spin 4s linear infinite;
+    animation:                  spin 4s linear infinite;
+}
+
+/*
+    Anim > Fade in / Out
+*/
+
+@keyframes gistr_fadeInOut
+{ 
+    from
+    {
+        opacity:                0.6;
+    }
+    to
+    {
+        opacity:                1;
+    } 
+}
+
+/*
+    Anim > Glow
+*/
+
+.glow
+{
+    font-size:              13px;
+    color:                  #fff;
+    text-align:             center;
+    -webkit-animation:      glow 1s ease-in-out infinite alternate;
+    -moz-animation:         glow 1s ease-in-out infinite alternate;
+    animation:              glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow
+{
+    from
+    {
+        text-shadow:        0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    }
+    to
+    {
+        text-shadow:        0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+}
+
+/*
+    Anim > Pulse
+*/
+
+@keyframes pulse
+{
+	0%
+    {
+		transform:          scale(0.95);
+		box-shadow:         0 0 0 0 rgba(0, 0, 0, 0.7);
+	}
+
+	70%
+    {
+		transform:          scale(1);
+		box-shadow:         0 0 0 10px rgba(0, 0, 0, 0);
+	}
+
+	100%
+    {
+		transform:          scale(0.95);
+		box-shadow:         0 0 0 0 rgba(0, 0, 0, 0);
+	}
+}
+
+/*
+    Gistr Codeblock
+*/
+
+.block-language-gistr
+{
+    margin-top:             32px;
+}
+
+.block-language-gistr > iframe
+{
+    width:                  100%;
+    border:                 0;
+}
+
+/*
+    Gistr Codeblock > Error
+*/
+
+.block-language-gistr > .gistr-container-error
+{
+    padding:                15px;
+    background-color:       rgba( 18, 19, 21, .6 );
+    border:                 3px solid rgba( 255, 255, 255, .10 );
+}
+
+/*
+    Settings
+*/
+
+.gistr-settings-section-description
+{
+    display:                block;
+    margin-bottom:          25px;
+}
+
+.gistr-settings-section-header
+{
+    padding-bottom:         25px;
+}
+
+.gistr-settings-section-footer
+{
+    padding-bottom:         40px;
+}
+
+.gistr-settings-section-separator
+{
+    padding-bottom:         20px;
+}
+
+.gistr-settings-section-separator-15
+{
+    padding-bottom:         15px;
+}
+
+.gistr-settings-elm-slider-preview
+{
+    min-width:              30px;
+    text-align:             right;
+    font-size:              9pt;
+}
+
+.gistr-settings-lbl-important
+{
+    color:                  var( --gistr-accent-1 );
+}
+
+.gistr-settings-icon-github
+{
+    position:               relative;
+    font-size:              7px;
+    content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 496 512' fill='%23FFFFFF' width='18px' height='18px'%3E%3Cpath d='M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z'%3E%3C/path%3E%3C/svg%3E" );
+    animation:              none;
+}
+
+.gistr-settings-icon-update
+{
+    position:               relative;
+    font-size:              7px;
+    content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23dea11f' width='16px' height='16px'%3E%3C!--! --%3E%3Cpath d='M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z'%3E%3C/path%3E%3C/svg%3E" );
+    animation:              none;
+}
+
+.gistr-settings-icon-update-dark
+{
+    position:               relative;
+    font-size:              7px;
+    content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23dea11f' width='16px' height='16px'%3E%3C!--! --%3E%3Cpath d='M256 32c14.2 0 27.3 7.5 34.5 19.8l216 368c7.3 12.4 7.3 27.7 .2 40.1S486.3 480 472 480H40c-14.3 0-27.6-7.7-34.7-20.1s-7-27.8 .2-40.1l216-368C228.7 39.5 241.8 32 256 32zm0 128c-13.3 0-24 10.7-24 24V296c0 13.3 10.7 24 24 24s24-10.7 24-24V184c0-13.3-10.7-24-24-24zm32 224a32 32 0 1 0 -64 0 32 32 0 1 0 64 0z'%3E%3C/path%3E%3C/svg%3E" );
+    animation:              none;
+}
+
+.gistr-settings-icon-invalid
+{
+    position:               relative;
+    font-size:              7px;
+    content:                url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' fill='%23ff3e7e' width='18px' height='18px'%3E%3C!--! --%3E%3Cpath d='M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM186.3 136.5c-8.6-10.1-23.7-11.4-33.8-2.8s-11.4 23.7-2.8 33.8L224.6 256l-74.9 88.5c-8.6 10.1-7.3 25.3 2.8 33.8s25.3 7.3 33.8-2.8L256 293.2l69.7 82.3c8.6 10.1 23.7 11.4 33.8 2.8s11.4-23.7 2.8-33.8L287.4 256l74.9-88.5c8.6-10.1 7.3-25.3-2.8-33.8s-25.3-7.3-33.8 2.8L256 218.8l-69.7-82.3z'%3E%3C/path%3E%3C/svg%3E" );
+    animation:              none;
+}
+
+.clickable-icon.setting-editor-extra-setting-button.gistr-settings-icon-ok
+{
+    color:                  #63942c !important;
+    animation:              gistr_fadeInOut 1s infinite alternate;
+}
+
+.clickable-icon.setting-editor-extra-setting-button.gistr-settings-icon-ok:hover
+{
+    color:                  #FFFFFF !important;
+    background-color:       #ff2869;
+}
+
+.clickable-icon.setting-editor-extra-setting-button.gistr-settings-icon-error
+{
+    color:                  var( --gistr-status-error ) !important;
+    animation:              gistr_fadeInOut 1s infinite alternate;
+}
+
+.gistr-settings-icon-cur
+{
+    cursor:                 pointer;
+}
+
+.gistr-settings-status-connecting, .gistr-settings-status-connecting > input
+{
+    color:                  var( --gistr-status-connecting );
+}
+
+.gistr-settings-elm-important
+{
+    color:                  var( --gistr-accent-1 );
+    font-weight:            var( --font-semibold );
+}
+
+.gistr-settings-elm-note
+{
+    color:                  var( --gistr-accent-2 );
+    font-weight:            var( --font-semibold );
+}
+
+.gistr-settings-elm-li
+{
+    padding-bottom:         3px;
+}
+
+.gistr-settings-elm-li-title
+{
+    color:                  var( --gistr-accent-1 );
+    font-weight:            var( --font-semibold );
+}
+
+.gistr-settings-elm-li-perm
+{
+    color:                  var( --gistr-accent-2 );
+}
+
+.gistr-settings-elm-textarea textarea:not( .rename-textarea )
+{
+    width:                  300px;
+}
+
+.gistr-settings-lbl-theme-light
+{
+    color:                  var( --gistr-phrase-light );
+}
+
+.gistr-settings-lbl-theme-dark
+{
+    color:                  var( --gistr-phrase-dark );
+}
+
+.gistr-settings-header::before, .gistr-settings-header-int-l::before
+{
+    padding-top:            2px;
+}
+
+.gistr-settings-header::before
+{
+    position:               relative;
+    display:                inline-block;
+    width:                  24px;
+    height:                 20px;
+    margin:                 auto;
+    margin-top:             2px;
+    margin-left:            -5px;
+    opacity:                1;
+    scale:                  0.8;
+    visibility:             visible;
+    background-color:       var( --text-muted );
+    content:                "\200b";
+    -webkit-mask-repeat:    no-repeat;
+    mask-repeat:            no-repeat;
+    -webkit-mask-image:     url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' xml:space='preserve'%3E%3Cpath d='M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z'/%3E%3Cpath fill='none' d='M0 0h32v32H0z'/%3E%3C/svg%3E" );
+    mask-image:             url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E" );
+    transition:
+        transform           var( --gistr-header-btn-dur ) ease-out,
+        visibility          var( --gistr-header-btn-dur ),
+        opacity             var( --gistr-header-btn-dur ),
+        scale               var( --gistr-header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
+}
+
+.gistr-settings-header:hover
+{
+    cursor:                 pointer;
+}
+
+.gistr-settings-header.isfold::before
+{
+    transform:              rotate( -90deg );
+}
+
+.gistr-settings-header-int-l
+{
+    cursor:                 pointer;
+    float:                  left;
+    width:                  40%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+}
+
+.gistr-settings-header-int-r
+{
+    cursor:                 pointer;
+    float:                  right;
+    width:                  8%;
+    margin-top:             4px;
+    margin-bottom:          2px;
+    height: 0px;
+}
+
+.gistr-settings-header-int-c
+{
+    clear:                  both;
+}
+
+.gistr-settings-header-int-l::before
+{
+    position:               relative;
+    display:                inline-block;
+    width:                  24px;
+    height:                 20px;
+    margin:                 auto;
+    margin-left:            -5px;
+    opacity:                1;
+    scale:                  0.8;
+    visibility:             visible;
+    background-color:       var( --text-muted );
+    content:                "\200b";
+    -webkit-mask-repeat:    no-repeat;
+    mask-repeat:            no-repeat;
+    -webkit-mask-image:     url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' xml:space='preserve'%3E%3Cpath d='M16 22 6 12l1.4-1.4 8.6 8.6 8.6-8.6L26 12z'/%3E%3Cpath fill='none' d='M0 0h32v32H0z'/%3E%3C/svg%3E" );
+    mask-image:             url( "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' %3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E" );
+    transition:
+        transform           var( --gistr-header-btn-dur ) ease-out,
+        visibility          var( --gistr-header-btn-dur ),
+        opacity             var( --gistr-header-btn-dur ),
+        scale               var( --gistr-header-btn-dur ) cubic-bezier( 0.3, 0.15, 0.1, 1 );
+}
+
+.gistr-settings-header-int-l.isfold::before
+{
+    transform:              rotate( -90deg );
+}
+
+
+.gistr-settings-header-int-r .setting-item-info
+{
+    display:                none;
+}
+
+.gistr-settings-header-int-r .setting-item
+{
+    padding:                0px !important;
+    width:                  100%;
+    margin-top:             -7px;
+}
+
+.gistr-settings-header-int-r  .setting-item-control
+{
+    flex:                   none;
+    width:                  100%;
+}
+
+.gistr-settings-header-int-r .setting-item-control > input
+{
+    background:             none;
+    border:                 0px;
+    text-align:             right;
+}
+
+.gistr-settings-header-int-r .setting-item-control > input:hover, input:active
+{
+    background:             none;
+    border:                 0px;
+}
+
+.gistr-settings-header-int-r .setting-item-control > input::selection
+{
+    background:             none;
+    -webkit-touch-callout:  none;
+    -webkit-user-select:    none;
+    -khtml-user-select:     none;
+    -moz-user-select:       none;
+    -ms-user-select:        none;
+     user-select:           none;
+}
+
+.gistr-settings-modal .checkbox-container input[ type='checkbox' ], .gistr-settings-modal .checkbox-container, .gistr-settings-modal button, .gistr-settings-modal select
+{
+    cursor:                 pointer;
+}
+
+.gistr-settings-modal .setting-item
+{
+    border:                 0px;
+}
+
+.gistr-settings-modal .clickable-icon.setting-editor-extra-setting-button
+{
+    cursor:                 pointer;
+}
+
+.gistr-slider input[ type="range" ]
+{
+    width:                  120px;
+    height:                 3px;
+}
+
+.gistr-dropdown .dropdown
+{
+    width:                  120px;
+}
+
+/*
+    Version Info
+*/
+
+.gistr-settings-ver-int-l
+{
+    float:                  left;
+    width:                  40%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+}
+
+.gistr-settings-ver::before, .gistr-settings-ver-int-l::before
+{
+    padding-top:            2px;
+}
+
+.gistr-settings-ver-int-r
+{
+    cursor:                 pointer;
+    float:                  right;
+    width:                  8%;
+    margin-top:             12px;
+    margin-bottom:          2px;
+    height: 0px;
+}
+
+.gistr-settings-ver-int-r .setting-item-info
+{
+    display:                none;
+}
+
+.gistr-settings-ver-int-r .setting-item
+{
+    padding:                0px !important;
+    width:                  100%;
+    margin-top:             -7px;
+}
+
+.gistr-settings-ver-int-r  .setting-item-control
+{
+    flex:                   none;
+    width:                  100%;
+}
+
+.gistr-settings-ver-int-r .setting-item-control > input
+{
+    background:             none;
+    border:                 0px;
+    text-align:             right;
+}
+
+.gistr-settings-ver-int-r .setting-item-control > input:hover, input:active
+{
+    background:             none;
+    border:                 0px;
+}
+
+.gistr-settings-ver-int-r .setting-item-control > input::selection
+{
+    background:             none;
+    -webkit-touch-callout:  none;
+    -webkit-user-select:    none;
+    -khtml-user-select:     none;
+    -moz-user-select:       none;
+    -ms-user-select:        none;
+     user-select:           none;
+}
+
+.gistr-settings-ver-int-r .gistr-settings-support-build-id > input
+{
+    font-size:              9pt;
+}
+
+.gistr-settings-ver-int-c
+{
+    clear:                  both;
+}
+
+.gistr-settings-ver-sublevel > .setting-item-description
+{
+    margin-top:             -2px;
+}
+
+/*
+    Target first div after h2.gistr-settings-header
+    <h2 class=""></h2> 
+    div >
+        div >
+            div >
+                div class="setting-item-description></div>
+*/
+
+/*
+h2.gistr-settings-header + div > div > div > .setting-item-description
+{
+    font-size:              9pt;
+}
+*/
+
+.gistr-settings-status-success > input
+{
+    color:                  var( --gistr-status-success ) !important;
+    font-weight:            bold;
+}
+
+.gistr-settings-status-warning > input
+{
+    color:                  var( --gistr-status-issues ) !important;
+    font-weight:            bold;
+}
+
+.gistr-settings-status-error > input
+{
+    color:                  var( --gistr-status-error ) !important;
+    font-weight:            bold;
+}
+
+/*
+    Modal > Getting Started
+*/
+
+.gistr-gs-modal
+{
+    width:                  40%;
+    padding-left:           35px;
+    padding-right:          35px;
+    padding-bottom:         35px;
+}
+
+.gistr-gs-modal button
+{
+    cursor:                 pointer;
+}
+
+.gistr-gs-modal-button-container
+{
+    margin-top:             1.5em;
+    margin-bottom:          3em;
+    display:                flex;
+    justify-content:        flex-start;
+    gap:                    var( --size-4-2 );
+    flex-wrap:              wrap;
+    font-size:              var( --font-ui-medium );
+}
+
+.gistr-gs-header
+{
+    margin-top:             -12px;
+}
+
+.gistr-gs-separator
+{
+    padding-bottom:         15px;
+}
+
+.gistr-gs-header-int-l
+{
+    cursor:                 pointer;
+    float:                  left;
+    width:                  40%;
+    margin-top:             2px;
+    margin-bottom:          2px;
+}
+
+.gistr-gs-header-int-r
+{
+    cursor:                 pointer;
+    float:                  right;
+    width:                  8%;
+    margin-top:             10px;
+    margin-bottom:          2px;
+    height:                 0px;
+}
+
+.gistr-gs-header-int-r .setting-item-info
+{
+    display:                none;
+}
+
+.gistr-gs-header-int-r .setting-item
+{
+    padding:                0px !important;
+    width:                  100%;
+    margin-top:             -7px;
+}
+
+.gistr-gs-header-int-r  .setting-item-control
+{
+    flex:                   none;
+    width:                  100%;
+}
+
+.gistr-gs-header-int-r .setting-item-control > input
+{
+    background:             none;
+    border:                 0px;
+    text-align:             right;
+}
+
+.gistr-gs-header-int-r .setting-item-control > input:hover, input:active
+{
+    background:             none;
+    border:                 0px;
+}
+
+.gistr-gs-header-int-c
+{
+    clear:                  both;
+}
+
+/*
+    Gist loading error
+*/
+
+.gistr-load-error-l1
+{
+    color:                  #de1f73;
+    font-weight:            bold;
+    font-size:              14pt;
+}
+
+.gistr-load-error-l2
+{
+    padding-bottom:         5px;
+}
+
+/*
+    Donate Button
+*/
+
+.gistr-donate
+{
+    padding-top:            20px;
+    display:                flex;
+    justify-content:        center;
+}
+
+.gistr-donate > .setting-item > .setting-item-info
+{
+    width:                  100%;
+}
+
+.gistr-donate > .setting-item-control
+{
+    display:                none;
+}
+
+/*
+    Create Gist > Suggestions
+*/
+
+.gistr-suggest-icon
+{
+    float:                  left;
+    position:               relative;
+    font-size:              7px;
+    animation:              none;
+    width:                  32px;
+    padding-top:            1px;
+}
+
+.gistr-suggest-icon > svg
+{
+    width:                  32px;
+}
+
+.gistr-suggest-container
+{
+    height:                 32px;
+    cursor:                 pointer;
+}
+
+.gistr-suggest-sub-time
+{
+    padding-left:           12px;
+    font-size:              9pt;
+    cursor:                 pointer;
+    color:                  #878787;
+}
+
+.gistr-suggest-clear
+{
+    clear:                  both;
+}
+
+.gistr-suggest-sub-container
+{
+    float:                  left;
+    width:                  95%;
+}
+
+.gistr-suggest-sub-container-l
+{
+    float:                  left;
+    width:                  80%;
+}
+
+.gistr-suggest-sub-container-r
+{
+    float:                  right;
+    width:                  10%;
+}
+
+.gistr-suggest-sub-title
+{
+    float:                  left;
+    padding-left:           12px;
+    text-overflow:          ellipsis;
+}
+
+.gistr-suggest-sub-scope
+{
+    font-size:              10pt;
+    text-align:             right;
+    height:                 32px;
+    line-height:            32px;
+    color:                  var( --gistr-accent-1 );
+    font-weight:            var( --font-semibold );
+}
+
+.gistr-suggest-create
+{
+    cursor:                 pointer;
+    height:                 26px;
+    line-height:            26px;
+}
+
+.suggestion-item .gistr-suggest-container
+{
+    margin-block-start:     3px;
+    margin-block-end:       7px;
+    height:                 32px;
+}
+
+/*
+    Dependency > Pickr
+*/
+
+.pcr-app
+{
+    background: #fff;
+    border-radius: 0.1em;
+    box-shadow: 0 0.15em 1.5em 0 rgba(0,0,0,0.1), 0 0 1em 0 rgba(0,0,0,0.03);
+    display: flex;
+    flex-direction: column;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    left: 0;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    transition: opacity 0.3s, visibility 0s 0.3s;
+    visibility: hidden;
+    z-index: 10000;
+}
+
+.pcr-app *, .pickr *
+{
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.pcr-app .pcr-interaction
+{
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -0.2em 0 -0.2em;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel, .pcr-app .pcr-interaction .pcr-clear
+{
+    background: #f44250;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel, .pcr-app .pcr-interaction .pcr-clear, .pcr-app .pcr-interaction .pcr-save
+{
+    color: #fff;
+    width: auto;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel, .pcr-app .pcr-interaction .pcr-clear, .pcr-app .pcr-interaction .pcr-save
+{
+    color: #fff;
+}
+
+.pcr-app .pcr-interaction .pcr-cancel:focus, .pcr-app .pcr-interaction .pcr-clear:focus
+{
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.85), 0 0 0 3px rgba(244,66,80,0.75);
+}
+
+.pcr-app .pcr-interaction .pcr-cancel:hover, .pcr-app .pcr-interaction .pcr-clear:hover, .pcr-app .pcr-interaction .pcr-save:hover
+{
+    filter: brightness(0.925);
+}
+
+.pcr-app .pcr-interaction .pcr-result
+{
+    background: #f1f3f4;
+    border-radius: .15em;
+    color: #75797e;
+    cursor: text;
+    flex: 1 1 8em;
+    min-width: 8em;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.pcr-app .pcr-interaction .pcr-result::-moz-selection
+{
+    background: #4285f4;
+    color: #fff;
+}
+
+.pcr-app .pcr-interaction .pcr-result::selection
+{
+    background: #4285f4;
+    color: #fff;
+}
+
+.pcr-app .pcr-interaction .pcr-save
+{
+    background: #4285f4;
+}
+
+.pcr-app .pcr-interaction .pcr-type.active
+{
+    background: #4285f4;
+    color: #fff;
+}
+
+.pcr-app .pcr-interaction > *
+{
+    margin: 0 0.2em;
+}
+
+.pcr-app .pcr-interaction input
+{
+    background: #f1f3f4;
+    border-radius: .15em;
+    color: #75797e;
+    cursor: pointer;
+    font-size: 0.75em;
+    letter-spacing: 0.07em;
+    margin-top: 0.75em;
+    padding: 0.45em 0.5em;
+    text-align: center;
+    transition: all 0.15s;
+}
+
+.pcr-app .pcr-interaction input:focus
+{
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.85), 0 0 0 3px rgba(66,133,244,0.75);
+}
+
+.pcr-app .pcr-interaction input:hover
+{
+    filter: brightness(0.975);
+}
+
+.pcr-app .pcr-palette, .pcr-app .pcr-slider, .pickr .pcr-palette, .pickr .pcr-slider
+{
+    transition: box-shadow 0.3s;
+}
+
+.pcr-app .pcr-palette:focus, .pcr-app .pcr-slider:focus, .pickr .pcr-palette:focus, .pickr .pcr-slider:focus
+{
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.85), 0 0 0 3px rgba(0,0,0,0.25);
+}
+
+.pcr-app .pcr-selection .pcr-color-chooser, .pcr-app .pcr-selection .pcr-color-opacity, .pcr-app .pcr-selection .pcr-color-palette
+{
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    cursor: -webkit-grab;
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    user-select: none;
+}
+
+.pcr-app .pcr-selection .pcr-color-chooser:active, .pcr-app .pcr-selection .pcr-color-opacity:active, .pcr-app .pcr-selection .pcr-color-palette:active
+{
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}
+
+.pcr-app .pcr-selection .pcr-picker
+{
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
+    border-radius: 100%;
+    border: 2px solid #fff;
+    height: 18px;
+    position: absolute;
+    user-select: none;
+    width: 18px;
+}
+
+.pcr-app .pcr-swatches
+{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.75em;
+}
+
+.pcr-app .pcr-swatches > button
+{
+    padding: 0;
+}
+
+.pcr-app .pcr-swatches > button
+{
+    background: transparent;
+    border-radius: 0.15em;
+    cursor: pointer;
+    flex-shrink: 0;
+    font-size: 1em;
+    height: calc(1.75em - 10px);
+    justify-self: center;
+    margin: 2.5px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.15s;
+    width: calc(1.75em - 10px);
+    z-index: 1;
+}
+
+.pcr-app .pcr-swatches > button::after
+{
+    background: var(--pcr-color);
+    border-radius: 0.15em;
+    border: 1px solid rgba(0,0,0,0.05);
+    box-sizing: border-box;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.pcr-app .pcr-swatches > button::before
+{
+    background-size: 6px;
+    background: url('data:image/svg+xml; border-radius:.15em; content:''; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    width: 100%;
+    z-index: -1;
+}
+
+.pcr-app .pcr-swatches > button:hover
+{
+    filter: brightness(1.05);
+}
+
+.pcr-app .pcr-swatches > button:not(.pcr-active)
+{
+    box-shadow: none;
+}
+
+.pcr-app .pcr-swatches.pcr-last
+{
+    margin: 0;
+}
+
+.pcr-app button.pcr-active, .pcr-app button:focus, .pcr-app input.pcr-active, .pcr-app input:focus, .pickr button.pcr-active, .pickr button:focus, .pickr input.pcr-active, .pickr input:focus
+{
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.85), 0 0 0 3px var(--pcr-color);
+}
+
+.pcr-app.visible
+{
+    opacity: 1;
+    transition: opacity 0.3s;
+    visibility: visible;
+}
+
+.pcr-app[data-theme='nano']
+{
+    max-width: 95vw;
+    width: 14.25em;
+}
+
+.pcr-app[data-theme='nano'] .pcr-interaction
+{
+    padding: 0 .6em .6em .6em;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection
+{
+    align-items: center;
+    align-self: flex-start;
+    display: grid;
+    grid-gap: .6em;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: 5fr auto auto;
+    height: 10.5em;
+    width: 100%;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser
+{
+    grid-area: 2 / 2 / 2 / 2;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser .pcr-picker, .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity .pcr-picker
+{
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser .pcr-slider
+{
+    background: linear-gradient(to right,red,#ff0,lime,cyan,blue,#f0f,red);
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser .pcr-slider, .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity .pcr-slider
+{
+    border-radius: 50em;
+    flex-grow: 1;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-chooser, .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity
+{
+    height: 0.5em;
+    margin: 0 .6em;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity
+{
+    grid-area: 3 / 2 / 3 / 2;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-opacity .pcr-slider
+{
+    background-size: 100%, 0.25em;
+    background: linear-gradient(to right,transparent,black), url('data:image/svg+xml; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-palette
+{
+    grid-area: 1 / 1 / 2 / 3;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-palette .pcr-palette
+{
+    border-radius: .15em;
+    height: 100%;
+    width: 100%;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-palette .pcr-palette::before
+{
+    background-size: .5em;
+    background: url('data:image/svg+xml; border-radius:.15em; content:''; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    width: 100%;
+    z-index: -1;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview
+{
+    display: flex;
+    flex-direction: row;
+    grid-area: 2 / 1 / 4 / 1;
+    height: 100%;
+    justify-content: center;
+    margin-left: .6em;
+    width: 100%;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview .pcr-current-color
+{
+    background: var(--pcr-color);
+    border-radius: 50em;
+    height: 2em;
+    overflow: hidden;
+    position: relative;
+    width: 2em;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview .pcr-current-color::before
+{
+    background-size: .5em;
+    background: url('data:image/svg+xml; border-radius:.15em; content:''; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    width: 100%;
+    z-index: -1;
+}
+
+.pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview .pcr-last-color
+{
+    display: none;
+}
+
+.pcr-app[data-theme='nano'] .pcr-swatches
+{
+    margin-top: .6em;
+    padding: 0 .6em;
+}
+
+.pickr
+{
+    overflow: visible;
+    position: relative;
+    transform: translateY(0);
+}
+
+.pickr *
+{
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.pickr .pcr-button
+{
+    background-size: 0;
+    background: url('data:image/svg+xml; border-radius:.15em; cursor:pointer; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Helvetica Neue",Arial,sans-serif; height:2em; padding:0.5em; position:relative; transition:all 0.3s; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" stroke="%2342445A" stroke-width="5px" stroke-linecap="round"><path d="M45,45L5,5"></path><path d="M45,5L5,45"></path></svg>') no-repeat center;
+    width: 2em;
+}
+
+.pickr .pcr-button.clear
+{
+    background-size: 70%;
+}
+
+.pickr .pcr-button.clear::before
+{
+    opacity: 0;
+}
+
+.pickr .pcr-button.clear:focus
+{
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.85), 0 0 0 3px var(--pcr-color);
+}
+
+.pickr .pcr-button.disabled
+{
+    cursor: not-allowed;
+}
+
+.pickr .pcr-button::after
+{
+    background: var(--pcr-color);
+    border-radius: .15em;
+    content: '';
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+.pickr .pcr-button::before
+{
+    background-size: .5em;
+    background: url('data:image/svg+xml; border-radius:.15em; content:''; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    width: 100%;
+    z-index: -1;
+}
+
+.pickr .pcr-button::before
+{
+    z-index: initial;
+}
+
+@supports (display: grid)
+{
+    .pcr-app .pcr-swatches
+    {
+        align-items: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit,1.75em);
+    }
+}
