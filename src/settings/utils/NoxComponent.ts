@@ -8,6 +8,7 @@ import { lng } from 'src/lang/helpers'
 
 export class NoxComponent extends Setting
 {
+
 	containerEl: 	HTMLElement
 	private name: 	string | DocumentFragment = ''
 	private desc: 	string | DocumentFragment = ''
@@ -29,7 +30,7 @@ export class NoxComponent extends Setting
         return this
     }
 
-    setDesc( desc: string | DocumentFragment ): this
+    public setDesc( desc: string | DocumentFragment ): this
 	{
         super.setDesc( desc )
         this.desc = desc
