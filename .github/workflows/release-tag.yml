@@ -11,28 +11,27 @@ run-name: "Release Product"
 on:
   workflow_dispatch:
     inputs:
-      PLUGIN_NAME:
-
+  
       # ---------------------------------------------------------------------------------------
       #   Name of the plugin to use when creating the release zip filename
       #     e.g: gistr-v1.0.0.zip
       # ---------------------------------------------------------------------------------------
 
-        description:  'Name of Plugin'
+      PLUGIN_NAME:
+        description:  "📦 Name of Plugin"
         required:     true
         default:      'gistr'
         type:         string
 
       # ---------------------------------------------------------------------------------------
-      #   ENABLE:   released version will be marked as pre-release
-      #   DISABLE:  release version will be marked as stable / normal release
+      #   Build ID
       # ---------------------------------------------------------------------------------------
 
-      PRERELEASE:
-        description:  "Build RC (Pre-release)"
+      BUILD_ID:
+        description:  "🔖 Build ID"
         required:     true
-        default:      false
-        type:         boolean
+        type:         string
+        default:      00000000-abcd-0123-abcd-000000000000
 
       # ---------------------------------------------------------------------------------------
       #   ENABLE:   the changelog generated in releases tab will only display single commits.
@@ -40,7 +39,31 @@ on:
       # ---------------------------------------------------------------------------------------
 
       CHANGELOG_MODE_COMMIT:
-        description:  "Commit Instead of Pull Changelog"
+        description:  "📑 Use Commits Instead of PRs"
+        required:     true
+        default:      false
+        type:         boolean
+
+      # ---------------------------------------------------------------------------------------
+      #   ENABLE:   Will show all types of commits, including uncategorized
+      #   DISABLE:  WIll only show actions that have been categorized using the format
+      #                type(scope): description
+      #                type: description
+      # ---------------------------------------------------------------------------------------
+
+      SHOW_UNCATEGORIZED:
+        description:  "🗂️ Show Uncategorized Commits"
+        required:     true
+        default:      false
+        type:         boolean
+
+      # ---------------------------------------------------------------------------------------
+      #   ENABLE:   released version will be marked as pre-release
+      #   DISABLE:  release version will be marked as stable / normal release
+      # ---------------------------------------------------------------------------------------
+
+      PRERELEASE:
+        description:  "🧪 Build RC (Pre-release)"
         required:     true
         default:      false
         type:         boolean
@@ -52,7 +75,7 @@ on:
       # ---------------------------------------------------------------------------------------
 
       VERSION_RC:
-        description:  "RC (Pre-release) Ver (plugin-rc.v1)"
+        description:  "🧪 RC (Pre-release) Ver (plugin-rc.v1)"
         required:     false
         type:         string
         default:      1
@@ -69,7 +92,8 @@ env:
 # ---------------------------------------------------------------------------------------
 
 jobs:
-    build:
+    push-release:
+        name: "Push Release"
         runs-on: ubuntu-latest
         permissions:
           contents: write
@@ -77,8 +101,9 @@ jobs:
             - uses: actions/checkout@v4
               with:
                 fetch-depth: 0
+                
             - name: Use Node.js
-              uses: actions/setup-node@v1
+              uses: actions/setup-node@v4
               id: checkout
               with:
                   node-version: "20.x"
@@ -96,7 +121,7 @@ jobs:
             #   Build Zip
             # ---------------------------------------------------------------------------------------
 
-            - name: "[Build]: Stable"
+            - name: "🔨 [Build]: Stable"
               id: build-st
               if: ${{ startsWith( inputs.PRERELEASE, false ) }}
               run: |
@@ -108,7 +133,7 @@ jobs:
               env:
                 NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
 
-            - name: "[Build]: Release Candidate"
+            - name: "🔨 [Build]: Release Candidate"
               id: build-rc
               if: ${{ startsWith( inputs.PRERELEASE, true ) }}
               run: |
@@ -122,13 +147,13 @@ jobs:
             #   [ Release Candidate ]: Checksum
             # ---------------------------------------------------------------------------------------
 
-            - name: "[Checksum]: Stable"
+            - name: "🆔 [Checksum]: Stable"
               id: checksum-st
               if: ${{ startsWith( inputs.PRERELEASE, false ) }}
               run: |
                 shasum --algorithm 256 ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip > SHA256SUMS.txt
 
-            - name: "[Checksum]: Release Candidate"
+            - name: "🆔 [Checksum]: Release Candidate"
               id: checksum-rc
               if: ${{ startsWith( inputs.PRERELEASE, true ) }}
               run: |
@@ -138,7 +163,7 @@ jobs:
             #   Contributor Images
             # ---------------------------------------------------------------------------------------
 
-            - name: "[Contributors]: Generate"
+            - name: "🥸 [Contributors]: Generate"
               id: contribs-generate
               uses: jaywcjlove/github-action-contributors@main
               with:
@@ -156,21 +181,52 @@ jobs:
             #     ${{ steps.changelog.outputs.changelog }}
             # ---------------------------------------------------------------------------------------
 
-            - name: "Build Changelog: Pre Setup"
+            - name: "📝 Changelog: Pre Setup (No Uncategorized Commits)"
               run: |
                 echo "TAG_LAST=$(git describe --tags --abbrev=0)" >> $GITHUB_ENV
                 echo "COMMIT_LAST=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
-            - name: Build Changelog
-              id: changelog
+            - name: "📦 [ Changelog ]: Build (Categorized)"
+              id: changelog-categorized
+              if: ${{ startsWith( inputs.SHOW_UNCATEGORIZED, false ) }}
               uses: mikepenz/release-changelog-builder-action@v4
               with:
-                fromTag: "${{ env.TAG_LAST }}"
-                toTag: ${{ github.ref }}
+                #fromTag: "${{ env.TAG_LAST }}"
+                #toTag: "${{ github.ref }}"
                 configuration: ".github/changelog-configuration.json"
                 ignorePreReleases: false
                 commitMode: ${{ inputs.CHANGELOG_MODE_COMMIT }}
                 fetchReleaseInformation: true
+                fetchViaCommits: true
+                configurationJson: |
+                  {
+                    "template": "## Gistr Release Info <sup>(${{ inputs.BUILD_ID }})</sup>\n<sup>**Version began on**: ⠀⠀⠀`#{{FROM_TAG_DATE}}`\n**Build ID**: ⠀⠀⠀⠀⠀⠀⠀⠀⠀`${{ inputs.BUILD_ID }}`\n**Stamp**: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`#{{FROM_TAG}}-#{{FROM_TAG_DATE}} 🔺 #{{TO_TAG}}-#{{TO_TAG_DATE}}`\n**Last Release**: ⠀⠀⠀⠀⠀⠀`#{{DAYS_SINCE}} days ago`\n</sup>\n\n<br>\n\n---\n\n<br>\n\n### What's New\nThis release contains the following changes:\n\n<br>\n\n---\n\n<br>\n\n### Statistics\nHow the files have changed:\n<ul><li><a href='#{{RELEASE_DIFF}}'>Changed files</a>  : <b>#{{CHANGED_FILES}}</b> </li><li>Commits : <b>#{{COMMITS}}</b> </li><li>Additions : <b>#{{ADDITIONS}}</b></li><li>Deletions : <b>#{{DELETIONS}}</b></li>\n<br />\n</ul>\n\n<br>\n\n---\n\n<br>\n\n### Pull Requests\n#{{CHANGELOG}}\n\n\n\n"
+                  }
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+            # ---------------------------------------------------------------------------------------
+            #   shows only categorized commits using the commit standards
+            #                type(scope): description
+            #                type: description
+            # ---------------------------------------------------------------------------------------
+
+            - name: "📦 [ Changelog ]: Build (Uncategorized)"
+              id: changelog-uncategorized
+              if: ${{ startsWith( inputs.SHOW_UNCATEGORIZED, true ) }}
+              uses: mikepenz/release-changelog-builder-action@v4
+              with:
+                #fromTag: "${{ env.TAG_LAST }}"
+                #toTag: "${{ github.ref }}"
+                configuration: ".github/changelog-configuration.json"
+                ignorePreReleases: false
+                commitMode: ${{ inputs.CHANGELOG_MODE_COMMIT }}
+                fetchReleaseInformation: true
+                fetchViaCommits: true
+                configurationJson: |
+                  {
+                    "template": "## Gistr Release Info <sup>(${{ inputs.BUILD_ID }})</sup>\n<sup>**Version began on**: ⠀⠀⠀`#{{FROM_TAG_DATE}}`\n**Build ID**: ⠀⠀⠀⠀⠀⠀⠀⠀⠀`${{ inputs.BUILD_ID }}`\n**Stamp**: ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀`#{{FROM_TAG}}-#{{FROM_TAG_DATE}} 🔺 #{{TO_TAG}}-#{{TO_TAG_DATE}}`\n**Last Release**: ⠀⠀⠀⠀⠀⠀`#{{DAYS_SINCE}} days ago`\n</sup>\n\n<br>\n\n---\n\n<br>\n\n### What's New\nThis release contains the following changes:\n\n<br>\n\n---\n\n<br>\n\n### Statistics\nHow the files have changed:\n<ul><li><a href='#{{RELEASE_DIFF}}'>Changed files</a>  : <b>#{{CHANGED_FILES}}</b> </li><li>Commits : <b>#{{COMMITS}}</b> </li><li>Additions : <b>#{{ADDITIONS}}</b></li><li>Deletions : <b>#{{DELETIONS}}</b></li>\n<br />\n</ul>\n\n<br>\n\n---\n\n<br>\n\n### Commits (#{{UNCATEGORIZED_COUNT}})\n#{{UNCATEGORIZED}}\n\n<br>\n\n---\n\n<br>\n\n### Pull Requests\n#{{CHANGELOG}}\n\n\n\n"
+                  }
               env:
                 GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -178,9 +234,15 @@ jobs:
             #   Fetch Changelog
             # ---------------------------------------------------------------------------------------
 
-            - name: "[Changelog]: Get"
+            - name: "⤵️ [ Changelog ]: Get (Categorized)"
+              if: ${{ startsWith( inputs.SHOW_UNCATEGORIZED, false ) }}
               run: |
-                echo "${{ steps.changelog.outputs.changelog }}"
+                echo "${{ steps.changelog-categorized.outputs.changelog }}"
+
+            - name: "⤵️ [ Changelog ]: Get (Uncategorized)"
+              if: ${{ startsWith( inputs.SHOW_UNCATEGORIZED, true ) }}
+              run: |
+                echo "${{ steps.changelog-uncategorized.outputs.changelog }}"
 
             # ---------------------------------------------------------------------------------------
             #   [ Release ]: Post Release
@@ -191,7 +253,7 @@ jobs:
             #       ${{ steps.bundle-st.outputs.id
             # ---------------------------------------------------------------------------------------
 
-            - name: "[Post]: Stable"
+            - name: "🏳️ [Post]: Stable"
               if: ${{ startsWith( inputs.PRERELEASE, false ) }}
               uses: softprops/action-gh-release@v2
               id: bundle-st
@@ -211,10 +273,11 @@ jobs:
                   checksum.txt
                 prerelease: false
                 body: |
-                  ${{ steps.changelog.outputs.changelog }}
+                  ${{ steps.changelog-categorized.outputs.changelog }}
+                  ${{ steps.changelog-uncategorized.outputs.changelog }}
                   ---
 
-            - name: "[Post]: Release Candidate"
+            - name: "🏳️ [Post]: Release Candidate"
               if: ${{ startsWith( inputs.PRERELEASE, true ) }}
               uses: softprops/action-gh-release@v2
               id: bundle-rc
@@ -237,7 +300,8 @@ jobs:
                   > [!WARNING]
                   > This is a **release candidate**, which means it is not a stable release and could contain bugs. You should download it at your own risk.
 
-                  ${{ steps.changelog.outputs.changelog }}
+                  ${{ steps.changelog-categorized.outputs.changelog }}
+                  ${{ steps.changelog-uncategorized.outputs.changelog }}
                   ---
 
             # ---------------------------------------------------------------------------------------
@@ -249,7 +313,8 @@ jobs:
                 echo "Printing Variables"
                 echo 
                 echo "---- CHANGELOG ---------------------------------------------------------------"
-                echo "${{ steps.changelog.outputs.changelog }}"
+                echo "${{ steps.changelog-categorized.outputs.changelog }}"
+                echo "${{ steps.changelog-uncategorized.outputs.changelog }}"
                 echo "---- CHANGELOG ---------------------------------------------------------------"
                 echo ""
                 echo ""
