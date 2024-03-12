@@ -102,7 +102,7 @@ jobs:
           ref: "refs/pull/${{ steps.get_issue_number.outputs.result }}/merge"
           
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
 
       - name: Get changed files
         id: changed-files
