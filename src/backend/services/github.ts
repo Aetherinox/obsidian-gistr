@@ -20,6 +20,18 @@ enum Status
 }
 
 /*
+    default api status types
+*/
+
+export const GithubStatusAPI: Record< string, string > =
+{
+    'operational':              lng( "gist_status_connected" ),
+	"degraded_performance":     lng( "gist_status_degraded_performance" ),
+	"partial_outage":           lng( "gist_status_partial_outage" ),
+	"major_outage":             lng( "gist_status_major_outage" ),
+}
+
+/*
     Github Gist Structure
 */
 
