@@ -13,6 +13,7 @@
     "build": "rollup --config rollup.config.js --environment BUILD:production",
     "release": "rollup --config rollup.config.js --environment BUILD,MINIFY,TEST",
     "test": "rollup --config rollup.config.js --environment TEST",
+    "id": "npx --quiet env-cmd --no-override node UUID.js ${UUID}",
     "version": "npm run build && auto-changelog && git add ."
   },
   "keywords": [
