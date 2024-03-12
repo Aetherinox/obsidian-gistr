@@ -139,7 +139,7 @@ export default class ModalGettingStarted extends Modal
 
 				setTimeout( function( )
 				{
-					if ( github_status === lng( "gist_status_operational" ) )
+					if ( github_status === lng( "gist_status_operational_raw" ) )
 					{
 						const controlEl = Tab_GH_R.querySelector( ".setting-item-control" )
 						controlEl.removeClass( "gistr-settings-status-connecting" )
@@ -159,7 +159,7 @@ export default class ModalGettingStarted extends Modal
 			{
 				btn
 				.setIcon        ( 'circle-off' )
-				.setTooltip     ( lng( "gist_status_btn_connecting" ) )
+				.setTooltip     ( lng( "gist_status_connecting_btn_tip" ) )
 
 				btn.extraSettingsEl.classList.add( "gistr-settings-icon-cur" )
 				btn.extraSettingsEl.classList.add( "gistr-anim-spin" )
@@ -169,10 +169,10 @@ export default class ModalGettingStarted extends Modal
 
 				setTimeout( function( )
 				{
-					if ( github_status === lng( "gist_status_operational" ) )
+					if ( github_status === lng( "gist_status_operational_raw" ) )
 					{
 						btn.setIcon( "github" )
-						btn.setTooltip ( lng( "gist_status_btn_success" ) )
+						btn.setTooltip ( lng( "gist_status_success_btn_tip" ) )
 
 						btn.extraSettingsEl.classList.remove     ( "gistr-settings-status-connecting" )
 						btn.extraSettingsEl.classList.add        ( "gistr-settings-icon-ok" )
@@ -180,7 +180,7 @@ export default class ModalGettingStarted extends Modal
 					else
 					{
 						btn.setIcon( "circle-off" )
-						btn.setTooltip ( lng( "gist_status_btn_issues" ) )
+						btn.setTooltip ( lng( "gist_status_issues_btn_tip" ) )
 
 						btn.extraSettingsEl.classList.remove     ( "gistr-settings-status-connecting" )
 						btn.extraSettingsEl.classList.add        ( "gistr-settings-icon-error" )
