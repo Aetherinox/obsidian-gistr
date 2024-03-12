@@ -110,11 +110,30 @@ export abstract class Env
     }
 
     /*
-        UUID
+        GUID ( global identifier )
+    */
+
+        static get guid( ): string
+        {
+            return `${ process.env.BUILD_GUID }`
+        }
+
+    /*
+        UUID ( unique identifier )
     */
 
     static get uuid( ): string
     {
-        return `${ process.env.BUILD_ID }`
+        return `${ process.env.BUILD_UUID }`
     }
+
+    /*
+        build date
+    */
+
+    static get buildDate( ): string
+    {
+        return `${ process.env.BUILD_DATE }`
+    }
+
 }

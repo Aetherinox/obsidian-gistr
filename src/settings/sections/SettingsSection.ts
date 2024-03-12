@@ -1690,7 +1690,7 @@ export class SettingsSection extends PluginSettingTab
                             if ( gt( ver_beta, ver_stable ) && lt( ver_running, ver_beta ) )
                             {
                                 const el            = Tab_SU_Ver_Stable_R.querySelector( ".setting-item-control" )
-                                text.setValue       ( ver_running + " -> " + ver_beta + "-beta" )
+                                text.setValue       ( ver_running + "  ➜  " + ver_beta + "-beta" )
                             }
 
                             /*
@@ -1700,7 +1700,7 @@ export class SettingsSection extends PluginSettingTab
                             else if ( lt( ver_beta, ver_stable ) && lt( ver_running, ver_stable ) )
                             {
                                 const el            = Tab_SU_Ver_Stable_R.querySelector( ".setting-item-control" )
-                                text.setValue       ( ver_running + " -> " + ver_stable + "-stable" )
+                                text.setValue       ( ver_running + "  ➜  " + ver_stable + "-stable" )
                             }
 
                             /*
@@ -1798,39 +1798,77 @@ export class SettingsSection extends PluginSettingTab
             elm.createEl( 'div', { cls: "gistr-settings-section-separator-15", text: "" } )
 
             /*
-                Current Version
+                GUID & UUID
             */
 
-            const env_build_id          = process.env.BUILD_ID
+            const env_guid              = process.env.BUILD_GUID    // static
+            const env_uuid              = process.env.BUILD_UUID    // dynamic
 
-            const Tab_SU_Build_id       = elm.createEl( "div",                  { text: "", cls: `gistr-settings-ver-sublevel` } )
-            const Tab_SU_Build_id_L     = Tab_SU_Build_id.createEl( "div",      { text: lng( "cfg_tab_su_build_id_cur_name" ), cls: `setting-item-name gistr-settings-ver-int-l` } )
-            const Tab_SU_Build_id_R     = Tab_SU_Build_id.createEl( "div",      { text: " ", cls: `gistr-settings-ver-int-r` } )
-            const Tab_SU_Build_id_C     = Tab_SU_Build_id.createEl( "div",      { text: "", cls: `gistr-settings-ver-int-c` } )
-            const Tab_SU_Build_id_esc   = Tab_SU_Build_id.createEl( "div",      { text: lng( "cfg_tab_su_build_id_cur_desc" ), cls: `setting-item-description` } )
+            const Tab_SU_GUID           = elm.createEl( "div",              { text: "", cls: `gistr-settings-ver-sublevel` } )
+            const Tab_SU_GUID_L         = Tab_SU_GUID.createEl( "div",      { text: lng( "cfg_tab_su_guid_cur_name" ), cls: `setting-item-name gistr-settings-ver-int-l` } )
+            const Tab_SU_GUID_R         = Tab_SU_GUID.createEl( "div",      { text: " ", cls: `gistr-settings-ver-int-r` } )
+            const Tab_SU_GUID_C         = Tab_SU_GUID.createEl( "div",      { text: "", cls: `gistr-settings-ver-int-c` } )
+            const Tab_SU_GUID_esc       = Tab_SU_GUID.createEl( "div",      { text: lng( "cfg_tab_su_guid_cur_desc" ), cls: `setting-item-description` } )
 
-            new Setting( Tab_SU_Build_id_R )
+            new Setting( Tab_SU_GUID_R )
                 .addText( async ( text ) =>
                 {
                     text
-                    .setPlaceholder( env_build_id )
-                    .setValue( env_build_id )
+                    .setPlaceholder( env_guid )
+                    .setValue( env_guid )
                     .setDisabled( true )
                     .inputEl.setAttribute( "size", lng( "cfg_tab_su_ver_status_checking" ).length.toString( ) )
 
-                    const el        = Tab_SU_Build_id_R.querySelector( ".setting-item-control" )
+                    const el        = Tab_SU_GUID_R.querySelector( ".setting-item-control" )
                     el.addClass     ( "gistr-settings-support-build-id" )
                 } )
                 .addExtraButton( async ( btn ) =>
                 {
                     btn
                     .setIcon        ( 'copy' )
-                    .setTooltip     ( lng( "cfg_tab_su_build_id_btn_tip" ) )
+                    .setTooltip     ( lng( "cfg_tab_su_guid_btn_tip" ) )
 
                     btn.onClick( ( ) =>
                     {
-                        navigator.clipboard.writeText( env_build_id )
-                        new Notice( lng( "cfg_tab_su_build_id_notice", env_build_id ) )
+                        navigator.clipboard.writeText( env_guid )
+                        new Notice( lng( "cfg_tab_su_guid_notice", env_guid ) )
+                    } )
+                } )
+
+            elm.createEl( 'div', { cls: "gistr-settings-section-separator-15", text: "" } )
+
+            /*
+                GUID & UUID
+            */
+
+            const Tab_SU_UUID           = elm.createEl( "div",              { text: "", cls: `gistr-settings-ver-sublevel` } )
+            const Tab_SU_UUID_L         = Tab_SU_UUID.createEl( "div",      { text: lng( "cfg_tab_su_uuid_cur_name" ), cls: `setting-item-name gistr-settings-ver-int-l` } )
+            const Tab_SU_UUID_R         = Tab_SU_UUID.createEl( "div",      { text: " ", cls: `gistr-settings-ver-int-r` } )
+            const Tab_SU_UUID_C         = Tab_SU_UUID.createEl( "div",      { text: "", cls: `gistr-settings-ver-int-c` } )
+            const Tab_SU_UUID_esc       = Tab_SU_UUID.createEl( "div",      { text: lng( "cfg_tab_su_uuid_cur_desc" ), cls: `setting-item-description` } )
+
+            new Setting( Tab_SU_UUID_R )
+                .addText( async ( text ) =>
+                {
+                    text
+                    .setPlaceholder( env_uuid )
+                    .setValue( env_uuid )
+                    .setDisabled( true )
+                    .inputEl.setAttribute( "size", lng( "cfg_tab_su_ver_status_checking" ).length.toString( ) )
+
+                    const el        = Tab_SU_UUID_R.querySelector( ".setting-item-control" )
+                    el.addClass     ( "gistr-settings-support-build-id" )
+                } )
+                .addExtraButton( async ( btn ) =>
+                {
+                    btn
+                    .setIcon        ( 'copy' )
+                    .setTooltip     ( lng( "cfg_tab_su_uuid_btn_tip" ) )
+
+                    btn.onClick( ( ) =>
+                    {
+                        navigator.clipboard.writeText( env_uuid )
+                        new Notice( lng( "cfg_tab_su_uuid_notice", env_uuid ) )
                     } )
                 } )
 

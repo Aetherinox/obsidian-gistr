@@ -16,7 +16,7 @@ import terser from '@rollup/plugin-terser';
 import define from 'rollup-plugin-define';
 import license from 'rollup-plugin-license';
 import { v5 as uuidv5 } from 'uuid';
-import {readFileSync, writeFileSync} from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 
 /*
 *    declrations
@@ -32,7 +32,8 @@ const {
 const bIsProd         = ( process.env.BUILD === 'production' );
 const bIsDev          = ( process.env.BUILD === 'dev' );
 const year            = new Date().getFullYear();
-const build_id        = uuidv5( ` + repository + `, uuidv5.URL )
+const build_guid      = uuidv5( ` + repository + `, uuidv5.URL )
+const build_uuid      = uuidv5(`${ build_guid }-${ new Date( ).toISOString( ) }
 
 /*
 *    write build id to file
@@ -40,7 +41,13 @@ const build_id        = uuidv5( ` + repository + `, uuidv5.URL )
 *    export $(cat .env | xargs)
 */
 
-writeFileSync( ".env", `UUID=${ build_id }`,
+const ids = `
+GUID=${ build_guid }
+UUID=${ build_uuid }
+`;
+
+
+writeFileSync( ".env", `${ ids }`,
 {
     flag: "w"
 })
@@ -56,7 +63,7 @@ const header_banner = `
 @copyright:   (c) ${ year } ${ author }
 @license:     MIT
 @build:       ${ new Date( ).toISOString( ) }
-@build-id:    ${ build_id }
+@build-id:    ${ build_guid }
 `;
 
 /*
@@ -92,7 +99,8 @@ export default {
         "process.env.ENV": bIsProd ? '"production"' : '"dev"',
         "process.env.BUILD": bIsProd ? '"production"' : '"dev"',
         "process.env.PLUGIN_VERSION": `"${version}"`,
-        "process.env.BUILD_ID": `"${ build_id }"`,
+        "process.env.BUILD_GUID": `"${ build_guid }"`,
+        "process.env.BUILD_UUID": `"${ build_uuid }"`,
         "process.env.BUILD_DATE": JSON.stringify(new Date()),
         "process.env.NAME": `"${name}"`,
         "process.env.AUTHOR": `"${author}"`,
