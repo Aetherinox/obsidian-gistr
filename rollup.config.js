@@ -29,11 +29,12 @@ const {
     repository
 } = JSON.parse(readFileSync('./package.json'));
 
+const build_date      = new Date( ).toISOString( );
 const bIsProd         = ( process.env.BUILD === 'production' );
 const bIsDev          = ( process.env.BUILD === 'dev' );
-const year            = new Date().getFullYear();
+const year            = new Date( build_date ).getFullYear();
 const build_guid      = uuidv5( ` + repository + `, uuidv5.URL )
-const build_uuid      = uuidv5(`${ build_guid }-${ new Date( ).toISOString( ) }
+const build_uuid      = uuidv5( new Date( ).toISOString( ), build_guid )
 
 /*
 *    write build id to file
@@ -47,7 +48,7 @@ UUID=${ build_uuid }
 `;
 
 
-writeFileSync( ".env", `${ ids }`,
+writeFileSync( ".env", ids,
 {
     flag: "w"
 })
@@ -62,8 +63,9 @@ const header_banner = `
 @url:         ${ repository.url }
 @copyright:   (c) ${ year } ${ author }
 @license:     MIT
-@build:       ${ new Date( ).toISOString( ) }
-@build-id:    ${ build_guid }
+@build:       ${ build_date }
+@guid:        ${ build_guid }
+@uuid:        ${ build_uuid }
 `;
 
 /*
@@ -87,11 +89,11 @@ export default {
     format: 'cjs',
     exports: 'named'
   },
-  external: ['obsidian'],
+  external: [ 'obsidian' ],
   plugins: [
-    typescript(),
+    typescript( ),
     nodeResolve({ browser: true }),
-    commonjs(),
+    commonjs( ),
 
     define({
       replacements: {
@@ -101,7 +103,7 @@ export default {
         "process.env.PLUGIN_VERSION": `"${version}"`,
         "process.env.BUILD_GUID": `"${ build_guid }"`,
         "process.env.BUILD_UUID": `"${ build_uuid }"`,
-        "process.env.BUILD_DATE": JSON.stringify(new Date()),
+        "process.env.BUILD_DATE": JSON.stringify( new Date( ) ),
         "process.env.NAME": `"${name}"`,
         "process.env.AUTHOR": `"${author}"`,
       }
