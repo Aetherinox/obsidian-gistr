@@ -18,6 +18,7 @@ const { name, author, version, repository } = JSON.parse(readFileSync('./package
 const bIsProduction = ( process.env.BUILD === 'production' );
 const bIsDev = ( process.env.BUILD === 'dev' );
 const year = new Date().getFullYear();
+const build_id = uuidv5( ` + repository + `, uuidv5.URL )
 
 const topBanner = `
 @name:        ${ name } v${ version }
@@ -26,7 +27,7 @@ const topBanner = `
 @copyright:   (c) ${ year } ${ author }
 @license:     MIT
 @build:       ${ new Date( ).toISOString( ) }
-@build-id:    ${ uuidv5( ` + repository + `, uuidv5.URL ) }
+@build-id:    ${ build_id }
 `;
 
 console.log( topBanner );
@@ -58,6 +59,7 @@ export default {
         "process.env.ENV": bIsProduction ? '"production"' : '"dev"',
         "process.env.BUILD": bIsProduction ? '"production"' : '"dev"',
         "process.env.PLUGIN_VERSION": `"${version}"`,
+        "process.env.BUILD_ID": `"${ build_id }"`,
         "process.env.BUILD_DATE": JSON.stringify(new Date()),
         "process.env.NAME": `"${name}"`,
         "process.env.AUTHOR": `"${author}"`,
