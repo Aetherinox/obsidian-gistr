@@ -250,6 +250,11 @@ body
     padding-bottom:         20px;
 }
 
+.gistr-settings-section-separator-15
+{
+    padding-bottom:         15px;
+}
+
 .gistr-settings-elm-slider-preview
 {
     min-width:              30px;
@@ -419,7 +424,7 @@ body
     cursor:                 pointer;
     float:                  right;
     width:                  8%;
-    margin-top:             2px;
+    margin-top:             4px;
     margin-bottom:          2px;
     height: 0px;
 }
@@ -490,6 +495,17 @@ body
     border:                 0px;
 }
 
+.gistr-settings-header-int-r .setting-item-control > input::selection
+{
+    background:             none;
+    -webkit-touch-callout:  none;
+    -webkit-user-select:    none;
+    -khtml-user-select:     none;
+    -moz-user-select:       none;
+    -ms-user-select:        none;
+     user-select:           none;
+}
+
 .gistr-settings-modal .checkbox-container input[ type='checkbox' ], .gistr-settings-modal .checkbox-container, .gistr-settings-modal button, .gistr-settings-modal select
 {
     cursor:                 pointer;
@@ -522,7 +538,6 @@ body
 
 .gistr-settings-ver-int-l
 {
-    cursor:                 pointer;
     float:                  left;
     width:                  40%;
     margin-top:             2px;
@@ -539,7 +554,7 @@ body
     cursor:                 pointer;
     float:                  right;
     width:                  8%;
-    margin-top:             2px;
+    margin-top:             12px;
     margin-bottom:          2px;
     height: 0px;
 }
@@ -575,9 +590,30 @@ body
     border:                 0px;
 }
 
+.gistr-settings-ver-int-r .setting-item-control > input::selection
+{
+    background:             none;
+    -webkit-touch-callout:  none;
+    -webkit-user-select:    none;
+    -khtml-user-select:     none;
+    -moz-user-select:       none;
+    -ms-user-select:        none;
+     user-select:           none;
+}
+
+.gistr-settings-ver-int-r .gistr-settings-support-build-id > input
+{
+    font-size:              9pt;
+}
+
 .gistr-settings-ver-int-c
 {
     clear:                  both;
+}
+
+.gistr-settings-ver-sublevel > .setting-item-description
+{
+    margin-top:             -2px;
 }
 
 /*

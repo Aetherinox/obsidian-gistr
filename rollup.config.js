@@ -5,6 +5,10 @@
 *   @url:         https://github.com/Aetherinox/obsidian-gistr
 */
 
+/*
+*    import
+*/
+
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
@@ -12,24 +16,63 @@ import terser from '@rollup/plugin-terser';
 import define from 'rollup-plugin-define';
 import license from 'rollup-plugin-license';
 import { v5 as uuidv5 } from 'uuid';
-import {readFileSync} from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 
-const { name, author, version, repository } = JSON.parse(readFileSync('./package.json'));
-const bIsProduction = ( process.env.BUILD === 'production' );
-const bIsDev = ( process.env.BUILD === 'dev' );
-const year = new Date().getFullYear();
+/*
+*    declrations
+*/
 
-const topBanner = `
+const {
+    name,
+    author,
+    version,
+    repository
+} = JSON.parse(readFileSync('./package.json'));
+
+const build_date      = new Date( ).toISOString( );
+const bIsProd         = ( process.env.BUILD === 'production' );
+const bIsDev          = ( process.env.BUILD === 'dev' );
+const year            = new Date( build_date ).getFullYear();
+const build_guid      = uuidv5( ` + repository + `, uuidv5.URL )
+const build_uuid      = uuidv5( new Date( ).toISOString( ), build_guid )
+
+/*
+*    write build id to file
+*
+*    export $(cat .env | xargs)
+*/
+
+const ids = `
+GUID=${ build_guid }
+UUID=${ build_uuid }
+`;
+
+
+writeFileSync( ".env", ids,
+{
+    flag: "w"
+})
+
+/*
+*    banner
+*/
+
+const header_banner = `
 @name:        ${ name } v${ version }
 @author:      ${ author }
 @url:         ${ repository.url }
 @copyright:   (c) ${ year } ${ author }
 @license:     MIT
-@build:       ${ new Date( ).toISOString( ) }
-@build-id:    ${ uuidv5( ` + repository + `, uuidv5.URL ) }
+@build:       ${ build_date }
+@guid:        ${ build_guid }
+@uuid:        ${ build_uuid }
 `;
 
-console.log( topBanner );
+/*
+*    banner output
+*/
+
+console.log( header_banner );
 console.log( `Running in ${ bIsDev ? 'development' : 'production' } mode` );
 
 /*
@@ -42,23 +85,25 @@ export default {
   output: {
     dir: './',
     sourcemap: 'inline',
-    sourcemapExcludeSources: bIsProduction,
+    sourcemapExcludeSources: bIsProd,
     format: 'cjs',
     exports: 'named'
   },
-  external: ['obsidian'],
+  external: [ 'obsidian' ],
   plugins: [
-    typescript(),
+    typescript( ),
     nodeResolve({ browser: true }),
-    commonjs(),
+    commonjs( ),
 
     define({
       replacements: {
-        "process.env.NODE_ENV": bIsProduction ? '"production"' : '"dev"',
-        "process.env.ENV": bIsProduction ? '"production"' : '"dev"',
-        "process.env.BUILD": bIsProduction ? '"production"' : '"dev"',
+        "process.env.NODE_ENV": bIsProd ? '"production"' : '"dev"',
+        "process.env.ENV": bIsProd ? '"production"' : '"dev"',
+        "process.env.BUILD": bIsProd ? '"production"' : '"dev"',
         "process.env.PLUGIN_VERSION": `"${version}"`,
-        "process.env.BUILD_DATE": JSON.stringify(new Date()),
+        "process.env.BUILD_GUID": `"${ build_guid }"`,
+        "process.env.BUILD_UUID": `"${ build_uuid }"`,
+        "process.env.BUILD_DATE": JSON.stringify( new Date( ) ),
         "process.env.NAME": `"${name}"`,
         "process.env.AUTHOR": `"${author}"`,
       }
@@ -76,7 +121,7 @@ export default {
     license({
       sourcemap: true,
       banner: {
-        content:  `${ topBanner }`,
+        content:  `${ header_banner }`,
         commentStyle: 'regular',
       },
     }),

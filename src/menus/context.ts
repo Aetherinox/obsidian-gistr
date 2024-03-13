@@ -1,9 +1,9 @@
-import { App, Menu } from "obsidian"
+import { Menu } from "obsidian"
 import GistrPlugin from "src/main"
-import GistrSettings from 'src/settings/settings'
-import { Github_GetGist } from 'src/backend/services/github'
-import { GistrAPI, GistrEditor } from "src/api/types"
-import { lng } from 'src/lang/helpers'
+import { GistrSettings } from 'src/settings/'
+import { GHGistGet } from 'src/backend/services'
+import { GistrAPI, GistrEditor } from "src/api/Types"
+import { lng } from 'src/lang'
 
 /*
 	Interface
@@ -52,7 +52,7 @@ export default function ShowContextMenu( plugin: GistrPlugin, settings: GistrSet
 			.setIcon( "github" )
 			.onClick( async ( e ) =>
 			{
-				await Github_GetGist(
+				await GHGistGet(
 				{ 
 					plugin: 		plugin,
 					app: 			plugin.app,
@@ -74,7 +74,7 @@ export default function ShowContextMenu( plugin: GistrPlugin, settings: GistrSet
 			.setIcon( "github" )
 			.onClick( async ( e ) =>
 			{
-				await Github_GetGist(
+				await GHGistGet(
 				{ 
 					plugin: 		plugin,
 					app: 			plugin.app,

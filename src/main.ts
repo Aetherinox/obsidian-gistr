@@ -5,15 +5,13 @@
                   import the methods you need individually, otherwise you'll receive circular dependencies error.
 */
 
-import { Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownView, PluginManifest, Notice, requestUrl } from 'obsidian'
-import { GistrBackend } from 'src/backend/backend'
-import { SettingsTab } from "src/settings/tab_settings"
-import GistrSettings, { GetSettings } from 'src/settings/settings'
-import ModalGettingStarted from "./modals/GettingStartedModal"
-import { SETTINGS_DEFAULTS } from 'src/settings/'
-import { lng, PluginID } from 'src/lang/helpers'
-import { Github_GetGist, Github_CopyGist, HandleFrontmatter, Github_UpdateExistingGist } from 'src/backend/services/github'
-import { GistrAPI, GistrEditor } from 'src/api/types'
+import { App, Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownView, PluginManifest, Notice, requestUrl } from 'obsidian'
+import { GistrSettings, SettingsGet, SettingsDefaults, SettingsSection } from 'src/settings/'
+import { BackendCore } from 'src/backend'
+import { GHGistGet, GHGistCopy, GHGistUpdate } from 'src/backend/services'
+import { Env, PID, FrontmatterPrepare, GistrAPI, GistrEditor } from 'src/api'
+import { lng } from 'src/lang'
+import ModalGettingStarted from "src/modals/GettingStartedModal"
 import ShowContextMenu from 'src/menus/context'
 import lt from 'semver/functions/lt'
 import gt from 'semver/functions/gt'
@@ -22,7 +20,6 @@ import gt from 'semver/functions/gt'
     Basic Declrations
 */
 
-const PluginName            = PluginID( )
 const AppBase               = 'app://obsidian.md'
 
 /*
@@ -34,11 +31,16 @@ export default class GistrPlugin extends Plugin
     readonly plugin:        GistrPlugin
     readonly api:           GistrAPI
     readonly editor:        GistrEditor
-    readonly manifest:      PluginManifest
-    //private think_last      = +new Date( ) 
-    //private think_now       = +new Date( ) 
+    // private think_last   = +new Date( ) 
+    // private think_now    = +new Date( ) 
     private bLayoutReady    = false
     settings:               GistrSettings
+
+    constructor( app: App, manifest: PluginManifest )
+    {
+        super( app, manifest )
+        Env._Initialize( app, manifest )
+    }
 
     /*
         Rehash Reading View
@@ -91,7 +93,7 @@ export default class GistrPlugin extends Plugin
         console.debug( lng( "base_debug_loading", process.env.NAME, process.env.PLUGIN_VERSION, process.env.AUTHOR ) )
 
         await this.loadSettings     ( )
-        this.addSettingTab          ( new SettingsTab( this.app, this ) )
+        this.addSettingTab          ( new SettingsSection( this.app, this ) )
 
 		this.app.workspace.onLayoutReady( async ( ) =>
         {
@@ -102,13 +104,13 @@ export default class GistrPlugin extends Plugin
                 {
     
                     /*
-                        Mute
+                        open settings
                     */
     
                     // @ts-ignore
-                    this.app.setting.open( "${ PluginName }" )
+                    this.app.setting.open( this.manifest.id )
                     // @ts-ignore
-                    this.app.setting.openTabById( "${ PluginName }" )
+                    this.app.setting.openTabById( this.manifest.id )
                 }
     
                 this.settings.firststart = false
@@ -125,7 +127,7 @@ export default class GistrPlugin extends Plugin
             {
                 id:                 'gistr-github-gist-public-save',
                 name:               lng( "cfg_context_gist_public" ),
-                editorCallback:     Github_GetGist( { plugin: this, app: this.app, is_public: true } )
+                editorCallback:     GHGistGet( { plugin: this, app: this.app, is_public: true } )
             }
         )
         
@@ -134,7 +136,7 @@ export default class GistrPlugin extends Plugin
             {
                 id:                 'gistr-github-gist-secret-save',
                 name:               lng( "cfg_context_gist_secret" ),
-                callback:           Github_GetGist( { plugin: this, app: this.app, is_public: false } ),
+                callback:           GHGistGet( { plugin: this, app: this.app, is_public: false } ),
             }
         )
         
@@ -143,7 +145,7 @@ export default class GistrPlugin extends Plugin
             {
                 id:                 'gistr-github-gist-copy',
                 name:               lng( "cfg_context_gist_copy" ),
-                callback:           Github_CopyGist( { plugin: this, app: this.app } ),
+                callback:           GHGistCopy( { plugin: this, app: this.app } ),
             }
         )
 
@@ -157,7 +159,7 @@ export default class GistrPlugin extends Plugin
             Register Events
         */
 
-        const gistBackend                       = new GistrBackend( this.settings )
+        const gistBackend                       = new BackendCore( this.settings )
         this.registerDomEvent                   ( window, "message", gistBackend.messageEventHandler )
         this.registerMarkdownCodeBlockProcessor ( this.settings.keyword, gistBackend.processor )
         this.registerEvent                      ( this.app.workspace.on( "editor-menu", this.GetContextMenu ) )
@@ -170,6 +172,15 @@ export default class GistrPlugin extends Plugin
         {
             this.versionCheck( )
         }
+    }
+
+    /*
+        Unload
+    */
+    
+    async onunload( )
+    {
+        console.debug( "Unloaded " + this.manifest.name )
     }
 
     /*
@@ -201,7 +212,7 @@ export default class GistrPlugin extends Plugin
             */
 
             const note_full         = await file.vault.adapter.read( file.path )
-            const note_raw          = HandleFrontmatter( note_full )
+            const note_raw          = FrontmatterPrepare( note_full )
 
             /*
                 Strip Frontmatter from note contents and leave just the note body
@@ -228,10 +239,10 @@ export default class GistrPlugin extends Plugin
                     console.log( "gistMonitorChanges.modify: Denouncer does not exist, creating" )   
 
                 denounce_register[ file.path ] = debounce( async ( note_full: string, file: TFile ) =>
-                await Github_UpdateExistingGist( { plugin: this, app: this.app, note_full, file } ), this.settings.sy_save_duration * 1000, this.settings.sy_enable_autosave_strict )
+                await GHGistUpdate( { plugin: this, app: this.app, note_full, file } ), this.settings.sy_save_duration * 1000, this.settings.sy_enable_autosave_strict )
             }
 
-            const { sy_enable_autosave } = await GetSettings( this )
+            const { sy_enable_autosave } = await SettingsGet( this )
             if ( sy_enable_autosave )
             {
 
@@ -269,7 +280,7 @@ export default class GistrPlugin extends Plugin
 
     async loadSettings( )
     {
-        this.settings = Object.assign( { }, SETTINGS_DEFAULTS, await this.loadData( ) )
+        this.settings = Object.assign( { }, SettingsDefaults, await this.loadData( ) )
     }
 
     /*

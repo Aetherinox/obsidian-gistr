@@ -4,9 +4,9 @@
 
 import { Setting, ExtraButtonComponent } from 'obsidian'
 import GistrPlugin from "src/main"
-import { lng } from 'src/lang/helpers'
+import { lng } from 'src/lang'
+import { ColorTranslator } from 'colortranslator'
 import Pickr from "@simonwep/pickr"
-import { ColorTranslator } from "colortranslator"
 
 /*
     CSS Color Values
@@ -20,7 +20,7 @@ export type Color       = CLR_HEX | CLR_VAR
     Color Picker
 */
 
-export default class ColorPicker extends Pickr
+export class ColorPicker extends Pickr
 {
 	ActionSave:         ( ActionSave: Color ) => void
 	ColorReset:         ( ) => void
@@ -30,7 +30,7 @@ export default class ColorPicker extends Pickr
     {
 		const settings : Pickr.Options =
         {
-			el: setting.controlEl.createDiv( { cls: "picker" } ),
+			el:             setting.controlEl.createDiv( { cls: "picker" } ),
 			theme:          "nano",
 			default:        "#FFFFFF",
 			position:       "left-middle",
@@ -104,10 +104,10 @@ export function GetColor( clr: Color ): Color
 }
 
 /*
-    Calculate colors when converting hsl and rgb
+    Converts colors when converting hsl and rgb
 */
 
-export function CalcColor( str : string ) : string
+export function ConvertColor( str : string ) : string
 {
 	const strSplit = str.trim( ).replace( /(\d*)%/g, "$1" ).split( " " )
 
@@ -121,7 +121,6 @@ export function CalcColor( str : string ) : string
     {
 		if ( strSplit[ 1 ] in operators )
         {
-            console.log( operators )
 			return `${ operators[ strSplit[ 1 ] ]( parseFloat( strSplit[ 0 ] ), parseFloat( strSplit[ 2 ] ) ) }%`
         }
     }
@@ -154,8 +153,8 @@ export function CSS_GetValue( property: CLR_VAR ): CLR_HEX
 	else if ( value.startsWith( "hsl" ) )
 		return `#${ ColorTranslator.toHEXA
         ( 
-            value.replace( /CalcColor\((.*?)\)/g, ( match, capture ) =>
-            CalcColor( capture ) )
+            value.replace( /ConvertColor\((.*?)\)/g, ( match, capture ) =>
+            ConvertColor( capture ) )
         ).substring( 1 ) }`
 
     /*
@@ -166,8 +165,8 @@ export function CSS_GetValue( property: CLR_VAR ): CLR_HEX
 	else if ( value.startsWith( "rgb" ) )
 		return `#${ ColorTranslator.toHEXA
         (
-            value.replace( /CalcColor\((.*?)\)/g, ( match, capture ) =>
-            CalcColor( capture ) )
+            value.replace( /ConvertColor\((.*?)\)/g, ( match, capture ) =>
+            ConvertColor( capture ) )
         ).substring( 1 ) }`
 
     /*

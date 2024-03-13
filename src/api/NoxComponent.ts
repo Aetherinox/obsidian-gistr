@@ -1,5 +1,5 @@
 import { Setting, MomentFormatComponent, DropdownComponent, TextComponent, ToggleComponent, ValueComponent, SliderComponent, TextAreaComponent } from 'obsidian'
-import { lng } from 'src/lang/helpers'
+import { lng } from 'src/lang'
 
 /*
 	Class to extend obsidian components to include a reset button
@@ -8,6 +8,7 @@ import { lng } from 'src/lang/helpers'
 
 export class NoxComponent extends Setting
 {
+
 	containerEl: 	HTMLElement
 	private name: 	string | DocumentFragment = ''
 	private desc: 	string | DocumentFragment = ''
@@ -29,7 +30,7 @@ export class NoxComponent extends Setting
         return this
     }
 
-    setDesc( desc: string | DocumentFragment ): this
+    public setDesc( desc: string | DocumentFragment ): this
 	{
         super.setDesc( desc )
         this.desc = desc

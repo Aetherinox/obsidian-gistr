@@ -4,8 +4,8 @@
 
 import { App, Modal, ButtonComponent, Setting, requestUrl, MarkdownRenderer } from "obsidian"
 import GistrPlugin from "src/main"
-import GistrSettings, { GetSettings } from 'src/settings/settings'
-import { lng } from 'src/lang/helpers'
+import { GistrSettings } from 'src/settings/'
+import { lng } from 'src/lang'
 
 /*
     Declare Json
@@ -55,7 +55,6 @@ export default class ModalGettingStarted extends Modal
 
 	openAndAwait( )
 	{
-		console.log( this.settings.firststart )
 		return new Promise<string>( ( call ) =>
 		{
 			this.resolve = call
@@ -106,16 +105,16 @@ export default class ModalGettingStarted extends Modal
 
 		AddLine( contentEl, "", "div", "gistr-gs-separator" )
 
-		const Tab_GH_L  = contentEl.createEl( "h3",    { text: lng( "gs_gh_name" ), cls: `gistr-gs-header-int-l` } )
-		const Tab_GH_R  = contentEl.createEl( "h2",    { text: " ", cls: `gistr-gs-header-int-r` } )
-		const Tab_GH_C  = contentEl.createEl( "div",   { text: "", cls: `gistr-gs-header-int-c` } )
-		contentEl.createEl( 'small', { cls: "", text: lng( "gs_gh_desc" ) } )
+		const Tab_GH_L  	= contentEl.createEl( "h3",    { text: lng( "gs_gh_name" ), cls: `gistr-gs-header-int-l` } )
+		const Tab_GH_R  	= contentEl.createEl( "h2",    { text: " ", cls: `gistr-gs-header-int-r` } )
+		const Tab_GH_C  	= contentEl.createEl( "div",   { text: "", cls: `gistr-gs-header-int-c` } )
+		contentEl.createEl	( 'small', { cls: "", text: lng( "gs_gh_desc" ) } )
 
 		/*
 			Get github api status
 		*/
 
-		let json_delay = 1 * 1000
+		let json_delay 	= 1 * 1000
 		const gh_status = requestUrl( "https://www.githubstatus.com/api/v2/summary.json" ).then( ( res ) =>
 		{
 			if ( res.status === 200 )
@@ -139,19 +138,19 @@ export default class ModalGettingStarted extends Modal
 
 				setTimeout( function( )
 				{
-					if ( github_status === lng( "gist_status_operational" ) )
+					if ( github_status === lng( "gist_status_operational_raw" ) )
 					{
-						const controlEl = Tab_GH_R.querySelector( ".setting-item-control" )
-						controlEl.removeClass( "gistr-settings-status-connecting" )
-						controlEl.addClass( "gistr-settings-status-success" )
-						text.setValue( lng( "gist_status_connected" ) )
+						const controlEl 		= Tab_GH_R.querySelector( ".setting-item-control" )
+						controlEl.removeClass	( "gistr-settings-status-connecting" )
+						controlEl.addClass		( "gistr-settings-status-success" )
+						text.setValue			( lng( "gist_status_connected" ) )
 					}
 					else
 					{
-						const controlEl = Tab_GH_R.querySelector(".setting-item-control" )
-						controlEl.removeClass( "gistr-settings-status-connecting" )
-						controlEl.addClass( "gistr-settings-status-warning" )
-						text.setValue( github_status )
+						const controlEl 		= Tab_GH_R.querySelector(".setting-item-control" )
+						controlEl.removeClass	( "gistr-settings-status-connecting" )
+						controlEl.addClass		( "gistr-settings-status-warning" )
+						text.setValue			( github_status )
 					}
 				}, json_delay )
 			} )
@@ -159,7 +158,7 @@ export default class ModalGettingStarted extends Modal
 			{
 				btn
 				.setIcon        ( 'circle-off' )
-				.setTooltip     ( lng( "gist_status_btn_connecting" ) )
+				.setTooltip     ( lng( "gist_status_connecting_btn_tip" ) )
 
 				btn.extraSettingsEl.classList.add( "gistr-settings-icon-cur" )
 				btn.extraSettingsEl.classList.add( "gistr-anim-spin" )
@@ -169,18 +168,18 @@ export default class ModalGettingStarted extends Modal
 
 				setTimeout( function( )
 				{
-					if ( github_status === lng( "gist_status_operational" ) )
+					if ( github_status === lng( "gist_status_operational_raw" ) )
 					{
-						btn.setIcon( "github" )
-						btn.setTooltip ( lng( "gist_status_btn_success" ) )
+						btn.setIcon		( "github" )
+						btn.setTooltip 	( lng( "gist_status_success_btn_tip" ) )
 
 						btn.extraSettingsEl.classList.remove     ( "gistr-settings-status-connecting" )
 						btn.extraSettingsEl.classList.add        ( "gistr-settings-icon-ok" )
 					}
 					else
 					{
-						btn.setIcon( "circle-off" )
-						btn.setTooltip ( lng( "gist_status_btn_issues" ) )
+						btn.setIcon		( "circle-off" )
+						btn.setTooltip 	( lng( "gist_status_issues_btn_tip" ) )
 
 						btn.extraSettingsEl.classList.remove     ( "gistr-settings-status-connecting" )
 						btn.extraSettingsEl.classList.add        ( "gistr-settings-icon-error" )
