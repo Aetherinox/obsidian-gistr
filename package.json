@@ -34,7 +34,7 @@
     "@types/node": "^20.11.24",
     "@types/semver": "^7.5.8",
     "obsidian": "^1.0.0",
-    "rollup": "^2.79.0",
+    "rollup": "^2.79.1",
     "rollup-plugin-define": "^1.0.1",
     "rollup-plugin-license": "^3.3.1",
     "tslib": "^2.2.0",
