@@ -34,11 +34,11 @@
     "@types/node": "^20.11.24",
     "@types/semver": "^7.5.8",
     "obsidian": "^1.0.0",
-    "rollup": "^2.32.1",
+    "rollup": "^2.79.0",
     "rollup-plugin-define": "^1.0.1",
     "rollup-plugin-license": "^3.3.1",
     "tslib": "^2.2.0",
-    "typescript": "^4.2.4",
+    "typescript": "^4.9.5",
     "uuid": "^9.0.1"
   },
   "dependencies": {
