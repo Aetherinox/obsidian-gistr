@@ -1351,11 +1351,12 @@ export class SettingsSection extends PluginSettingTab
         Tab_SaveSync_ShowSettings( elm: HTMLElement )
         {
 
-            let setting_allow_gist_updates: NoxComponent
-            let setting_autosave_enable:    NoxComponent
-            let setting_autosave_strict:    NoxComponent
-            let setting_autosave_noti:      NoxComponent
-            let setting_autosave_dur:       NoxComponent
+            let setting_enable_ribbon_icons:    NoxComponent
+            let setting_allow_gist_updates:     NoxComponent
+            let setting_autosave_enable:        NoxComponent
+            let setting_autosave_strict:        NoxComponent
+            let setting_autosave_noti:          NoxComponent
+            let setting_autosave_dur:           NoxComponent
 
             let bAutosaveEnabled            = this.plugin.settings.sy_enable_autosave
 
@@ -1364,6 +1365,41 @@ export class SettingsSection extends PluginSettingTab
             */
 
             elm.createEl( 'small', { cls: "gistr-settings-section-description", text: lng( "cfg_tab_sy_header" ) } )
+
+
+            /*
+                Enable ribbon icon
+
+                Adds "Save Public / Secret" gist to left side ribbon menu next to File Previewer
+            */
+
+            const cfg_tab_sy_tog_enable_ribbon_desc = new DocumentFragment( )
+            cfg_tab_sy_tog_enable_ribbon_desc.append(
+                sanitizeHTMLToDom(`${ lng( "cfg_tab_sy_tog_enable_ribbon_desc" ) }`),
+            )
+
+            setting_enable_ribbon_icons = new NoxComponent( elm )
+                .setName( lng( "cfg_tab_sy_tog_enable_ribbon_name" ) )
+                .setDesc( cfg_tab_sy_tog_enable_ribbon_desc )
+                .addNoxToggle( toggle => toggle
+                    .setValue( this.plugin.settings.sy_enable_ribbon_icons )
+                    .onChange( async ( val ) =>
+                    {
+                        this.plugin.settings.sy_enable_ribbon_icons = val
+                        await this.plugin.saveSettings( )
+
+                        if ( val )
+                            await this.plugin.registerRibbon( )
+                        else
+                            await this.plugin.unregisterRibbon( )
+                    }),
+                    ( ) =>
+                    ( 
+                        SettingsDefaults.sy_enable_ribbon_icons as boolean
+                    ),
+                )
+                
+            elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
 
             /*
                 Enable Allow Gist Updates

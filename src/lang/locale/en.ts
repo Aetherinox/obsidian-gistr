@@ -185,6 +185,10 @@ export default
     cfg_tab_sy_list_icon_name:                  'Gist list icon color',
     cfg_tab_sy_list_icon_desc:                  'Color for icon in gist save list',
 
+    cfg_tab_sy_tog_enable_ribbon_name:          'Enable ribbon icons',
+    cfg_tab_sy_tog_enable_ribbon_desc:          '<span class="gistr-settings-elm-note">Enabled</span>: Adds <span class="gistr-settings-elm-note">Save Public / Secret Gist</span> icons to left-side ribbon in Obsidian.<br><br><span class="gistr-settings-elm-important">Disabled</span>: You will only be able to access the save menu options from your <span class="gistr-settings-elm-note">right-click menu</span>, or the Obsidian command palette',
+    cfg_tab_sy_tog_enable_ribbon_tip:           '',
+
     cfg_tab_sy_tog_allow_gist_updates_name:     'Allow updating gists',
     cfg_tab_sy_tog_allow_gist_updates_desc:     '<span class="gistr-settings-elm-note">Enabled</span>: After you initially create a new gist, the note can be updated with newer revisions.<br><br><span class="gistr-settings-elm-important">Disabled</span>: Gists can only be created; no updates are allowed.<br><br>To update a gist after enabling this setting, right-click on the note, or open the Obsidian command palette and select <span class="gistr-settings-elm-note"><b>Save Gist</b></span>',
     cfg_tab_sy_tog_allow_gist_updates_tip:      '',

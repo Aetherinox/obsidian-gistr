@@ -151,6 +151,8 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "gistr:Save Gist (Github Public)": false,
+      "gistr:Save Gist (Github Secret)": false,
       "obsidian42-brat:BRAT": false,
       "switcher:Open quick switcher": false,
       "graph:Open graph view": false,

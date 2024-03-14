@@ -60,6 +60,7 @@
 !*package.json
 !*package-lock.json
 !*rollup.config.js
+!*rollup.config.mjs
 !*tsconfig.json
 !*versions.json
 !sign.bat

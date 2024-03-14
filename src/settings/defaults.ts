@@ -35,6 +35,7 @@ export const SettingsDefaults: GistrSettings =
     gh_clr_tx_dark:             "#CAD3F5",
     gh_opacity:                 1,
 
+    sy_enable_ribbon_icons:     true,
     sy_enable_autoupdate:       true,
     sy_enable_autosave:         false,
     sy_enable_autosave_strict:  false,

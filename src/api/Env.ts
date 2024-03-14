@@ -27,6 +27,9 @@ type Repo =
 {
   urlWiki?:         HttpsUrl
   urlIssues?:       HttpsUrl
+  urlReleases?:     HttpsUrl
+  urlPackage?:      HttpsUrl
+  urlDemoVault?:    HttpsUrl
 }
 
 /*
@@ -42,7 +45,10 @@ export abstract class Env
     public static readonly repository: Repo =
     {
         urlWiki:        'https://github.com/Aetherinox/obsidian-gistr/wiki',
-        urlIssues:      'https://github.com/Aetherinox/obsidian-gistr/issues'
+        urlIssues:      'https://github.com/Aetherinox/obsidian-gistr/issues',
+        urlReleases:    'https://github.com/Aetherinox/obsidian-gistr/releases',
+        urlPackage:     'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/{0}/package.json',
+        urlDemoVault:   'https://github.com/Aetherinox/obsidian-gistr/tree/main/tests/gistr-vault',
     }
 
     /*

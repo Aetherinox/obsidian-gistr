@@ -11,6 +11,7 @@
 
 import typescript from '@rollup/plugin-typescript';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
+import moment from 'moment';
 import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
 import define from 'rollup-plugin-define';
@@ -27,14 +28,15 @@ const {
     author,
     version,
     repository
-} = JSON.parse(readFileSync('./package.json'));
+} = JSON.parse( readFileSync( './package.json') );
 
-const build_date      = new Date( ).toISOString( );
+const now             = moment( ).milliseconds( 0 ).toISOString( );
+const build_date      = now;
 const bIsProd         = ( process.env.BUILD === 'production' );
 const bIsDev          = ( process.env.BUILD === 'dev' );
-const year            = new Date( build_date ).getFullYear();
+const year            = moment( now ).year( );
 const build_guid      = uuidv5( ` + repository + `, uuidv5.URL )
-const build_uuid      = uuidv5( new Date( ).toISOString( ), build_guid )
+const build_uuid      = uuidv5( version, build_guid )
 
 /*
 *    write build id to file
@@ -92,7 +94,7 @@ export default {
   external: [ 'obsidian' ],
   plugins: [
     typescript( ),
-    nodeResolve({ browser: true }),
+    nodeResolve( { browser: true } ),
     commonjs( ),
 
     define({
@@ -100,12 +102,12 @@ export default {
         "process.env.NODE_ENV": bIsProd ? '"production"' : '"dev"',
         "process.env.ENV": bIsProd ? '"production"' : '"dev"',
         "process.env.BUILD": bIsProd ? '"production"' : '"dev"',
-        "process.env.PLUGIN_VERSION": `"${version}"`,
+        "process.env.PLUGIN_VERSION": `"${ version }"`,
         "process.env.BUILD_GUID": `"${ build_guid }"`,
         "process.env.BUILD_UUID": `"${ build_uuid }"`,
-        "process.env.BUILD_DATE": JSON.stringify( new Date( ) ),
-        "process.env.NAME": `"${name}"`,
-        "process.env.AUTHOR": `"${author}"`,
+        "process.env.BUILD_DATE": JSON.stringify( moment( now ) ),
+        "process.env.NAME": `"${ name }"`,
+        "process.env.AUTHOR": `"${ author }"`,
       }
     }),
     terser({

@@ -34,6 +34,7 @@ export interface GistrSettings
     gh_clr_tx_dark:             string | "CAD3F5"
     gh_opacity:                 number | 1
 
+    sy_enable_ribbon_icons:     boolean | true
     sy_enable_autoupdate:       boolean | true
     sy_enable_autosave:         boolean | false
     sy_enable_autosave_strict:  boolean | false
