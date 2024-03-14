@@ -582,12 +582,14 @@ body
     background:             none;
     border:                 0px;
     text-align:             right;
+    box-shadow:             none;
 }
 
 .gistr-settings-ver-int-r .setting-item-control > input:hover, input:active
 {
     background:             none;
     border:                 0px;
+    box-shadow:             none;
 }
 
 .gistr-settings-ver-int-r .setting-item-control > input::selection
@@ -601,9 +603,15 @@ body
      user-select:           none;
 }
 
-.gistr-settings-ver-int-r .gistr-settings-support-build-id > input
+.gistr-settings-ver-int-r .setting-item-control > input:focus, .gistr-settings-ver-int-r .setting-item-control > input:active
+{
+    box-shadow:             none;
+}
+
+.gistr-settings-ver-int-r .gistr-settings-support-build-id > input, .gistr-settings-ver-int-r .gistr-settings-support-build-id > input:active, .gistr-settings-ver-int-r .gistr-settings-support-build-id > input:focus
 {
     font-size:              9pt;
+    box-shadow:             none;
 }
 
 .gistr-settings-ver-int-c
