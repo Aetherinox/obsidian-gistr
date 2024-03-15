@@ -9,7 +9,7 @@ import { App, Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownV
 import { GistrSettings, SettingsGet, SettingsDefaults, SettingsSection } from 'src/settings/'
 import { BackendCore } from 'src/backend'
 import { GHGistGet, GHGistCopy, GHGistUpdate } from 'src/backend/services'
-import { Env, PID, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconGithubSecret } from 'src/api'
+import { Env, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconGithubSecret, AssetGithubIcon } from 'src/api'
 import { lng } from 'src/lang'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
 import ShowContextMenu from 'src/menus/context'
@@ -33,8 +33,6 @@ export default class GistrPlugin extends Plugin
     readonly editor:            GistrEditor
     private ribbonIcon_pub:     HTMLElement
     private ribbonIcon_sec:     HTMLElement
-    // private think_last       = +new Date( ) 
-    // private think_now        = +new Date( ) 
     private bLayoutReady        = false
     settings:                   GistrSettings
 
@@ -197,24 +195,13 @@ export default class GistrPlugin extends Plugin
 
     gistMonitorChanges( )
     {
-        console.log( process.env.BUILD_GUID )
+
         const note_previous:        Record< string, string > = { }
         const denounce_register:    Record< string, Debouncer< [ string, TFile ], Promise< Notice > > > = { }
 
         let last = +new Date( )
         this.app.vault.on( 'modify', async( file: TFile ) =>
         {
-            /*
-            this.think_now          = +new Date( )
-            if ( this.think_now - this.think_last < ( this.settings.sy_save_duration * 1000 ) )
-            {
-                if ( process.env.ENV === "dev" )
-                    console.log( "gistMonitorChanges.modify on cooldown" )
-
-                return
-            }
-            */
-
             /*
                 Get note contents with frontmatter
             */
@@ -258,17 +245,6 @@ export default class GistrPlugin extends Plugin
 
                 if ( process.env.ENV === "dev" )
                     console.log( "gistMonitorChanges.modify: Autosave Denouncer" )         
-
-                /*
-                if ( now - last > ( this.settings.sy_save_duration * 1000 ) )
-                {
-                    last = now
-                    await denounce_register[ file.path ]( note_full, file )
-
-                    if ( process.env.ENV === "dev" )
-                        console.log( "gistMonitorChanges.modify: Autosave Denouncer" )         
-                }
-                */
             }
         } )
     }
@@ -390,10 +366,26 @@ export default class GistrPlugin extends Plugin
         if ( gt( ver_beta, ver_stable ) && lt( ver_running, ver_beta ) )
         {
             new Notice( lng( "ver_update_beta" ), 0 )
+
+            new Notification( lng( "ver_update_beta_dn_title", this.manifest.name ),
+            {
+                body:   lng( "ver_update_beta_dn_msg", ver_running, ver_beta ),
+                image:  AssetGithubIcon,
+                icon:   AssetGithubIcon,
+                badge:  AssetGithubIcon,
+            } )
         }
         else if ( lt( ver_beta, ver_stable ) && lt( ver_running, ver_stable ) )
         {
             new Notice( lng( "ver_update_stable" ), 0 )
+
+            new Notification( lng( "ver_update_stable_dn_title", this.manifest.name ),
+            {
+                body:   lng( "ver_update_stable_dn_msg", ver_running, ver_stable ),
+                image:  AssetGithubIcon,
+                icon:   AssetGithubIcon,
+                badge:  AssetGithubIcon,
+            } )
         }
 	}
 
