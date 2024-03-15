@@ -44,7 +44,7 @@ export default
 
     cfg_tab_ge_title:                           'Global',
     cfg_tab_ge_header:                          'These settings affect all aspects of this plugin, including both Opengist and Github. If you change the trigger keyword, ensure you go back through your existing gist snippets and change the keyword at the top of each codeblock; otherwise embedded gists will not appear.',
-    cfg_tab_sy_title:                           'Save / Sync',
+    cfg_tab_sy_title:                           'Gist Save & Sync',
     cfg_tab_sy_header:                          'These settings allow you to create gists from your notes. The contents of your notes will be directly uploaded to Github under an existing account. You may also choose to create only new notes, or manage new and existing.',
     cfg_tab_og_title:                           'OpenGist',
     cfg_tab_og_header:                          'Opengist is a self-hosted pastebin powered by Git. All snippets are stored in a Git repository and can be read and/or modified using standard Git commands, or with the web interface. It is similiar to GitHub Gist, but open-source and is self-hosted. OpenGist supports Windows, Linux, and MacOS.',
@@ -182,8 +182,14 @@ export default
         Tab > Sync
     */
 
-    cfg_tab_sy_list_icon_name:                  'Gist list icon color',
+    cfg_tab_sy_list_save_showall_name:          'Gist save list: Show All Saves',
+    cfg_tab_sy_list_save_showall_desc:          'This setting effects how the gist save list displays saved gists.<br><br><span class="gistr-settings-elm-note">Enabled</span>: When saving an existing gist, the suggestion box will display ALL saves for that note in the same list; both public and secret.<br><br><span class="gistr-settings-elm-important">Disabled</span>: Public and secret gist saves will be separated when being displayed in the existing gist save list.',
+
+    cfg_tab_sy_list_icon_name:                  'Gist save list: Icon color',
     cfg_tab_sy_list_icon_desc:                  'Color for icon in gist save list',
+
+    cfg_tab_sy_list_datetime_name:              'Gist save list: Datetime format',
+    cfg_tab_sy_list_datetime_desc:              'Defines what format the date and time will display as.<br>Datetime Format Options: <a href="http://momentjs.com/docs/#/displaying/format/">view here</a>',
 
     cfg_tab_sy_tog_enable_ribbon_name:          'Enable ribbon icons',
     cfg_tab_sy_tog_enable_ribbon_desc:          '<span class="gistr-settings-elm-note">Enabled</span>: Adds <span class="gistr-settings-elm-note">Save Public / Secret Gist</span> icons to left-side ribbon in Obsidian.<br><br><span class="gistr-settings-elm-important">Disabled</span>: You will only be able to access the save menu options from your <span class="gistr-settings-elm-note">right-click menu</span>, or the Obsidian command palette',
@@ -265,7 +271,11 @@ export default
     */
 
     ver_update_stable:                          'An update is available for the Gistr plugin. Update to check out the latest features!',
+    ver_update_stable_dn_title:                 '{0} Update Available ► Stable',
+    ver_update_stable_dn_msg:                   'New stable release available for Gistr plugin.\n\n{0} ► {1}',
     ver_update_beta:                            'A new beta release is available for the Gistr plugin. Update to check out the latest features coming to stable!',
+    ver_update_beta_dn_title:                   '{0} Update Available ► Beta',
+    ver_update_beta_dn_msg:                     'New beta release available for Gistr plugin.\n\n{0} ► {1}',
     ver_url:                                    'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/{0}/package.json',
 
     /*

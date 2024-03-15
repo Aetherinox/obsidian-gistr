@@ -1357,15 +1357,15 @@ export class SettingsSection extends PluginSettingTab
             let setting_autosave_strict:        NoxComponent
             let setting_autosave_noti:          NoxComponent
             let setting_autosave_dur:           NoxComponent
+            let setting_save_list_showall:      NoxComponent
 
-            let bAutosaveEnabled            = this.plugin.settings.sy_enable_autosave
+            let bAutosaveEnabled                = this.plugin.settings.sy_enable_autosave
 
             /*
                 Github > Header Intro
             */
 
             elm.createEl( 'small', { cls: "gistr-settings-section-description", text: lng( "cfg_tab_sy_header" ) } )
-
 
             /*
                 Enable ribbon icon
@@ -1495,7 +1495,7 @@ export class SettingsSection extends PluginSettingTab
                 setting_autosave_strict.settingEl.style.opacity = ( bAutosaveEnabled == false ? this.Opacity_Disabled : this.Opacity_Enabled )
                 
             elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
-                
+
             /*
                 Autosave > Notifications
             */
@@ -1604,7 +1604,62 @@ export class SettingsSection extends PluginSettingTab
             elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
 
             /*
-                Background color (Dark)
+                Save > List > Show All
+            */
+
+            const cfg_tab_sy_list_save_showall_desc = new DocumentFragment( )
+            cfg_tab_sy_list_save_showall_desc.append(
+                sanitizeHTMLToDom(`${ lng( "cfg_tab_sy_list_save_showall_desc" ) }`),
+            )
+
+            setting_save_list_showall = new NoxComponent( elm )
+                .setName( lng( "cfg_tab_sy_list_save_showall_name" ) )
+                .setDesc( cfg_tab_sy_list_save_showall_desc )
+                .addNoxToggle( toggle => toggle
+                    .setValue( this.plugin.settings.sy_save_list_showall )
+                    .onChange( async ( val ) =>
+                    {
+                        this.plugin.settings.sy_save_list_showall = val
+                        await this.plugin.saveSettings( )
+                    }),
+                    ( ) =>
+                    ( 
+                        SettingsDefaults.sy_save_list_showall as boolean
+                    ),
+                )
+
+            elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
+
+            /*
+                Gist save list > Datetime format
+            */
+
+                const cfg_tab_sy_list_datetime_desc = new DocumentFragment( )
+                cfg_tab_sy_list_datetime_desc.append(
+                    sanitizeHTMLToDom( `${ lng( "cfg_tab_sy_list_datetime_desc" ) }` ),
+                )
+    
+                new NoxComponent( elm )
+                    .setName( lng( "cfg_tab_sy_list_datetime_name" ) )
+                    .setDesc( cfg_tab_sy_list_datetime_desc )
+                    .addNoxTextbox( text => text
+                        .setValue( this.plugin.settings.sy_save_list_datetime )
+                        .onChange( async ( val ) =>
+                        {
+                            this.plugin.settings.sy_save_list_datetime = val
+                            await this.plugin.saveSettings( )
+                            this.plugin.renderModeReading( )
+                        }),
+                        ( ) =>
+                        ( 
+                            SettingsDefaults.sy_save_list_datetime.toString( ) as string
+                        ),
+                    )
+
+                elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
+
+            /*
+                Gist List Icon Color
             */
 
             const cfg_tab_sy_list_icon_desc = new DocumentFragment( )

@@ -40,6 +40,8 @@ export interface GistrSettings
     sy_enable_autosave_strict:  boolean | false
     sy_enable_autosave_notice:  boolean | false
     sy_add_frontmatter:         boolean | false
+    sy_save_list_showall:       boolean | false
+    sy_save_list_datetime:      string | "MM.DD.YYYY h:m:s a"
     sy_save_duration:           number | 10
 
     context_sorting:    [],

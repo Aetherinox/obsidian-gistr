@@ -41,6 +41,8 @@ export const SettingsDefaults: GistrSettings =
     sy_enable_autosave_strict:  false,
     sy_enable_autosave_notice:  false,
     sy_add_frontmatter:         false,
+    sy_save_list_showall:       false,
+    sy_save_list_datetime:      "MM.DD.YYYY h:m:s a",
     sy_save_duration:           15,
     context_sorting:            [],
 }
