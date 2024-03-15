@@ -16,6 +16,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import terser from '@rollup/plugin-terser';
 import define from 'rollup-plugin-define';
 import license from 'rollup-plugin-license';
+import image from '@rollup/plugin-image';
 import { v5 as uuidv5 } from 'uuid';
 import { readFileSync, writeFileSync } from 'fs';
 
@@ -96,7 +97,7 @@ export default {
     typescript( ),
     nodeResolve( { browser: true } ),
     commonjs( ),
-
+    image( ),
     define({
       replacements: {
         "process.env.NODE_ENV": bIsProd ? '"production"' : '"dev"',
