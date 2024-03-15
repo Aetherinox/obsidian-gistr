@@ -1,6 +1,6 @@
 {
   "name": "gistr",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "description": "Use your notes to embed, create, and update gists for Github and Opengist.",
   "main": "main.js",
   "repository": {
@@ -28,10 +28,11 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-image": "^3.0.3",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^20.11.24",
+    "@types/node": "^20.11.28",
     "@types/semver": "^7.5.8",
     "obsidian": "^1.0.0",
     "rollup": "^3.29.3",
