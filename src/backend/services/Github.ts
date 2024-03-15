@@ -6,6 +6,7 @@ import Noxkit from '@aetherinox/noxkit'
 import frontmatter from 'front-matter'
 import { Octokit } from '@octokit/rest'
 import { lng } from 'src/lang'
+import moment from 'moment'
 
 /*
     Github Status
@@ -269,29 +270,6 @@ const Create = async ( args: OptionsCreate ): Promise< ResultsCreateGist > =>
 }
 
 /*
-    DateTime Format
-
-    need to break it up into these crazy steps to allow for customization
-*/
-
-const dateTimeformat = ( date: Date ): string =>
-{
-    const month 	    = date.getMonth( ) + 1
-    const month_str     = month.toString( ).padStart( 2, '0' )
-    const day 			= date.getDate( ).toString( ).padStart( 2, '0' )
-    const year 			= date.getFullYear( ).toString( ).padStart( 2, '0' )
-
-    let hours 		    = date.getHours( )
-    const mins 	        = date.getMinutes( )
-    const mins_str      = mins.toString( ).padStart( 2, '0' )
-    const x 		    = hours >= 12 ? lng( "base_time_pm" ) : lng( "base_time_am" )
-    hours 				= hours % 12
-    hours 				= hours ? hours : 12
-
-    return month_str + '.' + day + '.' + year + ' ' + hours + ':' + mins_str + ' ' + x
-}
-
-/*
     Modal > Select Existing Gist
 */
 
@@ -357,8 +335,7 @@ class SelectExistingModal extends SuggestModal < GistData >
         */
 
         const div_scope             = gistArray.is_public ? lng( "lst_repotype_pub" ) : lng( "lst_repotype_pri" )
-        let date                    = new Date( `${ gistArray.updated_at }` )
-        let date_created            = dateTimeformat( date )
+        let date_created            = moment( gistArray.updated_at ).format( this.settings.sy_save_list_datetime )
 
         const div_Parent            = el.createEl( 'div',   { text: "", cls: 'gistr-suggest-container' } )
         const svg_Icon              = div_Parent.createEl   ( 'div', { text: "", cls: 'gistr-suggest-icon' } )
@@ -429,7 +406,9 @@ export const GHGistGet = ( args: ArgsGet ) => async ( ) =>
     const file                  = getView.file.name
     const editor                = getView.editor
     const noteOrig              = editor.getValue( )
-    const ExistingGist          = FindExistingGist( noteOrig ).filter( ( gistArray ) => gistArray.is_public === is_public )
+
+    // populate suggestion box when saving gists
+    const ExistingGist          = ( plugin.settings.sy_save_list_showall && FindExistingGist( noteOrig ) || FindExistingGist( noteOrig ).filter( ( gistArray ) => gistArray.is_public === is_public ) )
     const gistContent           = sy_add_frontmatter ? noteOrig : FrontmatterPrepare( noteOrig )
 
     if ( ExistingGist.length && sy_enable_autoupdate )
@@ -467,6 +446,7 @@ export const GHGistGet = ( args: ArgsGet ) => async ( ) =>
                         new Notice( lng( "gist_not_found" ), notitime * 1000 )
 
                     new Notice( lng( "gist_upload_fail_api", output.errorMessage ), notitime * 1000 )
+                    
                     return
                 }
 
