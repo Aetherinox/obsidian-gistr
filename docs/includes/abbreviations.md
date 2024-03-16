@@ -1,0 +1,2 @@
+*[JS]: Javascript
+*[TS]: Typescript

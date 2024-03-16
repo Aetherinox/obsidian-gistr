@@ -1,0 +1,188 @@
+site_name: !!python/object/apply:os.getenv [MK_NAME, "Gistr"]
+repo_url: https://github.com/Aetherinox/obsidian-gistr
+repo_name: Aetherinox/obsidian-gistr
+edit_uri: edit/main/docs/docs/
+site_author: Aetherinox
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - md_in_html
+  - def_list
+  - footnotes
+  - tables
+  - pymdownx.betterem
+  - pymdownx.tasklist
+  - pymdownx.highlight:
+      use_pygments: true
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tabbed
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.blocks.html
+  - pymdownx.details
+  - pymdownx.magiclink
+  - pymdownx.keys
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.arithmatex:
+      generic: true
+
+watch:
+  - includes
+
+theme:
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - rust
+    - markdown
+  icon:
+    note: fontawesome/solid/note-sticky
+    abstract: fontawesome/solid/book
+    info: fontawesome/solid/circle-info
+    tip: fontawesome/solid/bullhorn
+    success: fontawesome/solid/check
+    question: fontawesome/solid/circle-question
+    warning: fontawesome/solid/triangle-exclamation
+    failure: fontawesome/solid/bomb
+    danger: fontawesome/solid/skull
+    bug: fontawesome/solid/robot
+    example: fontawesome/solid/flask
+    quote: fontawesome/solid/quote-left
+    annotation: material/arrow-right-circle
+    tag:
+      html: fontawesome/brands/html5
+      js: fontawesome/brands/js
+      css:  fontawesome/brands/css3
+    repo: fontawesome/brands/git-alt 
+  name: material
+  custom_dir: overrides
+  palette: 
+    # Palette toggle for light mode
+    - scheme: default
+      primary: custom
+      accent: indigo
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: gistr
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  logo: assets/obsidian.png
+  favicon: assets/obsidian.png
+  features:
+    - navigation.footer
+    - content.action.edit
+    - content.action.view
+    - content.tooltips
+    - search.highlight
+    - search.share
+    - search.suggest
+    - content.code.annotate 
+    - content.code.select
+    - content.code.copy
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.instant.prefetch
+    - navigation.instant.preview
+    - navigation.tracking
+    - navigation.path
+    - navigation.top
+    - announce.dismiss
+extra_css:
+  - stylesheets/extra.css?v1.000
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js
+  - javascripts/commiters.js
+nav:
+  - Overview: 'index.md'
+  - Members:
+    - Member Access: 'members/access.md'
+  - Settings:
+    - Summary: 'settings/summary.md'
+    - Global: 'settings/global.md'
+    - Github: 'settings/github.md'
+    - Opengist: 'settings/opengist.md'
+    - Save & Sync: 'settings/save_and_sync.md'
+    - Support: 'settings/support.md'
+  - Changelog: 'changelog.md'
+  - Tags: 'tags.md'
+plugins:
+  - search: {}
+  - git-authors:
+      show_contribution: true
+      show_line_count: true
+      show_email_address: true
+      count_empty_lines: true
+      fallback_to_empty: false
+      sort_authors_by: name
+      exclude:
+          - index.md
+      enabled: true
+  - git-committers:
+      repository: Aetherinox/obsidian-gistr
+      branch: main
+      token: !!python/object/apply:os.getenv [GH_TOKEN, "NULL"]
+  - glightbox:
+      touchNavigation: true
+      loop: false
+      effect: zoom
+      slide_effect: slide
+      width: 100%
+      height: auto
+      zoomable: true
+      draggable: false
+      skip_classes:
+        - custom-skip-class-name
+      auto_caption: false
+      caption_position: bottom
+      background: black
+      shadow: false
+  - mike:
+      alias_type: symlink
+      redirect_template: null
+      deploy_prefix: ''
+      canonical_version: null
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
+  - redirects:
+      redirect_maps:
+        docs/settings/summary.md: settings/summary.md
+
+extra:
+  tags:
+    HTML5: html
+    JavaScript: js
+    CSS: css
+  generator: false
+  version:
+    provider: mike
+  consent:
+    title: Cookie Consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+
+copyright: >
+  Copyright &copy; 2024 - Aetherinox –
+  <a href="#__consent">Change cookie settings</a>
