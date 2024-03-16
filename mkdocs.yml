@@ -128,11 +128,14 @@ plugins:
   - search
   - git-committers:
       repository: Aetherinox/obsidian-gistr
-      branch: main
+      branch: docs
       token: !!python/object/apply:os.getenv [GH_TOKEN, "NULL"]
   - blog:
       authors: true
       authors_file: .authors.yml
+  - git-revision-date-localized:
+      type: timeago
+      enabled: true
   - git-authors:
       show_contribution: true
       sort_authors_by: name
