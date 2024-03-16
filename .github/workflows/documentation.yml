@@ -1,0 +1,25 @@
+name: Build Documentation
+on:
+  release:
+    types:
+      - published
+  workflow_dispatch:
+  
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - name: "Build Documentation"
+        run: |
+          export DOCS_NAME=${{ secrets.DOCS_NAME }}
+          export DOCS_SECRET_L1=${{ secrets.DOCS_SECRET_L1 }}
+          export DOCS_SECRET_L2=${{ secrets.DOCS_SECRET_L2 }}
+          export GH_TOKEN=${{ secrets.GH_TOKEN }}
+
+          pip install mkdocs-material mkdocs-redirects mike mkdocs-encryptcontent-plugin mkdocs-glightbox pymdown-extensions mkdocs-git-revision-date-localized-plugin mkdocs-git-authors-plugin
+          cd docs
+          mkdocs gh-deploy --force --clean
