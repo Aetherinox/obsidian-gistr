@@ -128,6 +128,7 @@ plugins:
   - search
   - git-committers:
       repository: Aetherinox/obsidian-gistr
+      docs_path: docs/
       branch: main
       token: !!python/object/apply:os.getenv [GH_TOKEN, "NULL"]
   - blog:
