@@ -125,21 +125,20 @@ nav:
   - Changelog: 'changelog.md'
   - Tags: 'tags.md'
 plugins:
-  - search: {}
-  - git-authors:
-      show_contribution: true
-      show_line_count: true
-      show_email_address: true
-      count_empty_lines: true
-      fallback_to_empty: false
-      sort_authors_by: name
-      exclude:
-          - index.md
-      enabled: true
+  - search
   - git-committers:
       repository: Aetherinox/obsidian-gistr
       branch: main
       token: !!python/object/apply:os.getenv [GH_TOKEN, "NULL"]
+  - blog:
+      authors: true
+      authors_file: .authors.yml
+  - git-authors:
+      show_contribution: true
+      sort_authors_by: name
+      exclude:
+          - index.md
+      enabled: true
   - glightbox:
       touchNavigation: true
       loop: false
