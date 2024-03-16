@@ -133,6 +133,9 @@ plugins:
   - blog:
       authors: true
       authors_file: .authors.yml
+  - git-revision-date-localized:
+      type: timeago
+      enabled: true
   - git-authors:
       show_contribution: true
       sort_authors_by: name
