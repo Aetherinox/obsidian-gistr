@@ -4,7 +4,7 @@ tags:
   - settings
 ---
 
-# Settings
+# Settings <!-- md:plugin --> – Plugin { data-toc-label="Plugin" }
 
 The settings for this plugin can be accessed like other plugins.
 

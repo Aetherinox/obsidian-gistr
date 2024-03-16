@@ -106,6 +106,12 @@ theme:
     - navigation.path
     - navigation.top
     - announce.dismiss
+
+# Hooks
+hooks:
+  - material/overrides/hooks/shortcodes.py
+  - material/overrides/hooks/translations.py
+
 extra_css:
   - stylesheets/extra.css?v1.000
 extra_javascript:
