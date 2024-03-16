@@ -1,0 +1,59 @@
+{
+  "name": "gistr",
+  "version": "1.4.6",
+  "description": "Use your notes to embed, create, and update gists for Github and Opengist.",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aetherinox/obsidian-gistr.git"
+  },
+  "scripts": {
+    "start": "rollup --watch --config rollup.config.mjs --environment BUILD,TEST",
+    "dev": "rollup --watch --config rollup.config.mjs --environment BUILD:dev",
+    "build": "rollup --config rollup.config.mjs --environment BUILD:production",
+    "release": "rollup --config rollup.config.mjs --environment BUILD,MINIFY,TEST",
+    "test": "rollup --config rollup.config.mjs --environment TEST",
+    "id": "npx --quiet env-cmd --no-override node .env ${UUID}",
+    "version": "npm run build && auto-changelog && git add ."
+  },
+  "keywords": [
+    "obsidian",
+    "gist",
+    "opengist"
+  ],
+  "author": "Aetherinox",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Aetherinox/obsidian-gistr/issues"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-image": "^3.0.3",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@types/node": "^20.11.28",
+    "@types/semver": "^7.5.8",
+    "obsidian": "^1.0.0",
+    "rollup": "^3.29.3",
+    "rollup-plugin-define": "^1.0.1",
+    "rollup-plugin-license": "^3.3.1",
+    "tslib": "^2.2.0",
+    "typescript": "^4.9.5",
+    "uuid": "^9.0.1"
+  },
+  "overrides": {
+    "rollup-plugin-define": {
+      "rollup": "^3.29.3"
+    }
+  },
+  "dependencies": {
+    "@aetherinox/noxkit": "^1.1.0",
+    "@octokit/rest": "^20.0.2",
+    "@simonwep/pickr": "github:simonwep/pickr",
+    "colortranslator": "^4.1.0",
+    "front-matter": "^4.0.2",
+    "nanoid": "^5.0",
+    "semver": "^7.6.0"
+  }
+}
