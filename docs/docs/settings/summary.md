@@ -4,7 +4,20 @@ tags:
   - settings
 ---
 
-# Settings <!-- md:plugin --> – Plugin { data-toc-label="Plugin" }
+# Setting up versioning
+
+Material for MkDocs makes it easy to deploy multiple versions of your project
+documentation by integrating with external utilities that add those capabilities
+to MkDocs, i.e. [mike]. When deploying a new version, older versions of your
+documentation remain untouched.
+
+  [mike]: https://github.com/jimporter/mike
+
+## Configuration
+
+### Versioning
+
+<!-- md:utility [mike] -->
 
 The settings for this plugin can be accessed like other plugins.
 
