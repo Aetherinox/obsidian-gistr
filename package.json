@@ -32,7 +32,7 @@
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/node": "^20.11.28",
+    "@types/node": "^20.11.29",
     "@types/semver": "^7.5.8",
     "obsidian": "^1.0.0",
     "rollup": "^3.29.3",
