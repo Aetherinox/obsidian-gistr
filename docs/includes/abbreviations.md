@@ -1,2 +1,0 @@
-*[JS]: Javascript
-*[TS]: Typescript

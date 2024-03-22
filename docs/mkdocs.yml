@@ -5,32 +5,60 @@ edit_uri: edit/main/docs/docs/
 site_author: Aetherinox
 
 markdown_extensions:
+  - markdown.extensions.extra
+  - toc:
+      permalink: true
   - abbr
   - admonition
   - attr_list
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: Aetherinox
+      repo: mkdocs-link-embeds
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+      options:
+        custom_icons:
+          - material/overrides/.icons
   - md_in_html
   - def_list
   - footnotes
   - tables
-  - pymdownx.betterem
-  - pymdownx.tasklist
+  - pymdownx.inlinehilite
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.highlight:
       use_pygments: true
       anchor_linenums: true
+      line_spans: __span
       pygments_lang_class: true
-  - pymdownx.superfences
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
   - pymdownx.tabbed
   - pymdownx.caret
   - pymdownx.mark
+  - pymdownx.smartsymbols
   - pymdownx.tilde
   - pymdownx.blocks.html
   - pymdownx.details
-  - pymdownx.magiclink
+  - pymdownx.magiclink:
+      normalize_issue_symbols: true
+      repo_url_shorthand: true
+      user: Aetherinox
+      repo: obsidian-gistr
   - pymdownx.keys
   - pymdownx.snippets:
       auto_append:
@@ -38,13 +66,11 @@ markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
 
-watch:
-  - includes
-
 theme:
   highlightjs: true
   hljs_languages:
     - yaml
+    - yml
     - rust
     - markdown
   icon:
@@ -67,7 +93,7 @@ theme:
       css:  fontawesome/brands/css3
     repo: fontawesome/brands/git-alt 
   name: material
-  custom_dir: overrides
+  custom_dir: material/overrides
   palette: 
     # Palette toggle for light mode
     - scheme: default
@@ -84,11 +110,15 @@ theme:
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
-  logo: assets/obsidian.png
-  favicon: assets/obsidian.png
+  font:
+    text: Roboto
+    code: Roboto Mono
+  favicon: assets/favicon.png
+  icon:
+    logo: logo
   features:
     - announce.dismiss
-    - navigation.footer
+    - toc.follow
     - content.action.edit
     - content.action.view
     - content.tooltips
@@ -98,6 +128,8 @@ theme:
     - content.code.annotate 
     - content.code.select
     - content.code.copy
+    - navigation.footer
+    - navigation.indexes
     - navigation.instant
     - navigation.instant.progress
     - navigation.instant.prefetch
@@ -105,7 +137,6 @@ theme:
     - navigation.tracking
     - navigation.path
     - navigation.top
-    - announce.dismiss
 
 # Hooks
 hooks:
@@ -114,14 +145,16 @@ hooks:
 
 extra_css:
   - stylesheets/extra.css?v1.000
+
 extra_javascript:
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
   - javascripts/tablesort.js
-  - javascripts/commiters.js
 nav:
-  - Overview: 'index.md'
-  - Members:
-    - Member Access: 'members/access.md'
+  - Home: 'home.md'
+  - Changelog: 'changelog.md'
+  - Install:
+    - Using Obsidian: 'install/obsidian.md'
+    - Using BRAT: 'install/brat.md'
   - Settings:
     - Summary: 'settings/summary.md'
     - Global: 'settings/global.md'
@@ -129,10 +162,30 @@ nav:
     - Opengist: 'settings/opengist.md'
     - Save & Sync: 'settings/save_and_sync.md'
     - Support: 'settings/support.md'
-  - Changelog: 'changelog.md'
-  - Tags: 'tags.md'
+  - Build:
+    - Requirements: 'build/requirements.md'
+  - About:
+    - License: 'about/license.md'
+    - Conventions: 'about/conventions.md'
+    - Tags: 'about/tags.md'
+
 plugins:
-  - search
+  - link-embeds:
+      enabled: true
+      name_default: "Untitled Link"
+      desc_default: "No description found"
+      image_default: "https://github.com/Aetherinox/mkdocs-link-embeds/assets/118329232/c0298d98-0910-4235-a88f-0c3e2f704ba7"
+      image_disabled: false
+      favicon_default: "https://github.com/Aetherinox/mkdocs-link-embeds/assets/118329232/13a151b1-d7f9-4e27-909b-a26986ab0954"
+      favicon_disabled: false
+      favicon_size: 25
+      target: "blank"
+      accent: "FFFFFF1A"
+      verbose: false
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - tags:
+      tags_file: about/tags.md
   - group:
       plugins:
         - optimize
@@ -215,5 +268,4 @@ extra:
       make our documentation better.
 
 copyright: >
-  Copyright &copy; 2024 - Aetherinox –
-  <a href="#__consent">Change cookie settings</a>
+  Copyright &copy; 2024 - Aetherinox
