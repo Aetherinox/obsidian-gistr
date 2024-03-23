@@ -61,6 +61,7 @@ export class BackendCore
 
     private async GistHandle( el: HTMLElement, data: string )
     {
+        const pattern_new   = /(?:url:? +(?<url>(https?:\/\/\S*\b)))?(?:\nbackground:? +(?<background>[^`\n]*))?(?:\ntheme:? +(?<theme>[\w-]+))?(\&(?<id>\w+))?/
         const pattern       = /(?<protocol>https?:\/\/)?(?<host>[^/]+\/)?((?<username>[\w-]+)\/)?(?<uuid>\w+)(\#(?<filename>\w+))?(\&(?<theme>\w+))?/
         const find          = data.match( pattern ).groups
         const host          = find.host
@@ -68,8 +69,6 @@ export class BackendCore
         const uuid          = find.uuid
         const file          = find.filename
         const theme         = find.theme
-
-        const asd        = PID( )
 
         /*
             Since opengist can really be any website, check for matching github links
@@ -88,14 +87,14 @@ export class BackendCore
             compile url to gist
         */
 
-        let gistSrcURL = ( file !== undefined ? `https://${host}${username}/${uuid}.json?file=${file}` : `https://${host}${username}/${uuid}.json` )
-        let og_ThemeOV = ( theme !== undefined  ) ? theme : ""
+        let gistSrcURL  = ( file !== undefined ? `https://${host}${username}/${uuid}.json?file=${file}` : `https://${host}${username}/${uuid}.json` )
+        let og_ThemeOV  = ( theme !== undefined  ) ? theme : ""
 
         const reqUrlParams: RequestUrlParam = { url: gistSrcURL, method: "GET", headers: { "Accept": "application/json" } }
         try
         {
-            const req           = await request( reqUrlParams )
-            const json          = JSON.parse( req ) as ItemJSON
+            const req   = await request( reqUrlParams )
+            const json  = JSON.parse( req ) as ItemJSON
 
             return this.GistGenerate( el, host, uuid, json, bMatchGithub, og_ThemeOV )
         }
@@ -157,7 +156,6 @@ export class BackendCore
         */
 
         ct_iframe.setAttribute  ( 'csp', "default-src * data: blob: 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';" )
-        // ct_iframe.setAttribute  ( 'csp', "default-src * self 'unsafe-inline'; font-src 'self' *fonts.gstatic.com/; style-src-elem 'self' *fonts.googleapis.com *demo.opengist.io/ *thomice.li 'unsafe-inline'; script-src * 'self' 'unsafe-eval' 'unsafe-inline'; object-src * 'self'; img-src * self 'unsafe-inline'; connect-src self * 'unsafe-inline'; frame-src * self 'unsafe-inline';" )
 
         /*
             assign css, body, js
