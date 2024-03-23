@@ -21,7 +21,7 @@ import { v5 as uuidv5 } from 'uuid';
 import { readFileSync, writeFileSync } from 'fs';
 
 /*
-*    declrations
+*    declrations > package.json
 */
 
 const {
@@ -31,6 +31,10 @@ const {
     repository
 } = JSON.parse( readFileSync( './package.json') );
 
+/*
+*    declrations > constants
+*/
+
 const now             = moment( ).milliseconds( 0 ).toISOString( );
 const build_date      = now;
 const bIsProd         = ( process.env.BUILD === 'production' );
@@ -38,6 +42,8 @@ const bIsDev          = ( process.env.BUILD === 'dev' );
 const year            = moment( now ).year( );
 const build_guid      = uuidv5( ` + repository + `, uuidv5.URL )
 const build_uuid      = uuidv5( version, build_guid )
+const path_save_home  = './'
+const path_save_dist  = 'dist/'
 
 /*
 *    write build id to file
@@ -50,6 +56,9 @@ GUID=${ build_guid }
 UUID=${ build_uuid }
 `;
 
+/*
+*    write const ids to .env file
+*/
 
 writeFileSync( ".env", ids,
 {
@@ -79,14 +88,13 @@ console.log( header_banner );
 console.log( `Running in ${ bIsDev ? 'development' : 'production' } mode` );
 
 /*
-dir: 'dist/',
-dir: './',
+*    rollup config
 */
 
 export default {
   input: 'src/main.ts',
   output: {
-    dir: './',
+    dir: path_save_home,
     sourcemap: 'inline',
     sourcemapExcludeSources: bIsProd,
     format: 'cjs',
@@ -121,12 +129,12 @@ export default {
       },
       format: { comments: false }
     }),
-    license({
+    license( {
       sourcemap: true,
       banner: {
         content:  `${ header_banner }`,
         commentStyle: 'regular',
       },
-    }),
+    } ),
   ]
 };
