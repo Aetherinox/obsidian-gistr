@@ -1,51 +1,51 @@
 {
     "categories": [
         {
-            "title": "### 🚀 Features",
+            "title": "\n\n<br>\n\n#### 🚀 Features",
             "labels": [ "kind/feature", "feature", "feat" ]
         },
         {
-            "title": "### ✨ Optimizations",
+            "title": "\n\n<br>\n\nn#### ✨ Optimizations",
             "labels": [ "kind/perf", "optimization", "perf", "optimize" ]
         },
         {
-            "title": "### 🐛 Bugfixes",
+            "title": "\n\n<br>\n\n#### 🐛 Bugfixes",
             "labels": [ "kind/bug", "fix", "bug" ]
         },
         {
-            "title": "### 🔧 Changes",
+            "title": "\n\n<br>\n\n#### 🔧 Changes",
             "labels": [ "kind/chore", "change", "chore" ]
         },
         {
-            "title": "### ✏️ Docs",
+            "title": "\n\n<br>\n\n#### ✏️ Docs",
             "labels": [ "kind/docs", "doc", "docs", "wiki" ]
         },
         {
-            "title": "### 🧪 Tests",
+            "title": "\n\n<br>\n\n#### 🧪 Tests",
             "labels": [ "kind/test", "test" ]
         },
         {
-            "title": "## 📦 Build & Dependencies",
+            "title": "\n\n<br>\n\n#### 📦 Build & Dependencies",
             "labels": [ "kind/build", "build", "dependency", "package" ]
         },
         {
-            "title": "## 🚨 Security ",
+            "title": "\n\n<br>\n\n#### 🚨 Security ",
             "labels": [ "kind/security", "security" ]
         },
         {
-            "title": "### 🧹 Housekeeping",
+            "title": "\n\n<br>\n\n#### 🧹 Housekeeping",
             "labels": [ "kind/refactor", "refactor", "style" ]
         },
         {
-            "title": "### 🐒 Miscellaneous",
+            "title": "\n\n<br>\n\n#### 🐒 Miscellaneous",
             "labels": [ "kind/misc", "misc" ]
         },
         {
-            "title": "## ⛔ Deprecated",
+            "title": "\n\n<br>\n\n#### ⛔ Deprecated",
             "labels": [ "kind/deprecate", "deprecate" ]
         },
         {
-            "title": "## ⛔ Removed",
+            "title": "\n\n<br>\n\n#### ⛔ Removed",
             "labels": [ "kind/remove", "remove" ]
         }
     ],
