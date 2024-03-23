@@ -173,16 +173,6 @@ export class BackendCore
         const content_js            = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( css_theme_sel == "dark" ? json.embed.js_dark : json.embed.js ) ) )
     
         /*
-            CSS Overrides > Github
-        */
-
-        const css_gh_bg_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
-        const css_gh_sb_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
-        const css_gh_bg_header_bg   = ( css_theme_sel == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
-        const css_gh_bg_header_bor  = ( css_theme_sel == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
-        const css_gh_tx_color       = ( css_theme_sel == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
-
-        /*
             Declare custom css override
         */
 
@@ -244,7 +234,8 @@ export class BackendCore
 
             </head>
 
-            <body>
+
+            <body class="gistr-theme-${css_theme_sel}">
                 ${ content_body }
             </body>
         </html>
@@ -482,6 +473,41 @@ export class BackendCore
         body .gist .blob-wrapper tr:first-child td
         {
             text-wrap:              ${css_gh_wrap};
+        }
+
+        body.gistr-theme-dark .gist .pl-s1
+        {
+            color:                  #ced2d5;
+        }
+
+        body.gistr-theme-dark .gist .pl-s
+        {
+            color:                  #a5d6ff;
+        }
+
+        body.gistr-theme-light .gist .pl-k
+        {
+            color:                  #bc4c00;
+        }
+
+        body.gistr-theme-light .gist .pl-s1
+        {
+            color:                  #000000;
+        }
+
+        body.gistr-theme-light .gist .pl-c1
+        {
+            color:                  #0550ae;
+        }
+
+        body.gistr-theme-light .gist .gist-data
+        {
+            font-weight:            bold;
+        }
+
+        body.gistr-theme-light .gist .pl-en
+        {
+            color:                  #eb1e73;
         }
 
         body .gist .pl-enti, body .gist .pl-mb, body .gist .pl-pdb
