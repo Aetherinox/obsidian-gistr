@@ -5,7 +5,7 @@
 #   @url        : https://github.com/Aetherinox
 # ---------------------------------------------------------------------------------------
 
-name: "New Issue: OpenGist Check"
+name: "Issues: OpenGist Check"
 run-name: "New Issue: OpenGist Check - ${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
 
 on:

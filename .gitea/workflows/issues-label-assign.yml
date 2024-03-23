@@ -8,9 +8,10 @@
 #     - bug
 #     - feature
 #     - urgent
+#     - roadmap
 # ---------------------------------------------------------------------------------------
 
-name: "New Issue: Handle"
+name: "Issues: Assign Label"
 run-name: "New Issue: Assign Label - ${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
 
 on:
@@ -18,31 +19,87 @@ on:
     types:
       - reopened
       - opened
-  pull_request:
-    typed:
-      - opened
 
 env:
-  LABEL_BUG: Bug
-  LABEL_FEATURE: Feature
-  LABEL_URGENT: Urgent
-  ASSIGN_USER: Aetherinox
-  BOT_NAME_1: AdminServ
-  BOT_NAME_2: AdminServX
+  LABEL_BUG:      Bug
+  LABEL_FEATURE:  Feature
+  LABEL_URGENT:   Urgent
+  LABEL_ROADMAP:  Roadmap
+  ASSIGN_USER:    Aetherinox
+  BOT_NAME_1:     AdminServ
+  BOT_NAME_2:     AdminServX
+  LABELS_JSON: |
+    [
+      { "name": "Bug", "color": "d73a4a", "description": "Something isn't working" },
+      { "name": "Feature", "color": "36552B", "description": "Feature request" },
+      { "name": "Urgent", "color": "ccb11d", "description": "This issue required priority." },
+      { "name": "Roadmap", "color": "8F1784", "description": "Feature or bug currently planned for implementation." }
+    ]
+
 
 jobs:
 
   # ---------------------------------------------------------------------------------------
-  # Check Title
+  #   Verify Existing Labels
+  #   This job will ensure you have labels already created in your repo.
+  #
+  #   All labels come from the JSON table LABELS_JSON.
   # ---------------------------------------------------------------------------------------
 
-  Submission_CheckTitle_Bug:
-    name:  "Title [Bugs]: Check"
+  Submission_Labels_Verify:
+    name: "Labels: Verify"
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
 
-      # Check Submission TITLE to assign "BUG" label
+      - name: Verify Existing Labels
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const labels = JSON.parse( process.env.LABELS_JSON );
+            for ( const label of labels )
+            {
+                try
+                {
+                    await github.rest.issues.createLabel(
+                    {
+                        owner:        context.repo.owner,
+                        repo:         context.repo.repo,
+                        name:         label.name,
+                        description:  label.description || '',
+                        color:        label.color
+                    });
+                }
+                catch ( err )
+                {
+                    // label already exists
+                    if ( err.status === 422 )
+                    {
+                        console.log( `Label '${label.name}' already exists. Skipping.` );
+                    }
+                    else
+                    {
+                        // Log other errors
+                        console.error( `Error creating label '${label.name}': ${err}` );
+                    }
+                }
+            }
+
+  # ---------------------------------------------------------------------------------------
+  #   Check Label: BUG
+  #
+  #   check issue title and body for specific terms and assign label
+  # ---------------------------------------------------------------------------------------
+
+  Submission-Buy-Label-Check:
+    name:  "[ Bugs ]: Check Label"
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+
+      # ---------------------------------------------------------------------------------------
+      #   get issue title & body, convert to lowercase to match
+      # ---------------------------------------------------------------------------------------
 
       - name: ${{ env.LABEL_BUG }} [ Title ] - String Manipulation
         id: bug_title
@@ -50,7 +107,23 @@ jobs:
         with:
           string: ${{ github.event.issue.title }}
 
-      - name: ${{ env.LABEL_BUG }} [ Title ] - Check"
+      - name: ${{ env.LABEL_BUG }} [ Body ] - String Manipulation
+        id: bug_body
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.issue.body }}
+
+      # ---------------------------------------------------------------------------------------
+      #   Check Title
+      #
+      #   this job checks to see if a new issue has certain keywords in the title and body
+      #   and also if the beginning of the title starts with "bug"
+      #
+      #   if not, re-name the issue in the format of
+      #       Bug: Title Name
+      # ---------------------------------------------------------------------------------------
+
+      - name: ${{ env.LABEL_BUG }} [ Title ] - Rename"
         if: |
           github.event.issue &&
           github.event.issue.user.login != '$env.BOT_NAME_1' &&
@@ -61,30 +134,14 @@ jobs:
           contains( steps.bug_title.outputs.lowercase, 'fails' ) ||
           contains( steps.bug_title.outputs.lowercase, 'failed' ) &&
           ( !startsWith( steps.bug_title.outputs.lowercase, 'bug' ) ) )
-        run: gh issue edit "$NUMBER" --add-label "$LABELS"
-        env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
-          GH_REPO: ${{ github.repository }}
-          NUMBER: ${{ github.event.issue.number }}
-          TITLE: "Bug: $github.event.issue.title"
-
-  # ---------------------------------------------------------------------------------------
-  # Check Label: BUG
-  # ---------------------------------------------------------------------------------------
-
-  Submission_CheckLabel_Bug:
-    name:  "Label [Bugs]: Check"
-    runs-on: ubuntu-latest
-    permissions: write-all
-    steps:
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'update-issue'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          title: "${{ env.LABEL_BUG }}: ${{ github.event.issue.title }}"
 
       # Check Submission TITLE to assign "BUG" label
-
-      - name: ${{ env.LABEL_BUG }} [ Title ] - String Manipulation
-        id: bug_title
-        uses: ASzc/change-string-case-action@v6
-        with:
-          string: ${{ github.event.issue.title }}
 
       - name: ${{ env.LABEL_BUG }} [ Title ] - Check"
         if: |
@@ -98,18 +155,12 @@ jobs:
           contains( steps.bug_title.outputs.lowercase, 'failed' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_BUG }}
 
       # Check Submission BODY to assign "BUG" label
-
-      - name: ${{ env.LABEL_BUG }} [ Body ] - String Manipulation
-        id: bug_body
-        uses: ASzc/change-string-case-action@v6
-        with:
-          string: ${{ github.event.issue.body }}
 
       - name: ${{ env.LABEL_BUG }} [ Body ] - Check
         if: |
@@ -117,34 +168,72 @@ jobs:
           github.event.issue.user.login != '$env.BOT_NAME_1' &&
           github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.bug_body.outputs.lowercase, 'bug' ) ||
-          contains( steps.bug_body.outputs.lowercase, 'issue' ) ||
           contains( steps.bug_body.outputs.lowercase, 'broke' ) ||
           contains( steps.bug_body.outputs.lowercase, 'fails' ) ||
           contains( steps.bug_body.outputs.lowercase, 'failed' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_BUG }}
 
   # ---------------------------------------------------------------------------------------
-  # Check Label: Feature
+  #   Check Label: Feature
+  #
+  #   check issue title and body for specific terms and assign label
   # ---------------------------------------------------------------------------------------
 
-  Submission_CheckLabel_Feature:
-    name:  "Label [Feature]: Check"
+  Submission-Feature-Label-Check:
+    name:  "[ Feature ]: Check Label"
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
 
-      # Check Submission TITLE to assign "FEATURE" label
+      # ---------------------------------------------------------------------------------------
+      #   get issue title & body, convert to lowercase to match
+      # ---------------------------------------------------------------------------------------
 
       - name: ${{ env.LABEL_FEATURE }} [ Title ] - String Manipulation
         id: feature_title
         uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ github.event.issue.title }}
+
+      - name: ${{ env.LABEL_FEATURE }} [ Body ] - String Manipulation
+        id: feature_body
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.issue.body }}
+
+      # ---------------------------------------------------------------------------------------
+      #   Check Title
+      #
+      #   this job checks to see if a new issue has certain keywords in the title and body
+      #   and also if the beginning of the title starts with "bug"
+      #
+      #   if not, re-name the issue in the format of
+      #       Bug: Title Name
+      # ---------------------------------------------------------------------------------------
+
+      - name: ${{ env.LABEL_FEATURE }} [ Title ] - Rename"
+        if: |
+          github.event.issue &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
+          ( contains( steps.feature_title.outputs.lowercase, 'feature' ) ||
+          contains( steps.feature_title.outputs.lowercase, 'new' ) ||
+          contains( steps.feature_title.outputs.lowercase, 'add support' ) ||
+          contains( steps.feature_title.outputs.lowercase, 'request' ) &&
+          ( !startsWith( steps.feature_title.outputs.lowercase, 'feature' ) ) )
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'update-issue'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          title: "${{ env.LABEL_FEATURE }}: ${{ github.event.issue.title }}"
+
+      # Check Submission TITLE to assign "FEATURE" label
 
       - name: ${{ env.LABEL_FEATURE }} [ Title ] - Check
         if: |
@@ -153,21 +242,16 @@ jobs:
           github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.feature_title.outputs.lowercase, 'feature' ) ||
           contains( steps.feature_title.outputs.lowercase, 'new' ) ||
+          contains( steps.feature_title.outputs.lowercase, 'add support' ) ||
           contains( steps.feature_title.outputs.lowercase, 'request' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_FEATURE }}
 
       # Check Submission BODY to assign "FEATURE" label
-
-      - name: ${{ env.LABEL_FEATURE }} [ Body ] - String Manipulation
-        id: feature_body
-        uses: ASzc/change-string-case-action@v6
-        with:
-          string: ${{ github.event.issue.body }}
 
       - name: ${{ env.LABEL_FEATURE }} [ Body ] - Check
         if: |
@@ -175,34 +259,49 @@ jobs:
           github.event.issue.user.login != '$env.BOT_NAME_1' &&
           github.event.issue.user.login != '$env.BOT_NAME_2' &&
           ( contains( steps.feature_body.outputs.lowercase, 'feature' ) ||
-          contains( steps.feature_body.outputs.lowercase, 'new' ) ||
+          contains( steps.feature_body.outputs.lowercase, 'new idea' ) ||
+          contains( steps.feature_body.outputs.lowercase, 'can you add' ) ||
+          contains( steps.feature_body.outputs.lowercase, 'add support' ) ||
+          contains( steps.feature_body.outputs.lowercase, 'to support this' ) ||
           contains( steps.feature_body.outputs.lowercase, 'request' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_FEATURE }}
 
   # ---------------------------------------------------------------------------------------
-  # Check Label: Urgent
+  #   Check Label: Urgent
+  #
+  #   check issue title and body for specific terms and assign label
   # ---------------------------------------------------------------------------------------
 
-  Submission_CheckLabel_Urgent:
-    name:  "Label [Urgent]: Check"
+  Submission-Urgent-Label-Check:
+    name:  "[ Urgent ]: Check Label"
     runs-on: ubuntu-latest
     permissions: write-all
     steps:
 
-      # Check Submission TITLE to assign "URGENT" label
+      # ---------------------------------------------------------------------------------------
+      #   get issue title & body, convert to lowercase to match
+      # ---------------------------------------------------------------------------------------
 
-      - name: ${{ env.LABEL_URGEMT }} [ Title ] - String Manipulation
+      - name: ${{ env.LABEL_URGENT }} [ Title ] - String Manipulation
         id: urgent_title
         uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ github.event.issue.title }}
 
-      - name: ${{ env.LABEL_URGEMT }} [ Title ] - Check
+      - name: ${{ env.LABEL_URGENT }} [ Body ] - String Manipulation
+        id: urgent_body
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.issue.body }}
+
+      # Check Submission TITLE to assign "URGENT" label
+
+      - name: ${{ env.LABEL_URGENT }} [ Title ] - Check
         if: |
           github.event.issue &&
           github.event.issue.user.login != '$env.BOT_NAME_1' &&
@@ -212,20 +311,14 @@ jobs:
           contains( steps.urgent_title.outputs.lowercase, 'important' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_URGENT }}
 
       # Check Submission BODY to assign "URGENT" label
 
-      - name: ${{ env.LABEL_URGEMT }} [ Body ] - String Manipulation
-        id: urgent_body
-        uses: ASzc/change-string-case-action@v6
-        with:
-          string: ${{ github.event.issue.body }}
-
-      - name: ${{ env.LABEL_URGEMT }} [ Body ] - Check
+      - name: ${{ env.LABEL_URGENT }} [ Body ] - Check
         if: |
           github.event.issue &&
           github.event.issue.user.login != '$env.BOT_NAME_1' &&
@@ -235,13 +328,101 @@ jobs:
           contains( steps.urgent_body.outputs.lowercase, 'important' ) )
         run: gh issue edit "$NUMBER" --add-label "$LABELS"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           LABELS: ${{ env.LABEL_URGENT }}
 
+  # ---------------------------------------------------------------------------------------
+  #   Check Label: Roadmap
+  #
+  #   check issue title and body for specific terms and assign label
+  # ---------------------------------------------------------------------------------------
+
+  Submission-Roadmap-Label-Check:
+    name:  "[ Roadmap ]: Check Label"
+    runs-on: ubuntu-latest
+    permissions: write-all
+    steps:
+
+      # ---------------------------------------------------------------------------------------
+      #   get issue title & body, convert to lowercase to match
+      # ---------------------------------------------------------------------------------------
+
+      - name: ${{ env.LABEL_ROADMAP }} [ Title ] - String Manipulation
+        id: roadmap_title
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.issue.title }}
+
+      - name: ${{ env.LABEL_ROADMAP }} [ Body ] - String Manipulation
+        id: roadmap_body
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.event.issue.body }}
+
+      # ---------------------------------------------------------------------------------------
+      #   Check Title
+      #
+      #   this job checks to see if a new issue has certain keywords in the title and body
+      #   and also if the beginning of the title starts with "bug"
+      #
+      #   if not, re-name the issue in the format of
+      #       Bug: Title Name
+      # ---------------------------------------------------------------------------------------
+
+      - name: ${{ env.LABEL_ROADMAP }} [ Title ] - Rename"
+        if: |
+          github.event.issue &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
+          ( contains( steps.roadmap_title.outputs.lowercase, 'roadmap' ) ||
+          contains( steps.roadmap_title.outputs.lowercase, 'road map' ) ||
+          contains( steps.roadmap_title.outputs.lowercase, 'planned' ) &&
+          ( !startsWith( steps.roadmap_title.outputs.lowercase, 'roadmap' ) ) )
+        uses: actions-cool/issues-helper@v3
+        with:
+          actions: 'update-issue'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          issue-number: ${{ github.event.issue.number }}
+          title: "${{ env.LABEL_ROADMAP }}: ${{ github.event.issue.title }}"
+
+      # Check Submission TITLE to assign "ROADMAP" label
+
+      - name: ${{ env.LABEL_ROADMAP }} [ Title ] - Check
+        if: |
+          github.event.issue &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
+          ( contains( steps.roadmap_title.outputs.lowercase, 'roadmap' ) ||
+          contains( steps.roadmap_title.outputs.lowercase, 'road map' ) ||
+          contains( steps.roadmap_title.outputs.lowercase, 'planned' ) )
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: ${{ env.LABEL_ROADMAP }}
+
+      # Check Submission BODY to assign "ROADMAP" label
+
+      - name: ${{ env.LABEL_ROADMAP }} [ Body ] - Check
+        if: |
+          github.event.issue &&
+          github.event.issue.user.login != '$env.BOT_NAME_1' &&
+          github.event.issue.user.login != '$env.BOT_NAME_2' &&
+          ( contains( steps.roadmap_body.outputs.lowercase, 'roadmap' ) ||
+          contains( steps.roadmap_body.outputs.lowercase, 'road map' ) ||
+          contains( steps.roadmap_body.outputs.lowercase, 'planned' ) )
+        run: gh issue edit "$NUMBER" --add-label "$LABELS"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
+          NUMBER: ${{ github.event.issue.number }}
+          LABELS: ${{ env.LABEL_ROADMAP }}
+
   # ----------------------------------------
-  # Assign
+  #   Assign
   # ----------------------------------------
 
   Assign-Submission:
@@ -252,7 +433,7 @@ jobs:
       - name: "Add Assignee"
         run: gh issue edit "$NUMBER" --add-assignee "$ASSIGNEE"
         env:
-          GITHUB_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
           NUMBER: ${{ github.event.issue.number }}
           ASSIGNEE: ${{ env.ASSIGN_USER }}
