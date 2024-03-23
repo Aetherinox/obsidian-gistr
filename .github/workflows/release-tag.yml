@@ -264,7 +264,7 @@
                 if: ${{ startsWith( inputs.SHOW_UNCATEGORIZED, false ) }}
                 uses: mikepenz/release-changelog-builder-action@v4
                 with:
-                  token: ${{ secrets.ADMINSERV_TOKEN }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
                   #fromTag: "${{ env.TAG_LAST }}"
                   #toTag: "${{ github.ref }}"
                   configuration: ".github/changelog-configuration.json"
@@ -290,7 +290,7 @@
                 if: ${{ startsWith( inputs.SHOW_UNCATEGORIZED, true ) }}
                 uses: mikepenz/release-changelog-builder-action@v4
                 with:
-                  token: ${{ secrets.ADMINSERV_TOKEN }}
+                  token: ${{ secrets.GITHUB_TOKEN }}
                   #fromTag: "${{ env.TAG_LAST }}"
                   #toTag: "${{ github.ref }}"
                   configuration: ".github/changelog-configuration.json"
