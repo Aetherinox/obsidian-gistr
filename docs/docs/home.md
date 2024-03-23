@@ -4,7 +4,7 @@ tags:
   - home
 ---
 
-<p align="center"><img src="https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/main/docs/images/banner.png" width="860"></p>
+<p align="center"><img src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/106bcb32-6c6f-423c-a8c6-c6aee3d31c65" width="860"></p>
 <h1 align="center"><b>Obsidian: Gistr</b></h1>
 
 <p align="center" markdown="1">
