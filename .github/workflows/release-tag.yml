@@ -125,7 +125,7 @@ jobs:
                   zip -jr ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}.zip main.js styles.css manifest.json
                   ls
               env:
-                NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
+                NODE_AUTH_TOKEN: ${{ secrets.ADMINSERV_TOKEN_CL }}
 
             - name: "🔨 [ Build ]: Release Candidate ( ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}-rc.${{ inputs.VERSION_RC }}.zip )"
               id: build-rc
@@ -137,7 +137,7 @@ jobs:
                   zip -jr ${{ inputs.PLUGIN_NAME }}-${{ env.PACKAGE_VERSION }}-rc.${{ inputs.VERSION_RC }}.zip main.js styles.css manifest.json
                   ls
               env:
-                NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
+                NODE_AUTH_TOKEN: ${{ secrets.ADMINSERV_TOKEN_CL }}
 
             # ---------------------------------------------------------------------------------------
             #   Get guid and uuid from env variable
