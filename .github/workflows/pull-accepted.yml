@@ -1,4 +1,5 @@
-name: "PR: Accepted"
+name: "⚡ PR › Accepted"
+run-name: "⚡ PR › Accepted"
 
 on:
   issue_comment:

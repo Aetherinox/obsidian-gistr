@@ -5,8 +5,8 @@
 #   @url        : https://github.com/Aetherinox
 # ---------------------------------------------------------------------------------------
 
-name: "PR: Autocheck"
-run-name: "PR: Autocheck"
+name: "⚡ PR › Autocheck"
+run-name: "⚡ PR › Autocheck"
 
 on:
   pull_request:
