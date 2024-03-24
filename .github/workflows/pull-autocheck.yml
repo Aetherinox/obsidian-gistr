@@ -152,17 +152,17 @@ jobs:
 
             const dateTimeformat = ( date ) =>
             {
-                let month       = date.getMonth( ) + 1;
-                month 				  = month.toString( ).padStart( 2, '0' );
-                let day 			  = date.getDate( ).toString( ).padStart( 2, '0' );
-                let year 			  = date.getFullYear( ).toString( ).padStart( 2, '0' );
+                let month           = date.getMonth( ) + 1;
+                month               = month.toString( ).padStart( 2, '0' );
+                let day             = date.getDate( ).toString( ).padStart( 2, '0' );
+                let year            = date.getFullYear( ).toString( ).padStart( 2, '0' );
 
-                let hours       = date.getHours();
-                let minutes     = date.getMinutes();
-                let x 				  = hours >= 12 ? 'PM' : 'AM';
-                hours 				  = hours % 12;
-                hours 				  = hours ? hours : 12;
-                minutes 			  = minutes.toString( ).padStart( 2, '0' );
+                let hours           = date.getHours();
+                let minutes         = date.getMinutes();
+                let x               = hours >= 12 ? 'PM' : 'AM';
+                hours               = hours % 12;
+                hours               = hours ? hours : 12;
+                minutes             = minutes.toString( ).padStart( 2, '0' );
 
                 let mergeTime   = month + '.' + day + '.' + year + ' ' + hours + ':' + minutes + ' ' + x;
 

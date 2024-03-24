@@ -11,8 +11,8 @@
 #     - roadmap
 # ---------------------------------------------------------------------------------------
 
-  name: "🎫 Issue: New Assignment"
-  run-name: "🎫 Issue: New Assignment - ${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
+  name: "🎫 Issue › New › Assignment"
+  run-name: "🎫 Issue › New › Assignment - ${{ github.event.issue.number }}: ${{ github.event.issue.title }}"
   
   # ---------------------------------------------------------------------------------------
   #   triggers
@@ -417,4 +417,4 @@
                       core.setFailed( error.message );
                   }
               }
-  
+    
