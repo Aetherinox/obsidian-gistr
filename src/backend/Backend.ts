@@ -258,7 +258,13 @@ export class BackendCore
         const css_override          = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
 
         /*
-            OpenGist specific CSS
+            Update style theme value
+        */
+
+        style[ "theme" ]        = css_theme_sel
+
+        /*
+            OpenGist & Github specific CSS
 
             @note       : these are edits the user should not need to edit.
                           OpenGist needs these edits in order to look right with the header
@@ -269,8 +275,6 @@ export class BackendCore
 
                           working with OpenGist developer to re-do the HTML generated when embedding a gist.
         */
-
-        style[ "theme" ]        = css_theme_sel
 
         const css_og_append     = this.CSS_Get_OpenGist( style )
         const css_gh_append     = this.CSS_Get_Github( style )
@@ -314,7 +318,6 @@ export class BackendCore
                 </script>
 
             </head>
-
 
             <body class="gistr-theme-${css_theme_sel}">
                 ${ content_body }
@@ -429,14 +432,14 @@ export class BackendCore
             width:                  6px;
             height:                 10px;
         }
-        
+
         ::-webkit-scrollbar-track
         {
             background-color:       transparent;
             border-radius:          5px;
             margin:                 1px;
         }
-        
+
         ::-webkit-scrollbar-thumb
         {
             border-radius:          10px;
