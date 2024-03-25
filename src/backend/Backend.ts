@@ -40,6 +40,11 @@ export interface ItemJSON
     div:            string,
 }
 
+interface StyleProperties
+{
+    [key: string]: string;
+}
+
 /*
     Is Empty
 */
@@ -143,6 +148,15 @@ export class BackendCore
         let og_ThemeOV  = !bIsEmpty( theme ) ? theme : ""
 
         /*
+            compile user style options
+        */
+       
+        let styles:StyleProperties  = { }
+        styles[ 'background' ]      = n_bg
+        styles[ 'theme' ]           = og_ThemeOV
+        styles[ 'color' ]           = n_textcolor
+
+        /*
             handle error
         */
 
@@ -152,7 +166,9 @@ export class BackendCore
             const req   = await request( reqUrlParams )
             const json  = JSON.parse( req ) as ItemJSON
 
-            return this.GistGenerate( el, host, uuid, json, bMatchGithub, og_ThemeOV, n_bg, n_textcolor )
+            console.log( styles )
+
+            return this.GistGenerate( el, host, uuid, json, bMatchGithub, styles )
         }
         catch ( err )
         {
@@ -189,7 +205,7 @@ export class BackendCore
         create new iframe for each gist, assign it a uid, set the needed attributes, and generate the css, js
     */
 
-    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, theme: string, css_bg: string, css_text: string )
+    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, style: StyleProperties )
     {
 
         /*
@@ -217,7 +233,7 @@ export class BackendCore
             assign css, body, js
         */
 
-        let css_theme_ovr           = ( theme !== "" ) ? theme.toLowerCase( ) : ""
+        let css_theme_ovr           = ( style.theme !== "" ) ? style.theme.toLowerCase( ) : ""
         let css_theme_sel           = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme == "Dark" ) ? "dark" : ( this.settings.theme == "Light" ) ? "light"  : "light"
         let css_og                  = ""
         let css_gh                  = ""
@@ -245,8 +261,8 @@ export class BackendCore
                           working with OpenGist developer to re-do the HTML generated when embedding a gist.
         */
 
-        const css_og_append         = this.CSS_Get_OpenGist( css_theme_sel, css_bg, css_text )
-        const css_gh_append         = this.CSS_Load_Github( css_theme_sel, css_bg )
+        const css_og_append         = this.CSS_Get_OpenGist( style )
+        const css_gh_append         = this.CSS_Get_Github( style )
 
         /*
             Github > Dark Theme
@@ -303,16 +319,16 @@ export class BackendCore
         Theme > OpenGist
     */
 
-    private CSS_Get_OpenGist( theme: string, css_bg: string, css_text: string )
+    private CSS_Get_OpenGist( style: StyleProperties )
     {
 
-        const css_og_bg_color       = ( theme == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
-        const css_og_sb_color       = ( theme == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
-        const css_og_bg_header_bg   = ( theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
-        const css_og_bg_header_bor  = ( theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
-        const css_og_bg             = ( !bIsEmpty( css_bg ) ? "url(" + css_bg + ")" : css_og_bg_color )
-        const css_og_tx_color       = ( theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
-        const css_og_tx_color_user  = ( !bIsEmpty( css_text ) ? css_text : css_og_tx_color )
+        const css_og_bg_color       = ( style.theme == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
+        const css_og_sb_color       = ( style.theme == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
+        const css_og_bg_header_bg   = ( style.theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
+        const css_og_bg_header_bor  = ( style.theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
+        const css_og_bg             = ( !bIsEmpty( style.background ) ? "url(" + style.background + ")" : css_og_bg_color )
+        const css_og_tx_color       = ( style.theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
+        const css_og_tx_color_user  = ( !bIsEmpty( style.color ) ? style.color : css_og_tx_color )
         const css_og_wrap           = ( this.settings.textwrap == "Enabled" ? "normal" : "pre" )
         const css_og_opacity        = ( this.settings.og_opacity ) || 1
 
@@ -385,13 +401,13 @@ export class BackendCore
         Theme > Github
     */
 
-    private CSS_Load_Github( theme: string = 'light', css_bg: string )
+    private CSS_Get_Github( style: StyleProperties )
     {
-        const css_gh_bg_color       = ( theme == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
-        const css_gh_sb_color       = ( theme == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
-        const css_gh_bg_header_bg   = ( theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
-        const css_gh_bg_header_bor  = ( theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
-        const css_gh_tx_color       = ( theme == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
+        const css_gh_bg_color       = ( style.theme == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
+        const css_gh_sb_color       = ( style.theme == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
+        const css_gh_bg_header_bg   = ( style.theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
+        const css_gh_bg_header_bor  = ( style.theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
+        const css_gh_tx_color       = ( style.theme == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
         const css_gh_wrap           = ( this.settings.textwrap == "Enabled" ? "wrap" : "nowrap" )
         const css_gh_opacity        = ( this.settings.gh_opacity ) || 1
 
