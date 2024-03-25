@@ -1,6 +1,6 @@
 {
   "name": "gistr",
-  "version": "1.4.7",
+  "version": "1.5.0",
   "description": "Integrate Opengist and Github gists into your notes, allowing you to create, update, and share between your notes and gist services",
   "main": "main.js",
   "repository": {
