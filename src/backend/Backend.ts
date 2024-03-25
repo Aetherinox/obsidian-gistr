@@ -41,6 +41,13 @@ export interface ItemJSON
 }
 
 /*
+    Is Empty
+*/
+
+const bIsEmpty = ( val: unknown ): val is null | undefined =>
+val === undefined || val === null;
+
+/*
     Gistr Backend
 */
 
@@ -61,14 +68,59 @@ export class BackendCore
 
     private async GistHandle( el: HTMLElement, data: string )
     {
-        const pattern_new   = /(?:url:? +(?<url>(https?:\/\/\S*\b)))?(?:\nbackground:? +(?<background>[^`\n]*))?(?:\ntheme:? +(?<theme>[\w-]+))?(\&(?<id>\w+))?/
+
+        /*
+            Method > New
+            supports a multi-lined structure in the code block
+        */
+
+        let n_url         = null
+        let n_file        = null
+        let n_bg          = null
+        let n_theme       = null
+        let n_textcolor   = null
+
+        //const pattern_new     = /(?:url:? +(?<url>(https?:\/\/\S*\b)))?(?:\nfile:? +(?<file>[\w-]+))?(?:\nbackground:? +(?<background>[^`\n]*))?(?:\ncolor:? +(?<color>[\w-]+))?(?:\ntheme:? +(?<theme>[\w-]+))?(\&(?<id>\w+))?/
+        //const pattern_new     = /(?:url:? +(?<url>[^`\n?]+))?(?:\n?background:? +(?<background>[^`\n?]+))?(?:\n?theme:? +(?<theme>[^`\n?]+))?(?:\n?color:? +(?<color>[^`\n?]+))?(\&(?<id>\w+))*?/
+        const pattern_new       = /^(?=\b(?:url|file|background|color|theme):)(?=(?:[^`]*?\burl:? +(?<url>[^`\n]*)|))(?=(?:[^`]*?\bfile:? +(?<file>[^`\n]*)|))(?=(?:[^`]*?\bbackground:? +(?<background>[^`\n]*)|))(?=(?:[^`]*?\bcolor:? +(?<color>[^`\n]*)|))(?=(?:[^`]*?\btheme:? +(?<theme>[^`\n]*)|))(?:.+\n){0,4}.+/
+
+        if ( data.match( pattern_new ) && data.match( pattern_new ).groups )
+        {
+            const find_new  = data.match( pattern_new ).groups
+
+            n_url           = find_new.url
+            n_file          = find_new.file
+            n_bg            = find_new.background
+            n_theme         = find_new.theme
+            n_textcolor     = find_new.color
+        }
+
+        /*
+            Format new method into old method
+                source will be ran through the old method regex to break the URL up into the segments:
+                    - protocol, host, username, uuid, filename, theme
+        */
+
+        const source        = !bIsEmpty( n_url ) ? n_url : data
+
+        /*
+            Method > Old
+            A single-lined URL for an embedded gist
+        */
+
         const pattern       = /(?<protocol>https?:\/\/)?(?<host>[^/]+\/)?((?<username>[\w-]+)\/)?(?<uuid>\w+)(\#(?<filename>\w+))?(\&(?<theme>\w+))?/
-        const find          = data.match( pattern ).groups
-        const host          = find.host
-        const username      = find.username
-        const uuid          = find.uuid
-        const file          = find.filename
-        const theme         = find.theme
+        const find          = source.match( pattern ).groups
+
+        /*
+            usage values
+                both new and old method should be broken up into the following groups
+        */
+
+        const host          = find.host                 // gist.github.com/
+        const username      = find.username             // Username
+        const uuid          = find.uuid                 // 5100a123b1cdef1a2b3c4d58fe54ffacd
+        const file          = find.filename ?? n_file   // file1
+        const theme         = find.theme ?? n_theme     // light || dark
 
         /*
             Since opengist can really be any website, check for matching github links
@@ -80,15 +132,19 @@ export class BackendCore
             No UUID match
         */
 
-        if ( typeof uuid === undefined )
+        if ( bIsEmpty( host ) || bIsEmpty( uuid ) )
             return this.ThrowError( el, data, lng( "err_gist_loading_fail_url", host ) )
 
         /*
             compile url to gist
         */
 
-        let gistSrcURL  = ( file !== undefined ? `https://${host}${username}/${uuid}.json?file=${file}` : `https://${host}${username}/${uuid}.json` )
-        let og_ThemeOV  = ( theme !== undefined  ) ? theme : ""
+        let gistSrcURL  = !bIsEmpty( file ) ? `https://${host}${username}/${uuid}.json?file=${file}` : `https://${host}${username}/${uuid}.json`
+        let og_ThemeOV  = !bIsEmpty( theme ) ? theme : ""
+
+        /*
+            handle error
+        */
 
         const reqUrlParams: RequestUrlParam = { url: gistSrcURL, method: "GET", headers: { "Accept": "application/json" } }
         try
@@ -96,7 +152,7 @@ export class BackendCore
             const req   = await request( reqUrlParams )
             const json  = JSON.parse( req ) as ItemJSON
 
-            return this.GistGenerate( el, host, uuid, json, bMatchGithub, og_ThemeOV )
+            return this.GistGenerate( el, host, uuid, json, bMatchGithub, og_ThemeOV, n_bg, n_textcolor )
         }
         catch ( err )
         {
@@ -133,7 +189,7 @@ export class BackendCore
         create new iframe for each gist, assign it a uid, set the needed attributes, and generate the css, js
     */
 
-    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, theme: string )
+    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, theme: string, css_bg: string, css_text: string )
     {
 
         /*
@@ -189,8 +245,8 @@ export class BackendCore
                           working with OpenGist developer to re-do the HTML generated when embedding a gist.
         */
 
-        const css_og_append         = this.CSS_Get_OpenGist( css_theme_sel )
-        const css_gh_append         = this.CSS_Load_Github( css_theme_sel )
+        const css_og_append         = this.CSS_Get_OpenGist( css_theme_sel, css_bg, css_text )
+        const css_gh_append         = this.CSS_Load_Github( css_theme_sel, css_bg )
 
         /*
             Github > Dark Theme
@@ -247,14 +303,16 @@ export class BackendCore
         Theme > OpenGist
     */
 
-    private CSS_Get_OpenGist( theme: string )
+    private CSS_Get_OpenGist( theme: string, css_bg: string, css_text: string )
     {
 
         const css_og_bg_color       = ( theme == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
         const css_og_sb_color       = ( theme == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
         const css_og_bg_header_bg   = ( theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
         const css_og_bg_header_bor  = ( theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
+        const css_og_bg             = ( !bIsEmpty( css_bg ) ? "url(" + css_bg + ")" : css_og_bg_color )
         const css_og_tx_color       = ( theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
+        const css_og_tx_color_user  = ( !bIsEmpty( css_text ) ? css_text : css_og_tx_color )
         const css_og_wrap           = ( this.settings.textwrap == "Enabled" ? "normal" : "pre" )
         const css_og_opacity        = ( this.settings.og_opacity ) || 1
 
@@ -286,6 +344,8 @@ export class BackendCore
             background-color:   ${css_og_bg_color};
             width:              fit-content;
             margin-top:         -1px;
+            background:         ${css_og_bg};
+            background-size:    cover;
         }
 
         .opengist-embed .mb-4
@@ -295,23 +355,6 @@ export class BackendCore
             --tw-bg-opacity:    1;
             background-color:   ${css_og_bg_header_bg};
             opacity:            ${css_og_opacity};
-        }
-
-        .opengist-embed .line-code
-        {
-            color:              ${css_og_tx_color};
-        }
-
-        .opengist-embed .code .line-num
-        {
-            color:              ${css_og_tx_color};
-            opacity:            0.5;
-        }
-
-        .opengist-embed .code .line-num:hover
-        {
-            color:              ${css_og_tx_color};
-            opacity:            1;
         }
 
         .opengist-embed .whitespace-pre
@@ -325,7 +368,7 @@ export class BackendCore
         Theme > Github
     */
 
-    private CSS_Load_Github( theme: string = 'light' )
+    private CSS_Load_Github( theme: string = 'light', css_bg: string )
     {
         const css_gh_bg_color       = ( theme == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
         const css_gh_sb_color       = ( theme == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
@@ -661,6 +704,7 @@ export class BackendCore
 
         const uuid                          = evn.data.gid
         const scrollHeight                  = evn.data.scrollHeight
+        
         const gist_Container: HTMLElement   = document.querySelector( 'iframe#' + uuid )
 
         gist_Container.setAttribute( 'height', scrollHeight )
@@ -672,14 +716,6 @@ export class BackendCore
 
     processor = async ( src: string, el: HTMLElement ) =>
     {
-        const obj = src.trim( ).split( "\n" )
-        
-        return Promise.all
-        (
-            obj.map( async ( gist ) =>
-            {
-                return this.GistHandle( el, gist )
-            } )
-        )
+        return this.GistHandle( el, src )
     }
 }
