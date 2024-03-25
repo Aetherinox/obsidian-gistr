@@ -16,7 +16,7 @@ const sender        = PID( )
 const AppBase       = 'app://obsidian.md'
 
 /*
-    Declare Json
+    Interface > Json
 */
 
 export interface ItemJSON
@@ -40,9 +40,13 @@ export interface ItemJSON
     div:            string,
 }
 
+/*
+    Interface > User Style Properties
+*/
+
 interface StyleProperties
 {
-    [key: string]: string;
+    [ key: string ]: string
 }
 
 /*
@@ -50,7 +54,7 @@ interface StyleProperties
 */
 
 const bIsEmpty = ( val: unknown ): val is null | undefined =>
-val === undefined || val === null;
+val === undefined || val === null
 
 /*
     Gistr Backend
@@ -79,15 +83,15 @@ export class BackendCore
             supports a multi-lined structure in the code block
         */
 
-        let n_url         = null
-        let n_file        = null
-        let n_bg          = null
-        let n_theme       = null
-        let n_textcolor   = null
+        let n_url           = undefined
+        let n_file          = undefined
+        let n_bg            = undefined
+        let n_theme         = undefined
+        let n_textcolor     = undefined
 
         //const pattern_new     = /(?:url:? +(?<url>(https?:\/\/\S*\b)))?(?:\nfile:? +(?<file>[\w-]+))?(?:\nbackground:? +(?<background>[^`\n]*))?(?:\ncolor:? +(?<color>[\w-]+))?(?:\ntheme:? +(?<theme>[\w-]+))?(\&(?<id>\w+))?/
         //const pattern_new     = /(?:url:? +(?<url>[^`\n?]+))?(?:\n?background:? +(?<background>[^`\n?]+))?(?:\n?theme:? +(?<theme>[^`\n?]+))?(?:\n?color:? +(?<color>[^`\n?]+))?(\&(?<id>\w+))*?/
-        const pattern_new       = /^(?=\b(?:url|file|background|color|theme):)(?=(?:[^`]*?\burl:? +(?<url>[^`\n]*)|))(?=(?:[^`]*?\bfile:? +(?<file>[^`\n]*)|))(?=(?:[^`]*?\bbackground:? +(?<background>[^`\n]*)|))(?=(?:[^`]*?\bcolor:? +(?<color>[^`\n]*)|))(?=(?:[^`]*?\btheme:? +(?<theme>[^`\n]*)|))(?:.+\n){0,4}.+/
+        const pattern_new       = /^(?=\b(?:url|file|background|color|theme|title):)(?=(?:[^`]*?\burl:? +(?<url>[^`\n]*)|))(?=(?:[^`]*?\bfile:? +(?<file>[^`\n]*)|))(?=(?:[^`]*?\bbackground:? +(?<background>[^`\n]*)|))(?=(?:[^`]*?\bcolor:? +(?<color>[^`\n]*)|))(?=(?:[^`]*?\btheme:? +(?<theme>[^`\n]*)|))(?=(?:[^`]*?\btitle:? +(?<title>[^`\n]*)|))(?:.+\n){0,4}.+/
 
         if ( data.match( pattern_new ) && data.match( pattern_new ).groups )
         {
@@ -145,16 +149,23 @@ export class BackendCore
         */
 
         let gistSrcURL  = !bIsEmpty( file ) ? `https://${host}${username}/${uuid}.json?file=${file}` : `https://${host}${username}/${uuid}.json`
+
+        /*
+            This should be a theme specified by the user in the codeblock; NOT their theme setting
+
+            blank if none
+        */
+
         let og_ThemeOV  = !bIsEmpty( theme ) ? theme : ""
 
         /*
-            compile user style options
+            assign style values
         */
-       
+
         let styles:StyleProperties  = { }
         styles[ 'background' ]      = n_bg
         styles[ 'theme' ]           = og_ThemeOV
-        styles[ 'color' ]           = n_textcolor
+        styles[ 'color_text' ]      = n_textcolor
 
         /*
             handle error
@@ -163,10 +174,8 @@ export class BackendCore
         const reqUrlParams: RequestUrlParam = { url: gistSrcURL, method: "GET", headers: { "Accept": "application/json" } }
         try
         {
-            const req   = await request( reqUrlParams )
-            const json  = JSON.parse( req ) as ItemJSON
-
-            console.log( styles )
+            const req       = await request( reqUrlParams )
+            const json      = JSON.parse( req ) as ItemJSON
 
             return this.GistGenerate( el, host, uuid, json, bMatchGithub, styles )
         }
@@ -234,14 +243,14 @@ export class BackendCore
         */
 
         let css_theme_ovr           = ( style.theme !== "" ) ? style.theme.toLowerCase( ) : ""
-        let css_theme_sel           = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme == "Dark" ) ? "dark" : ( this.settings.theme == "Light" ) ? "light"  : "light"
+        let css_theme_sel           = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme.toLowerCase( ) == "dark" ) ? "dark" : ( this.settings.theme.toLowerCase( ) == "light" ) ? "light"  : "light"
         let css_og                  = ""
         let css_gh                  = ""
 
         const content_css           = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
         const content_body          = ( bGithub ? json.div : "" )
         const content_js            = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( css_theme_sel == "dark" ? json.embed.js_dark : json.embed.js ) ) )
-    
+
         /*
             Declare custom css override
         */
@@ -261,8 +270,10 @@ export class BackendCore
                           working with OpenGist developer to re-do the HTML generated when embedding a gist.
         */
 
-        const css_og_append         = this.CSS_Get_OpenGist( style )
-        const css_gh_append         = this.CSS_Get_Github( style )
+        style[ "theme" ]        = css_theme_sel
+
+        const css_og_append     = this.CSS_Get_OpenGist( style )
+        const css_gh_append     = this.CSS_Get_Github( style )
 
         /*
             Github > Dark Theme
@@ -328,7 +339,7 @@ export class BackendCore
         const css_og_bg_header_bor  = ( style.theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
         const css_og_bg             = ( !bIsEmpty( style.background ) ? "url(" + style.background + ")" : css_og_bg_color )
         const css_og_tx_color       = ( style.theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
-        const css_og_tx_color_user  = ( !bIsEmpty( style.color ) ? style.color : css_og_tx_color )
+        const css_og_tx_color_user  = ( !bIsEmpty( style.color_text ) ? style.color_text : css_og_tx_color )
         const css_og_wrap           = ( this.settings.textwrap == "Enabled" ? "normal" : "pre" )
         const css_og_opacity        = ( this.settings.og_opacity ) || 1
 
@@ -403,12 +414,13 @@ export class BackendCore
 
     private CSS_Get_Github( style: StyleProperties )
     {
+
         const css_gh_bg_color       = ( style.theme == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
         const css_gh_sb_color       = ( style.theme == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
         const css_gh_bg_header_bg   = ( style.theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
         const css_gh_bg_header_bor  = ( style.theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
         const css_gh_tx_color       = ( style.theme == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
-        const css_gh_wrap           = ( this.settings.textwrap == "Enabled" ? "wrap" : "nowrap" )
+        const css_gh_wrap           = ( this.settings.textwrap.toLowerCase( ) == "enabled" ? "wrap" : "nowrap" )
         const css_gh_opacity        = ( this.settings.gh_opacity ) || 1
 
         return `
