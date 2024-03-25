@@ -342,7 +342,8 @@ export class BackendCore
         const css_og_bg_header_bor  = ( style.theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
         const css_og_bg             = ( !bIsEmpty( style.background ) ? "url(" + style.background + ")" : css_og_bg_color )
         const css_og_tx_color       = ( style.theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
-        const css_og_tx_color_user  = ( !bIsEmpty( style.color_text ) ? style.color_text : css_og_tx_color )
+        let css_og_tx_color_user    = ( !bIsEmpty( style.color_text ) ? style.color_text : css_og_tx_color )
+        css_og_tx_color_user        = css_og_tx_color_user.replace( "#", "" );
         const css_og_wrap           = ( this.settings.textwrap == "Enabled" ? "normal" : "pre" )
         const css_og_opacity        = ( this.settings.og_opacity ) || 1
 
@@ -422,7 +423,10 @@ export class BackendCore
         const css_gh_sb_color       = ( style.theme == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
         const css_gh_bg_header_bg   = ( style.theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
         const css_gh_bg_header_bor  = ( style.theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
-        const css_gh_tx_color       = ( style.theme == "dark" ? this.settings.gh_clr_tx_dark : this.settings.gh_clr_tx_light )
+        const css_gh_bg             = ( !bIsEmpty( style.background ) ? "url(" + style.background + ")" : css_gh_bg_color )
+        const css_gh_tx_color       = ( style.theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
+        let css_gh_tx_color_user    = ( !bIsEmpty( style.color_text ) ? style.color_text : css_gh_tx_color )
+        css_gh_tx_color_user        = css_gh_tx_color_user.replace( "#", "" );
         const css_gh_wrap           = ( this.settings.textwrap.toLowerCase( ) == "enabled" ? "wrap" : "nowrap" )
         const css_gh_opacity        = ( this.settings.gh_opacity ) || 1
 
@@ -468,6 +472,9 @@ export class BackendCore
             padding-bottom:         6px;
             border-color:           ${css_gh_bg_header_bor};
             background-color:       ${css_gh_bg_color};
+            background:             ${css_gh_bg};
+            background-size:        cover;
+            background-size:        cover;
         }
 
         .gist .markdown-body>*:last-child
@@ -539,23 +546,23 @@ export class BackendCore
         body .gist .pl-s2, body .gist .pl-stj, body .gist .pl-vo,
         body .gist .pl-id, body .gist .pl-ii
         {
-            color:                  ${css_gh_tx_color};
+            color:                  #${css_gh_tx_color_user};
         }
 
         body .gist .blob-code
         {
-            color:                  ${css_gh_tx_color};  
+            color:                  #${css_gh_tx_color_user};
         }
 
         body .gist .blob-num, body .gist .blob-code-inner,
         {
-            color:                  ${css_gh_tx_color};
+            color:                  #${css_gh_tx_color_user};
             opacity:                0.5;
         }
 
         body .gist .blob-num:hover
         {
-            color:                  ${css_gh_tx_color};
+            color:                  #${css_gh_tx_color_user};
             opacity:                1;
         }
 
