@@ -357,6 +357,23 @@ export class BackendCore
             opacity:            ${css_og_opacity};
         }
 
+        .opengist-embed .line-code
+        {
+            color:              #${css_og_tx_color_user};
+        }
+
+        .opengist-embed .code .line-num
+        {
+            color:              #${css_og_tx_color_user};
+            opacity:            0.5;
+        }
+
+        .opengist-embed .code .line-num:hover
+        {
+            color:              #${css_og_tx_color_user};
+            opacity:            1;
+        }
+
         .opengist-embed .whitespace-pre
         {
             white-space:        ${css_og_wrap};
