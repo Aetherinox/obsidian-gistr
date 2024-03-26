@@ -5,8 +5,8 @@
 #   @url        : https://github.com/Aetherinox
 # ---------------------------------------------------------------------------------------
 
-name: "🎫 Issue › Labels › Create"
-run-name: "🎫 Issue › Labels › Create"
+name: "🎫 Labels › Create"
+run-name: "🎫 Labels › Create"
 
 # ---------------------------------------------------------------------------------------
 #   triggers
@@ -14,7 +14,6 @@ run-name: "🎫 Issue › Labels › Create"
 
 on:
   workflow_dispatch:
-    inputs:
 
 # ---------------------------------------------------------------------------------------
 #   environment variables
@@ -59,7 +58,7 @@ jobs:
   # ---------------------------------------------------------------------------------------
 
   issues-labels-create:
-    name: ⚙️ Labels › Create
+    name: 🎫 Labels › Create
     runs-on: ubuntu-latest
     steps:
 
