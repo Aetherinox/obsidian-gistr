@@ -1,12 +1,12 @@
 # ---------------------------------------------------------------------------------------
 #   @parent     : github workflow
-#   @desc       : pull request autocheck
+#   @desc       : pull request autoscan
 #   @author     : Aetherinox
 #   @url        : https://github.com/Aetherinox
 # ---------------------------------------------------------------------------------------
 
-name: "⚡ PR › Autocheck"
-run-name: "⚡ PR › Autocheck"
+name: "⚡ PR › Autoscan"
+run-name: "⚡ PR › Autoscan"
 
 # ---------------------------------------------------------------------------------------
 #   triggers
