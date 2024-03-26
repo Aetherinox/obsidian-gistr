@@ -30,22 +30,32 @@ env:
   BOT_NAME_DEPENDABOT:  dependabot[bot]
   LABELS_JSON: |
     [
-      { "name": "Type/Bug",           "color": "9a2c2c", "description": "Something isn't working" },
-      { "name": "Type/Feature",       "color": "F62735", "description": "Feature request" },
-      { "name": "Type/Roadmap",       "color": "8F1784", "description": "Feature or bug currently planned for implementation" },
-      { "name": "Type/Dependency",    "color": "243759", "description": "Item is associated to dependency" },
-      { "name": "Type/Docs",          "color": "0e588d", "description": "Improvements or modifications to docs" },
-      { "name": "Type/Git Action",    "color": "030406", "description": "Pull requests that update GitHub Actions code" },
-      { "name": "Status/Review",      "color": "6E465A", "description": "This item is currently pending review" },
-      { "name": "Status/Released",    "color": "1b6626", "description": "Issues or PR has been implemented and is now live" },
-      { "name": "Status/Accepted",    "color": "2e7539", "description": "This pull request has been accepted" },
-      { "name": "Status/Review",      "color": "9e1451", "description": "Item is currently pending review" },
-      { "name": "Status/Denied",      "color": "ba4058", "description": "Pull request has been denied" },
-      { "name": "Status/Need Info",   "color": "2E3C4C", "description": "Not enough information to resolve" },
-      { "name": "Status/No Action",   "color": "030406", "description": "This request was closed without any action being taken" },
-      { "name": "Status/Pending",     "color": "D5155E", "description": "Pending pull request" },
-      { "name": "Status/Reopened",    "color": "B78D03", "description": "A previously closed PR which has been re-opened" },
-      { "name": "#Urgent",            "color": "BCE030", "description": "Requires urgent attention" }
+      { "name": "Type/Bug",             "color": "9a2c2c", "description": "Something isn't working" },
+      { "name": "Type/Feature",         "color": "F62735", "description": "Feature request" },
+      { "name": "Type/Roadmap",         "color": "8F1784", "description": "Feature or bug currently planned for implementation" },
+      { "name": "Type/Dependency",      "color": "243759", "description": "Item is associated to dependency" },
+      { "name": "Type/PR",              "color": "8F1784", "description": "Item is marked as a Pull Request" },
+      { "name": "Type/Docs",            "color": "0e588d", "description": "Improvements or modifications to docs" },
+      { "name": "Type/Git Action",      "color": "030406", "description": "Pull requests that update GitHub Actions code" },
+      { "name": "Status/Review",        "color": "6E465A", "description": "This item is currently pending review" },
+      { "name": "Status/Released",      "color": "1b6626", "description": "Issues or PR has been implemented and is now live" },
+      { "name": "Status/Accepted",      "color": "2e7539", "description": "This pull request has been accepted" },
+      { "name": "Status/Review",        "color": "9e1451", "description": "Item is currently pending review" },
+      { "name": "Status/Denied",        "color": "ba4058", "description": "Pull request has been denied" },
+      { "name": "Status/Need Info",     "color": "2E3C4C", "description": "Not enough information to resolve" },
+      { "name": "Status/No Action",     "color": "030406", "description": "This request was closed without any action being taken" },
+      { "name": "Status/Pending",       "color": "D5155E", "description": "Pending pull request" },
+      { "name": "Status/Reopened",      "color": "B78D03", "description": "A previously closed PR which has been re-opened" },
+      { "name": "#Urgent",              "color": "BCE030", "description": "Requires urgent attention" },
+      { "name": "AC/Failed",            "color": "d73a4a", "description": "Autocheck failed to run through a complete cycle, requires investigation" },
+      { "name": "AC/Changes Required",  "color": "36552B", "description": "The PR requires changes to be made to the package before it will be accepted" },
+      { "name": "AC/Passed",            "color": "ccb11d", "description": "PR is ready to be reviewed by primary developer" },
+      { "name": "AC/Review Required",   "color": "8F1784", "description": "PR needs to be reviewed by another person, after the currently requested changes have been made" },
+      { "name": "AC/Needs Rebase",      "color": "8F1784", "description": "Due to the permissions on the requesting repo, this pull request must be rebased by the author" },
+      { "name": "AC/Security Warning",  "color": "8F1784", "description": "Pull request contents does not conform to developer policies, or includes potentially dangerous code" },
+      { "name": "AC/Changes Made",      "color": "8F1784", "description": "The requested changes have been made and is pending a re-scan" },
+      { "name": "AC/Skipped Scan",    "color": "8F1784", "description": "Code scanning skipped because PR author believes result is wrong" },
+      { "name": "Pull Request",         "color": "8F1784", "description": "Task is marked as a Pull Request" }
     ]
 
 jobs:
@@ -65,6 +75,10 @@ jobs:
       - name: "✅ Start"
         run: | 
               echo "Assigning labels and assignees"
+
+      # ---------------------------------------------------------------------------------------
+      #   checkout
+      # ---------------------------------------------------------------------------------------
 
       - name: "☑️ Checkout"
         uses: actions/checkout@v4

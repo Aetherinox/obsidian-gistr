@@ -8,51 +8,50 @@
 name: "⚡ PR › Autocheck"
 run-name: "⚡ PR › Autocheck"
 
+# ---------------------------------------------------------------------------------------
+#   triggers
+# ---------------------------------------------------------------------------------------
+
 on:
   pull_request:
     branches:
       - main
+
   issue_comment:                                     
     types: [created]
 
 # ---------------------------------------------------------------------------------------
 #   environment variables
-#
-#   >   PLUGIN_ID
-#           0   = official repo
-#           1   = development repo
 # ---------------------------------------------------------------------------------------
 
 env:
-    PLUGIN_ID:                    1
-    LABEL_CHECK_FAILED:           Autocheck Failed
-    LABEL_CHECK_CHANGES_REQ:      Changes Required
-    LABEL_CHECK_REVIEW_READY:     Ready For Review
-    LABEL_CHECK_REVIEW_REQ:       Additional Review Required
-    LABEL_CHECK_REBASE_REQ:       Requires Author Rebase
-    LABEL_CHECK_SECURITY_ERR:     Security Issues
-    LABEL_CHECK_STATUS_CHGMADE:   Changes Made
-    LABEL_CHECK_STATUS_FAILED:    Validation Failed
-    LABEL_CHECK_SCAN_SKIPPED:     Skipped Code Scan
-    LABEL_CHECK_PULL_REQ:         Pull Request
-    LABEL_DEPENDENCY:             Dependency
-    LABEL_NPM:                    NPM
+    LABEL_CHECK_CHANGES_REQ:        AC/Changes Required
+    LABEL_CHECK_REVIEW_READY:       AC/Passed
+    LABEL_CHECK_REBASE_REQ:         AC/Needs Rebase
+    LABEL_CHECK_SECURITY_ERR:       AC/Security Warning
+    LABEL_CHECK_STATUS_CHGMADE:     AC/Changes Made
+    LABEL_CHECK_STATUS_FAILED:      AC/Failed
+    LABEL_CHECK_SCAN_SKIPPED:       AC/Skipped Scan
+    LABEL_TYPE_PR:                  Type/PR
+    LABEL_TYPE_DEPENDENCY:          Type/Dependency
 
-    ASSIGN_USER:                  Aetherinox
-    BOT_NAME_1:                   AdminServ
-    BOT_NAME_2:                   AdminServX
-    BOT_NAME_DEPENDABOT:          dependabot[bot]
+    ASSIGN_USER:                    Aetherinox
+    BOT_NAME_1:                     AdminServ
+    BOT_NAME_2:                     AdminServX
+    BOT_NAME_DEPENDABOT:            dependabot[bot]
     LABELS_JSON: |
       [
-        { "name": "Autocheck Failed",           "color": "d73a4a", "description": "Autocheck failed to run through a complete cycle, requires investigation" },
-        { "name": "Changes Required",           "color": "36552B", "description": "The PR requires changes to be made to the package before it will be accepted" },
-        { "name": "Ready For Review",           "color": "ccb11d", "description": "PR is ready to be reviewed by primary developer" },
-        { "name": "Additional Review Required", "color": "8F1784", "description": "PR needs to be reviewed by another person, after the currently requested changes have been made" },
-        { "name": "Requires Author Rebase",     "color": "8F1784", "description": "Due to the permissions on the requesting repo, this pull request must be rebased by the author" },
-        { "name": "Security Issues",            "color": "8F1784", "description": "Pull request contents does not conform to developer policies, or includes potentially dangerous code" },
-        { "name": "Changes Made",               "color": "8F1784", "description": "The requested changes have been made and is pending a re-scan" },
-        { "name": "Skipped Code Scan",          "color": "8F1784", "description": "Code scanning skipped because PR author believes result is wrong" },
-        { "name": "Pull Request",               "color": "8F1784", "description": "Task is marked as a Pull Request" }
+        { "name": "AC/Failed",                  "color": "d73a4a", "description": "Autocheck failed to run through a complete cycle, requires investigation" },
+        { "name": "AC/Passed",                  "color": "ccb11d", "description": "PR is ready to be reviewed by primary developer" },
+        { "name": "AC/Changes Required",        "color": "36552B", "description": "The PR requires changes to be made to the package before it will be accepted" },
+        { "name": "AC/Ready For Review",        "color": "ccb11d", "description": "PR is ready to be reviewed by primary developer" },
+        { "name": "AC/Review Required",         "color": "8F1784", "description": "PR needs to be reviewed by another person, after the currently requested changes have been made" },
+        { "name": "AC/Needs Rebase",            "color": "8F1784", "description": "Due to the permissions on the requesting repo, this pull request must be rebased by the author" },
+        { "name": "AC/Security Warning",        "color": "8F1784", "description": "Pull request contents does not conform to developer policies, or includes potentially dangerous code" },
+        { "name": "AC/Changes Made",            "color": "8F1784", "description": "The requested changes have been made and is pending a re-scan" },
+        { "name": "AC/Skipped Scan",            "color": "8F1784", "description": "Code scanning skipped because PR author believes result is wrong" },
+        { "name": "Type/PR",                    "color": "8F1784", "description": "Item is marked as a Pull Request" },
+        { "name": "Type/Dependency",            "color": "243759", "description": "Item is associated to dependency" }
       ]
 
 # ---------------------------------------------------------------------------------------
@@ -60,7 +59,7 @@ env:
 # ---------------------------------------------------------------------------------------
 
 jobs:
-  plugin-validation:
+  autocheck-validation:
     runs-on: ubuntu-latest
     steps:
 
@@ -70,70 +69,136 @@ jobs:
       #   however this isnt available for 'issue_comment'
       # ---------------------------------------------------------------------------------------
 
-      - uses: actions/github-script@v7
-        id: get_issue_number
+      - name: 🏷️ Verify Existing Labels
+        uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.ADMINSERV_TOKEN_CL }}
           script: |
-            if (context.issue.number) {
-              // Return issue number if present
-              return context.issue.number;
-            } else {
-              // Otherwise return issue number from commit
-              return (
-                await github.rest.repos.listPullRequestsAssociatedWithCommit({
-                  commit_sha: context.sha,
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                })
-              ).data[0].number;
+            const labels = JSON.parse( process.env.LABELS_JSON );
+            for ( const label of labels )
+            {
+                try
+                {
+                    await github.rest.issues.createLabel(
+                    {
+                        owner:        context.repo.owner,
+                        repo:         context.repo.repo,
+                        name:         label.name,
+                        description:  label.description || '',
+                        color:        label.color
+                    });
+                }
+                catch ( err )
+                {
+                    if ( err.status === 422 )
+                    {
+                        console.log( `Label '${label.name}' already exists. Skipping.` );
+                    }
+                    else
+                    {
+                        console.error( `Error creating label '${label.name}': ${err}` );
+                    }
+                }
+            }
+  
+      # ---------------------------------------------------------------------------------------
+      #   get issue number
+      # ---------------------------------------------------------------------------------------
+
+      - uses: actions/github-script@v7
+        id: autocheck-get-issue-number
+        with:
+          github-token: ${{ secrets.ADMINSERV_TOKEN_CL }}
+          script: |
+            if ( context.issue.number )
+            {
+                // Return issue number if present
+                return context.issue.number;
+            }
+            else
+            {
+                // Otherwise return issue number from commit
+                return (
+                    await github.rest.repos.listPullRequestsAssociatedWithCommit(
+                    {
+                        commit_sha: context.sha,
+                        owner:      context.repo.owner,
+                        repo:       context.repo.repo,
+                    })
+                ).data[ 0 ].number;
             }
           result-encoding: string
-      - name: Issue number
-        run: echo '${{ steps.get_issue_number.outputs.result }}'
 
       # ---------------------------------------------------------------------------------------
-      #   action > checkout
+      #   return issue number
+      # ---------------------------------------------------------------------------------------
+
+      - name: Issue number
+        run: echo '${{ steps.autocheck-get-issue-number.outputs.result }}'
+
+      # ---------------------------------------------------------------------------------------
+      #   checkout
       # ---------------------------------------------------------------------------------------
         
       - uses: actions/checkout@v4
         if: ( github.event_name == 'pull_request' ) || ( github.event_name == 'issue_comment' && contains( github.event.comment.html_url, '/pull/' ) && contains( github.event.comment.body, '/rescan' ) )
         with:
           fetch-depth: 0
-          ref: "refs/pull/${{ steps.get_issue_number.outputs.result }}/merge"
-          
+          ref: "refs/pull/${{ steps.autocheck-get-issue-number.outputs.result }}/merge"
+
+      # ---------------------------------------------------------------------------------------
+      #   nodejs
+      # ---------------------------------------------------------------------------------------
+
       - name: Use Node.js
         uses: actions/setup-node@v4
+        id: autocheck-nodejs
+
+      # ---------------------------------------------------------------------------------------
+      #   get list of changed files
+      # ---------------------------------------------------------------------------------------
 
       - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v42
+        id: autocheck-get-changed-files
+        uses: tj-actions/autocheck-get-changed-files@v42
         with:
           separator: ","
   
+      # ---------------------------------------------------------------------------------------
+      #   list of changed files
+      # ---------------------------------------------------------------------------------------
+
       - name: List all added files
+        id: autocheck-list-added-files
         run: |
           for file in ${CHANGED_FILES}; do
             echo "$file was changed"
           done
         env:
-          ADDED_FILES:      ${{ steps.changed-files.outputs.added_files }}
-          MODIFIED_FILES:   ${{ steps.changed-files.outputs.modified_files }}
-          CHANGED_FILES:    ${{ steps.changed-files.outputs.all_changed_files }}
-          COUNT_ADDED:      ${{ steps.changed-files.outputs.added_files_count }}
-          COUNT_MODIFIED:   ${{ steps.changed-files.outputs.modified_files_count }}
-          COUNT_DELETED:    ${{ steps.changed-files.outputs.deleted_files_count }}
-          COUNT_RENAMED:    ${{ steps.changed-files.outputs.renamed_files_count }}
-          COUNT_COPIED:     ${{ steps.changed-files.outputs.copied_files_count }}
+          ADDED_FILES:      ${{ steps.autocheck-get-changed-files.outputs.added_files }}
+          MODIFIED_FILES:   ${{ steps.autocheck-get-changed-files.outputs.modified_files }}
+          CHANGED_FILES:    ${{ steps.autocheck-get-changed-files.outputs.all_changed_files }}
+          COUNT_ADDED:      ${{ steps.autocheck-get-changed-files.outputs.added_files_count }}
+          COUNT_MODIFIED:   ${{ steps.autocheck-get-changed-files.outputs.modified_files_count }}
+          COUNT_DELETED:    ${{ steps.autocheck-get-changed-files.outputs.deleted_files_count }}
+          COUNT_RENAMED:    ${{ steps.autocheck-get-changed-files.outputs.renamed_files_count }}
+          COUNT_COPIED:     ${{ steps.autocheck-get-changed-files.outputs.copied_files_count }}
 
-      - name: Run Check
+      # ---------------------------------------------------------------------------------------
+      #   Run autocheck
+      # ---------------------------------------------------------------------------------------
+
+      - name: Run Autocheck
+        id: autocheck-run
         uses: actions/github-script@v7
         with:
+          github-token: ${{ secrets.ADMINSERV_TOKEN_CL }}
           script: |
             const fs            = require( 'fs' );
             const escape_html   = ( unsafe ) => unsafe.replace( /&/g, '&amp;' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' ).replace( /"/g, '&quot;' ).replace( /'/g, '&#039;' );
             const labels        = [];
 
-            const files_List    = `${{ steps.changed-files.outputs.all_changed_files }}` || ''
+            const files_List    = `${{ steps.autocheck-get-changed-files.outputs.all_changed_files }}` || ''
             const files_Array   = files_List.split(',')
 
             let message         = [ "\n<br />\n" ]
@@ -185,11 +250,11 @@ jobs:
               | Author | [ ` + context.payload.pull_request.user.login + ` ](https://github.com/` + context.repo.owner + `/) |
               | Repo | [ ` + context.repo.repo + ` ](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `) |
               | Branch | [ ` + context.payload.pull_request.head.ref + `](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/tree/` + context.payload.pull_request.head.ref + `) ⇁ [ ` + context.payload.pull_request.base.ref + `](https://github.com/` + context.repo.owner + `/` + context.repo.repo + `/tree/` + context.payload.pull_request.base.ref + `) |
-              | Added Files | ${{ steps.changed-files.outputs.added_files_count }} |
-              | Modified Files | ${{ steps.changed-files.outputs.all_modified_files_count }} |
-              | Renamed Files | ${{ steps.changed-files.outputs.renamed_files_count }} |
-              | Copied Files | ${{ steps.changed-files.outputs.deleted_files_count }} |
-              | Deleted Files | ${{ steps.changed-files.outputs.deleted_files_count }} |
+              | Added Files | ${{ steps.autocheck-get-changed-files.outputs.added_files_count }} |
+              | Modified Files | ${{ steps.autocheck-get-changed-files.outputs.all_modified_files_count }} |
+              | Renamed Files | ${{ steps.autocheck-get-changed-files.outputs.renamed_files_count }} |
+              | Copied Files | ${{ steps.autocheck-get-changed-files.outputs.deleted_files_count }} |
+              | Deleted Files | ${{ steps.autocheck-get-changed-files.outputs.deleted_files_count }} |
             `;
             
             message.push        ( md_table );
@@ -565,13 +630,10 @@ jobs:
             */
 
             if ( actor ==  "${{ env.BOT_NAME_DEPENDABOT }}" )
-                labels.push( "${{ env.LABEL_DEPENDENCY }}" );
+                labels.push( "${{ env.LABEL_TYPE_DEPENDENCY }}" );
 
             if ( context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_CHANGES_REQ }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_CHANGES_REQ }}" );
-
-            if ( context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_REVIEW_REQ }}" ).length > 0 )
-                labels.push( "${{ env.LABEL_CHECK_REVIEW_REQ }}" );
 
             if (context.payload.pull_request.labels.filter(label => label.name === "${{ env.LABEL_CHECK_REBASE_REQ }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_REBASE_REQ }}" );
@@ -585,7 +647,7 @@ jobs:
             if ( context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_SCAN_SKIPPED }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_SCAN_SKIPPED }}" );
 
-            labels.push( "${{ env.LABEL_CHECK_PULL_REQ }}" );
+            labels.push( "${{ env.LABEL_TYPE_PR }}" );
 
             /*
                 Set Label
