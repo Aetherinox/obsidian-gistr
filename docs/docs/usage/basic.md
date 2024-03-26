@@ -3,74 +3,66 @@ tags:
   - usage
 ---
 
-# Global Settings
-These are generic settings that do not belong to a specific category.
-
-| Setting | Description |
-| --- | --- |
-| `Theme` | The theme that will be used to display gists embedded in your notes. If you force a single gist snippet to use a particular theme, this will be overwritten for that one gist only. |
-| `Text Wrapping` | This will determine if gists display a horizontal scrollbar. If a gist contains text that is not wrapped, a scrollbar will appear and allow you to scroll over the width of the gist.<br /><br />Enabled = text will be wrapped to the next line.<br />Disabled = codeblock will display horizontal scrollbar |
-| `Trigger Keyword` | This is the phrase to use when initializing a new gist codeblock. If you change this value, you must go through your notes and also change to the new keyword. |
-| `Enable update notifications` | This will determine if you receive a notification box when you first launch Obsidian if Gistr has a new update available. This includes both stable and beta versions. |
-| `Notification duration` | If Gistr sends you a notification, this will determine how long you see the notification for.<br><br>Set to `0` if you wish for notifications to stay open and not disappear until you click on them. |
+# Basic Usage
+Gistr allows you to embed gist snippets from Github and Opengist directly into your [Obsidian.md](https://obsidian.md) notes. When creating an embedded gist; you have two options for creating the link:
 
 <br />
 
-## Theme
-<!-- md:version stable-1.0.0 -->
-<!-- md:default `light` -->
-<!-- md:control dropdown -->
-
-This setting allows you to switch the color which is used for codeblocks that are turned into gists.
+# Single-Line Style
+This format allows you to create an embedded gist by making a codeblock which begins with the keyword `gistr`, and then providing the link to the gist you wish to embed.
 
 <br />
 
-Gistr comes with two themes:
-
- 1. Light Mode
- 2. Dark Mode
-
-<br />
-
-The `Themes` setting allows you to flip between these two themes for your gist codeblocks; no matter what theme you use for Obsidian.
-
-On top of being able to select which theme that gists are displayed in; you will also be able to override this setting for any specific gist. These settings however, are covered in the sections:
-
-- [Github](github.md)
-- [Opengist](opengist.md)
+````
+```gistr
+https://gist.github.com/Aetherinox/5143c674e9adea5b256f5f58fe54ffbc
+```
+````
 
 <br />
 
----
+If you wish to specify a certain theme that will be forced for that particular gist; append `&themename` at the end of your URL:
+
+````
+```gistr
+https://gist.github.com/Aetherinox/5143c674e9adea5b256f5f58fe54ffbc&dark
+```
+````
 
 <br />
 
-## Text Wrapping
-<!-- md:version stable-1.3.0 -->
-<!-- md:default `false` -->
-<!-- md:control toggle -->
+If you have a gist with multiple files and you want to only target one specific file; you can append `#filename` to the end of your gist url:
 
-This feature will determine how text from your gist snippets appears in Obsidian codeblocks. 
+````
+```gistr
+https://gist.github.com/Aetherinox/5143c674e9adea5b256f5f58fe54ffbc#obsidian_demo_doc_2&dark
+```
+````
+
+The above code will create an embedded gist, targeting the file `obsidian_demo_doc_2`, and uses the `dark` theme.
+
+!!! note "Background & text color compatibility"
+
+    The `single-line format` does **not** support specifying a background image or text color.
+
+    You must use the [#block-style] explained below.
+
 
 <br />
 
-<!-- md:control toggle_on --> `Enabled`
+# Block Style
+The `block style` structure allows you to embed a gist using a list of properties and values as the example below shows; which will embedded a gist using the `dark` theme, the targeted file `obsidian_demo_doc_2`, with white text `FFFFFF` and a background image from imgur.com.
 
-:   No matter what the structure of the text in the gist is; Gistr will attempt to word-wrap lines that exceed the width of the gist codeblock.
-
-<figure markdown="span">
-  ![Text Wrapping: Enabled](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/0670cb0c-56d7-4495-8ee2-9776ec9befca){ width="100%" }
-  <figcaption>Text Wrapping: Enabled</figcaption>
-</figure>
+````
+```gistr
+url:          https://gist.github.com/Aetherinox/5143c674e9adea5b256f5f58fe54ffbc
+theme:        dark
+file:         obsidian_demo_doc_2
+color:        FFFFFF
+background:   https://i.imgur.com/95Tajqd.png
+```
+````
 
 <br />
 
-
-<!-- md:control toggle_off --> `Disabled`
-
-:   Gist codeblocks will try to make text appear just as it does in your original gist. If you embed a paste which has text only on one line; Gistr will attempt to display your gist in the same exact manner.
-
-<figure markdown="span">
-  ![Text Wrapping: Disabled](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/f0c11152-a047-4398-93e4-ffc8f114c08a){ width="100%" }
-  <figcaption>Text Wrapping: Disabled</figcaption>
-</figure>
+The above example links an embedded gist, using the `dark` theme, the targeted file `obsidian_demo_doc_2`, with white text `FFFFFF` and a background image from imgur.com

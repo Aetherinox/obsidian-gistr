@@ -165,8 +165,8 @@ nav:
     - Opengist: 'settings/opengist.md'
     - Save & Sync: 'settings/save_and_sync.md'
     - Support: 'settings/support.md'
-  - Build:
-    - Requirements: 'build/requirements.md'
+  - Advanced:
+    - Build: 'advanced/build.md'
   - About:
     - License: 'about/license.md'
     - Conventions: 'about/conventions.md'
