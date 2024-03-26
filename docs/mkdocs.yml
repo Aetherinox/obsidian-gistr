@@ -155,6 +155,9 @@ nav:
   - Install:
     - Using Obsidian: 'install/obsidian.md'
     - Using BRAT: 'install/brat.md'
+  - Usage:
+    - Basic: 'usage/basic.md'
+    - Properties: 'usage/properties.md'
   - Settings:
     - Summary: 'settings/summary.md'
     - Global: 'settings/global.md'

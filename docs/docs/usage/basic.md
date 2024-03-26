@@ -1,6 +1,6 @@
 ---
 tags:
-  - settings
+  - usage
 ---
 
 # Global Settings

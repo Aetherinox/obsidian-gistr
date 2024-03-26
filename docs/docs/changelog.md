@@ -7,6 +7,21 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.5.0 <small>March 25, 2024</small> { id="1.5.0" }
+
+- `feat`: added new format for embedded gists
+- `feat`: added 'background' property to codeblocks
+- `feat`: added 'color' property to codeblocks
+- `refactor`: replaced individual variables with style interface
+- `perf`: optmizations to performance, no longer sending 1 call per line.
+
+### <!-- md:version stable- --> 1.4.7 <small>March 23, 2024</small> { id="1.4.7" }
+
+- `change`: updated Github light theme color scheme
+  - variables were showing up as bright colors. set light theme to match the color scheme used on Github.com
+- `chore`: update types/mode dependency to 20.11.30
+- `change`: implement new regex pattern which will allow for v1.5.0 new format coming
+
 ### <!-- md:version stable- --> 1.4.6 <small>March 15, 2024</small> { id="1.4.6" }
 
 - `feat`: ability to specify custom datetime format for gists in save list
