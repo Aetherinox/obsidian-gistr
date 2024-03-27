@@ -295,6 +295,13 @@ jobs:
                 const bug_bFoundMatchBody     = Boolean( bug_findWordList.test( iss_body ) );
     
                 /*
+                    Do not change a title if the item starts with a PR: #
+                */
+
+                const findPRTitle           = /^PR\s(?:[0-9]*:?)/igm;
+                const bFoundPRTitle         = Boolean( bug_findWordList.test( iss_title ) );
+
+                /*
                     - Check if issue title matches the issue label "Bug:"
                     - Check if title contains word in containsList 
                 */
@@ -334,6 +341,13 @@ jobs:
                 const feat_findWordList 	      = /(?:(?:request|include|see)\s*(?:a?|the?)\s*(?:feature|addon|addition|plugin))|(?:(?:add|see|get)\s*support\s*(?:for|with|of))/igm;
                 const feat_bFoundMatchTitle     = Boolean( feat_findWordList.test( iss_title ) );
                 const feat_bFoundMatchBody      = Boolean( feat_findWordList.test( iss_body ) );
+
+                /*
+                    Do not change a title if the item starts with a PR: #
+                */
+
+                const findPRTitle           = /^PR\s(?:[0-9]*:?)/igm;
+                const bFoundPRTitle         = Boolean( feat_findWordList.test( iss_title ) );
 
                 /*
                     - Check if issue title matches the issue label "Feature:"
@@ -378,6 +392,13 @@ jobs:
                 const urgn_bFoundMatchBody    = Boolean( urgn_findWordList.test( iss_body ) );
 
                 /*
+                    Do not change a title if the item starts with a PR: #
+                */
+
+                const findPRTitle           = /^PR\s(?:[0-9]*:?)/igm;
+                const bFoundPRTitle         = Boolean( urgn_findWordList.test( iss_title ) );
+
+                /*
                     - Check if issue title matches the issue label "Urgent:"
                     - Check if title contains word in containsList 
                 */
@@ -420,6 +441,13 @@ jobs:
                 const road_findWordList 	      = /#\s*Summary[\S\s]+#\s*(?:Proposal|Objective)[^\]]+/igm;
                 const road_bFoundMatchTitle     = Boolean( road_findWordList.test( iss_title ) );
                 const road_bFoundMatchBody      = Boolean( road_findWordList.test( iss_body ) );
+
+                /*
+                    Do not change a title if the item starts with a PR: #
+                */
+
+                const findPRTitle           = /^PR\s(?:[0-9]*:?)/igm;
+                const bFoundPRTitle         = Boolean( road_findWordList.test( iss_title ) );
 
                 /*
                     - Check if issue title matches the issue label "Roadmap:"
