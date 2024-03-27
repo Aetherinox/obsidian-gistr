@@ -1,8 +1,8 @@
 name: "🐛 Bug Report"
 description: Found something you weren't expecting? Report it here!
-title: "🐛 [BUG] - <title>"
+title: "🐛 Bug: <title>"
 labels: [
-  "#Bug"
+  "Type ⇴ Bug"
 ]
 body:
   - type: markdown
@@ -82,7 +82,7 @@ body:
         - "Low"
         - "Normal"
         - "High"
-        - "Critical"
+        - "Urgent"
     validations:
       required: true
 

@@ -1,8 +1,8 @@
 name: "💡 Feature Request"
 description: Got a suggestion?  Submit your request here.
-title: "💡 [REQUEST] - <title>"
+title: "💡 Feature: <title>"
 labels: [
-  "#Feature"
+  "Type ⇴ Feature"
 ]
 body:
   - type: markdown
@@ -11,6 +11,7 @@ body:
         1. Please speak English.
         2. Please take a moment to check that your feature hasn't already been suggested.
         3. Be detailed but to the point.
+        
   - type: textarea
     id: description
     attributes:
@@ -19,6 +20,7 @@ body:
         I would like to request ...
     validations:
       required: true
+
   - type: textarea
     id: screenshots
     attributes:
