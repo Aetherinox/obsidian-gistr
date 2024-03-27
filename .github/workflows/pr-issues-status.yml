@@ -362,14 +362,22 @@ jobs:
                 */
 
                 const urgn_bIncWordT      = bug_urgn.some( s => s.includes( iss_title_lc ) || iss_title_lc.includes( s ) );
-                const urgn_bIncWordB      = bug_urgn.some( s => s.includes( iss_body_lc ) || iss_body_lc.includes( s ) );
+
+                /*
+                    found searched word "for help"
+                        append / prepare message for bot to send
+                */
+    
+                const urgn_findWordList       = /(?:(?:this)?is\s*a?n?\s*?(?:emergency|urgent|important|vital|acute|crucial|grave|pressing|serious|top.?priority|high.?priority))|(?:reply|respond|answer|write|address)\s*(?:immediate|quick|asap|urgent|now|fast|(?:as)?\s*(?:soon|quick|immediate|fast))(?:ly)?|(?:need\s*(?:help|support|fixed|answer|reply|response)!))/ig;
+                const urgn_bFoundMatchTitle   = Boolean( urgn_findWordList.test( iss_title ) );
+                const urgn_bFoundMatchBody    = Boolean( urgn_findWordList.test( iss_body ) );
 
                 /*
                     - Check if issue title matches the issue label "Urgent:"
                     - Check if title contains word in containsList 
                 */
 
-                if ( iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) || urgn_bIncWordT || urgn_bIncWordB )
+                if ( iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) || urgn_bIncWordT || urgn_bFoundMatchTitle || urgn_bFoundMatchBody )
                 {
 
                     add_labels.push( `${ urgn_lbl }` );
