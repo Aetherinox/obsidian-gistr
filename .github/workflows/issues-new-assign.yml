@@ -206,19 +206,24 @@ jobs:
             const bIncWordT             = words.some( s => s.includes( iss_title_lc ) || iss_title_lc.includes( s ) );
 
             /*
-                found searched word "for help"
-                    append / prepare message for bot to send
+                Find regex based phrases
+
+                Regex:
+                    https://regex101.com/r/Z99Gnq/2
             */
 
-            const findWordList 	        = /(?:I?\s*have\s*(?:a|an)\s*(?:issue|problem|bug))|(?:will\s*not\s*work)|(?:it\s*is\s*(?:broken|broke|stuck))|(?:found\s*(?:an?|the)\s*(?:bug|issue))|(?:can\s*I\s*fix\s*the\s*(?:bug|issue))|(?:(?:does not|doesn'?t|don'?t|won'?t|can'?t|can\s?not|will\s*not)\s*(?:work|load|function))|(?:it\s*(?:will\s?not|won'?t|can\s?not|can'?t))\s*get\s*the\s*(?:website|site|webpage|page)|(?:the\s*(?:window|frame)\s*is\s*(?:blank|white|empty|missing))/igm;
+            const findWordList 	        = /^\b(?:I?\s*have\s*(?:a|an)\s*(?:issue|problem|bug))|(?:will\s*not\s*work)|(?:it\s*is\s*(?:broken|broke|stuck))|(?:found\s*(?:an?|the)\s*(?:bug|issue))|(?:can\s*I\s*fix\s*the\s*(?:bug|issue))|(?:(?:does not|doesn'?t|don'?t|won'?t|can'?t|can\s?not|will\s*not)\s*(?:work|load|function))|(?:it\s*(?:will\s?not|won'?t|can\s?not|can'?t))\s*(?:get|find)\s*the\s*(?:website|site|webpage|page)|(?:the\s*(?:window|frame)\s*is\s*(?:blank|white|empty|missing))\b$/igm;
             const bFoundMatchTitle      = Boolean( findWordList.test( iss_title ) );
             const bFoundMatchBody       = Boolean( findWordList.test( iss_body ) );
 
             /*
                 Do not change a title if the item starts with a PR: #
+
+                Regex:
+                    https://regex101.com/r/JOrqbN/1
             */
 
-            const bug_findPRTitle       = /^PR\s(?:[0-9]*:?)/igm;
+            const bug_findPRTitle       = /^PR\s?#?(?:[0-9]*:)/igm;
             const bug_bFoundPRTitle     = Boolean( bug_findPRTitle.test( iss_title ) );
 
             console.log( "Title Lowercase ............... " + iss_title_lc  )
@@ -325,17 +330,23 @@ jobs:
 
             /*
                 Find regex based phrases
+
+                Regex:
+                    https://regex101.com/r/fR1Hm6/1
             */
 
-            const findWordList 	        = /(?:(?:request|include|see)\s*(?:a?|the?)\s*(?:feature|addon|addition|plugin))|(?:(?:add|see|get)\s*support\s*(?:for|with|of))/igm;
+            const findWordList 	        = /^(?:(?:request|include|see)\s*(?:an?|the?)\s*(?:feature|addon|addition|plugin))|(?:(?:add|see|get)\s*support\s*(?:for|with|of))|(?:can\s*we\s*get\s*(?:the|a)\s*(?:ability|feature))|(?:💡 Feature:)$/igm;
             const bFoundMatchTitle      = Boolean( findWordList.test( iss_title ) );
             const bFoundMatchBody       = Boolean( findWordList.test( iss_body ) );
 
             /*
                 Do not change a title if the item starts with a PR: #
+
+                Regex:
+                    https://regex101.com/r/JOrqbN/1
             */
 
-            const feat_findPRTitle      = /^PR\s(?:[0-9]*:?)/igm;
+            const feat_findPRTitle      = /^PR\s?#?(?:[0-9]*:)/igm;
             const feat_bFoundPRTitle    = Boolean( feat_findPRTitle.test( iss_title ) );
 
             console.log( "Title Lowercase ............... " + iss_title_lc  )
@@ -445,17 +456,23 @@ jobs:
 
             /*
                 Find regex based phrases
+
+                Regex:
+                    https://regex101.com/r/eE9tJX/2
             */
 
-            const findWordList 	        = /\b(?:(?:this)?is\s*a?n?\s*?(?:emergency|urgent|important|vital|acute|crucial|grave|pressing|serious|top.?priority|high.?priority))|(?:reply|respond|answer|write|address)\s*(?:immediate|quick|asap|urgent|now|fast|(?:as)?\s*(?:soon|quick|immediate|fast))(?:ly)?|(?:need\s*(?:help|support|fixed|answer|reply|response)!)|(?:emergency|critical|urgen(?:t|cy)|high.?priority)\b/igm;
+            const findWordList 	        = /(?:(?:this)?is\s*a?n?\s*?(?:emergency|urgent|important|vital|acute|crucial|grave|pressing|serious|top.?priority|high.?priority))|(?:reply|respond|answer|write|address)\s*(?:immediate|quick|asap|urgent|now|fast|(?:as)?\s*(?:soon|quick|immediate|fast))(?:ly)?|(?:need\s*(?:help|support|fixed|answer|reply|response)!)|(?:emergency|critical|urgen(?:t|cy)|high.?priority)/igm;
             const bFoundMatchTitle      = Boolean( findWordList.test( iss_title ) );
             const bFoundMatchBody       = Boolean( findWordList.test( iss_body ) );
 
             /*
                 Do not change a title if the item starts with a PR: #
+
+                Regex:
+                    https://regex101.com/r/JOrqbN/1
             */
 
-            const urgn_findPRTitle      = /^PR\s(?:[0-9]*:?)/igm;
+            const urgn_findPRTitle      = /^PR\s?#?(?:[0-9]*:)/igm;
             const urgn_bFoundPRTitle    = Boolean( urgn_findPRTitle.test( iss_title ) );
 
             console.log( "Title Lowercase ............... " + iss_title_lc  )
@@ -566,6 +583,10 @@ jobs:
 
             /*
                 Find regex based phrases
+                Roadmap requires headers #Summary and #Proposal | #Objective
+
+                Regex:
+                    https://regex101.com/r/ucajBZ/1
             */
 
             const findWordList 	        = /#\s*Summary[\S\s]+#\s*(?:Proposal|Objective)[^\]]+/igm;
@@ -574,9 +595,12 @@ jobs:
 
             /*
                 Do not change a title if the item starts with a PR: #
+
+                Regex:
+                    https://regex101.com/r/JOrqbN/1
             */
 
-            const road_findPRTitle      = /^PR\s(?:[0-9]*:?)/igm;
+            const road_findPRTitle      = /^PR\s?#?(?:[0-9]*:)/igm;
             const road_bFoundPRTitle    = Boolean( road_findPRTitle.test( iss_title ) );
 
             console.log( "Title Lowercase ............... " + iss_title_lc  )
