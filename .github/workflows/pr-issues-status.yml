@@ -225,6 +225,7 @@ jobs:
 
             for ( const issue of issues.data )
             {
+
                 let date_UpdateDate     = new Date( `${ issue.updated_at }` ?? `${ issue.created_at }` );   // Tue Mar 26 2024 16:40:41 GMT+0000 (Coordinated Universal Time)
                 date_UpdateDate.toISOString( )                                                              // Tue Mar 26 2024 16:40:41 GMT+0000 (Coordinated Universal Time) (string)
 
@@ -270,17 +271,25 @@ jobs:
                     Label > Bugs
                 */
 
-                const bug_tag             = `${{ env.PREFIX_BUG }}`;
-                const bug_lbl             = `${{ env.LABEL_BUG }}`;
-                const bug_bIncWordT       = bug_words.some( s => s.includes( iss_title_lc ) || iss_title_lc.includes( s ) );
-                const bug_bIncWordB       = bug_words.some( s => s.includes( iss_body_lc ) || iss_body_lc.includes( s ) );
+                const bug_tag               = `${{ env.PREFIX_BUG }}`;
+                const bug_lbl               = `${{ env.LABEL_BUG }}`;
+                const bug_bIncWordT         = bug_words.some( s => s.includes( iss_title_lc ) || iss_title_lc.includes( s ) );
 
+                /*
+                    found searched word "for help"
+                        append / prepare message for bot to send
+                */
+    
+                const bug_findWordList 	      = /(?:I?\s*have\s*(?:a|an)\s*(?:issue|problem|bug))|(?:will\s*not\s*work)|(?:it\s*is\s*(?:broken|broke|stuck))|(?:found\s*(?:an?|the)\s*(?:bug|issue))|(?:can\s*I\s*fix\s*the\s*(?:bug|issue))|(?:(?:does not|doesn'?t|don'?t|won'?t|can'?t|can\s?not|will\s*not)\s*(?:work|load|function))|(?:it\s*(?:will\s?not|won'?t|can\s?not|can'?t))\s*get\s*the\s*(?:website|site|webpage|page)|(?:the\s*(?:window|frame)\s*is\s*(?:blank|white|empty|missing))/ig;
+                const bug_bFoundMatchTitle    = Boolean( bug_findWordList.test( iss_title ) );
+                const bug_bFoundMatchBody     = Boolean( bug_findWordList.test( iss_body ) );
+    
                 /*
                     - Check if issue title matches the issue label "Bug:"
                     - Check if title contains word in containsList 
                 */
 
-                if ( iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) || bug_bIncWordT || bug_bIncWordB )
+                if ( iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) || bug_bIncWordT || bug_bFoundMatchTitle || bug_bFoundMatchBody )
                 {
 
                     add_labels.push( `${ bug_lbl }` );
