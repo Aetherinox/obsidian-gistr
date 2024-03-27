@@ -327,14 +327,22 @@ jobs:
                 */
 
                 const feat_bIncWordT      = bug_feat.some( s => s.includes( iss_title_lc ) || iss_title_lc.includes( s ) );
-                const feat_bIncWordB      = bug_feat.some( s => s.includes( iss_body_lc ) || iss_body_lc.includes( s ) );
+
+                /*
+                    found searched word "for help"
+                        append / prepare message for bot to send
+                */
+    
+                const feat_findWordList 	      = /(?:(?:request|include|see)\s*(?:a?|the?)\s*(?:feature|addon|addition|plugin))|(?:(?:add|see|get)\s*support\s*(?:for|with|of))/ig;
+                const feat_bFoundMatchTitle     = Boolean( feat_findWordList.test( iss_title ) );
+                const feat_bFoundMatchBody      = Boolean( feat_findWordList.test( iss_body ) );
 
                 /*
                     - Check if issue title matches the issue label "Feature:"
                     - Check if title contains word in containsList 
                 */
 
-                if ( iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) || feat_bIncWordT || feat_bIncWordB )
+                if ( iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) || feat_bIncWordT || feat_bFoundMatchTitle || feat_bFoundMatchBody )
                 {
 
                     add_labels.push( `${ feat_lbl }` );
@@ -408,11 +416,10 @@ jobs:
                 const road_bIncWordT      = bug_road.some( s => s.includes( iss_title_lc ) || iss_title_lc.includes( s ) );
 
                 /*
-                    found searched word "for help"
-                        append / prepare message for bot to send
+                    Roadmap requires headers #Summary and #Proposal | #Objective
                 */
     
-                const road_findWordList 	      = /(?:(?:request|include|see)\s*(?:a?|the?)\s*(?:feature|addon|addition|plugin))|(?:(?:add|see|get)\s*support\s*(?:for|with|of))/ig;
+                const road_findWordList 	      = /#\s*Summary[\S\s]+#\s*(?:Proposal|Objective)[^\]]+/igm;
                 const road_bFoundMatchTitle     = Boolean( road_findWordList.test( iss_title ) );
                 const road_bFoundMatchBody      = Boolean( road_findWordList.test( iss_body ) );
 
