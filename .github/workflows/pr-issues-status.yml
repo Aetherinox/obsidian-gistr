@@ -298,8 +298,8 @@ jobs:
                     Do not change a title if the item starts with a PR: #
                 */
 
-                const findPRTitle           = /^PR\s(?:[0-9]*:?)/igm;
-                const bFoundPRTitle         = Boolean( bug_findWordList.test( iss_title ) );
+                const bug_findPRTitle       = /^PR\s(?:[0-9]*:?)/igm;
+                const bug_bFoundPRTitle     = Boolean( bug_findPRTitle.test( iss_title ) );
 
                 /*
                     - Check if issue title matches the issue label "Bug:"
