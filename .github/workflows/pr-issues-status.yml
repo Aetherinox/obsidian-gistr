@@ -387,7 +387,7 @@ jobs:
                     Find regex based phrases
                 */
     
-                const urgn_findWordList       = /(?:(?:this)?is\s*a?n?\s*?(?:emergency|urgent|important|vital|acute|crucial|grave|pressing|serious|top.?priority|high.?priority))|(?:reply|respond|answer|write|address)\s*(?:immediate|quick|asap|urgent|now|fast|(?:as)?\s*(?:soon|quick|immediate|fast))(?:ly)?|(?:need\s*(?:help|support|fixed|answer|reply|response)!)/igm;
+                const urgn_findWordList       = /\b(?:(?:this)?is\s*a?n?\s*?(?:emergency|urgent|important|vital|acute|crucial|grave|pressing|serious|top.?priority|high.?priority))|(?:reply|respond|answer|write|address)\s*(?:immediate|quick|asap|urgent|now|fast|(?:as)?\s*(?:soon|quick|immediate|fast))(?:ly)?|(?:need\s*(?:help|support|fixed|answer|reply|response)!)|(?:emergency|critical|urgen(?:t|cy)|high.?priority)\b/igm;
                 const urgn_bFoundMatchTitle   = Boolean( urgn_findWordList.test( iss_title ) );
                 const urgn_bFoundMatchBody    = Boolean( urgn_findWordList.test( iss_body ) );
 

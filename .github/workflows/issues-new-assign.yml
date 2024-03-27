@@ -70,7 +70,7 @@ jobs:
   # ---------------------------------------------------------------------------------------
 
   issues-preconfig-labels:
-    name: ⚙️ Labels › Preconfigure
+    name: ⚙️ Preconfigure
     runs-on: ubuntu-latest
     steps:
 
@@ -136,6 +136,7 @@ jobs:
       name: Orion
     steps:
 
+
       # ---------------------------------------------------------------------------------------
       #   Get Issue Title
       # ---------------------------------------------------------------------------------------
@@ -154,6 +155,7 @@ jobs:
 
             console.log( "\n\n" )
             
+
       # ---------------------------------------------------------------------------------------
       #   Label > Bug
       # ---------------------------------------------------------------------------------------
@@ -445,7 +447,7 @@ jobs:
                 Find regex based phrases
             */
 
-            const findWordList 	        = /(?:(?:this)?is\s*a?n?\s*?(?:emergency|urgent|important|vital|acute|crucial|grave|pressing|serious|top.?priority|high.?priority))|(?:reply|respond|answer|write|address)\s*(?:immediate|quick|asap|urgent|now|fast|(?:as)?\s*(?:soon|quick|immediate|fast))(?:ly)?|(?:need\s*(?:help|support|fixed|answer|reply|response)!)/igm;
+            const findWordList 	        = /\b(?:(?:this)?is\s*a?n?\s*?(?:emergency|urgent|important|vital|acute|crucial|grave|pressing|serious|top.?priority|high.?priority))|(?:reply|respond|answer|write|address)\s*(?:immediate|quick|asap|urgent|now|fast|(?:as)?\s*(?:soon|quick|immediate|fast))(?:ly)?|(?:need\s*(?:help|support|fixed|answer|reply|response)!)|(?:emergency|critical|urgen(?:t|cy)|high.?priority)\b/igm;
             const bFoundMatchTitle      = Boolean( findWordList.test( iss_title ) );
             const bFoundMatchBody       = Boolean( findWordList.test( iss_body ) );
 
@@ -633,12 +635,133 @@ jobs:
             console.log( "\n\n" )
 
   # ---------------------------------------------------------------------------------------
+  #   Phrases - Search
+  # ---------------------------------------------------------------------------------------
+
+  issues-phrase-search:
+    name: >-
+      🏷️ Labels › Phrase Search
+    needs:
+    - issues-preconfig-labels
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+      issues: 'write'
+    environment:
+      name: Orion
+    steps:
+  
+      # ---------------------------------------------------------------------------------------
+      #   checkout
+      # ---------------------------------------------------------------------------------------
+
+      - name: "☑️ Prepare"
+        id: issues-labels-check-checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 👄 Search Phrases
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.ADMINSERV_TOKEN_CL }}
+          script: |
+            const fs            = require( 'fs' );
+            const iss_title     = `${ context.payload.issue.title }`;
+            const iss_body      = `${ context.payload.issue.body }`;
+            let message         = [ "\n<br />\n" ]
+            let bHasMessage     = false
+
+            /*********************************************
+                Keyword > OpenGist
+            **********************************************/
+
+            let OG_message =
+            `
+            ⚠️ It appears you may be looking for OpenGist help.
+            - [Opengist Repo](https://github.com/thomiceli/opengist)
+            - [Opengist Docs](https://github.com/thomiceli/opengist/blob/master/docs/index.md)
+            - [Opengist Demo](https://opengist.thomice.li/all)
+
+            If you are looking for OpenGist support, it will be very minimal. Please utilize the links above.
+
+            ---
+
+            <sub>I am a bot reaching out to you with an automated response. If the above info doesn't apply to you, please ignore it.</sub>
+            `;
+
+            /*
+                Check for keyword in message title and body
+            */
+
+            const OGfindWordList        = /(\s*open\s*-?gist\s*)/ig;
+            const OGbFoundMatchTitle    = Boolean( OGfindWordList.test( iss_title ) );
+            const OGbFoundMatchBody     = Boolean( OGfindWordList.test( iss_body ) );
+
+            /*
+                found searched word "Opengist"
+                    append / prepare message for bot to send
+            */
+
+            if ( OGbFoundMatchTitle || OGbFoundMatchBody )
+            {
+                message.push  ( OG_message );
+                bHasMessage   = true;
+            }
+
+            /*********************************************
+                Keyword > Help
+            **********************************************/
+
+            let HE_message =
+            `
+            💡 It appears you might need help, please check the resources below for documentation that might assist with your issue:
+            - [Gistr Documentation](https://aetherinox.github.io/obsidian-gistr)
+            - [Obsidian Documentation](https://help.obsidian.md/Home)
+
+            ---
+
+            <sub>I am a bot reaching out to you with an automated response. If the above info doesn't apply to you, please ignore it.</sub>
+            `;
+
+            /*
+                found searched word "for help"
+                    append / prepare message for bot to send
+            */
+
+            const HEfindWordList 	      = /^\b(?:have\s*(?:a|some)?\s*question*s?)|(?:can\s*you\s*(?:tell|help)\s*me)|(?:need\s*(?:some)?\s*(?:help|assistance|guidance))|(?:how\s*can\s*I\s*find)|(?:point\s*me\s*in\s*the\s*direction)|(?:where\s*can\s*I\s*find)|(?:where\s*(?:\N*)\s*(?:\N*)\s*find)|(?:please\s*help)|(?:where\s*\N*\s*(?:located|at))|(?:documentation)\b$/igm;
+            const HEbFoundMatchTitle    = Boolean( HEfindWordList.test( iss_title ) );
+            const HEbFoundMatchBody     = Boolean( HEfindWordList.test( iss_body ) );
+
+            if ( HEbFoundMatchTitle || HEbFoundMatchBody )
+            {
+              message.push  ( HE_message );
+              bHasMessage   = true;
+            }
+            
+            /*
+                Bot has message to send
+            */
+
+            if ( bHasMessage == true )
+            {
+                await github.rest.issues.createComment(
+                {
+                    issue_number:   context.issue.number,
+                    owner:          context.repo.owner,
+                    repo:           context.repo.repo,
+                    body:           message.join('\n'),
+                } );
+            }
+
+  # ---------------------------------------------------------------------------------------
   #   Issues > Add Assignees
   # ---------------------------------------------------------------------------------------
 
   issues-assign-assignees:
     name: >-
-      ✍️ Issue › Assign
+      ✍️ Issue › Assignees
     runs-on: ubuntu-latest
     needs: [ issues-assign-labels ]
     if: |
