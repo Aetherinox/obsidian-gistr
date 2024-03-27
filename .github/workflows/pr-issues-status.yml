@@ -298,8 +298,8 @@ jobs:
                     Do not change a title if the item starts with a PR: #
                 */
 
-                const bug_findPRTitle       = /^PR\s(?:[0-9]*:?)/igm;
-                const bug_bFoundPRTitle     = Boolean( bug_findPRTitle.test( iss_title ) );
+                const bug_findPRTitle         = /^PR\s(?:[0-9]*:?)/igm;
+                const bug_bFoundPRTitle       = Boolean( bug_findPRTitle.test( iss_title ) );
 
                 /*
                     - Check if issue title matches the issue label "Bug:"
@@ -312,7 +312,7 @@ jobs:
                     add_labels.push( `${ bug_lbl }` );
 
                     // Rename title to contain Bug:
-                    if ( !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                    if ( !bug_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                     {
                         const title           = issue.title;
                         let title_new         = title.replace( /^\s?bug\s*(.*?)\b/gi, '' );
@@ -346,8 +346,8 @@ jobs:
                     Do not change a title if the item starts with a PR: #
                 */
 
-                const findPRTitle           = /^PR\s(?:[0-9]*:?)/igm;
-                const bFoundPRTitle         = Boolean( feat_findWordList.test( iss_title ) );
+                const feat_findPRTitle          = /^PR\s(?:[0-9]*:?)/igm;
+                const feat_bFoundPRTitle        = Boolean( feat_findPRTitle.test( iss_title ) );
 
                 /*
                     - Check if issue title matches the issue label "Feature:"
@@ -360,7 +360,7 @@ jobs:
                     add_labels.push( `${ feat_lbl }` );
 
                     // Rename title to contain Feature:
-                    if ( !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                    if ( !feat_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                     {
                         const title           = issue.title;
                         let title_new         = title.replace( /^\s?feature\s*(.*?)\b/gi, '' );
@@ -395,8 +395,8 @@ jobs:
                     Do not change a title if the item starts with a PR: #
                 */
 
-                const findPRTitle           = /^PR\s(?:[0-9]*:?)/igm;
-                const bFoundPRTitle         = Boolean( urgn_findWordList.test( iss_title ) );
+                const urgn_findPRTitle          = /^PR\s(?:[0-9]*:?)/igm;
+                const urgn_bFoundPRTitle        = Boolean( urgn_findPRTitle.test( iss_title ) );
 
                 /*
                     - Check if issue title matches the issue label "Urgent:"
@@ -409,7 +409,7 @@ jobs:
                     add_labels.push( `${ urgn_lbl }` );
 
                     // Rename title to contain Urgent:
-                    if ( !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                    if ( !urgn_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                     {
                         const title           = issue.title;
                         let title_new         = title.replace( /^\s?emergency\s*(.*?)\b/gi, '' );
@@ -446,8 +446,8 @@ jobs:
                     Do not change a title if the item starts with a PR: #
                 */
 
-                const findPRTitle           = /^PR\s(?:[0-9]*:?)/igm;
-                const bFoundPRTitle         = Boolean( road_findWordList.test( iss_title ) );
+                const road_findPRTitle          = /^PR\s(?:[0-9]*:?)/igm;
+                const road_bFoundPRTitle        = Boolean( road_findPRTitle.test( iss_title ) );
 
                 /*
                     - Check if issue title matches the issue label "Roadmap:"
@@ -460,7 +460,7 @@ jobs:
                     add_labels.push( `${ road_lbl }` );
 
                     // Rename title to contain Roadmap:
-                    if ( !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                    if ( !road_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                     {
                         const title           = issue.title;
                         let title_new         = title.replace( /^\s?emergency\s*(.*?)\b/gi, '' );
