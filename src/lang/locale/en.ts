@@ -50,6 +50,8 @@ export default
     cfg_tab_og_header:                          'Opengist is a self-hosted pastebin powered by Git. All snippets are stored in a Git repository and can be read and/or modified using standard Git commands, or with the web interface. It is similiar to GitHub Gist, but open-source and is self-hosted. OpenGist supports Windows, Linux, and MacOS.',
     cfg_tab_gh_title:                           'Github',
     cfg_tab_gh_header:                          'Github Gists let you store and distribute code snippets without setting up a full-fledged repository. Store snippets such as strings, bash scripts, markdown, text files, and other small pieces of data.',
+    cfg_tab_po_title:                           'Portal (Developer)',
+    cfg_tab_po_header:                          'These settings display currently registered portals for Gistr.',
     cfg_tab_sp_title:                           'Support',
     cfg_tab_ge_keyword_name:                    'Trigger keyword',
     cfg_tab_ge_keyword_desc:                    'Word to use inside codeblocks to designate as a portal for showing gists',
@@ -177,6 +179,66 @@ export default
     cfg_tab_su_ver_status_new_beta_btn_tip:     'A newer beta release of Gistr is available',
     cfg_tab_su_ver_status_error_btn_tip:        'Could not communicate with the gistr server, retrying later',
     cfg_tab_su_ver_releases:                    'https://github.com/Aetherinox/obsidian-gistr/releases',
+
+    /*
+        Portal
+    */
+
+    cfg_tab_po_create_name:                     'Create Portal',
+    cfg_tab_po_create_desc:                     'Created a new registered portal',
+    cfg_tab_po_create_btn:                      'Create',
+    cfg_tab_po_list_desc:                       'List of portals registered:',
+    cfg_tab_po_list_none_title:                 'No Portals Found',
+    cfg_tab_po_list_none_msg:                   'No created portals can be found. Click the **Create Portal** button at the top of this settings interface to create your first',
+
+    cfg_po_edit_url_name:                       'URL',
+    cfg_po_edit_url_desc:                       'Direct path URL which leads to your assigned website portal',
+    cfg_po_edit_url_hold:                       'https://gist.github.com/username/XXXXXXXXX',
+
+    cfg_po_edit_name_name:                      'Name',
+    cfg_po_edit_name_desc:                      'Name assigned to the portal window. This can be used in a codeblock to call the name of the portal using a YAML structure.',
+    cfg_po_edit_name_hold:                      'Portal Name',
+
+    cfg_po_edit_icon_name:                      'Icon',
+    cfg_po_edit_icon_desc:                      'Icon displayed in the portal',
+    cfg_po_edit_icon_hold:                      'Leave blank to auto-detect',
+
+    cfg_po_edit_agent_name:                     'User agent',
+    cfg_po_edit_agent_desc:                     'Leave this alone if you are unsure what it does',
+    cfg_po_edit_agent_hold:                     'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/117.0/HBpt3US8-18',
+
+    cfg_po_edit_dock_name:                      'Dock / Position',
+    cfg_po_edit_dock_desc:                      'Sets the position for the page',
+
+    cfg_po_edit_pin_name:                       'Pin to menu',
+    cfg_po_edit_pin_desc:                       'If enabled: Portal will be pinned to the left bar',
+
+    cfg_po_edit_pkey_name:                      'Profile key',
+    cfg_po_edit_pkey_desc:                      'Portals with the same profile key will share cookies & storage',
+    cfg_po_edit_pkey_hold:                      '',
+
+    cfg_po_edit_zoom_name:                      'Zoom',
+    cfg_po_edit_zoom_desc:                      'Allows a webpage to be zoomed in or out on load',
+
+    cfg_po_edit_css_name:                       'CSS',
+    cfg_po_edit_css_desc:                       'Override CSS / stylesheet for window',
+    cfg_po_edit_css_hold:                       'No custom CSS provided',
+
+    cfg_po_edit_js_name:                        'JS',
+    cfg_po_edit_js_desc:                        'Override JS / javascript for window',
+    cfg_po_edit_js_hold:                        'No custom Javascript provided',
+
+    cfg_po_edit_advtoggle_name:                 'Advanced Settings',
+    cfg_po_edit_advtoggle_desc:                 'Make advanced menu options appear',
+
+    cfg_po_button_name:                         'Portal Actions',
+    cfg_po_button_desc:                         'Save or update settings for your configured portals',
+    cfg_po_button_opt_create:                   'Create Portal',
+    cfg_po_button_opt_update:                   'Update Portal',
+
+    po_url_missing:                             'Missing url parameter',
+    po_notice_restart_obsidian:                 'Change(s) will take effect after you restart Obsidian',
+    po_notice_portal_not_found:                 'Portal not found',
 
     /*
         Tab > Sync
