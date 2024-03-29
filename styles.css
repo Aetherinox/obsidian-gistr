@@ -875,6 +875,74 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
 }
 
 /*
+    Modal > Edit Portal
+*/
+
+.gistr-portal-edit-modal
+{
+    width:                  50%;
+    padding-left:           35px;
+    padding-right:          35px;
+    padding-bottom:         35px;
+}
+
+.saturyn--form-field input[ type='text' ]
+{
+    width:                  200px;
+    cursor:                 pointer;
+}
+
+.saturyn--dropdown select
+{
+    width:                  200px;
+    cursor:                 pointer;
+}
+
+.saturyn--slider input[ type="range" ]
+{
+    width:                  165px;
+    cursor:                 pointer;
+}
+
+.saturyn--toggle input[ type=checkbox ], .saturyn--toggle .checkbox-container
+{
+    cursor:                 pointer;
+}
+
+.gistr-portal-edit-modal .clickable-icon.setting-editor-extra-setting-button
+{
+    cursor:                 pointer;
+}
+
+.gistr-portal-edit-modal button
+{
+    cursor:                 pointer;
+}
+
+.gistr-portal-edit-modal-button-container
+{
+    margin-top:             1.5em;
+    margin-bottom:          3em;
+    display:                flex;
+    justify-content:        flex-start;
+    gap:                    var( --size-4-2 );
+    flex-wrap:              wrap;
+    font-size:              var( --font-ui-medium );
+}
+
+.saturyn--advanced-options
+{
+    border-top: 1px solid var(--background-modifier-border);
+    padding: 0.75em 0;
+    display: none;
+}
+
+.saturyn--advanced-options--show
+{
+    display: block;
+}
+
+/*
     Dependency > Pickr
 */
 
