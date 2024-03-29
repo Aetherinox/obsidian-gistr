@@ -57,6 +57,9 @@ The following is an outline of what Gistr can do for you:
 **Functionality**:
 - Supports embedding Gist mermaid graphs
 - Integrated a secondary method of viewing gists which makes gists appear in a frame which acts as a browser window. Allows you to read gists, as well as sign into Github or Opengist and edit your owned gists.
+  - `raw` mode supports the ability to specify additional properties:
+    - `zoom`
+    - `height`
 - Save notes from Obsidian as public or secret gists
   - Choose when you want to save a gist, or enable autosave to track changes
   - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta) (free). Open Gistr settings in Obsidian to configure.
@@ -103,7 +106,7 @@ This option displays gists in a browser-like environment. This method allows you
 
 <br />
 
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/d4b8a2a7-a4e1-4556-bf68-c9b09211b73c"></p>
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/a1104ae2-00b5-4835-97f5-9edd51f39f6e"></p>
 
 <br />
 <br />
