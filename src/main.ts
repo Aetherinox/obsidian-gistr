@@ -5,22 +5,18 @@
                   import the methods you need individually, otherwise you'll receive circular dependencies error.
 */
 
-import { App, Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownView, PluginManifest, Notice, requestUrl, addIcon } from 'obsidian'
+import { App, Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownView, PluginManifest, Notice, requestUrl, addIcon, ObsidianProtocolData } from 'obsidian'
 import { GistrSettings, SettingsGet, SettingsDefaults, SettingsSection } from 'src/settings/'
 import { BackendCore } from 'src/backend'
 import { GHGistGet, GHGistCopy, GHGistUpdate } from 'src/backend/services'
-import { Env, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconGithubSecret, AssetGithubIcon } from 'src/api'
+import { Env, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconGithubSecret, AssetGithubIcon, PortalID, PortalURLDefault } from 'src/api'
+import { SaturynRegister, SaturynParams, SaturynParamsHandle, SaturynUnload, SaturynPortalInitialize, SaturynModalPortalEdit, SaturynCodeblock, SaturynOpen, SaturynIsOpen } from 'src/api/Saturyn'
 import { lng } from 'src/lang'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
 import ShowContextMenu from 'src/menus/context'
 import lt from 'semver/functions/lt'
 import gt from 'semver/functions/gt'
-
-/*
-    Basic Declrations
-*/
-
-const AppBase               = 'app://obsidian.md'
+import crypto from 'crypto'
 
 /*
     Extend Plugin
@@ -33,7 +29,6 @@ export default class GistrPlugin extends Plugin
     readonly editor:            GistrEditor
     private ribbonIcon_pub:     HTMLElement
     private ribbonIcon_sec:     HTMLElement
-    private bLayoutReady        = false
     settings:                   GistrSettings
 
     constructor( app: App, manifest: PluginManifest )
@@ -85,15 +80,36 @@ export default class GistrPlugin extends Plugin
 	}
 
     /*
-        Settings > Load
+        Portal > Initialize
     */
+
+    private async InitializePortal( )
+    {
+        for ( const portalID in this.settings.portals )
+        {
+            SaturynRegister( this, this.settings.portals[ portalID ] )
+        }
+
+        SaturynRegister(
+            this, SaturynParamsHandle(
+            {
+                title:  'Satuyrn',
+                id:     PortalID,
+                icon:   'globe',
+                url:    PortalURLDefault
+            } )
+        )
+    }
 
     async onload( )
     {
         console.debug( lng( "base_debug_loading", process.env.NAME, process.env.PLUGIN_VERSION, process.env.AUTHOR ) )
 
         await this.loadSettings     ( )
+        await this.InitializePortal ( )
         this.addSettingTab          ( new SettingsSection( this.app, this ) )
+        this.registerPortal         ( )
+        SaturynCodeblock            ( this )
 
 		this.app.workspace.onLayoutReady( async ( ) =>
         {
@@ -165,7 +181,7 @@ export default class GistrPlugin extends Plugin
             Register Events
         */
 
-        const gistBackend                       = new BackendCore( this.settings )
+        const gistBackend                       = new BackendCore( this.settings, this )
         this.registerDomEvent                   ( window, "message", gistBackend.messageEventHandler )
         this.registerMarkdownCodeBlockProcessor ( this.settings.keyword, gistBackend.processor )
         this.registerEvent                      ( this.app.workspace.on( "editor-menu", this.GetContextMenu ) )
@@ -178,6 +194,112 @@ export default class GistrPlugin extends Plugin
         {
             this.versionCheck( )
         }
+    }
+
+    /*
+        Portal > Add
+    */
+
+    async addSaturyn( portal: SaturynParams )
+    {
+        const normalizePortal = SaturynParamsHandle( portal )
+
+        if ( !this.settings.portals.hasOwnProperty( normalizePortal.id ) )
+            SaturynRegister( this, normalizePortal )
+        else
+            new Notice( lng( 'po_notice_restart_obsidian' ) )
+
+        this.settings.portals[ normalizePortal.id ] = normalizePortal
+
+        await this.saveSettings( )
+    }
+
+    /*
+        Portal > Remove
+    */
+
+    async RemoveSaturyn( portalID: string )
+    {
+        if ( !this.settings.portals[ portalID ] )
+            new Notice( lng( 'po_notice_portal_not_found' ) )
+
+        const portal            = this.settings.portals[ portalID ]
+        await SaturynUnload     ( this.app.workspace, portal )
+
+        delete this.settings.portals[ portalID ]
+        await this.saveSettings ( )
+
+        new Notice( lng( 'po_notice_portal_not_found' ) )
+    }
+
+    /*
+        Portal > Register
+    */
+
+    private registerPortal( )
+    {
+        this.registerObsidianProtocolHandler( 'saturyn', this.handlePortal.bind( this ) )
+    }
+
+    /*
+        Portal > Get Params
+    */
+
+    getPortalParams( data: ObsidianProtocolData ): SaturynParams | undefined
+    {
+        const { title, url, id } = data
+
+        let targetPortal: SaturynParams | undefined
+
+        if ( id && this.settings.portals[ id ] )
+            targetPortal = this.settings.portals[ id ]
+
+        if ( targetPortal === undefined && title )
+            targetPortal = Object.values( this.settings.portals ).find(( portal ) => portal.title.toLowerCase( ) === title.toLowerCase( ) )
+
+        if ( targetPortal === undefined && url )
+            targetPortal = Object.values( this.settings.portals ).find( ( portal ) => portal.url.toLowerCase( ) === url.toLowerCase( ) )
+
+        if ( targetPortal !== undefined && url )
+            targetPortal.url = url
+
+        return targetPortal
+    }
+
+    /*
+        Find Portal
+    */
+
+    findPortal( field: 'title' | 'url', value: string ): SaturynParams | undefined
+    {
+        return Object.values( this.settings.portals ).find( ( portal ) =>
+            portal[ field ].toLowerCase( ) === value.toLowerCase( )
+        )
+    }
+
+    /*
+        Portal > Handle
+    */
+
+    async handlePortal( data: ObsidianProtocolData )
+    {
+        let targetPortal= this.getPortalParams( data )
+        if ( targetPortal === undefined )
+        {
+            if ( !data.url )
+            {
+                new Notice( lng( 'po_url_missing' ) )
+                return
+            }
+        }
+
+        const portal        = await SaturynOpen( this.app.workspace, targetPortal?.id || PortalID, targetPortal?.dock )
+        const portalView    = portal.view as SaturynPortalInitialize
+
+        portalView?.onFrameReady( ( ) =>
+        {
+            portalView.setUrl( data.url )
+        } )
     }
 
     /*
@@ -231,7 +353,7 @@ export default class GistrPlugin extends Plugin
             if ( !denounce_register[ file.path ] )
             {
                 if ( process.env.ENV === "dev" )
-                    console.log( "gistMonitorChanges.modify: Denouncer does not exist, creating" )   
+                    console.debug( "gistMonitorChanges.modify: Denouncer does not exist, creating" )   
 
                 denounce_register[ file.path ] = debounce( async ( note_full: string, file: TFile ) =>
                 await GHGistUpdate( { plugin: this, app: this.app, note_full, file } ), this.settings.sy_save_duration * 1000, this.settings.sy_enable_autosave_strict )
@@ -244,7 +366,7 @@ export default class GistrPlugin extends Plugin
                 await denounce_register[ file.path ]( note_full, file )
 
                 if ( process.env.ENV === "dev" )
-                    console.log( "gistMonitorChanges.modify: Autosave Denouncer" )         
+                    console.debug( "gistMonitorChanges.modify: Autosave Denouncer" )         
             }
         } )
     }
@@ -287,7 +409,23 @@ export default class GistrPlugin extends Plugin
 
     async loadSettings( )
     {
-        this.settings = Object.assign( { }, SettingsDefaults, await this.loadData( ) )
+        this.settings = await this.loadData( )
+        
+        this.settings =
+        {
+            ...SettingsDefaults,
+            ...this.settings
+        }
+
+        if ( !this.settings.portals )
+        {
+            this.settings.portals = { }
+        }
+
+        for ( const portalID in this.settings.portals )
+        {
+            this.settings.portals[ portalID ] = SaturynParamsHandle( this.settings.portals[ portalID ] )
+        }
     }
 
     /*
@@ -388,5 +526,15 @@ export default class GistrPlugin extends Plugin
             } )
         }
 	}
+
+    /*
+        Portal > Generate UUID
+    */
+
+    private generateUuid( )
+    {
+        const uuid = crypto.randomUUID( );
+        return `${ uuid }`
+    }
 
 }
