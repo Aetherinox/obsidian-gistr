@@ -207,7 +207,7 @@ jobs:
 
             const files_List    = `${{ steps.autocheck-get-changed-files.outputs.all_changed_files }}` || ''
             const files_Array   = files_List.split(',')
-            const branch_ref    = ${ context.payload.pull_request.head.ref }
+            const branch_ref    = `${ context.payload.pull_request.head.ref }`
 
             let message         = [ "\n<br />\n" ]
             message.push        ( "## Automatic Self-Check - #" + context.issue.number + "\n" );
@@ -652,7 +652,7 @@ jobs:
 
             if ( actor ==  "${{ env.BOT_NAME_DEPENDABOT }}" && bDependency )
                 labels.push( "${{ env.LABEL_TYPE_DEPENDENCY }}" );
-            elseif ( actor ==  "${{ env.BOT_NAME_DEPENDABOT }}" && bGitaction )
+            else if ( actor ==  "${{ env.BOT_NAME_DEPENDABOT }}" && bGitaction )
                 labels.push( "${{ env.LABEL_TYPE_GITACTION }}" );
 
             if ( context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_CHANGES_REQ }}" ).length > 0 )
