@@ -38,13 +38,13 @@ env:
   PREFIX_GIT:           "Git Action"
   PREFIX_URGENT:        "Urgent"
 
-  LABEL_BUG:            "Type ⇴ Bug"
-  LABEL_FEATURE:        "Type ⇴ Feature"
-  LABEL_ROADMAP:        "Type ⇴ Roadmap"
-  LABEL_DEPENDENCY:     "Type ⇴ Dependency"
-  LABEL_PR:             "Type ⇴ PR"
-  LABEL_DOCS:           "Type ⇴ Docs"
-  LABEL_GIT:            "Type ⇴ Git Action"
+  LABEL_BUG:            "Type ◦ Bug"
+  LABEL_FEATURE:        "Type ◦ Feature"
+  LABEL_ROADMAP:        "Type ◦ Roadmap"
+  LABEL_DEPENDENCY:     "Type ◦ Dependency"
+  LABEL_PR:             "Type ◦ Pull Request"
+  LABEL_DOCS:           "Type ◦ Docs"
+  LABEL_GIT:            "Type ◦ Git Action"
   LABEL_URGENT:         "⚠ Urgent"
 
   ASSIGN_USER:          Aetherinox
@@ -54,10 +54,13 @@ env:
 
   LABELS_JSON: |
     [
-      { "name": "Type ⇴ Bug", "color": "d73a4a", "description": "Something isn't working" },
-      { "name": "Type ⇴ Feature", "color": "36552B", "description": "Feature request" },
-      { "name": "Type ⇴ Urgent", "color": "ccb11d", "description": "This issue required priority." },
-      { "name": "Type ⇴ Roadmap", "color": "8F1784", "description": "Feature or bug currently planned for implementation." }
+      { "name": "Type ◦ Bug",                   "color": "9a2c2c", "description": "Something isn't working" },
+      { "name": "Type ◦ Dependency",            "color": "243759", "description": "Item is associated to dependency" },
+      { "name": "Type ◦ Docs",                  "color": "0e588d", "description": "Improvements or modifications to docs" },
+      { "name": "Type ◦ Feature",               "color": "3c4e93", "description": "Feature request" },
+      { "name": "Type ◦ Git Action",            "color": "030406", "description": "GitHub Action / workflow" },
+      { "name": "Type ◦ Pull Request",          "color": "8F1784", "description": "Normal pull request" },
+      { "name": "Type ◦ Roadmap",               "color": "8F1784", "description": "Feature or bug currently planned for implementation" }
     ]
 
 jobs:

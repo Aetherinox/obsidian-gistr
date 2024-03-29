@@ -12,34 +12,34 @@ custom:
     keywords:
       - '[roadmap]'
     labels:
-      - roadmap
+      - Type ◦ Roadmap
   - location: title
     keywords:
       - '[road-map]'
     labels:
-      - roadmap
+      - Type ◦ Roadmap
   - location: title
     keywords:
       - '[bug]'
     labels:
-      - bug
+      - Type ◦ Bug
   - location: title
     keywords:
       - '[issue]'
     labels:
-      - bug
+      - Type ◦ Bug
   - location: title
     keywords:
       - '[feature]'
     labels:
-      - feature-request
+      - Type ◦ Feature
   - location: body
     keywords:
       - 'request feature'
     labels:
-      - feature-request
+      - Type ◦ Feature
   - location: title
     keywords:
       - '[request]'
     labels:
-      - feature-request
+      - Type ◦ Feature

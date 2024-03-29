@@ -22,15 +22,15 @@ on:
 # ---------------------------------------------------------------------------------------
 
 env:
-    LABEL_CHECK_CHANGES_REQ:        AC/Changes Required
-    LABEL_CHECK_REVIEW_READY:       AC/Passed
-    LABEL_CHECK_REBASE_REQ:         AC/Needs Rebase
-    LABEL_CHECK_SECURITY_ERR:       AC/Security Warning
-    LABEL_CHECK_STATUS_CHGMADE:     AC/Changes Made
-    LABEL_CHECK_STATUS_FAILED:      AC/Failed
-    LABEL_CHECK_SCAN_SKIPPED:       AC/Skipped Scan
-    LABEL_TYPE_PR:                  Type/PR
-    LABEL_TYPE_DEPENDENCY:          Type/Dependency
+    LABEL_CHECK_CHANGES_REQ:        AC ✦ Changes Required
+    LABEL_CHECK_REVIEW_READY:       AC ✦ Passed
+    LABEL_CHECK_REBASE_REQ:         AC ✦ Needs Rebase
+    LABEL_CHECK_SECURITY_ERR:       AC ✦ Security Warning
+    LABEL_CHECK_STATUS_CHGMADE:     AC ✦ Changes Made
+    LABEL_CHECK_STATUS_FAILED:      AC ✦ Failed
+    LABEL_CHECK_SCAN_SKIPPED:       AC ✦ Skipped Scan
+    LABEL_TYPE_PR:                  Type ◦ Pull Request
+    LABEL_TYPE_DEPENDENCY:          Type ◦ Dependency
 
     ASSIGN_USER:                    Aetherinox
     BOT_NAME_1:                     AdminServ
@@ -38,16 +38,16 @@ env:
     BOT_NAME_DEPENDABOT:            dependabot[bot]
     LABELS_JSON: |
       [
-        { "name": "AC/Failed",              "color": "d73a4a", "description": "Autocheck failed to run through a complete cycle, requires investigation" },
-        { "name": "AC/Passed",              "color": "ccb11d", "description": "PR is ready to be reviewed by primary developer" },
-        { "name": "AC/Changes Required",    "color": "36552B", "description": "The PR requires changes to be made to the package before it will be accepted" },
-        { "name": "AC/Review Required",     "color": "8F1784", "description": "PR needs to be reviewed by another person, after the currently requested changes have been made" },
-        { "name": "AC/Needs Rebase",        "color": "8F1784", "description": "Due to the permissions on the requesting repo, this pull request must be rebased by the author" },
-        { "name": "AC/Security Warning",    "color": "8F1784", "description": "Pull request contents does not conform to developer policies, or includes potentially dangerous code" },
-        { "name": "AC/Changes Made",        "color": "8F1784", "description": "The requested changes have been made and is pending a re-scan" },
-        { "name": "AC/Skipped Scan",        "color": "8F1784", "description": "Code scanning skipped because PR author believes result is wrong" },
-        { "name": "Type ⇴ PR",              "color": "8F1784", "description": "Item is marked as a Pull Request" },
-        { "name": "Type ⇴ Dependency",      "color": "243759", "description": "Item is associated to dependency" }
+        { "name": "AC ✦ Failed",               "color": "d73a4a", "description": "Autocheck failed to run through a complete cycle, requires investigation" },
+        { "name": "AC ✦ Passed",               "color": "ccb11d", "description": "Ready to be reviewed" },
+        { "name": "AC ✦ Changes Required",     "color": "8F1784", "description": "Requires changes to be made to the package before being accepted" },
+        { "name": "AC ✦ Review Required",      "color": "8F1784", "description": "PR needs to be reviewed by another person, after the requested changes have been made" },
+        { "name": "AC ✦ Needs Rebase",         "color": "8F1784", "description": "Due to the permissions on the requesting repo, this pull request must be rebased by the author" },
+        { "name": "AC ✦ Security Warning",     "color": "761620", "description": "Does not conform to developer policies, or includes potentially dangerous code" },
+        { "name": "AC ✦ Changes Made",         "color": "8F1784", "description": "Requested changes have been made and are pending a re-scan" },
+        { "name": "AC ✦ Skipped Scan",         "color": "8F1784", "description": "Author has skipped code scan" },
+        { "name": "Type ◦ Pull Request",        "color": "8F1784", "description": "Normal pull request" },
+        { "name": "Type ◦ Dependency",          "color": "243759", "description": "Item is associated to dependency" }
       ]
 
 # ---------------------------------------------------------------------------------------
