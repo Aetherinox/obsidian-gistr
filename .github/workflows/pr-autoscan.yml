@@ -61,7 +61,9 @@ jobs:
       id-token: write
       contents: read
       actions: read
+      issues: write
       pull-requests: write
+      
     steps:
 
       # ---------------------------------------------------------------------------------------
@@ -705,8 +707,3 @@ jobs:
                 repo:           context.repo.repo,
                 body:           message.join('\n'),
             } );
-
-    permissions:
-      contents: read
-      issues: write
-      pull-requests: write
