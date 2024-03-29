@@ -31,6 +31,7 @@ env:
     LABEL_CHECK_SCAN_SKIPPED:       AC ✦ Skipped Scan
     LABEL_TYPE_PR:                  Type ◦ Pull Request
     LABEL_TYPE_DEPENDENCY:          Type ◦ Dependency
+    LABEL_TYPE_GITACTION:           Type ◦ Git Action
 
     ASSIGN_USER:                    Aetherinox
     BOT_NAME_1:                     AdminServ
@@ -206,6 +207,7 @@ jobs:
 
             const files_List    = `${{ steps.autocheck-get-changed-files.outputs.all_changed_files }}` || ''
             const files_Array   = files_List.split(',')
+            const branch_ref    = ${ context.payload.pull_request.head.ref }
 
             let message         = [ "\n<br />\n" ]
             message.push        ( "## Automatic Self-Check - #" + context.issue.number + "\n" );
@@ -287,6 +289,16 @@ jobs:
                 Entries are CASE sensitive
                 For folders, append / at the end of the parent directory
             */
+
+            const type_dependency =
+            [
+                "dependabot/npm_and_yarn"
+            ];
+
+            const type_gitaction =
+            [
+                "dependabot/github_actions"
+            ];
 
             const files_skipList =
             [
@@ -635,8 +647,13 @@ jobs:
                 Determine Labels
             */
 
-            if ( actor ==  "${{ env.BOT_NAME_DEPENDABOT }}" )
+            const bGitaction    = type_gitaction.some( s => s.includes( branch_ref ) || branch_ref.includes( s ) );
+            const bDependency   = type_dependency.some( s => s.includes( branch_ref ) || branch_ref.includes( s ) );
+
+            if ( actor ==  "${{ env.BOT_NAME_DEPENDABOT }}" && bDependency )
                 labels.push( "${{ env.LABEL_TYPE_DEPENDENCY }}" );
+            elseif ( actor ==  "${{ env.BOT_NAME_DEPENDABOT }}" && bGitaction )
+                labels.push( "${{ env.LABEL_TYPE_GITACTION }}" );
 
             if ( context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_CHANGES_REQ }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_CHANGES_REQ }}" );
