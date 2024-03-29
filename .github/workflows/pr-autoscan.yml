@@ -65,38 +65,6 @@ jobs:
       #   however this isnt available for 'issue_comment'
       # ---------------------------------------------------------------------------------------
 
-      - name: 🏷️ Verify Existing Labels
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.ADMINSERV_TOKEN_CL }}
-          script: |
-            const labels = JSON.parse( process.env.LABELS_JSON );
-            for ( const label of labels )
-            {
-                try
-                {
-                    await github.rest.issues.createLabel(
-                    {
-                        owner:        context.repo.owner,
-                        repo:         context.repo.repo,
-                        name:         label.name,
-                        description:  label.description || '',
-                        color:        label.color
-                    });
-                }
-                catch ( err )
-                {
-                    if ( err.status === 422 )
-                    {
-                        console.log( `Label '${label.name}' already exists. Skipping.` );
-                    }
-                    else
-                    {
-                        console.error( `Error creating label '${label.name}': ${err}` );
-                    }
-                }
-            }
-  
       # ---------------------------------------------------------------------------------------
       #   get issue number
       # ---------------------------------------------------------------------------------------
