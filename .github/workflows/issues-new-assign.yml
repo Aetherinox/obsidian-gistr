@@ -178,6 +178,7 @@ jobs:
 
             let iss_title               = `${{ steps.label_issues_initialize.outputs.issue_title }}` || `${ context.payload.issue.title }`;
             let iss_body                = `${ context.payload.issue.body }`;
+            let iss_author              = `${ context.payload.issue.user.login }`;
 
             const iss_title_lc          = iss_title.toLowerCase( );
 
@@ -252,10 +253,13 @@ jobs:
                 console.log( `Adding Tag ....................... ${ bug_lbl }` )
                 console.log( "\n" )
 
+                if ( iss_author === `${{ env.BOT_NAME_DEPENDABOT }}` )
+                    core.info( `Skipping: Detected ${ iss_author }` )
+
                 // Rename title to contain Bug:
                 // Make sure issue / pr title doesnt already contain a beginning title tag
 
-                if ( !bug_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                if ( iss_author !== `${{ env.BOT_NAME_DEPENDABOT }}` && !bug_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                 {
                     console.log( "Renaming Title" )
                     console.log( `Old Title: .................. ${ iss_title }` )
@@ -377,10 +381,13 @@ jobs:
                 console.log( `Adding Tag ....................... ${ feat_lbl }` )
                 console.log( "\n" )
 
+                if ( iss_author === `${{ env.BOT_NAME_DEPENDABOT }}` )
+                    core.info( `Skipping: Detected ${ iss_author }` )
+
                 // Rename title to contain Feature:
                 // Make sure issue / pr title doesnt already contain a beginning title tag
 
-                if ( !feat_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                if ( iss_author !== `${{ env.BOT_NAME_DEPENDABOT }}` && !feat_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                 {
                     console.log( "Renaming Title" )
                     console.log( `Old Title: .................. ${ iss_title }` )
@@ -503,10 +510,13 @@ jobs:
                 console.log( `Adding Tag ....................... ${ urgn_lbl }` )
                 console.log( "\n" )
 
+                if ( iss_author === `${{ env.BOT_NAME_DEPENDABOT }}` )
+                    core.info( `Skipping: Detected ${ iss_author }` )
+
                 // Rename title to contain Urgent:
                 // Make sure issue / pr title doesnt already contain a beginning title tag
 
-                if ( !urgn_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                if ( iss_author !== `${{ env.BOT_NAME_DEPENDABOT }}` && !urgn_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                 {
                     console.log( "Renaming Title" )
                     console.log( `Old Title: .................. ${ iss_title }` )
@@ -631,10 +641,13 @@ jobs:
                 console.log( `Adding Tag .................... ${ road_lbl }` )
                 console.log( "\n" )
 
+                if ( iss_author === `${{ env.BOT_NAME_DEPENDABOT }}` )
+                    core.info( `Skipping: Detected ${ iss_author }` )
+
                 // Rename title to contain Roadmap:
                 // Make sure issue / pr title doesnt already contain a beginning title tag
 
-                if ( !road_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                if ( iss_author !== `${{ env.BOT_NAME_DEPENDABOT }}` && !road_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                 {
                     console.log( "Renaming Title" )
                     console.log( `Old Title: .................. ${ iss_title }` )
