@@ -7,6 +7,18 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.6.0 <small>March 29, 2024</small> { id="1.6.0" }
+
+- `feat`: added `raw` property
+    - added property `height`
+    - added property `zoom`
+    - `height` and `zoom` only available in **raw mode**
+- `feat`: added ability to view gists with a secondary method which acts as a browser. gives the ability to sign into Github, view, and edit gists. 
+- `feat`: added compatibility for Gist **mermaid graphs**
+- `dep`: added **Saturyn** package for Chromium integration
+- `perf` optimizations for loading gists and caching information
+- `docs`: updated demo vault to include new examples and the introduction of **property mode**
+
 ### <!-- md:version stable- --> 1.5.0 <small>March 25, 2024</small> { id="1.5.0" }
 
 - `feat`: added new format for embedded gists

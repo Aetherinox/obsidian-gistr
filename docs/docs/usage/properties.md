@@ -19,6 +19,9 @@ You have numerous properties you can set for each embedded gist:
 | `theme` | Theme to use for a specific embedded gist block |
 | `color` | Text color to use for non syntax-highlighted code |
 | `background` | Direct URL to image which will be used as the background for the codeblock. |
+| `raw` | Allows you to integrate gists with mermaid graphs as a actual website instead of a codeblock. This property also works with normal gists. Gives you the ability to sign in to Github, as well as edit gists. |
+| `zoom` | _**(Raw Mode Only)**_: Determines how big the content and text will appear in the gist window. Default value: `1`. 50% would be `0.5`|
+| `height` | _**(Raw Mode Only)**_: Specify the height of the window when displaying a gist. |
 
 <br />
 <br />
@@ -307,6 +310,52 @@ background:    https://i.imgur.com/95Tajqd.png
 color:         FFFFFF
 ```
 ````
+
+<br />
+
+### Raw
+<!-- md:version stable-1.6.0 -->
+<!-- md:default `none` -->
+
+The `raw` property allows you to integrate gists which utilize **Mermaid Graphs**.  This property makes the gist act like an integrated browser which gives you the ability to actually sign in to Github, view the mermaid graph, and even edit it.
+
+This property also works with normal gists if you wish to view the gist in a browser-like environment.
+
+````ini
+```gistr
+url:     https://gist.github.com/Aetherinox/8e4707e6ae0d688935065133a4cbd398
+raw:     true
+```
+````
+
+<br />
+
+<figure markdown="span">
+  ![Github: Mermaid Graph](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/ff485a96-c26d-49f2-8324-cc2b5e74357b){ width="100%" }
+  <figcaption>Github: Mermaid Graph using `raw` mode</figcaption>
+</figure>
+
+<br />
+
+If you do decide to use the `raw` property; you will also gain access to a few additional properties you can add:
+
+<br />
+
+#### Property: Zoom
+<!-- md:version stable-1.6.0 -->
+<!-- md:default `1` -->
+
+Since the `raw` property makes your gists behave more like a real browser, we've included the `zoom` property which allows you to make the contents of the site bigger or smaller.
+
+The default value is `1` which equals `100%`. If you would like to use `50%`, then you would enter `0.5`. You may also set the content size to `2` which would make the content appear at `200%`.
+
+<br />
+
+#### Property: Height
+<!-- md:version stable-1.6.0 -->
+<!-- md:default `600` -->
+
+The `height` property allows you to specify how tall the window will be within your Obsidian note. If you do not specify a custom height, then it will default to `600`.
 
 <br />
 <br />

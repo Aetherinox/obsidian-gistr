@@ -8,7 +8,7 @@ Gistr allows you to embed gist snippets from Github and Opengist directly into y
 
 <br />
 
-# Single-Line Style
+# Single-Line Method
 This format allows you to create an embedded gist by making a codeblock which begins with the keyword `gistr`, and then providing the link to the gist you wish to embed.
 
 <br />
@@ -43,15 +43,15 @@ The above code will create an embedded gist, targeting the file `obsidian_demo_d
 
 !!! note "Background & text color compatibility"
 
-    The `single-line format` does **not** support specifying a background image or text color.
+    The `single-line nethod` does **not** support specifying a background image or text color.
 
     You must use the [#block-style] explained below.
 
 
 <br />
 
-# Block Style
-The `block style` structure allows you to embed a gist using a list of properties and values as the example below shows; which will embedded a gist using the `dark` theme, the targeted file `obsidian_demo_doc_2`, with white text `FFFFFF` and a background image from imgur.com.
+# Property Method
+The `property method` structure allows you to embed a gist using a list of properties and values as the example below shows; which will embedded a gist using the `dark` theme, the targeted file `obsidian_demo_doc_2`, with white text `FFFFFF` and a background image from imgur.com.
 
 ````
 ```gistr
