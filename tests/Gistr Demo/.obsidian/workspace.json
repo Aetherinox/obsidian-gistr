@@ -37,7 +37,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "2. Github.md",
+                "file": "4. Mermaid Charts & Advanced Embeds.md",
                 "mode": "source",
                 "source": false
               }
@@ -110,7 +110,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "2. Github.md",
+                "file": "4. Mermaid Charts & Advanced Embeds.md",
                 "collapseAll": false,
                 "extraContext": true,
                 "sortOrder": "alphabetical",
@@ -127,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "2. Github.md",
+                "file": "4. Mermaid Charts & Advanced Embeds.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -150,7 +150,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "2. Github.md"
+                "file": "4. Mermaid Charts & Advanced Embeds.md"
               }
             }
           }
@@ -176,8 +176,8 @@
   },
   "active": "fd79962cd61072a6",
   "lastOpenFiles": [
-    "4. Mermaid Charts & Advanced Embeds.md",
     "2. Github.md",
+    "4. Mermaid Charts & Advanced Embeds.md",
     "3. OpenGist.md",
     "0. Official Documentation.md",
     "1. Methods.md"
