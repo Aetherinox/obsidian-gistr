@@ -55,14 +55,13 @@ env:
 # ---------------------------------------------------------------------------------------
 
 jobs:
-  autocheck-validation:
+  pr-autoscan:
     runs-on: ubuntu-latest
     permissions:
-      id-token: write
       contents: read
       actions: read
       issues: write
-      pull-requests: write
+      pull-requests: read
       
     steps:
 
@@ -103,38 +102,6 @@ jobs:
                     }
                 }
             }
-
-      - name: 🏷️ Verify Existing Labels
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.ADMINSERV_TOKEN_CL || github.token }}
-          script: |
-            const labels = JSON.parse( process.env.LABELS_JSON );
-            for ( const label of labels )
-            {
-                try
-                {
-                    await github.rest.issues.createLabel(
-                    {
-                        owner:        context.repo.owner,
-                        repo:         context.repo.repo,
-                        name:         label.name,
-                        description:  label.description || '',
-                        color:        label.color
-                    });
-                }
-                catch ( err )
-                {
-                    if ( err.status === 422 )
-                    {
-                        console.log( `Label '${label.name}' already exists. Skipping.` );
-                    }
-                    else
-                    {
-                        console.error( `Error creating label '${label.name}': ${err}` );
-                    }
-                }
-            }
   
       # ---------------------------------------------------------------------------------------
       #   get issue number
@@ -143,7 +110,7 @@ jobs:
       - uses: actions/github-script@v7
         id: autocheck-get-issue-number
         with:
-          github-token: ${{ secrets.ADMINSERV_TOKEN_CL }}
+          github-token: ${{ secrets.ADMINSERV_TOKEN_CL || github.token }}
           script: |
             if ( context.issue.number )
             {
@@ -176,7 +143,7 @@ jobs:
       # ---------------------------------------------------------------------------------------
         
       - uses: actions/checkout@v4
-        if: ( github.event_name == 'pull_request' ) || ( github.event_name == 'issue_comment' && contains( github.event.comment.html_url, '/pull/' ) && contains( github.event.comment.body, '/rescan' ) )
+        if: ( github.event_name == 'pull_request_target' ) || ( github.event_name == 'pull_request' ) || ( github.event_name == 'issue_comment' && contains( github.event.comment.html_url, '/pull/' ) && contains( github.event.comment.body, '/rescan' ) )
         with:
           fetch-depth: 0
           ref: "refs/pull/${{ steps.autocheck-get-issue-number.outputs.result }}/merge"
@@ -219,6 +186,10 @@ jobs:
           COUNT_RENAMED:    ${{ steps.autocheck-get-changed-files.outputs.renamed_files_count }}
           COUNT_COPIED:     ${{ steps.autocheck-get-changed-files.outputs.copied_files_count }}
 
+      - name: List Directories
+        run: |
+          ls
+
       # ---------------------------------------------------------------------------------------
       #   Run autocheck
       # ---------------------------------------------------------------------------------------
@@ -227,7 +198,7 @@ jobs:
         id: autocheck-run
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.ADMINSERV_TOKEN_CL }}
+          github-token: ${{ secrets.ADMINSERV_TOKEN_CL || github.token }}
           script: |
             const fs            = require( 'fs' );
             const escape_html   = ( unsafe ) => unsafe.replace( /&/g, '&amp;' ).replace( /</g, '&lt;' ).replace( />/g, '&gt;' ).replace( /"/g, '&quot;' ).replace( /'/g, '&#039;' );
