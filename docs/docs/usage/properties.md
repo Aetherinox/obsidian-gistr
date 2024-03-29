@@ -331,7 +331,7 @@ raw:     true
 <br />
 
 <figure markdown="span">
-  ![Github: Mermaid Graph](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/ff485a96-c26d-49f2-8324-cc2b5e74357b){ width="100%" }
+  ![Github: Mermaid Graph](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/a1104ae2-00b5-4835-97f5-9edd51f39f6e){ width="100%" }
   <figcaption>Github: Mermaid Graph using `raw` mode</figcaption>
 </figure>
 
