@@ -2,7 +2,7 @@ name: "🐛 Bug Report"
 description: Found something you weren't expecting? Report it here!
 title: "🐛 Bug: <title>"
 labels: [
-  "Type ⇴ Bug"
+  "Type ◦ Bug"
 ]
 body:
   - type: markdown
