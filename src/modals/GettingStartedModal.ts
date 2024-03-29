@@ -197,7 +197,7 @@ export default class ModalGettingStarted extends Modal
 
 		this.cblk_preview = contentEl.createDiv( )
 
-		const gs_UsageCodeblock_gh = "```````" + "\n" + "```" + this.settings.keyword + "\n" + "gist.github.com/username/YOUR_GIST_ID" + "\n" + "gist.github.com/username/YOUR_GIST_ID#file_name" + "\n" + "gist.github.com/username/YOUR_GIST_ID&theme_name" + "\n" + "```" + "\n```````"
+		const gs_UsageCodeblock_gh = "```````" + "\n" + "```" + this.settings.keyword + "\n" + "url:           gist.github.com/username/YOUR_GIST_ID" + "\n" + "theme:         dark" + "\n" + "background:    https://i.imgur.com/95Tajqd.png" + "\n" + "color:         FFFFFF" + "\n" + "```" + "\n```````"
 		MarkdownRenderer.render( this.app, gs_UsageCodeblock_gh, this.cblk_preview, gs_UsageCodeblock_gh, this.plugin )
 
 		AddLine( contentEl, "", "div", "gistr-gs-separator" )
@@ -234,7 +234,7 @@ export default class ModalGettingStarted extends Modal
 
 		this.cblk_preview = contentEl.createDiv( )
 
-		const gs_UsageCodeblock = "```````" + "\n" + "```" + this.settings.keyword + "\n" + "gist.domain.com/username/YOUR_GIST_ID" + "\n" + "gist.domain.com/username/YOUR_GIST_ID&theme_name" + "\n" + "```" + "\n```````"
+		const gs_UsageCodeblock = "```````" + "\n" + "```" + this.settings.keyword + "\n" + "url:           gist.domain.com/username/YOUR_GIST_ID" + "\n" + "theme:         dark" + "\n" + "background:    https://i.imgur.com/95Tajqd.png" + "\n" + "color:         FFFFFF" + "\n" + "```" + "\n```````"
 		MarkdownRenderer.render( this.app, gs_UsageCodeblock, this.cblk_preview, gs_UsageCodeblock, this.plugin )
 
 		/*
