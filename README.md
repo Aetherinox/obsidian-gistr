@@ -13,7 +13,9 @@
 
 - [About](#about)
 - [Features](#features)
-  - [Integrated Gists:](#integrated-gists)
+  - [Methods:](#methods)
+    - [Method 1: Codeblock](#method-1-codeblock)
+    - [Method 2: Integrated Browser](#method-2-integrated-browser)
   - [Convert Note to Gist:](#convert-note-to-gist)
 - [Usage](#usage)
   - [Github Gist](#github-gist)
@@ -53,6 +55,8 @@ The following is an outline of what Gistr can do for you:
 <br />
 
 **Functionality**:
+- Supports embedding Gist mermaid graphs
+- Integrated a secondary method of viewing gists which makes gists appear in a frame which acts as a browser window. Allows you to read gists, as well as sign into Github or Opengist and edit your owned gists.
 - Save notes from Obsidian as public or secret gists
   - Choose when you want to save a gist, or enable autosave to track changes
   - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta) (free). Open Gistr settings in Obsidian to configure.
@@ -70,16 +74,36 @@ The following is an outline of what Gistr can do for you:
 <br />
 
 # Features
-This section gives a brief explanation of what Gistr can do:
+This section gives a brief explanation of what Gistr can do. Please note that the list below is very minimal and does not cover everything the plugin can do. To view a full feature list; read the documentation:
+
+- [Docs: Basic Usage](https://aetherinox.github.io/obsidian-gistr/usage/basic/)
+- [Docs: Properties List](https://aetherinox.github.io/obsidian-gistr/usage/properties/)
 
 <br />
 
-## Integrated Gists:
-This feature allows you to take gists from Github and OpenGist and place them within your notes in a codeblock. You can integrate any gist by specifying hte URL to that gist; they don't have to be your own.
+## Methods:
+As of version `1.6.0`, Gistr now includes **two** ways to integrate gists into your obsidian.md notes.
+
+- Method 1: [Codeblocks](#method-1-codeblock)
+- Method 2: [Integrated Browser](#method-2-integrated-browser)
 
 <br />
 
-<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/2275ea7f-b94c-47d5-87ec-f623b1cbf0c5"></p>
+### Method 1: Codeblock
+This option displays gists in a codeblock with line numbers, and the text of the gist.
+
+<br />
+
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/0670cb0c-56d7-4495-8ee2-9776ec9befca"></p>
+
+<br /><br />
+
+### Method 2: Integrated Browser
+This option displays gists in a browser-like environment. This method allows you to sign into Github and view, or edit your gists.
+
+<br />
+
+<p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/d4b8a2a7-a4e1-4556-bf68-c9b09211b73c"></p>
 
 <br />
 <br />
@@ -118,8 +142,7 @@ To embed a Github Gist snippet or OpenGist, add a new code block:
 
 ````shell
 ```gistr
-https://gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+url:    https://gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 ````
 
@@ -159,7 +182,8 @@ Despite whatever theme you have selected in the Gistr settings, you can force a 
 
 ````shell
 ```gistr
-https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx&dark
+url:    https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+theme:  dark
 ```
 ````
 
@@ -174,8 +198,7 @@ Showing gists from your OpenGist server work in a similar manner to Github. To d
 
 ````shell
 ```gistr
-https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+url:    https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 ````
 
@@ -185,7 +208,7 @@ gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 <br />
 
-To force a specific theme, append `&themename` at the end of the url
+You may also force an individual gist to use a specific theme:
 
 <br />
 
@@ -196,8 +219,8 @@ To force a specific theme, append `&themename` at the end of the url
 <br />
 
 ```shell
-https://gist.yourdomain.com/Username/Gist_ID&light
-https://gist.yourdomain.com/Username/Gist_ID&dark
+url:    https://gist.yourdomain.com/Username/Gist_ID
+theme:  light
 ```
 
 <br />

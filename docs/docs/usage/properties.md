@@ -315,7 +315,7 @@ color:         FFFFFF
 
 ### Raw
 <!-- md:version stable-1.6.0 -->
-<!-- md:default `none` -->
+<!-- md:default `false` -->
 
 The `raw` property allows you to integrate gists which utilize **Mermaid Graphs**.  This property makes the gist act like an integrated browser which gives you the ability to actually sign in to Github, view the mermaid graph, and even edit it.
 

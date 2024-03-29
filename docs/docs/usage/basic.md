@@ -66,3 +66,15 @@ background:   https://i.imgur.com/95Tajqd.png
 <br />
 
 The above example links an embedded gist, using the `dark` theme, the targeted file `obsidian_demo_doc_2`, with white text `FFFFFF` and a background image from imgur.com
+
+<br />
+
+With the introduction of `raw mode`, you may also integrate an actual gist website into your notes using:
+
+````
+```gistr
+url:          https://gist.github.com/Aetherinox/5143c674e9adea5b256f5f58fe54ffbc
+raw:          true
+height:       500
+zoom:         0.7
+````
