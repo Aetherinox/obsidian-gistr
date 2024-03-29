@@ -226,6 +226,7 @@ jobs:
             for ( const issue of issues.data )
             {
 
+                const author            = `${ issue.user.login }`;
                 let date_UpdateDate     = new Date( `${ issue.updated_at }` ?? `${ issue.created_at }` );   // Tue Mar 26 2024 16:40:41 GMT+0000 (Coordinated Universal Time)
                 date_UpdateDate.toISOString( )                                                              // Tue Mar 26 2024 16:40:41 GMT+0000 (Coordinated Universal Time) (string)
 
@@ -317,8 +318,11 @@ jobs:
 
                     add_labels.push( `${ bug_lbl }` );
 
+                    if ( author === `${{ env.BOT_NAME_DEPENDABOT }}` )
+                        core.info( `Skipping: Detected ${ author }` )
+
                     // Rename title to contain Bug:
-                    if ( !bug_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                    if ( author !== `${{ env.BOT_NAME_DEPENDABOT }}` && !bug_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                     {
                         const title           = issue.title;
                         let title_new         = title.replace( /^\s?bug\s*(.*?)\b/gi, '' );
@@ -347,7 +351,7 @@ jobs:
                         https://regex101.com/r/fR1Hm6/1
                 */
     
-                const feat_findWordList 	      = /^(?:(?:request|include|see)\s*(?:an?|the?)\s*(?:feature|addon|addition|plugin))|(?:(?:add|see|get)\s*support\s*(?:for|with|of))|(?:can\s*we\s*get\s*(?:the|a)\s*(?:ability|feature))|(?:💡 Feature:)$/igm;
+                const feat_findWordList 	    = /^(?:(?:request|include|see)\s*(?:an?|the?)\s*(?:feature|addon|addition|plugin))|(?:(?:add|see|get)\s*support\s*(?:for|with|of))|(?:can\s*we\s*get\s*(?:the|a)\s*(?:ability|feature))|(?:💡 Feature:)$/igm;
                 const feat_bFoundMatchTitle     = Boolean( feat_findWordList.test( iss_title ) );
                 const feat_bFoundMatchBody      = Boolean( feat_findWordList.test( iss_body ) );
 
@@ -371,8 +375,11 @@ jobs:
 
                     add_labels.push( `${ feat_lbl }` );
 
+                    if ( author === `${{ env.BOT_NAME_DEPENDABOT }}` )
+                        core.info( `Skipping: Detected ${ author }` )
+
                     // Rename title to contain Feature:
-                    if ( !feat_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                    if ( author !== `${{ env.BOT_NAME_DEPENDABOT }}` && !feat_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                     {
                         const title           = issue.title;
                         let title_new         = title.replace( /^\s?feature\s*(.*?)\b/gi, '' );
@@ -426,8 +433,11 @@ jobs:
 
                     add_labels.push( `${ urgn_lbl }` );
 
+                    if ( author === `${{ env.BOT_NAME_DEPENDABOT }}` )
+                        core.info( `Skipping: Detected ${ author }` )
+
                     // Rename title to contain Urgent:
-                    if ( !urgn_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                    if ( author !== `${{ env.BOT_NAME_DEPENDABOT }}` && !urgn_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                     {
                         const title           = issue.title;
                         let title_new         = title.replace( /^\s?emergency\s*(.*?)\b/gi, '' );
@@ -483,8 +493,11 @@ jobs:
 
                     add_labels.push( `${ road_lbl }` );
 
+                    if ( author === `${{ env.BOT_NAME_DEPENDABOT }}` )
+                        core.info( `Skipping: Detected ${ author }` )
+
                     // Rename title to contain Roadmap:
-                    if ( !road_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
+                    if ( author !== `${{ env.BOT_NAME_DEPENDABOT }}` && !road_bFoundPRTitle && !iss_title_lc.startsWith( bug_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( feat_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( urgn_tag.toLowerCase( ) ) && !iss_title_lc.startsWith( road_tag.toLowerCase( ) ) )
                     {
                         const title           = issue.title;
                         let title_new         = title.replace( /^\s?emergency\s*(.*?)\b/gi, '' );
