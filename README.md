@@ -163,7 +163,8 @@ If your gist contains multiple files, you may  target a specific note inside a g
 
 ````shell
 ```gistr
-https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#file1
+url:    https://gist.github.com/Aetherinox/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+file:   file1
 ```
 ````
 
