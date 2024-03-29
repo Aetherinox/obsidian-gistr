@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Github.md",
+                "file": "2. Github.md",
                 "mode": "source",
                 "source": false
               }
@@ -25,14 +25,26 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Github.md",
+                "file": "2. Github.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "fd79962cd61072a6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "4. Mermaid Charts & Advanced Embeds.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -98,9 +110,9 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Github.md",
+                "file": "4. Mermaid Charts & Advanced Embeds.md",
                 "collapseAll": false,
-                "extraContext": false,
+                "extraContext": true,
                 "sortOrder": "alphabetical",
                 "showSearch": false,
                 "searchQuery": "",
@@ -115,7 +127,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Github.md",
+                "file": "4. Mermaid Charts & Advanced Embeds.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,16 +150,16 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Github.md"
+                "file": "4. Mermaid Charts & Advanced Embeds.md"
               }
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -162,9 +174,12 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "fcd78753d78d610b",
+  "active": "fd79962cd61072a6",
   "lastOpenFiles": [
-    "OpenGist.md",
-    "Github.md"
+    "2. Github.md",
+    "3. OpenGist.md",
+    "4. Mermaid Charts & Advanced Embeds.md",
+    "0. Official Documentation.md",
+    "1. Methods.md"
   ]
 }
