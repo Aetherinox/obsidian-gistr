@@ -9,6 +9,7 @@ import { lng } from 'src/lang'
 import Pickr from "@simonwep/pickr"
 import lt from 'semver/functions/lt'
 import gt from 'semver/functions/gt'
+import { SaturynTemplate, SaturynModalPortalEdit, SaturynParams } from 'src/api/Saturyn'
 
 /*
     Color picker options
@@ -100,11 +101,13 @@ export class SettingsSection extends PluginSettingTab
     private Hide_Github:        boolean
     private Hide_Opengist:      boolean
     private Hide_SaveSync:      boolean
+    private Hide_Portal:        boolean
     private Hide_Support:       boolean
     private Tab_Global:         HTMLElement
     private Tab_Github:         HTMLElement
     private Tab_OpenGist:       HTMLElement
     private Tab_SaveSync:       HTMLElement
+    private Tab_Portal:         HTMLElement
     private Tab_Support:        HTMLElement
     private Opacity_Enabled:    string
     private Opacity_Disabled:   string
@@ -124,11 +127,18 @@ export class SettingsSection extends PluginSettingTab
 		this.Hide_Github        = true
 		this.Hide_Opengist      = true
         this.Hide_SaveSync      = true
+        this.Hide_Portal        = true
 		this.Hide_Support       = false
         this.Opacity_Enabled    = "1"
         this.Opacity_Disabled   = "0.4"
         this.Obj_Github_Api     = null
         this.cPickr             = { }
+    }
+
+    async updatePortal( portal: SaturynParams )
+    {
+        await this.plugin.addSaturyn( portal )
+        this.display( )
     }
 
     /*
@@ -208,9 +218,9 @@ export class SettingsSection extends PluginSettingTab
 		this.Hide_Github        = true
 		this.Hide_Opengist      = true
 		this.Hide_SaveSync      = true
+        this.Hide_Portal        = true
 		this.Hide_Support       = false
 
-        
         this.CreateHeader       ( containerEl )
 		this.CreateMenus        ( containerEl )
     }
@@ -243,6 +253,9 @@ export class SettingsSection extends PluginSettingTab
 
         this.Tab_SaveSync_New   ( elm )
         this.Tab_SaveSync       = elm.createDiv( )
+
+        this.Tab_Portal_New     ( elm )
+        this.Tab_Portal         = elm.createDiv( )
 
         this.Tab_Support_New    ( elm )
 		this.Tab_Support        = elm.createDiv( )
@@ -1683,6 +1696,122 @@ export class SettingsSection extends PluginSettingTab
             elm.createEl( 'div', { cls: "gistr-settings-section-footer", text: "" } )
         }
 
+
+    /*
+        Tab > Portal > New
+    */
+
+        Tab_Portal_New( elm: HTMLElement )
+        {
+            if ( process.env.ENV !== "dev" ) return
+            const Tab_PO = elm.createEl( "h2", { text: lng( "cfg_tab_po_title" ), cls: `gistr-settings-header${ this.Hide_Portal?" isfold" : "" }` } )
+            Tab_PO.addEventListener( "click", ( )=>
+            {
+                this.Hide_Portal = !this.Hide_Portal
+                Tab_PO.classList.toggle( "isfold", this.Hide_Portal )
+                this.Tab_Portal_CreateSettings( )
+            } )
+        }
+
+        Tab_Portal_CreateSettings( )
+        {
+            this.Tab_Portal.empty( )
+            if ( this.Hide_Portal ) return
+            
+            this.Tab_Portal_ShowSettings( this.Tab_Portal )
+        }
+
+        Tab_Portal_ShowSettings( elm: HTMLElement )
+        {
+
+            /*
+                Github > Header Intro
+            */
+
+            elm.createEl( 'small', { cls: "gistr-settings-section-description", text: lng( "cfg_tab_po_header" ) } )
+
+            /*
+                separator
+            */
+
+            elm.createEl( 'div', { cls: "gistr-settings-section-separator-15", text: "" } )
+
+            /*
+                Button > Create New Portal
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_po_create_name" ) )
+                .setDesc( lng( "cfg_tab_po_create_desc" ) )
+                .addButton( btn =>
+                {
+                    btn.setButtonText( lng( "cfg_tab_po_create_btn" ) )
+                        .setCta( )
+                        .onClick( async( ) =>
+                        {
+                            new SaturynModalPortalEdit( this.app, this.plugin, SaturynTemplate( ), this.updatePortal.bind( this ) ).open( )
+                        } )
+                } )
+
+            elm.createEl( 'div', { cls: "gistr-settings-section-separator-15", text: "" } )
+
+            /*
+                List Portals
+            */
+
+            elm.createEl( 'h4', { text: 'Portal List' } )
+
+            const len = Object.keys( this.plugin.settings.portals ).length
+
+            if ( len == 0 )
+            {
+                const ct_Note           = elm.createDiv( )
+                const md_notFinished    = "> [!NOTE] " + lng( "cfg_tab_po_list_none_title" ) + "\n> <small>" + lng( "cfg_tab_po_list_none_msg" ) + "</small>"
+                MarkdownRenderer.render( this.plugin.app, md_notFinished, ct_Note, "" + md_notFinished, this.plugin )
+            }
+            else
+            {
+                for ( const portalID in this.plugin.settings.portals )
+                {
+                    const portal    = this.plugin.settings.portals[ portalID ]
+                    const div       = elm.createEl( 'div',
+                    {
+                        attr:
+                        {
+                            'data-portal-id':   portal.id,
+                            class:              'saturyn--setting--portal'
+                        }
+                    })
+
+                    new Setting( div )
+                        .setName( portal.title )
+                        .setDesc( portal.url )
+                        .addButton ( ( button ) =>
+                        {
+                            button.setButtonText( 'Delete' ).onClick( async ( ) =>
+                            {
+                                await this.plugin.RemoveSaturyn( portalID )
+                                div.remove( )
+                            } )
+                        } )
+                        .addButton( ( button) =>
+                        {
+                            button.setButtonText( 'Edit' ).onClick( ( ) =>
+                            {
+                                new SaturynModalPortalEdit( this.app, this.plugin, portal, this.updatePortal.bind( this ) ).open( )
+                            } )
+                        } )
+                }
+            }
+
+            /*
+                Tab Footer Spacer
+            */
+
+            elm.createEl( 'div', { cls: "gistr-settings-section-footer", text: "" } )
+        }
+
+        
     /*
         Tab > Support > New
     */

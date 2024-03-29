@@ -45,4 +45,6 @@ export const SettingsDefaults: GistrSettings =
     sy_save_list_datetime:      "MM.DD.YYYY h:m:s a",
     sy_save_duration:           15,
     context_sorting:            [],
+    portals:                    {},
+    uuid:                       ""
 }

@@ -1,8 +1,16 @@
 import GistrPlugin from "src/main"
+import { SaturynParams } from 'src/api/Saturyn/Parameters'
 
 /*
     Settings
 */
+
+export interface MarkdownLink
+{
+    title:  string
+    url:    string
+}
+
 
 export interface GistrSettings
 {
@@ -43,8 +51,9 @@ export interface GistrSettings
     sy_save_list_showall:       boolean | false
     sy_save_list_datetime:      string | "MM.DD.YYYY h:m:s a"
     sy_save_duration:           number | 10
-
-    context_sorting:    [],
+    context_sorting:            [],
+    portals:                    Record< string, SaturynParams >
+    uuid:                       string
 }
 
 /*
