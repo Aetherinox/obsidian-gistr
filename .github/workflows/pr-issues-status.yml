@@ -19,8 +19,8 @@
 #       - Workflow will `autoclose` pr or issues which haven't had action in `365 days`.
 # ---------------------------------------------------------------------------------------
 
-name: "🎫 Issues + PR › Status"
-run-name: "🎫 Issues + PR › Status"
+name: "🎫 PR + Issues › Status"
+run-name: "🎫 PR + Issues › Status"
 
 # ---------------------------------------------------------------------------------------
 #   triggers
@@ -45,13 +45,13 @@ env:
   PREFIX_GIT:           "Git Action"
   PREFIX_URGENT:        "Urgent"
 
-  LABEL_BUG:            "Type ⇴ Bug"
-  LABEL_FEATURE:        "Type ⇴ Feature"
-  LABEL_ROADMAP:        "Type ⇴ Roadmap"
-  LABEL_DEPENDENCY:     "Type ⇴ Dependency"
-  LABEL_PR:             "Type ⇴ PR"
-  LABEL_DOCS:           "Type ⇴ Docs"
-  LABEL_GIT:            "Type ⇴ Git Action"
+  LABEL_BUG:            "Type ◦ Bug"
+  LABEL_FEATURE:        "Type ◦ Feature"
+  LABEL_ROADMAP:        "Type ◦ Roadmap"
+  LABEL_DEPENDENCY:     "Type ◦ Dependency"
+  LABEL_PR:             "Type ◦ Pull Request"
+  LABEL_DOCS:           "Type ◦ Docs"
+  LABEL_GIT:            "Type ◦ Git Action"
   LABEL_URGENT:         "⚠ Urgent"
 
   ASSIGN_USER:          Aetherinox
@@ -88,7 +88,6 @@ env:
       { "name": "Type ◦ Pull Request",          "color": "8F1784", "description": "Normal pull request" },
       { "name": "Type ◦ Roadmap",               "color": "8F1784", "description": "Feature or bug currently planned for implementation" },
       { "name": "⚠ Urgent",                    "color": "a8740e", "description": "Requires urgent attention" }
-
     ]
 
 jobs:

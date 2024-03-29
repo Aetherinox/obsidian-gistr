@@ -27,11 +27,11 @@ updates:
   schedule:
     interval: daily
   labels:
-  - "Type ⇴ Dependency"
+  - "Type ◦ Dependency"
 
 - package-ecosystem: "github-actions"
   directory: "/"
   schedule:
     interval: "daily"
   labels:
-  - "Type ⇴ Git Action"
+  - "Type ◦ Git Action"
