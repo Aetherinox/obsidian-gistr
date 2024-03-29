@@ -3,9 +3,11 @@
 */
 
 import { request, RequestUrlParam  } from "obsidian"
+import GistrPlugin from 'src/main'
 import { Env, PID } from 'src/api'
 import { GistrSettings } from 'src/settings/settings'
 import { lng } from 'src/lang'
+import { SaturynHandleSyntax } from 'src/api/Saturyn'
 import { nanoid } from 'nanoid'
 
 /*
@@ -64,9 +66,11 @@ export class BackendCore
 {
     private readonly settings:  GistrSettings
     private manifest:           Env
+    private plugin:             GistrPlugin
 
-    constructor( settings: GistrSettings )
+    constructor( settings: GistrSettings, plugin: GistrPlugin )
     {
+        this.plugin     = plugin
         this.settings   = settings
         this.manifest   = Env
     }
@@ -75,7 +79,7 @@ export class BackendCore
         Gist > Handle
     */
 
-    private async GistHandle( el: HTMLElement, data: string )
+    private async GistHandle( plugin: GistrPlugin, el: HTMLElement, data: string )
     {
 
         /*
@@ -83,25 +87,29 @@ export class BackendCore
             supports a multi-lined structure in the code block
         */
 
-        let n_url           = undefined
-        let n_file          = undefined
-        let n_bg            = undefined
-        let n_theme         = undefined
-        let n_textcolor     = undefined
+        let n_url               = undefined
+        let n_file              = undefined
+        let n_bg                = undefined
+        let n_theme             = undefined
+        let n_textcolor         = undefined
+        let n_raw               = undefined
+        let n_height            = undefined
+        let n_zoom              = undefined
 
-        //const pattern_new     = /(?:url:? +(?<url>(https?:\/\/\S*\b)))?(?:\nfile:? +(?<file>[\w-]+))?(?:\nbackground:? +(?<background>[^`\n]*))?(?:\ncolor:? +(?<color>[\w-]+))?(?:\ntheme:? +(?<theme>[\w-]+))?(\&(?<id>\w+))?/
-        //const pattern_new     = /(?:url:? +(?<url>[^`\n?]+))?(?:\n?background:? +(?<background>[^`\n?]+))?(?:\n?theme:? +(?<theme>[^`\n?]+))?(?:\n?color:? +(?<color>[^`\n?]+))?(\&(?<id>\w+))*?/
-        const pattern_new       = /^(?=\b(?:url|file|background|color|theme|title):)(?=(?:[^`]*?\burl:? +(?<url>[^`\n]*)|))(?=(?:[^`]*?\bfile:? +(?<file>[^`\n]*)|))(?=(?:[^`]*?\bbackground:? +(?<background>[^`\n]*)|))(?=(?:[^`]*?\bcolor:? +(?<color>[^`\n]*)|))(?=(?:[^`]*?\btheme:? +(?<theme>[^`\n]*)|))(?=(?:[^`]*?\btitle:? +(?<title>[^`\n]*)|))(?:.+\n){0,4}.+/
+        const pattern_new       = /^(?=\b(?:url|file|background|color|theme|title|raw|height|zoom):)(?=(?:[^`]*?\burl:? +(?<url>[^`\n]*)|))(?=(?:[^`]*?\bfile:? +(?<file>[^`\n]*)|))(?=(?:[^`]*?\bbackground:? +(?<background>[^`\n]*)|))(?=(?:[^`]*?\bcolor:? +(?<color>[^`\n]*)|))(?=(?:[^`]*?\btheme:? +(?<theme>[^`\n]*)|))(?=(?:[^`]*?\btitle:? +(?<title>[^`\n]*)|))(?=(?:[^`]*?\braw:? +(?<raw>[^`\n]*)|))(?=(?:[^`]*?\bheight:? +(?<height>[^`\n]*)|))(?=(?:[^`]*?\bzoom:? +(?<zoom>[^`\n]*)|))(?:.+\n){0,8}.+/
 
         if ( data.match( pattern_new ) && data.match( pattern_new ).groups )
         {
-            const find_new  = data.match( pattern_new ).groups
+            const find_new      = data.match( pattern_new ).groups
 
-            n_url           = find_new.url
-            n_file          = find_new.file
-            n_bg            = find_new.background
-            n_theme         = find_new.theme
-            n_textcolor     = find_new.color
+            n_url               = find_new.url
+            n_file              = find_new.file
+            n_bg                = find_new.background
+            n_theme             = find_new.theme
+            n_textcolor         = find_new.color
+            n_raw               = find_new.raw ?? false
+            n_height            = find_new.height ?? 700
+            n_zoom              = find_new.zoom ?? 1
         }
 
         /*
@@ -110,7 +118,28 @@ export class BackendCore
                     - protocol, host, username, uuid, filename, theme
         */
 
-        const source        = !bIsEmpty( n_url ) ? n_url : data
+        const source            = !bIsEmpty( n_url ) ? n_url : data
+
+        /*
+            Raw website functionality.
+            Because Github / Gists don't support integrated mermaid charts, we must display the charts as their own browser window.
+            Give the user control to modify things such as zoom, height, etc.
+        */
+
+        if ( n_raw )
+        {
+
+            const raw_output =
+            `
+url:  ${n_url}
+height: ${n_height}
+zoom:  ${n_zoom}
+            `
+
+            const pnl = SaturynHandleSyntax( plugin, raw_output )
+            el.appendChild( pnl )
+            return
+        }
 
         /*
             Method > Old
@@ -771,6 +800,6 @@ export class BackendCore
 
     processor = async ( src: string, el: HTMLElement ) =>
     {
-        return this.GistHandle( el, src )
+        return this.GistHandle(  this.plugin, el, src )
     }
 }
