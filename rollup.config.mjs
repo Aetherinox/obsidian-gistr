@@ -100,7 +100,11 @@ export default {
     format: 'cjs',
     exports: 'named'
   },
-  external: [ 'obsidian' ],
+  external: [
+      'obsidian',
+      'electron',
+      'uuid',
+ ],
   plugins: [
     typescript( ),
     nodeResolve( { browser: true } ),
