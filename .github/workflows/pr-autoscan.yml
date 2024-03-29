@@ -163,7 +163,7 @@ jobs:
 
       - name: Get changed files
         id: autocheck-get-changed-files
-        uses: tj-actions/changed-files@v42
+        uses: tj-actions/changed-files@v44
         with:
           separator: ","
   
