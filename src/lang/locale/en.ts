@@ -22,6 +22,7 @@ export default
     base_debug_updater_1:                       '{0} Update Check',
     base_debug_updater_2:                       '{0} {1}',
     base_context_nofocus:                       'Obsidian does not have focus, please open a file',
+    base_reload_notice:                         'Successfully reloaded Gistr',
 
     /*
         Context menu options
@@ -30,6 +31,7 @@ export default
     cfg_context_gist_public:                    'Save Gist (Github Public)',
     cfg_context_gist_secret:                    'Save Gist (Github Secret)',
     cfg_context_gist_copy:                      'Copy Gist URL',
+    cfg_context_gist_reload:                    'Reload Gistr',
 
     /*
         Tab > Settings > Header
@@ -63,7 +65,10 @@ export default
     cfg_tab_ge_noti_dur_desc:                   'How long a notification will display for (in seconds). Set to <span class="gistr-settings-elm-important">0</span> to keep notification up until user dismisses it.',
     cfg_tab_ge_noti_update_name:                'Enable Gistr update notifications',
     cfg_tab_ge_noti_update_desc:                '<span class="gistr-settings-elm-note">Enabled</span>: When launching Obsidian, you will get a notification if a new version of Gistr is available. This includes beta releases not available to the public yet.<br><br><span class="gistr-settings-elm-important">Disabled</span>: You will not get any notifications alerting you to new Gistr updates. You must manually check or use the Obsidian plugin checker.<br><br><b>Note</b>: This update notification includes beta releases of Gistr. The Obsidian plugin updater does not track beta.',
-
+    cfg_tab_ge_tog_enable_ribbon_debug_name:    'Enable refresh icon',
+    cfg_tab_ge_tog_enable_ribbon_debug_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: Adds a special icon to your ribbon which allows you to force all embedded gists to be refreshed.<br>This is useful when modifying the colors of Gistr, since all codeblocks are cached and changes do not appear immediately. The button added to your ribbon will force-refresh all codeblocks and display new changes.',
+    cfg_tab_ge_tog_enable_ribbon_debug_tip:     '',
+    
     /*
         Tab > Settings > OpenGist
     */
@@ -123,7 +128,7 @@ export default
     cfg_tab_gh_pat_perm_3:                      '<span class="gistr-settings-elm-li-title">Repository Permissions ► Contents</span> <span class="gistr-settings-elm-li-perm">                                                    Read-only</span>',
     cfg_tab_gh_pat_perm_4:                      '<span class="gistr-settings-elm-li-title">Repository Permissions ► Issues</span> <span class="gistr-settings-elm-li-perm">                                                              Read-only</span>',
     cfg_tab_gh_pat_footer:                      'Github icon to the right will turn into a checkmark when you\'ve entered a valid token.',
-    cfg_tab_gh_pat_help:                        '<b>What is this for?</b> <a href="https://github.com/Aetherinox/obsidian-gistr/wiki/2.-Usage#github-tab">Read the docs</a>',
+    cfg_tab_gh_pat_help:                        '<b>What is this for?</b> <a href="https://aetherinox.github.io/obsidian-gistr/settings/github/">Read the docs</a>',
     cfg_tab_gh_pat_url_btn:                     'https://github.com/settings/tokens?type=beta',
     cfg_tab_gh_pat_ok_btn_tip:                  'Valid Github API Token',
     cfg_tab_gh_pat_bad_btn_tip:                 'Invalid Github API Token entered\n\nClick here to generate one',
