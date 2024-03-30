@@ -20,7 +20,7 @@ const ContextMenu = ( app: GistrAPI, cfg: GistrSettings, editor: GistrEditor ): 
     const elm = menu.DOM
     elm.addClass( "gistr-container" )
 
-    cfg.context_sorting.forEach( ( obj ) =>
+    cfg.ge_contextmenu_sorting.forEach( ( obj ) =>
     {
         menu.addItem( ( menuItem ) =>
         {
