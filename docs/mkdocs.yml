@@ -158,6 +158,7 @@ nav:
   - Usage:
     - Basic: 'usage/basic.md'
     - Properties: 'usage/properties.md'
+    - Raw Mode: 'usage/raw-mode.md'
   - Settings:
     - Summary: 'settings/summary.md'
     - Global: 'settings/global.md'
