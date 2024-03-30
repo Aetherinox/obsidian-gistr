@@ -1,15 +1,15 @@
-import { App, PluginSettingTab, Setting, sanitizeHTMLToDom, ExtraButtonComponent, MarkdownRenderer, Notice, requestUrl } from 'obsidian'
+import { App, PluginSettingTab, Setting, sanitizeHTMLToDom, ExtraButtonComponent, MarkdownRenderer, Notice, requestUrl, View } from 'obsidian'
 import GistrPlugin from "src/main"
 import { SettingsDefaults } from 'src/settings/defaults'
-import { ColorPicker, GetColor } from 'src/utils'
+import { ColorPicker, GetColor, RemoveLeafButtonsAll } from 'src/utils'
 import { GHStatusAPI, GHTokenSet, GHTokenGet } from 'src/backend/services'
+import { SaturynTemplate, SaturynModalPortalEdit, SaturynParams } from 'src/api/Saturyn'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
-import { NoxComponent } from 'src/api'
+import { NoxComponent, LeafButton_Refresh } from 'src/api'
 import { lng } from 'src/lang'
 import Pickr from "@simonwep/pickr"
 import lt from 'semver/functions/lt'
 import gt from 'semver/functions/gt'
-import { SaturynTemplate, SaturynModalPortalEdit, SaturynParams } from 'src/api/Saturyn'
 
 /*
     Color picker options
@@ -289,6 +289,8 @@ export class SettingsSection extends PluginSettingTab
         Tab_Global_ShowSettings( elm: HTMLElement )
         {
 
+            let setting_enable_ribbon_debug:    NoxComponent
+
             /*
                 Github > Header Intro
             */
@@ -297,6 +299,12 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Codeblock > Theme
+
+                This determines what color scheme will be used for gists. You can however, customize the
+                colors in the Github and OpenGist categories below.
+                
+                Note:           When this is changed, place your cursor in the codeblock and then leave the
+                                codeblock to refresh it. Automatic refreshing only works in reading mode
             */
 
             const cfg_tab_ge_theme_desc = new DocumentFragment( )
@@ -328,6 +336,10 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Dropdown > Text Wrap
+
+                If enabled, text will wrap to the next line. If disabled, you will
+                see a horizontal scrollbar. This does not include gists that have no
+                spaces anywhere in the body.
             */
 
             const cfg_tab_ge_wrap_desc = new DocumentFragment( )
@@ -360,6 +372,8 @@ export class SettingsSection extends PluginSettingTab
             /*
                 Command Keyword
 
+                Word to use inside codeblocks to designate as a portal for showing gists
+                
                 changing this will cause all opengist portals to not function until the keyword is changed
                 within the box.
             */
@@ -390,6 +404,16 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Plugin update notifications
+
+                Enabled:        When launching Obsidian, you will get a notification if a new
+                                version of Gistr is available. This includes beta releases not
+                                available to the public yet.
+                                
+                Disabled:       You will not get any notifications alerting you to new Gistr updates.
+                                You must manually check or use the Obsidian plugin checker.
+                                
+                Note:           This update notification includes beta releases of Gistr.
+                                The Obsidian plugin updater does not track beta.
             */
 
             const cfg_tab_ge_noti_update_desc = new DocumentFragment( )
@@ -417,6 +441,9 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Notification Time (in seconds)
+
+                How long a notification will display for (in seconds). Set to 0 to
+                keep notification up until user dismisses it.
             */
 
             const cfg_tab_ge_noti_dur_desc = new DocumentFragment( )
@@ -450,6 +477,59 @@ export class SettingsSection extends PluginSettingTab
                     el.innerText            = " " + this.plugin.settings.notitime.toString( ) + "s"
                 } ).classList.add( 'gistr-settings-elm-slider-preview' )
 
+                elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
+
+            /*
+                Enable Ribbon Icon > Debug
+
+                Adds a special icon to your ribbon which allows you to force all embedded gists to be
+                refreshed. This is useful when modifying the colors of Gistr, since all codeblocks are
+                cached and changes do not appear immediately. The button added to your ribbon will
+                force-refresh all codeblocks and display new changes.
+            */
+
+            const cfg_tab_ge_tog_enable_ribbon_debug_desc = new DocumentFragment( )
+            cfg_tab_ge_tog_enable_ribbon_debug_desc.append(
+                sanitizeHTMLToDom(`${ lng( "cfg_tab_ge_tog_enable_ribbon_debug_desc" ) }`),
+            )
+
+            setting_enable_ribbon_debug = new NoxComponent( elm )
+                .setName( lng( "cfg_tab_ge_tog_enable_ribbon_debug_name" ) )
+                .setDesc( cfg_tab_ge_tog_enable_ribbon_debug_desc )
+                .addNoxToggle( toggle => toggle
+                    .setValue( this.plugin.settings.ge_enable_ribbon_icons )
+                    .onChange( async ( val ) =>
+                    {
+                        this.plugin.settings.ge_enable_ribbon_icons = val
+                        await this.plugin.saveSettings( )
+
+                        if ( val )
+                        {
+                            const activeLeaf = this.app.workspace.getActiveViewOfType( View )
+                            if (!activeLeaf) return
+
+                            this.plugin.addButtonToLeaf(activeLeaf.leaf, LeafButton_Refresh )
+                            this.plugin.addButtonToAllLeaves( )
+                            //await this.plugin.registerRibbonDebug( )
+                        }
+                        else
+                        {
+                            const activeLeaf = this.app.workspace.getActiveViewOfType( View )
+                            if (!activeLeaf) return
+
+                            this.plugin.removeButtonFromLeaf( activeLeaf.leaf, LeafButton_Refresh )
+
+                            await this.plugin.removeButtonFromAllLeaves( )
+                            RemoveLeafButtonsAll( )
+                            //await this.plugin.unregisterRibbonDebug( )
+                        }
+                    }),
+                    ( ) =>
+                    ( 
+                        SettingsDefaults.sy_enable_ribbon_icons as boolean
+                    ),
+                )
+                
             elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
 
             /*
@@ -497,6 +577,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Background color (Light)
+
+                Color for Github codeblock background color Light Theme
             */
 
             const cfg_tab_og_cb_light_desc = new DocumentFragment( )
@@ -515,6 +597,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Background color (Dark)
+
+                Color for Github codeblock background color Dark Theme
             */
 
             const cfg_tab_og_cb_dark_desc = new DocumentFragment( )
@@ -533,6 +617,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Text color (Light)
+
+                Color for codeblock text color Light Theme
             */
 
             const cfg_tab_og_tx_light_desc = new DocumentFragment( )
@@ -551,6 +637,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Text color (Dark)
+
+                Color for codeblock text color Dark Theme
             */
 
             const cfg_tab_og_tx_dark_desc = new DocumentFragment( )
@@ -569,6 +657,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Scrollbar Track Color (Light)
+
+                Color for gist scrollbar track Light Theme
             */
 
             const cfg_tab_og_sb_light_desc = new DocumentFragment( )
@@ -587,6 +677,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Scrollbar Track Color (Dark)
+
+                Color for gist scrollbar track Dark Theme
             */
 
             const cfg_tab_og_sb_dark_desc = new DocumentFragment( )
@@ -605,6 +697,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Codeblock Opacity
+
+                Total opacity for codeblock. Do not set this too low, or your codeblocks will be invisible
             */
 
             const cfg_tab_og_opacity_desc = new DocumentFragment( )
@@ -643,6 +737,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Codeblock > Padding > Top
+
+                Padding between gist codeblock header and code.
             */
 
             const cfg_tab_og_pad_top_desc = new DocumentFragment( )
@@ -681,6 +777,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Codeblock > Padding > Bottom
+
+                Padding between gist codeblock and the bottom scrollbar.
             */
 
             const cfg_tab_og_pad_btm_desc = new DocumentFragment( )
@@ -719,6 +817,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Codeblock > CSS Override
+
+                This textarea allows you to enter custom CSS properties to override existing colors.
             */
 
             const cfg_tab_og_css_desc = new DocumentFragment( )
@@ -1158,6 +1258,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Background color (Light)
+
+                Color for Opengist codeblock background colorLight Theme
             */
 
             const cfg_tab_gh_cb_light_desc = new DocumentFragment( )
@@ -1176,6 +1278,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Background color (Dark)
+
+                Color for Opengist codeblock background color Dark Theme
             */
 
             const cfg_tab_gh_cb_dark_desc = new DocumentFragment( )
@@ -1194,6 +1298,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Text color (Light)
+
+                Color for codeblock text color Light Theme
             */
 
             const cfg_tab_gh_tx_light_desc = new DocumentFragment( )
@@ -1212,6 +1318,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Text color (Dark)
+
+                Color for codeblock text color Dark Theme
             */
 
             const cfg_tab_gh_tx_dark_desc = new DocumentFragment( )
@@ -1231,6 +1339,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Scrollbar Track Color (Light)
+
+                Scrollbar track (Light)
             */
 
             const cfg_tab_gh_sb_light_name = new DocumentFragment( )
@@ -1249,6 +1359,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Scrollbar Track Color (Dark)
+
+                Color for gist scrollbar track Dark Theme
             */
 
             const cfg_tab_gh_sb_dark_desc = new DocumentFragment( )
@@ -1267,6 +1379,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Codeblock Opacity
+
+                Total opacity for codeblock. Do not set this too low, or your codeblocks will be invisible
             */
 
             const cfg_tab_gh_opacity_desc = new DocumentFragment( )
@@ -1305,6 +1419,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Codeblock > CSS Override
+
+                This textarea allows you to enter custom CSS properties to override existing colors.
             */
 
             const cfg_tab_gh_css_desc = new DocumentFragment( )
@@ -1383,7 +1499,9 @@ export class SettingsSection extends PluginSettingTab
             /*
                 Enable ribbon icon
 
-                Adds "Save Public / Secret" gist to left side ribbon menu next to File Previewer
+                Enabled:            Adds "Save Public / Secret Gist" icons to left-side ribbon in Obsidian.
+                Disabled:           You will only be able to access the save menu options from your
+                                    right-click menu, or the Obsidian command palette
             */
 
             const cfg_tab_sy_tog_enable_ribbon_desc = new DocumentFragment( )
@@ -1417,7 +1535,11 @@ export class SettingsSection extends PluginSettingTab
             /*
                 Enable Allow Gist Updates
 
-                Notes must be manually saved
+                Enabled:            After you initially create a new gist, the note can be updated with newer revisions.
+                Disabled:           Gists can only be created; no updates are allowed. 
+                
+                To update a gist after enabling this setting, right-click on the note, or open the Obsidian command palette
+                and select "Save Gist"
             */
 
             const cfg_tab_sy_tog_allow_gist_updates_desc = new DocumentFragment( )
@@ -1445,6 +1567,14 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Autosave > Toggle
+
+                Enabled:            This will allow gists to be updated once they are created. It will also enable autosaving which
+                                    will detect new changes and push them.
+                                    
+                Disabled:           You will only be able to create gists by manually doing so; there will be no way to update them.
+                
+                If you wish to keep this disabled, you can create gists by right-clicking in the note and selecting "Save Gist".
+                Or opening your command palette and selecting the save option from there.
             */
 
             const cfg_tab_sy_tog_autosave_enable_desc = new DocumentFragment( )
@@ -1481,6 +1611,14 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Autosave > Strict Mode
+
+                Enabled:            Your notes will be saved to the gist service precisely on time every {0} seconds,
+                                    whether you are still typing or not.
+                                    
+                Disabled:           Time until save will not start until you have finished typing in that note. If you
+                                    continue typing, the saving countdown will not start until your final key is pressed.
+                                    
+                Autosave duration can be modified further down in these settings.
             */
 
             const cfg_tab_sy_tog_autosave_strict_desc = new DocumentFragment( )
@@ -1511,6 +1649,9 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Autosave > Notifications
+
+                Each time your note is saved automatically, a notice will appear on-screen informing
+                you of the action. This only works if "Autosave" is enabled.
             */
 
             const cfg_tab_sy_tog_autosave_noti_desc = new DocumentFragment( )
@@ -1541,6 +1682,13 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Autosave > Duration
+
+                How often autosave will execute in seconds. Set this to a fair amount so that the calls aren't
+                being ran excessively to the gist API server (Github or OpenGist).
+                
+                The save countdown timer will begin shortly after you stop typing.
+                
+                If you wish to change this to save precisely every {0} seconds, enable the setting "Autosave Strict Saving" located above.
             */
 
             const cfg_tab_sy_num_save_dur_desc = new DocumentFragment( )
@@ -1591,6 +1739,15 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Include frontmatter when gist saved online
+
+                When saving a note as a new gist, frontmatter will be added to the top of your note with information about the gist.
+                
+                Enabled:            the note will be cleaned before it is pushed to the gist service and no frontmatter fields will
+                                    be present in the online version.
+                                    
+                Disabled:           frontmatter added to your notes will be included when your note is pushed to a gist service.
+                
+                Frontmatter can be found at the very top of each note, in-between `---`
             */
 
             const cfg_tab_sy_tog_inc_fm_desc = new DocumentFragment( )
@@ -1618,6 +1775,13 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Save > List > Show All
+
+                This setting effects how the gist save list displays saved gists.
+                
+                Enabled:            When saving an existing gist, the suggestion box will display ALL saves for that note in
+                                    the same list; both public and secret.
+                                    
+                Disabled:           Public and secret gist saves will be separated when being displayed in the existing gist save list.
             */
 
             const cfg_tab_sy_list_save_showall_desc = new DocumentFragment( )
@@ -1645,6 +1809,9 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Gist save list > Datetime format
+
+                Defines what format the date and time will display as.
+                Datetime Format Options: "http://momentjs.com/docs/#/displaying/format/"
             */
 
                 const cfg_tab_sy_list_datetime_desc = new DocumentFragment( )
@@ -1673,6 +1840,8 @@ export class SettingsSection extends PluginSettingTab
 
             /*
                 Gist List Icon Color
+
+                Color for icon in gist save list
             */
 
             const cfg_tab_sy_list_icon_desc = new DocumentFragment( )
