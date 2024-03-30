@@ -66,7 +66,7 @@ export default
     cfg_tab_ge_noti_update_name:                'Enable Gistr update notifications',
     cfg_tab_ge_noti_update_desc:                '<span class="gistr-settings-elm-note">Enabled</span>: When launching Obsidian, you will get a notification if a new version of Gistr is available. This includes beta releases not available to the public yet.<br><br><span class="gistr-settings-elm-important">Disabled</span>: You will not get any notifications alerting you to new Gistr updates. You must manually check or use the Obsidian plugin checker.<br><br><b>Note</b>: This update notification includes beta releases of Gistr. The Obsidian plugin updater does not track beta.',
     cfg_tab_ge_tog_enable_ribbon_debug_name:    'Enable refresh icon',
-    cfg_tab_ge_tog_enable_ribbon_debug_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: Adds a special icon to your ribbon which allows you to force all embedded gists to be refreshed.<br>This is useful when modifying the colors of Gistr, since all codeblocks are cached and changes do not appear immediately. The button added to your ribbon will force-refresh all codeblocks and display new changes.',
+    cfg_tab_ge_tog_enable_ribbon_debug_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: Adds a special icon to your top header ribbon which allows you to force all embedded gists to be refreshed.<br>This is useful when modifying the colors / settings for Gistr, since all codeblocks are cached and changes do not appear immediately. The button added to your ribbon will force-refresh all codeblocks and immediately show new changes.',
     cfg_tab_ge_tog_enable_ribbon_debug_tip:     '',
     
     /*
