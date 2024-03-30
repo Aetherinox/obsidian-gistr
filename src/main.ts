@@ -5,13 +5,15 @@
                   import the methods you need individually, otherwise you'll receive circular dependencies error.
 */
 
-import { App, Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownView, PluginManifest, Notice, requestUrl, addIcon, ObsidianProtocolData } from 'obsidian'
+import { App, Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownView, PluginManifest, Notice, requestUrl, addIcon, ObsidianProtocolData, ItemView, View } from 'obsidian'
 import { GistrSettings, SettingsGet, SettingsDefaults, SettingsSection } from 'src/settings/'
 import { BackendCore } from 'src/backend'
 import { GHGistGet, GHGistCopy, GHGistUpdate } from 'src/backend/services'
-import { Env, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconGithubSecret, AssetGithubIcon, PortalID, PortalURLDefault } from 'src/api'
+import { Env, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconGithubSecret, IconGithubReload, AssetGithubIcon, PortalID, PortalURLDefault, LeafButton_Refresh } from 'src/api'
 import { SaturynRegister, SaturynParams, SaturynParamsHandle, SaturynUnload, SaturynPortalInitialize, SaturynModalPortalEdit, SaturynCodeblock, SaturynOpen, SaturynIsOpen } from 'src/api/Saturyn'
 import { lng } from 'src/lang'
+import type {  LeafButtonBase  } from 'src/types'
+import { GetButtonIcon, GetIconSize, RemoveLeafButtonsAll } from 'src/utils'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
 import ShowContextMenu from 'src/menus/context'
 import lt from 'semver/functions/lt'
@@ -29,7 +31,10 @@ export default class GistrPlugin extends Plugin
     readonly editor:            GistrEditor
     private ribbonIcon_pub:     HTMLElement
     private ribbonIcon_sec:     HTMLElement
+    private ribbonIcon_reload:  HTMLElement
+    private leaf:               WorkspaceLeaf
     settings:                   GistrSettings
+    buttons                     = new WeakMap<ItemView, Map<string, HTMLElement>>();
 
     constructor( app: App, manifest: PluginManifest )
     {
@@ -101,6 +106,10 @@ export default class GistrPlugin extends Plugin
         )
     }
 
+    /*
+        on load
+    */
+
     async onload( )
     {
         console.debug( lng( "base_debug_loading", process.env.NAME, process.env.PLUGIN_VERSION, process.env.AUTHOR ) )
@@ -110,7 +119,7 @@ export default class GistrPlugin extends Plugin
         this.addSettingTab          ( new SettingsSection( this.app, this ) )
         this.registerPortal         ( )
         SaturynCodeblock            ( this )
-
+        
 		this.app.workspace.onLayoutReady( async ( ) =>
         {
             if ( this.settings.firststart === true )
@@ -132,10 +141,36 @@ export default class GistrPlugin extends Plugin
                 this.settings.firststart = false
                 this.saveSettings( )
             }
+
+            /*
+                Manage leaf header icon
+            */
+
+            addIcon( 'gistr-github-refresh', IconGithubReload )
+
+            if ( this.settings.ge_enable_ribbon_icons )
+                this.addButtonToAllLeaves( )
+            else
+                this.removeButtonFromAllLeaves( )
+
+            this.registerEvent(
+                this.app.workspace.on( 'layout-change', ( ) =>
+                {
+                    const activeLeaf = this.app.workspace.getActiveViewOfType( View )
+                    if ( !activeLeaf ) return
+    
+                    if ( this.settings.ge_enable_ribbon_icons )
+                        this.addButtonToLeaf( activeLeaf.leaf, LeafButton_Refresh )
+                    else
+                        this.removeButtonFromLeaf( activeLeaf.leaf, LeafButton_Refresh )
+                } )
+            )
+
 		} )
 
         /*
             Command Palette Items
+                displayed by opening Obsidian command palette
         */
 
         this.addCommand
@@ -309,6 +344,7 @@ export default class GistrPlugin extends Plugin
     async onunload( )
     {
         console.debug( "Unloaded " + this.manifest.name )
+        RemoveLeafButtonsAll( )
     }
 
     /*
@@ -373,6 +409,10 @@ export default class GistrPlugin extends Plugin
     
     /*
         Ribbon > Register
+
+        Plugin:     this
+        App:        this.app
+        Manifest:   this.manifest.id
     */
 
     async registerRibbon( )
@@ -401,6 +441,129 @@ export default class GistrPlugin extends Plugin
     {
 		this.ribbonIcon_pub.remove( )
         this.ribbonIcon_sec.remove( )
+	}
+
+    /*
+        Ribbon > Register > Debug
+
+        These icons give extra functionality for users, such as refreshing the interface
+
+        Plugin:     this
+        App:        this.app
+        Manifest:   this.manifest.id
+    */
+
+    async registerRibbonDebug( )
+    {
+        if ( this.settings.ge_enable_ribbon_icons == true )
+        {
+            addIcon( 'gistr-github-reload', IconGithubReload )
+            this.ribbonIcon_reload = this.addRibbonIcon( "gistr-github-reload", lng( "cfg_context_gist_reload" ), ( ) =>
+            {
+                this.reloadPlugin( this.app, this )
+            } )
+        }
+    }
+
+    /*
+        Ribbon > Unregister > Debug
+    */
+
+    async unregisterRibbonDebug( )
+    {
+        this.ribbonIcon_reload.remove( )
+    }
+
+    /*
+        Leafy > Add button to header
+
+        @assoc      : removeButtonFromLeaf
+                      addButtonToLeaf
+                      addButtonToAllLeaves
+                      removeButtonFromAllLeaves
+    */
+
+	async addHeaderButtons( viewActions: Element, button: LeafButtonBase )
+    {
+		const { id, icon, name }    = button
+		const iconSize              = GetIconSize( )
+		const classNames            = [ 'view-action', 'clickable-icon', Env.pluginId ]
+		const btn_Ico               = GetButtonIcon( name, id, icon, iconSize, classNames )
+
+		btn_Ico.addEventListener( 'click', ( ) =>
+        {
+            this.reloadPlugin( this.app, this )
+		})
+
+		viewActions.prepend( btn_Ico )
+	}
+
+    /*
+        Leafy > Remove button from header leaf
+    */
+
+	async removeButtonFromLeaf( leaf: WorkspaceLeaf, button: LeafButtonBase )
+    {
+		const activeLeaf    = leaf?.view.containerEl
+		const viewActions   = activeLeaf?.getElementsByClassName( 'view-actions' )[ 0 ]
+
+		if ( !viewActions ) return
+
+        /*
+            Remove existing elements
+        */
+
+		viewActions.getElementsByClassName( `view-action ${ Env.pluginId } ${ button.id }` )[ 0 ]?.detach( )
+	}
+
+    /*
+        Leafy > Add button to header leaf
+    */
+
+	async addButtonToLeaf( leaf: WorkspaceLeaf, button: LeafButtonBase )
+    {
+		const activeLeaf    = leaf?.view.containerEl
+		const viewActions   = activeLeaf?.getElementsByClassName( 'view-actions' )[ 0 ]
+
+		if ( !viewActions ) return
+
+        /*
+            Remove existing elements
+        */
+
+		viewActions.getElementsByClassName( `view-action ${ Env.pluginId } ${ button.id }` )[ 0 ]?.detach( )
+
+        /*
+            Add new button
+        */
+
+		this.addHeaderButtons( viewActions, button )
+	}
+
+    /*
+        Leafy > Add button to all leafs
+    */
+
+	async addButtonToAllLeaves( )
+    {
+		this.app.workspace.iterateAllLeaves( ( leaf ) =>
+			this.addButtonToLeaf( leaf, LeafButton_Refresh )
+		)
+
+		this.app.workspace.onLayoutChange( )
+	}
+
+    /*
+        Leafy > remove button from all leafs
+    */
+
+	async removeButtonFromAllLeaves( )
+    {
+		this.app.workspace.iterateAllLeaves( ( leaf ) =>
+			this.removeButtonFromLeaf( leaf, LeafButton_Refresh )
+		)
+
+		this.app.workspace.onLayoutChange( )
 	}
 
     /*
@@ -438,23 +601,18 @@ export default class GistrPlugin extends Plugin
     }
 
     /*
-        Reload Plugin
+        Reload plugin
     */
 
-	async reloadPlugin( pluginName: string ): Promise< void >
+    async reloadPlugin(app: App, plugin: GistrPlugin )
     {
-		// @ts-ignore
-		const { plugins } = this.app;
-		try
-        {
-			await plugins.disablePlugin( pluginName )
-			await plugins.enablePlugin( pluginName )
-		}
-        catch ( e )
-        {
-			console.error( e )
-		}
-	}
+        await ( app as any).plugins.disablePlugin( plugin.manifest.id )
+        this.app.workspace.updateOptions( )
+        await ( app as any ).plugins.enablePlugin( plugin.manifest.id )
+        this.app.workspace.updateOptions( )
+
+        new Notice( lng( 'base_reload_notice' ), 2000 )
+    }
 
     /*
         Right-click context menu
