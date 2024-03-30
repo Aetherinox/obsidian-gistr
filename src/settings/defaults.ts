@@ -35,6 +35,7 @@ export const SettingsDefaults: GistrSettings =
     gh_clr_tx_dark:             "#CAD3F5",
     gh_opacity:                 1,
 
+    ge_enable_ribbon_icons:     false,
     sy_enable_ribbon_icons:     true,
     sy_enable_autoupdate:       true,
     sy_enable_autosave:         false,
@@ -44,7 +45,7 @@ export const SettingsDefaults: GistrSettings =
     sy_save_list_showall:       false,
     sy_save_list_datetime:      "MM.DD.YYYY h:m:s a",
     sy_save_duration:           15,
-    context_sorting:            [],
+    ge_contextmenu_sorting:     [],
     portals:                    {},
     uuid:                       ""
 }
