@@ -1,1 +1,10 @@
-{"id":"gistr","name":"Gistr","version":"1.6.0","minAppVersion":"1.0.0","description":"Integrate Opengist and Github gists into your notes, allowing you to create, update, and share between your notes and gist services","author":"Aetherinox","authorUrl":"https://github.com/Aetherinox","isDesktopOnly":false}
+{
+  "id": "gistr",
+  "name": "Gistr",
+  "version": "1.6.1",
+  "minAppVersion": "1.0.0",
+  "description": "Integrate Opengist and Github gists into your notes, allowing you to create, update, and share between your notes and gist services",
+  "author": "Aetherinox",
+  "authorUrl": "https://github.com/Aetherinox",
+  "isDesktopOnly": false
+}
