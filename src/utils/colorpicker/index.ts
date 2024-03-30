@@ -2,7 +2,7 @@
     Import
 */
 
-import { Setting, ExtraButtonComponent } from 'obsidian'
+import { App, Setting, ExtraButtonComponent } from 'obsidian'
 import GistrPlugin from "src/main"
 import { lng } from 'src/lang'
 import { ColorTranslator } from 'colortranslator'
@@ -22,11 +22,14 @@ export type Color       = CLR_HEX | CLR_VAR
 
 export class ColorPicker extends Pickr
 {
+    app:                App
+    plugin:             GistrPlugin
 	ActionSave:         ( ActionSave: Color ) => void
 	ColorReset:         ( ) => void
 	AddButtonReset:     ExtraButtonComponent
+	AddButtonRefresh:   ExtraButtonComponent
 
-	constructor( plugin : GistrPlugin, el : HTMLElement, setting : Setting, tip? : string )
+	constructor( app : App, plugin : GistrPlugin, el : HTMLElement, setting : Setting, tip? : string )
     {
 		const settings : Pickr.Options =
         {
