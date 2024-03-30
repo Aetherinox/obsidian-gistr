@@ -1,1 +1,2 @@
-export { ColorPicker, GetColor } from 'src/utils/colorpicker'
+export { ColorPicker, GetColor } from './colorpicker'
+export { GetButtonIcon, GetIconSize, RemoveLeafButtonsAll, RemoveElements } from './Icons'
