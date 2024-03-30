@@ -1,6 +1,6 @@
 export { FrontmatterPrepare } from 'src/api/Frontmatter'
 export { NoxComponent } from 'src/api/NoxComponent'
 export { Env, PID } from 'src/api/Env'
-export { IconGithubPublic, IconGithubSecret, GithubCSS, PortalID, PortalUseragent, PortalClass, PortalURLDefault, PortalSVG } from 'src/api/Constants'
+export { LeafButton_Refresh, IconGithubPublic, IconGithubSecret, IconGithubReload, GithubCSS, PortalID, PortalUseragent, PortalClass, PortalURLDefault, PortalSVG } from 'src/api/Constants'
 export { GistrAPI, GistrEditor, ContextMenu, Coords } from 'src/api/Types'
 export { AssetGithubIcon } from 'src/api/Assets'
