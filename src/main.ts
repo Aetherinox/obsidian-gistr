@@ -667,7 +667,6 @@ export default class GistrPlugin extends Plugin
             new Notification( lng( "ver_update_beta_dn_title", this.manifest.name ),
             {
                 body:   lng( "ver_update_beta_dn_msg", ver_running, ver_beta ),
-                image:  AssetGithubIcon,
                 icon:   AssetGithubIcon,
                 badge:  AssetGithubIcon,
             } )
@@ -679,7 +678,6 @@ export default class GistrPlugin extends Plugin
             new Notification( lng( "ver_update_stable_dn_title", this.manifest.name ),
             {
                 body:   lng( "ver_update_stable_dn_msg", ver_running, ver_stable ),
-                image:  AssetGithubIcon,
                 icon:   AssetGithubIcon,
                 badge:  AssetGithubIcon,
             } )
