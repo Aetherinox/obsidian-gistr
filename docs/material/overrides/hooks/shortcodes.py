@@ -164,7 +164,7 @@ def _badge_color(icon: str, text: str = "", type: str = ""):
         f"<span class=\"{classes}\">",
         *([f"<span class=\"mdx-badge__icon\">{icon}</span>"] if icon else []),
         *([f"<span class=\"mdx-badge__text\">{text}</span>"] if text else []),
-        f"<span style=\"display: {bg1_dis};\" class=\"color-container\"><span class=\"color-box\" style=\"background-color:{bg1_clr};\">  </span></span></span>",
+        f"<span style=\"display: {bg1_dis};\" class=\"color-container\"><span class=\"color-box\" style=\"background-color:{bg1_clr};\">  </span></span>",
         f"<span style=\"display: {bg2_dis};\" class=\"color-container\"><span class=\"color-box\" style=\"background-color:{bg2_clr};\">  </span></span></span>",
     ])
 
