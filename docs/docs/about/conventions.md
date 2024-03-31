@@ -16,14 +16,14 @@ The tag symbol in conjunction with a version number denotes when a specific feat
 
 ## <!-- md:control --> Controls { #default data-toc-label="Control" }
 
-These icons define what type of control a specified setting is.
+These icons define what type of control a specified setting uses.
 
-:   <!-- md:control toggle --> toggle switch
-:   <!-- md:control textbox --> textbox control
-:   <!-- md:control dropdown --> dropdown control
-:   <!-- md:control button --> button control
-:   <!-- md:control slider --> slider control
-:   <!-- md:control color --> color wheel control
+:   <!-- md:control toggle --> toggle
+:   <!-- md:control textbox --> textbox
+:   <!-- md:control dropdown --> dropdown
+:   <!-- md:control button --> button
+:   <!-- md:control slider --> slider
+:   <!-- md:control color --> color wheel
 
 <br />
 
