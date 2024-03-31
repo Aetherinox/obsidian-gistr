@@ -55,7 +55,7 @@ const ColorPickrDefaults: Record< string, Color > =
 	"gh_clr_bg_light":      "#E5E5E5",
 	"gh_clr_bg_dark":       "#121315",
 	"gh_clr_sb_light":      "#BA4956",
-	"gh_clr_sb_dark":       "#BA496A",
+	"gh_clr_sb_dark":       "#4960BA",
 	"gh_clr_tx_light":      "#2A2626",
 	"gh_clr_tx_dark":       "#CAD3F5",
 }
@@ -572,14 +572,16 @@ export class SettingsSection extends PluginSettingTab
                 Development notice
             */
 
+            /*
             const ct_Note           = elm.createDiv( )
             const md_notFinished    = "> [!NOTE] " + lng( "base_underdev_title" ) + "\n> <small>" + lng( "base_underdev_msg" ) + "</small>"
             MarkdownRenderer.render( this.plugin.app, md_notFinished, ct_Note, "" + md_notFinished, this.plugin )
+            */
 
             /*
                 Background color (Light)
 
-                Color for Github codeblock background color Light Theme
+                Color for opengist codeblock background color Light Theme
             */
 
             const cfg_tab_og_cb_light_desc = new DocumentFragment( )
@@ -599,7 +601,7 @@ export class SettingsSection extends PluginSettingTab
             /*
                 Background color (Dark)
 
-                Color for Github codeblock background color Dark Theme
+                Color for opengist codeblock background color Dark Theme
             */
 
             const cfg_tab_og_cb_dark_desc = new DocumentFragment( )
@@ -1260,7 +1262,7 @@ export class SettingsSection extends PluginSettingTab
             /*
                 Background color (Light)
 
-                Color for Opengist codeblock background colorLight Theme
+                Color for Github codeblock background colorLight Theme
             */
 
             const cfg_tab_gh_cb_light_desc = new DocumentFragment( )
@@ -1280,7 +1282,7 @@ export class SettingsSection extends PluginSettingTab
             /*
                 Background color (Dark)
 
-                Color for Opengist codeblock background color Dark Theme
+                Color for Github codeblock background color Dark Theme
             */
 
             const cfg_tab_gh_cb_dark_desc = new DocumentFragment( )
