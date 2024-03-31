@@ -356,7 +356,7 @@ def icon_control_default( page: Page, files: Files ):
     icon = "aetherx-axs-hand-pointer"
     href = _resolve_path( "about/conventions.md#control", page, files )
     return _badge(
-        icon = f"[:{icon}:]({href} 'Control: Textbox')"
+        icon = f"[:{icon}:]({href} 'Type: Textbox')"
     )
 
 # Icon : Control : Textbox
@@ -364,7 +364,7 @@ def icon_control_textbox( page: Page, files: Files ):
     icon = "aetherx-axs-input-text"
     href = _resolve_path( "about/conventions.md#control", page, files )
     return _badge(
-        icon = f"[:{icon}:]({href} 'Control: Textbox')"
+        icon = f"[:{icon}:]({href} 'Type: Textbox')"
     )
 
 # Icon : Control : Toggle Switch
@@ -372,7 +372,7 @@ def icon_control_toggle( page: Page, files: Files ):
     icon = "aetherx-axs-toggle-large-on"
     href = _resolve_path("about/conventions.md#control", page, files)
     return _badge(
-        icon = f"[:{icon}:]({href} 'Control: Toggle Switch')"
+        icon = f"[:{icon}:]({href} 'Type: Toggle Switch')"
     )
 
 # Icon : Control : Toggle Switch > Enabled
@@ -396,7 +396,7 @@ def icon_control_dropdown( page: Page, files: Files ):
     icon = "aetherx-axs-square-caret-down"
     href = _resolve_path("about/conventions.md#control", page, files)
     return _badge(
-        icon = f"[:{icon}:]({href} 'Control: Dropdown')"
+        icon = f"[:{icon}:]({href} 'Type: Dropdown')"
     )
 
 # Icon : Control : Button
@@ -404,7 +404,7 @@ def icon_control_button( page: Page, files: Files ):
     icon = "material-button-pointer"
     href = _resolve_path( "about/conventions.md#control", page, files )
     return _badge(
-        icon = f"[:{icon}:]({href} 'Control: Button')"
+        icon = f"[:{icon}:]({href} 'Type: Button')"
     )
 
 # Icon : Control : Slider
@@ -412,7 +412,7 @@ def icon_control_slider( page: Page, files: Files ):
     icon = "aetherx-axd-sliders-simple"
     href = _resolve_path( "about/conventions.md#control", page, files )
     return _badge(
-        icon = f"[:{icon}:]({href} 'Control: Slider')"
+        icon = f"[:{icon}:]({href} 'Type: Slider')"
     )
 
 # Icon : Control : Color
@@ -420,6 +420,6 @@ def icon_control_color( text: str, page: Page, files: Files ):
     icon = "aetherx-axs-palette"
     href = _resolve_path( "about/conventions.md#control", page, files )
     return _badge_color(
-        icon = f"[:{icon}:]({href} 'Control: Color Wheel')",
+        icon = f"[:{icon}:]({href} 'Type: Color Wheel')",
         type = text
     )
