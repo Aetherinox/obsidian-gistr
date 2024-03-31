@@ -42,5 +42,5 @@ export const LeafButton_Refresh =
 {
 	id:     "GISTR",
 	icon:   'gistr-github-refresh',
-	name:   "Refresh Github",
+	name:   "Refresh Gistr Codeblocks",
 }
