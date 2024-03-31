@@ -140,14 +140,14 @@ The following is a list of common colors to show how your color values should ap
 
 | Color | Hex |
 | --- | --- |
-| <span class='color-box' style='background-color: #000000;'>  </span> Black | `000000` |
-| <span class='color-box' style='background-color: #FFFFFF;'>  </span> White | `FFFFFF` |
-| <span class='color-box' style='background-color: #C0C0C0;'>  </span> Silver | `C0C0C0` |
-| <span class='color-box' style='background-color: #808080;'>  </span> Gray | `808080` |
-| <span class='color-box' style='background-color: #FF0000;'>  </span> Red | `FF0000` |
-| <span class='color-box' style='background-color: #FFFF00;'>  </span> Yellow | `FFFF00` |
-| <span class='color-box' style='background-color: #008000;'>  </span> Green | `008000` |
-| <span class='color-box' style='background-color: #0000FF;'>  </span> Blue | `0000FF` |
+| <span class='color-box-left' style='background-color: #000000;'>  </span> Black | `000000` |
+| <span class='color-box-left' style='background-color: #FFFFFF;'>  </span> White | `FFFFFF` |
+| <span class='color-box-left' style='background-color: #C0C0C0;'>  </span> Silver | `C0C0C0` |
+| <span class='color-box-left' style='background-color: #808080;'>  </span> Gray | `808080` |
+| <span class='color-box-left' style='background-color: #FF0000;'>  </span> Red | `FF0000` |
+| <span class='color-box-left' style='background-color: #FFFF00;'>  </span> Yellow | `FFFF00` |
+| <span class='color-box-left' style='background-color: #008000;'>  </span> Green | `008000` |
+| <span class='color-box-left' style='background-color: #0000FF;'>  </span> Blue | `0000FF` |
 
 <br />
 
