@@ -22,7 +22,7 @@
     
     
       
-        <title>Global - </title>
+        <title>Settings > Global - </title>
       
     
     
@@ -167,7 +167,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Global
+              Settings > Global
             
           </span>
         </div>
@@ -700,6 +700,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#trigger-keyword" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger Keyword
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-update-notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Update Notifications
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notification-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification Duration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-refresh-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Refresh Icon
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -878,10 +914,6 @@
       
         
       
-        
-      
-        
-      
     
     
     
@@ -896,7 +928,7 @@
             
   
   <span class="md-ellipsis">
-    About
+    Cheatsheets
   </span>
   
 
@@ -905,6 +937,77 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            Cheatsheets
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cheatsheets/datetime/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Datetime Format
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    About
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             About
           </label>
@@ -1024,6 +1127,42 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#trigger-keyword" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trigger Keyword
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-update-notifications" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Update Notifications
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notification-duration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notification Duration
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enable-refresh-icon" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enable Refresh Icon
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1080,24 +1219,28 @@
 </thead>
 <tbody>
 <tr>
-<td><code>Theme</code></td>
+<td><a href="#theme">Theme</a></td>
 <td>The theme that will be used to display gists embedded in your notes. If you force a single gist snippet to use a particular theme, this will be overwritten for that one gist only.</td>
 </tr>
 <tr>
-<td><code>Text Wrapping</code></td>
+<td><a href="#text-wrapping">Text Wrapping</a></td>
 <td>This will determine if gists display a horizontal scrollbar. If a gist contains text that is not wrapped, a scrollbar will appear and allow you to scroll over the width of the gist.<br /><br />Enabled = text will be wrapped to the next line.<br />Disabled = codeblock will display horizontal scrollbar</td>
 </tr>
 <tr>
-<td><code>Trigger Keyword</code></td>
+<td><a href="#trigger-keyword">Trigger Keyword</a></td>
 <td>This is the phrase to use when initializing a new gist codeblock. If you change this value, you must go through your notes and also change to the new keyword.</td>
 </tr>
 <tr>
-<td><code>Enable update notifications</code></td>
+<td><a href="#enable-update-notifications">Enable update notifications</a></td>
 <td>This will determine if you receive a notification box when you first launch Obsidian if Gistr has a new update available. This includes both stable and beta versions.</td>
 </tr>
 <tr>
-<td><code>Notification duration</code></td>
+<td><a href="#notification-duration">Notification duration</a></td>
 <td>If Gistr sends you a notification, this will determine how long you see the notification for.<br><br>Set to <code>0</code> if you wish for notifications to stay open and not disappear until you click on them.</td>
+</tr>
+<tr>
+<td><a href="#enable-refresh-icon">Enable refresh icon</a></td>
+<td>Adds a special icon to the top header ribbon of your Obsidian interface which forcefully refreshes all of your embedded gist codeblocks, making color changes appear immediately.</td>
 </tr>
 </tbody>
 </table>
@@ -1150,6 +1293,67 @@
   <a class="glightbox" href="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/f0c11152-a047-4398-93e4-ffc8f114c08a" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Text Wrapping: Disabled" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/f0c11152-a047-4398-93e4-ffc8f114c08a" width="100%" /></a>
   <figcaption>Text Wrapping: Disabled</figcaption>
 </figure>
+<p><br /></p>
+<h2 id="trigger-keyword">Trigger Keyword<a class="headerlink" href="#trigger-keyword" title="Permanent link">&para;</a></h2>
+<p><span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#version-beta" title="Requires version 1.0.0"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span></a></span><span class="mdx-badge__text"><a href="../../changelog/#1.0.0">1.0.0</a></span></span>
+<span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#default" title="Default value"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a6 6 0 0 1-6-6c0-4 6-10.75 6-10.75S18 10 18 14a6 6 0 0 1-6 6Z"/></svg></span></a></span><span class="mdx-badge__text"><code>gistr</code></span></span>
+<span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#control" title="Control: Textbox"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M64 128V384H576V128H64zM0 128C0 92.7 28.7 64 64 64H576c35.3 0 64 28.7 64 64V384c0 35.3-28.7 64-64 64H64c-35.3 0-64-28.7-64-64V128zm184 32c9.5 0 18.1 5.6 21.9 14.3l64 144c5.4 12.1-.1 26.3-12.2 31.7s-26.3-.1-31.7-12.2l-4.3-9.7H146.3l-4.3 9.7c-5.4 12.1-19.6 17.6-31.7 12.2s-17.6-19.6-12.2-31.7l64-144c3.9-8.7 12.4-14.3 21.9-14.3zm0 83.1L167.6 280h32.8L184 243.1zM304 184c0-13.3 10.7-24 24-24h52c33.1 0 60 26.9 60 60c0 9.2-2.1 17.9-5.8 25.7c13.3 11 21.8 27.6 21.8 46.3c0 33.1-26.9 60-60 60H328c-13.3 0-24-10.7-24-24v-8V256 192v-8zm48 24v24h28c6.6 0 12-5.4 12-12s-5.4-12-12-12H352zm0 96h44c6.6 0 12-5.4 12-12s-5.4-12-12-12H380 352v24z"/></svg></span></a></span></span></p>
+<p>This is the phrase to use when initializing a new gist codeblock. If you change this value, you must go through your notes and also change to the new keyword.</p>
+<p>The keyword is what begins your codeblock for embedding gists:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>```keyword
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>```
+</span></code></pre></div>
+<p>By default, the keyword is <code>gistr</code></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>```gistr
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>```
+</span></code></pre></div>
+<p><br /></p>
+<h2 id="enable-update-notifications">Enable Update Notifications<a class="headerlink" href="#enable-update-notifications" title="Permanent link">&para;</a></h2>
+<p><span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#version-beta" title="Requires version 1.4.6"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span></a></span><span class="mdx-badge__text"><a href="../../changelog/#1.4.6">1.4.6</a></span></span>
+<span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#default" title="Default value"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a6 6 0 0 1-6-6c0-4 6-10.75 6-10.75S18 10 18 14a6 6 0 0 1-6 6Z"/></svg></span></a></span><span class="mdx-badge__text"><code>true</code></span></span>
+<span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#control" title="Control: Toggle Switch"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M192 64C86 64 0 150 0 256S86 448 192 448H384c106 0 192-86 192-192s-86-192-192-192H192zm192 64a128 128 0 1 1 0 256 128 128 0 1 1 0-256z"/></svg></span></a></span></span></p>
+<p>This will determine if you receive a notification box when you first launch Obsidian if Gistr has a new update available. This includes both stable and beta versions.</p>
+<p><br /></p>
+<dl>
+<dt><span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#control" title="Toggle: Enabled"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><defs><style>.fa-secondary{opacity:.4}</style></defs><path class="fa-secondary" d="M192 64C86 64 0 150 0 256S86 448 192 448H384c106 0 192-86 192-192s-86-192-192-192H192zm192 96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/><path class="fa-primary" d="M288 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0z"/></svg></span></a></span></span> <code>Enabled</code></dt>
+<dd>
+<p>When launching Obsidian; you will receive a system notification indicating an update is available for Gistr. This feature uses your operating system notification functionality. This includes both stable and beta releases.</p>
+</dd>
+<dt><span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#control" title="Toggle: Disabled"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><defs><style>.fa-secondary{opacity:.4}</style></defs><path class="fa-secondary" d="M192 128c-70.7 0-128 57.3-128 128s57.3 128 128 128H384c70.7 0 128-57.3 128-128s-57.3-128-128-128H192zM384 64c106 0 192 86 192 192s-86 192-192 192H192C86 448 0 362 0 256S86 64 192 64H384z"/><path class="fa-primary" d="M96 256a96 96 0 1 0 192 0A96 96 0 1 0 96 256z"/></svg></span></a></span></span> <code>Disabled</code></dt>
+<dd>
+<p>No notification will display when updates are available. You must manually check.</p>
+</dd>
+</dl>
+<p><br /></p>
+<h2 id="notification-duration">Notification Duration<a class="headerlink" href="#notification-duration" title="Permanent link">&para;</a></h2>
+<p><span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#version-beta" title="Requires version 1.4.0"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span></a></span><span class="mdx-badge__text"><a href="../../changelog/#1.4.0">1.4.0</a></span></span>
+<span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#default" title="Default value"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a6 6 0 0 1-6-6c0-4 6-10.75 6-10.75S18 10 18 14a6 6 0 0 1-6 6Z"/></svg></span></a></span><span class="mdx-badge__text"><code>10 seconds</code></span></span>
+<span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#control" title="Control: Slider"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><defs><style>.fa-secondary{opacity:.4}</style></defs><path class="fa-secondary" d="M325.5 192L32 192c-17.7 0-32-14.3-32-32s14.3-32 32-32H325.5c-3.5 10-5.5 20.8-5.5 32s1.9 22 5.5 32zM186.5 384c3.5-10 5.5-20.8 5.5-32s-1.9-22-5.5-32H480c17.7 0 32 14.3 32 32s-14.3 32-32 32H186.5z"/><path class="fa-primary" d="M416 192a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm0-128a96 96 0 1 0 0 192 96 96 0 1 0 0-192zM96 384a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm0-128a96 96 0 1 0 0 192 96 96 0 1 0 0-192z"/></svg></span></a></span></span></p>
+<p>If Gistr sends you a notification, this will determine how long you see the notification for.
+Set to <code>0</code> if you wish for notifications to stay open and not disappear until you click on them.</p>
+<p>This setting is for ALL notifications, not just update notifications.</p>
+<p><br /></p>
+<h2 id="enable-refresh-icon">Enable Refresh Icon<a class="headerlink" href="#enable-refresh-icon" title="Permanent link">&para;</a></h2>
+<p><span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#version-beta" title="Requires version 1.6.1"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M0 80V229.5c0 17 6.7 33.3 18.7 45.3l176 176c25 25 65.5 25 90.5 0L418.7 317.3c25-25 25-65.5 0-90.5l-176-176c-12-12-28.3-18.7-45.3-18.7H48C21.5 32 0 53.5 0 80zm112 32a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/></svg></span></a></span><span class="mdx-badge__text"><a href="../../changelog/#1.6.1">1.6.1</a></span></span>
+<span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#default" title="Default value"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a6 6 0 0 1-6-6c0-4 6-10.75 6-10.75S18 10 18 14a6 6 0 0 1-6 6Z"/></svg></span></a></span><span class="mdx-badge__text"><code>false</code></span></span>
+<span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#control" title="Control: Toggle Switch"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d="M192 64C86 64 0 150 0 256S86 448 192 448H384c106 0 192-86 192-192s-86-192-192-192H192zm192 64a128 128 0 1 1 0 256 128 128 0 1 1 0-256z"/></svg></span></a></span></span></p>
+<p>Adds a special icon to the top header ribbon of your Obsidian interface. This button will force your embedded gistr codeblocks to automatically refresh once pressed. By default, Gistr caches any codeblocks you have added to ensure that content from Github and Opengist appears immediately. This means that when you change settings such as colors; the change will not appear immediately. By using this button, changes will immediately take affect and be visible in your notes.</p>
+<figure>
+  <a class="glightbox" href="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/a3062f02-4576-4651-8695-6dbcbf2c8224" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Refresh icon" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/a3062f02-4576-4651-8695-6dbcbf2c8224" width="100%" /></a>
+  <figcaption>Refresh icon</figcaption>
+</figure>
+<p><br /></p>
+<dl>
+<dt><span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#control" title="Toggle: Enabled"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><defs><style>.fa-secondary{opacity:.4}</style></defs><path class="fa-secondary" d="M192 64C86 64 0 150 0 256S86 448 192 448H384c106 0 192-86 192-192s-86-192-192-192H192zm192 96a96 96 0 1 1 0 192 96 96 0 1 1 0-192z"/><path class="fa-primary" d="M288 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0z"/></svg></span></a></span></span> <code>Enabled</code></dt>
+<dd>
+<p>Icon will appear in top-right Obsidian ribbon.</p>
+</dd>
+<dt><span class="mdx-badge"><span class="mdx-badge__icon"><a href="../../about/conventions/#control" title="Toggle: Disabled"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Pro 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><defs><style>.fa-secondary{opacity:.4}</style></defs><path class="fa-secondary" d="M192 128c-70.7 0-128 57.3-128 128s57.3 128 128 128H384c70.7 0 128-57.3 128-128s-57.3-128-128-128H192zM384 64c106 0 192 86 192 192s-86 192-192 192H192C86 448 0 362 0 256S86 64 192 64H384z"/><path class="fa-primary" d="M96 256a96 96 0 1 0 192 0A96 96 0 1 0 96 256z"/></svg></span></a></span></span> <code>Disabled</code></dt>
+<dd>
+<p>No icon will appear</p>
+</dd>
+</dl>
+<p><br /><br /></p>
 
 
 
@@ -1170,7 +1374,7 @@
     <span class="md-icon" title="Last update">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 13.1c-.1 0-.3.1-.4.2l-1 1 2.1 2.1 1-1c.2-.2.2-.6 0-.8l-1.3-1.3c-.1-.1-.2-.2-.4-.2m-1.9 1.8-6.1 6V23h2.1l6.1-6.1-2.1-2M12.5 7v5.2l4 2.4-1 1L11 13V7h1.5M11 21.9c-5.1-.5-9-4.8-9-9.9C2 6.5 6.5 2 12 2c5.3 0 9.6 4.1 10 9.3-.3-.1-.6-.2-1-.2s-.7.1-1 .2C19.6 7.2 16.2 4 12 4c-4.4 0-8 3.6-8 8 0 4.1 3.1 7.5 7.1 7.9l-.1.2v1.8Z"/></svg>
     </span>
-    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-03-31T00:10:40+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-03-31</span>
+    <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2024-03-31T07:48:33+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2024-03-31</span>
   </span>
 
     
