@@ -153,11 +153,11 @@ def _badge_color(icon: str, text: str = "", type: str = ""):
     bg2_dis = "none"
     if len( args ) > 1:
         bg1_clr = args[ 1 ]
-        bg1_dis = "block"
+        bg1_dis = "inline-block"
 
     if len( args ) > 2:
         bg2_clr = args[ 2 ]
-        bg2_dis = "block"
+        bg2_dis = "inline-block"
 
     classes = f"mdx-badge mdx-badge--{type}" if type else "mdx-badge"
     return "".join([
