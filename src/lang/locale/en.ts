@@ -249,14 +249,14 @@ export default
         Tab > Sync
     */
 
-    cfg_tab_sy_list_save_showall_name:          'Gist save list: Show All Saves',
+    cfg_tab_sy_list_save_showall_name:          'Save list: Show All Saves',
     cfg_tab_sy_list_save_showall_desc:          'This setting effects how the gist save list displays saved gists.<br><br><span class="gistr-settings-elm-note">Enabled</span>: When saving an existing gist, the suggestion box will display ALL saves for that note in the same list; both public and secret.<br><br><span class="gistr-settings-elm-important">Disabled</span>: Public and secret gist saves will be separated when being displayed in the existing gist save list.',
 
-    cfg_tab_sy_list_icon_name:                  'Gist save list: Icon color',
+    cfg_tab_sy_list_icon_name:                  'Save list: Icon color',
     cfg_tab_sy_list_icon_desc:                  'Color for icon in gist save list',
 
-    cfg_tab_sy_list_datetime_name:              'Gist save list: Datetime format',
-    cfg_tab_sy_list_datetime_desc:              'Defines what format the date and time will display as.<br>Datetime Format Options: <a href="http://momentjs.com/docs/#/displaying/format/">view here</a>',
+    cfg_tab_sy_list_datetime_name:              'Save list: Datetime format',
+    cfg_tab_sy_list_datetime_desc:              'Defines what format the date and time will display as.<br>Datetime Format Options: <a href="https://aetherinox.github.io/obsidian-gistr/cheatsheets/datetime/">view here</a>',
 
     cfg_tab_sy_tog_enable_ribbon_name:          'Enable ribbon icons',
     cfg_tab_sy_tog_enable_ribbon_desc:          '<span class="gistr-settings-elm-note">Enabled</span>: Adds <span class="gistr-settings-elm-note">Save Public / Secret Gist</span> icons to left-side ribbon in Obsidian.<br><br><span class="gistr-settings-elm-important">Disabled</span>: You will only be able to access the save menu options from your <span class="gistr-settings-elm-note">right-click menu</span>, or the Obsidian command palette',
@@ -282,7 +282,7 @@ export default
     cfg_tab_sy_num_save_dur_desc:               'How often autosave will execute <span class="gistr-settings-elm-note">in seconds</span>. Set this to a fair amount so that the calls aren\'t being ran excessively to the gist API server (Github or OpenGist).<br><br>The save countdown timer will begin shortly after you stop typing.<br><br>If you wish to change this to save precisely every <span class="gistr-settings-elm-note">{0} seconds</span>, enable the setting <span class="gistr-settings-elm-note">Autosave Strict Saving</span> located above.',
 
     cfg_tab_sy_tog_inc_fm_name:                 'Include frontmatter',
-    cfg_tab_sy_tog_inc_fm_desc:                 'When saving a note as a new gist, frontmatter will be added to the top of your note with information about the gist.<br><br><span class="gistr-settings-elm-note">Enabled</span>: the note will be cleaned before it is pushed to the gist service and no frontmatter fields will be present in the online version.<br><br><span class="gistr-settings-elm-important">Disabled</span>: frontmatter added to your notes will be included when your note is pushed to a gist service.<br><br>Frontmatter can be found at the very top of each note, in-between <span class="gistr-settings-elm-note"> `---` </span>',
+    cfg_tab_sy_tog_inc_fm_desc:                 'When saving a note as a new gist, frontmatter will be added to the top of your note with information about the gist.<br><br><span class="gistr-settings-elm-note">Enabled</span>: frontmatter added to your notes will be included when your note is pushed to a gist service.<br><br><span class="gistr-settings-elm-important">Disabled</span>: the note will be cleaned before it is pushed to the gist service and no frontmatter fields will be present in the online version.<br><br>Frontmatter can be found at the very top of each note, in-between <span class="gistr-settings-elm-note"> `---` </span>',
     cfg_tab_sy_tog_inc_fm_tip:                  'Frontmatter starts with three hyphens `---`',
 
     /*
