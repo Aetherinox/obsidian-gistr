@@ -38,7 +38,7 @@ export interface GistrSettings
     gh_clr_bg_light:            string | "E5E5E5"
     gh_clr_bg_dark:             string | "121315"
     gh_clr_sb_light:            string | "3D85C4"
-    gh_clr_sb_dark:             string | "4960BA"
+    gh_clr_sb_dark:             string | "BA496A"
     gh_clr_tx_light:            string | "2A2626"
     gh_clr_tx_dark:             string | "CAD3F5"
     gh_opacity:                 number | 1
@@ -52,7 +52,7 @@ export interface GistrSettings
     sy_save_list_showall:       boolean | false
     sy_save_list_datetime:      string | "MM.DD.YYYY h:m:s a"
     sy_clr_lst_icon:            string | "757575E6"
-    sy_save_duration:           number | 10
+    sy_save_duration:           number | 120
     portals:                    Record< string, SaturynParams >
     uuid:                       string
 }
