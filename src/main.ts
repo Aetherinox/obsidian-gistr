@@ -13,6 +13,7 @@ import { Env, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconG
 import { SaturynRegister, SaturynParams, SaturynParamsHandle, SaturynUnload, SaturynPortalInitialize, SaturynModalPortalEdit, SaturynCodeblock, SaturynOpen, SaturynIsOpen } from 'src/api/Saturyn'
 import { lng } from 'src/lang'
 import type {  LeafButtonBase  } from 'src/types'
+import { base64ToArrayBuffer, arrayBufferToBase64, readString, writeString, uint8ArrayToHexString } from "src/api/Storage/ByteStr";
 import { GetButtonIcon, GetIconSize, RemoveLeafButtonsAll } from 'src/utils'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
 import ShowContextMenu from 'src/menus/context'
@@ -119,7 +120,7 @@ export default class GistrPlugin extends Plugin
         this.addSettingTab          ( new SettingsSection( this.app, this ) )
         this.registerPortal         ( )
         SaturynCodeblock            ( this )
-        
+
 		this.app.workspace.onLayoutReady( async ( ) =>
         {
             if ( this.settings.firststart === true )
