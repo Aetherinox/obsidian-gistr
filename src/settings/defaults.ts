@@ -30,7 +30,7 @@ export const SettingsDefaults: GistrSettings =
     gh_clr_bg_light:            "#E5E5E5",
     gh_clr_bg_dark:             "#121315",
     gh_clr_sb_light:            "#BA4956",
-    gh_clr_sb_dark:             "#BA496A",
+    gh_clr_sb_dark:             "#4960BA",
     gh_clr_tx_light:            "#2A2626",
     gh_clr_tx_dark:             "#CAD3F5",
     gh_opacity:                 1,
