@@ -7,6 +7,14 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.6.1 <small>March 30, 2024</small> { id="1.6.1" }
+
+- `feat`: added new header ribbon button `refresh` which can be enabled in Gistr Global Settings
+    - can be enabled in Gistr Settings panel under `Global` with new setting labeled `Enable refresh icon`
+    - Allows you to force refresh all of your embedded gist blocks when you change colors and see changes immediately. Gistr initially caches everything so that codeblocks are quicker to load.
+- `change`: updated Gistr settings panel link for Personal Access Token documentation, goes to new docs website now
+- `perf`: optimized loading of blocks when Obsidian first launched
+
 ### <!-- md:version stable- --> 1.6.0 <small>March 29, 2024</small> { id="1.6.0" }
 
 - `feat`: added `raw` property
