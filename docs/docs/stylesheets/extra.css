@@ -1,4 +1,8 @@
-[data-md-color-scheme="default"]
+/*
+    Theme > Default
+*/
+
+[ data-md-color-scheme="default" ]
 {
     .mdx-badge__text
     {
@@ -127,7 +131,11 @@
 
 }
 
-[data-md-color-scheme="gistr"]
+/*
+    Theme > Gistr
+*/
+
+[ data-md-color-scheme="gistr" ]
 {
 
     --md-primary-fg-color:              #b10f52;
