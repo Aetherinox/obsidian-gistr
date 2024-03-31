@@ -1,3 +1,132 @@
+[data-md-color-scheme="default"]
+{
+    .mdx-badge__text
+    {
+        background-color: #8b88ee;
+    }
+
+    .mdx-badge__text > code, .mdx-badge__text > a
+    {
+        background-color: transparent;
+        color: #FFF;
+    }
+    
+    .md-typeset .mdx-badge svg
+    {
+        color: #FFFFFF;
+    }
+
+    .mdx-badge__text a
+    {
+        padding-top: 2px;
+    }
+
+    .md-typeset .mdx-badge a[title^="Requires"] svg, .md-typeset .mdx-badge a[title^="Default"] svg
+    {
+        padding-top: 2px;
+        padding-left: 4px;
+    }
+    
+    .md-typeset .mdx-badge a[title^="Type"] svg
+    {
+        padding: 2px;
+    }
+
+    .color-box {
+        float: left;
+        height: 24px;
+        width: 24px;
+        border: 1px solid rgba( 255, 255, 255, 0.2 );
+        clear: both;
+      }
+
+    .color-container
+    {
+        display: inline-block;
+        padding-left: 5px;
+        margin-block-end: -7px;
+    }
+
+    .md-typeset .mdx-badge a[title^="Requires"]svg:hover 
+    {
+        padding-top: 2px;
+        padding-left: 4px;
+    }
+
+    .md-typeset .mdx-badge__icon
+    {
+        background-color: #8b88ee;
+    }
+
+    .md-typeset table:not([class]) tbody tr
+    {
+        background-color: rgb(255, 255, 255);
+    }
+
+    /*
+        Table Colors
+    */
+
+    .md-typeset__table > table
+    {
+
+    }
+
+    .md-typeset table:not([class]) th
+    {
+        padding-top:10px;
+        padding-bottom: 10px;
+        padding-left: 15px;
+    }
+
+    .md-typeset table:not([class]) td
+    {
+        padding-left: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .md-typeset__table > table > tbody > tr > td:first-child
+    {
+        white-space: nowrap;
+        /*background-color: var(--md-code-bg-color);*/
+        min-width: 25%;
+        border-right: 1px solid rgba( 255, 255, 255, 0.14);
+        background-color: rgba(139, 136, 238, 0.28);
+    }
+
+    .md-typeset__table thead
+    {
+        background-color: #8b88ee;
+        color: #FFF;
+    }
+
+    /*
+        First row of table nowrap
+    */
+
+    .md-typeset__table > table > thead > tr > th:first-child
+    {
+        white-space: nowrap
+    }
+
+    .md-typeset__table
+    {
+        min-width: 100%;
+    }
+    
+    .md-typeset table:not([class])
+    {
+        display: table;
+    }
+
+    .md-typeset__table
+    {
+        min-width: 100%;
+    }
+
+}
+
 [data-md-color-scheme="gistr"]
 {
 
