@@ -168,6 +168,8 @@ nav:
     - Support: 'settings/support.md'
   - Advanced:
     - Build: 'advanced/build.md'
+  - Cheatsheets:
+    - Datetime Format: 'cheatsheets/datetime.md'
   - About:
     - License: 'about/license.md'
     - Conventions: 'about/conventions.md'

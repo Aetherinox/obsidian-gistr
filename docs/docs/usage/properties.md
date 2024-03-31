@@ -97,7 +97,8 @@ theme:        dark
 
 ### Color
 <!-- md:version stable-1.5.0 -->
-<!-- md:default `FFFFFF || 000000` -->
+<!-- md:default `#FFFFFF | #000000` -->
+<!-- md:control color #FFFFFF #000000 -->
 
 The `color` property allows you to change the overall text which appears inside an embedded gist. The text color depends on which theme you have selected. Light theme displays black text, dark theme shows white text.
 

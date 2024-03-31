@@ -11,6 +11,9 @@ These settings an be accessed via the **Gistr Plugin Settings**.
 - Open Obsidian Settings ⚙️ interface
 - Select Community Plugins in left menu
 - Locate Gistr plugin, and click Settings ⚙️ icon
+- Click the **Opengist** tab
+
+<br />
 
 <figure markdown="span">
   ![Gistr > Settings > Opengist](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/e3b46014-87f3-4c24-b095-b2bd01c891ba){ width="100%" }
