@@ -147,25 +147,25 @@ def _badge(icon: str, text: str = "", type: str = ""):
 def _badge_color(icon: str, text: str = "", type: str = ""):
     args = type.split( " " )
 
-    clr_bg1 = "#000000"
-    clr_bg2 = "#000000"
-    opc_bg1 = "0"
-    opc_bg2 = "0"
+    bg1_clr = "#000000"
+    bg2_clr = "#000000"
+    bg1_dis = "none"
+    bg2_dis = "none"
     if len( args ) > 1:
-        clr_bg1 = args[ 1 ]
-        opc_bg1 = "1"
+        bg1_clr = args[ 1 ]
+        bg1_dis = "block"
 
     if len( args ) > 2:
-        clr_bg2 = args[ 2 ]
-        opc_bg2 = "1"
+        bg2_clr = args[ 2 ]
+        bg2_dis = "block"
 
     classes = f"mdx-badge mdx-badge--{type}" if type else "mdx-badge"
     return "".join([
         f"<span class=\"{classes}\">",
         *([f"<span class=\"mdx-badge__icon\">{icon}</span>"] if icon else []),
         *([f"<span class=\"mdx-badge__text\">{text}</span>"] if text else []),
-        f"<span style=\"opacity: {opc_bg1};\" class=\"color-container\"><span class=\"color-box\" style=\"opacity: {opc_bg1}; background-color:{clr_bg1};\">  </span></span></span>",
-        f"<span style=\"opacity: {opc_bg2};\" class=\"color-container\"><span class=\"color-box\" style=\"opacity: {opc_bg2}; background-color:{clr_bg2};\">  </span></span></span>",
+        f"<span style=\"display: {bg1_dis};\" class=\"color-container\"><span class=\"color-box\" style=\"opacity: {bg1_dis}; background-color:{bg1_clr};\">  </span></span></span>",
+        f"<span style=\"display: {bg2_dis};\" class=\"color-container\"><span class=\"color-box\" style=\"opacity: {bg2_dis}; background-color:{bg2_clr};\">  </span></span></span>",
     ])
 
 # Create sponsors badge
