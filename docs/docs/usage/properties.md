@@ -110,7 +110,7 @@ color:        FFFFFF
 
 <br />
 
-This setting is especially useful if you also combine it with the [[#Background]] setting and add backgrounds that have similar colors to the existing text color.
+This setting is especially useful if you also combine it with the [Background](#background) setting and add backgrounds that have similar colors to the existing text color.
 
 Text color accepts a hex color value. The hex color value typically begins with a pound symbol ( `#`), however, this symbol is optional with this plugin. The plugin will automatically take care of it.
 
@@ -139,14 +139,14 @@ The following is a list of common colors to show how your color values should ap
 
 | Color | Hex |
 | --- | --- |
-| Black | `000000` |
-| White | `FFFFFF` |
-| Silver | `C0C0C0` |
-| Gray | `808080` |
-| Red | `FF0000` |
-| Yellow | `FFFF00` |
-| Green | `008000` |
-| Blue | `0000FF` |
+| <span class='color-box' style='background-color: #000000;'>  </span> Black | `000000` |
+| <span class='color-box' style='background-color: #FFFFFF;'>  </span> White | `FFFFFF` |
+| <span class='color-box' style='background-color: #C0C0C0;'>  </span> Silver | `C0C0C0` |
+| <span class='color-box' style='background-color: #808080;'>  </span> Gray | `808080` |
+| <span class='color-box' style='background-color: #FF0000;'>  </span> Red | `FF0000` |
+| <span class='color-box' style='background-color: #FFFF00;'>  </span> Yellow | `FFFF00` |
+| <span class='color-box' style='background-color: #008000;'>  </span> Green | `008000` |
+| <span class='color-box' style='background-color: #0000FF;'>  </span> Blue | `0000FF` |
 
 <br />
 
@@ -355,7 +355,7 @@ The default value is `1` which equals `100%`. If you would like to use `50%`, th
 <!-- md:version stable-1.6.0 -->
 <!-- md:default `600` -->
 
-The `height` property allows you to specify how tall the window will be within your Obsidian note. If you do not specify a custom height, then it will default to `600`.
+The `height` property allows you to specify how tall the window will be within your Obsidian note. If you do not specify a custom height, then it will default to `600`, which represents 600 **pixels**.
 
 <br />
 <br />

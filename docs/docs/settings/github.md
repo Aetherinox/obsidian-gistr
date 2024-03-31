@@ -1,5 +1,6 @@
 ---
 #icon: material/circle-small
+title: "Settings > Github"
 tags:
   - settings
 ---
@@ -12,7 +13,7 @@ These settings an be accessed via the **Gistr Plugin Settings**.
 - Locate Gistr plugin, and click Settings ⚙️ icon
 
 <figure markdown="span">
-  ![Gistr > Settings > Github](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/bc48cfaa-91d4-4e1a-a784-286f527a6037){ width="100%" }
+  ![Gistr > Settings > Github](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/568a5942-098f-4e19-808f-606cca0b4bfc){ width="100%" }
   <figcaption>Gistr > Settings > Github</figcaption>
 </figure>
 
@@ -23,6 +24,10 @@ These settings an be accessed via the **Gistr Plugin Settings**.
 <br />
 
 ## Personal Access Token
+<!-- md:version stable-1.3.0 -->
+<!-- md:default `none` -->
+<!-- md:control textbox -->
+
 The **Personal Access Token** is a token given to you by Github which allows you to access your Github account from 3rd party services such as Obsidian.md. If you are simply reading gists from within your Obsidian notes; you do not need a Github token, however, if you want to make use of the feature to create and update gists from Obsidian to Github; you must have a Github token linked to the Gistr Github settings.
 
 <br />
@@ -142,6 +147,10 @@ You are now ready to create and update gists to Github.
 <br />
 
 ## Codeblock Background Color
+<!-- md:version stable-1.2.0 -->
+<!-- md:default `#E5E5E5 | #121315` -->
+<!-- md:control color #E5E5E5 #121315 -->
+
 These settings allow you to adjust the overall background color of the codeblock. The setting is broken up into two schemes; **light** and **dark**.
 
 <br />
@@ -160,16 +169,28 @@ These settings allow you to adjust the overall background color of the codeblock
 <br />
 
 ## Codeblock Text Color
+<!-- md:version stable-1.2.0 -->
+<!-- md:default `#2A2626 | #CAD3F5` -->
+<!-- md:control color #2A2626 #CAD3F5 -->
+
 These settings allow you to adjust the overall text color of the codeblock. This is the color of text that is **not** affected by syntax highlighting; which is dependent on the language the codeblock is written for. The setting is broken up into two schemes; **light** and **dark**.
 
 <br />
 
 ## Codeblock Scrollbar Track Color
+<!-- md:version stable-1.2.0 -->
+<!-- md:default `#BA4956 | #4960BA` -->
+<!-- md:control color #BA4956 #4960BA -->
+
 These settings allow you to adjust the color of the horizontal scrollbar which appears within codeblocks which have scrolling enabled, or the text exceeds the width of the codeblock. The setting is broken up into two schemes; **light** and **dark**.
 
 <br />
 
 ## Codeblock Opacity
+<!-- md:version stable-1.3.0 -->
+<!-- md:default `1` -->
+<!-- md:control slider -->
+
 This setting allow you to adjust the opacity / transparency of the codeblocks. Acceptable values are between `0` - `1`, with numbers in the middle being decimals.
 
 | Value | Percentage | Note |
@@ -181,7 +202,14 @@ This setting allow you to adjust the opacity / transparency of the codeblocks. A
 
 <br />
 
+## Custom CSS
+<!-- md:version stable-1.0.0 -->
+<!-- md:default `none` -->
+<!-- md:control textbox -->
 
----
+This setting allows you to override the default CSS for Github and use your own color scheme.
 
 <br />
+
+
+<br /><br />

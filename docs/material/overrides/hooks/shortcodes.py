@@ -50,6 +50,7 @@ def on_page_markdown(
                 return version( args, page, files )
 
         #elif type == "sponsors":     return _badge_for_sponsors(page, files)
+        elif type == "color":           return flag(args, page, files)
         elif type == "control":         return control(args, page, files)
         elif type == "flag":            return flag(args, page, files)
         elif type == "option":          return option(args)
@@ -80,11 +81,11 @@ def on_page_markdown(
 # Create a flag of a specific type
 def flag(args: str, page: Page, files: Files):
     type, *_ = args.split(" ", 1)
-    if   type == "experimental":  return _badge_for_experimental(page, files)
-    elif type == "required":      return _badge_for_required(page, files)
-    elif type == "customization": return _badge_for_customization(page, files)
-    elif type == "metadata":      return _badge_for_metadata(page, files)
-    elif type == "multiple":      return _badge_for_multiple(page, files)
+    if   type == "experimental":    return _badge_for_experimental(page, files)
+    elif type == "required":        return _badge_for_required(page, files)
+    elif type == "customization":   return _badge_for_customization(page, files)
+    elif type == "metadata":        return _badge_for_metadata(page, files)
+    elif type == "multiple":        return _badge_for_multiple(page, files)
     raise RuntimeError(f"Unknown type: {type}")
 
 # -----------------------------------------------------------------------------
@@ -93,7 +94,7 @@ def flag(args: str, page: Page, files: Files):
 
 # Create a flag of a specific type
 def control( args: str, page: Page, files: Files ):
-    type, *_ = args.split( " ", 1 )
+    type, *_ = args.split( " ", 2 )
     if   type == "toggle":      return icon_control_toggle( page, files )
     elif type == "toggle_on":   return icon_control_toggle_on( page, files )
     elif type == "toggle_off":  return icon_control_toggle_off( page, files )
@@ -101,7 +102,7 @@ def control( args: str, page: Page, files: Files ):
     elif type == "dropdown":    return icon_control_dropdown( page, files )
     elif type == "button":      return icon_control_button( page, files )
     elif type == "slider":      return icon_control_slider( page, files )
-    elif type == "color":       return icon_control_color( page, files )
+    elif type == "color":       return icon_control_color( args, page, files )
     else: return icon_control_default( page, files )
 
     raise RuntimeError(f"Unknown type: {type}")
@@ -141,6 +142,30 @@ def _badge(icon: str, text: str = "", type: str = ""):
         *([f"<span class=\"mdx-badge__icon\">{icon}</span>"] if icon else []),
         *([f"<span class=\"mdx-badge__text\">{text}</span>"] if text else []),
         f"</span>",
+    ])
+
+def _badge_color(icon: str, text: str = "", type: str = ""):
+    args = type.split( " " )
+
+    clr_bg1 = "#000000"
+    clr_bg2 = "#000000"
+    opc_bg1 = "0"
+    opc_bg2 = "0"
+    if len( args ) > 1:
+        clr_bg1 = args[ 1 ]
+        opc_bg1 = "1"
+
+    if len( args ) > 2:
+        clr_bg2 = args[ 2 ]
+        opc_bg2 = "1"
+
+    classes = f"mdx-badge mdx-badge--{type}" if type else "mdx-badge"
+    return "".join([
+        f"<span class=\"{classes}\">",
+        *([f"<span class=\"mdx-badge__icon\">{icon}</span>"] if icon else []),
+        *([f"<span class=\"mdx-badge__text\">{text}</span>"] if text else []),
+        f"<span style=\"opacity: {opc_bg1};\" class=\"color-container\"><span class=\"color-box\" style=\"opacity: {opc_bg1}; background-color:{clr_bg1};\">  </span></span></span>",
+        f"<span style=\"opacity: {opc_bg2};\" class=\"color-container\"><span class=\"color-box\" style=\"opacity: {opc_bg2}; background-color:{clr_bg2};\">  </span></span></span>",
     ])
 
 # Create sponsors badge
@@ -318,14 +343,6 @@ def _badge_for_customization(page: Page, files: Files):
         icon = f"[:{icon}:]({href} 'Customization')"
     )
 
-# Create badge for multiple instance flag
-def _badge_for_multiple(page: Page, files: Files):
-    icon = "material-inbox-multiple"
-    href = _resolve_path("about/conventions.md#multiple-instances", page, files)
-    return _badge(
-        icon = f"[:{icon}:]({href} 'Multiple instances')"
-    )
-
 # Create badge for experimental flag
 def _badge_for_experimental(page: Page, files: Files):
     icon = "material-flask-outline"
@@ -399,9 +416,10 @@ def icon_control_slider( page: Page, files: Files ):
     )
 
 # Icon : Control : Color
-def icon_control_color( page: Page, files: Files ):
+def icon_control_color( text: str, page: Page, files: Files ):
     icon = "aetherx-axs-palette"
     href = _resolve_path( "about/conventions.md#control", page, files )
-    return _badge(
-        icon = f"[:{icon}:]({href} 'Control: Color Wheel')"
+    return _badge_color(
+        icon = f"[:{icon}:]({href} 'Control: Color Wheel')",
+        type = text
     )
