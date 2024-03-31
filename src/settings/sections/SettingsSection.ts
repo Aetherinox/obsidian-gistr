@@ -1814,7 +1814,7 @@ export class SettingsSection extends PluginSettingTab
                 Gist save list > Datetime format
 
                 Defines what format the date and time will display as.
-                Datetime Format Options: "http://momentjs.com/docs/#/displaying/format/"
+                Datetime Format Options: "https://aetherinox.github.io/obsidian-gistr/cheatsheets/datetime/"
             */
 
                 const cfg_tab_sy_list_datetime_desc = new DocumentFragment( )
