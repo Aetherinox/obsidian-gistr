@@ -356,6 +356,46 @@ The default value is `1` which equals `100%`. If you would like to use `50%`, th
 <!-- md:version stable-1.6.0 -->
 <!-- md:default `600` -->
 
+The `css` property allows you to override any website's default CSS.
+
+````
+```gistr
+url:    https://gist.github.com/Aetherinox/f7525990fba2cba6a3ee7b61ac626c21
+raw:    true
+zoom:   0.8
+height: 500
+css: | 
+   body { background-color: #FFF !important; }
+   h1 { font-size: 60pt !important; color: #000 !important; }
+```
+````
+
+<br />
+
+The above example will force all `h1` headers to use a larger font size, and change the text color to black, as well as make the entire website background color white.
+
+CSS rules can be on their own lines, or all-together:
+
+````
+```gistr
+url:    https://gist.github.com/Aetherinox/f7525990fba2cba6a3ee7b61ac626c21
+raw:    true
+css:    body { background-color: #FFF !important; }
+```
+````
+
+!!! important "Overriding CSS"
+
+    Certain websites such as Github utilize the [!important](https://www.w3schools.com/css/css_important.asp) property on quite a few CSS rules.
+
+    You must use `!important` at the end of your property to attempt overriding Github's rule. 
+
+<br />
+
+#### Property: CSS
+<!-- md:version stable-1.6.3 -->
+<!-- md:default `none` -->
+
 The `height` property allows you to specify how tall the window will be within your Obsidian note. If you do not specify a custom height, then it will default to `600`, which represents 600 **pixels**.
 
 <br />

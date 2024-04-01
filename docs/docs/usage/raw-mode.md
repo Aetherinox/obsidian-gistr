@@ -48,6 +48,7 @@ Along with specifying `raw`, you also have access to the properties:
 | --- | --- |
 | [zoom](../usage/properties.md#property-zoom) | _**(Raw Mode Only)**_: Determines how big the content and text will appear in the gist window. Default value: `1`. 50% would be `0.5`|
 | [height](../usage/properties.md#property-height) | _**(Raw Mode Only)**_: Specify the height of the window when displaying a gist. |
+| [css](../usage/properties.md#property-css) | _**(Raw Mode Only)**_: Allows you to override a targeted website's default css |
 
 <br />
 
