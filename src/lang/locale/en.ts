@@ -145,6 +145,8 @@ export default
     cfg_tab_su_desc:                            'The following buttons are associated to useful resources for this plugin.',
     cfg_tab_su_gs_name:                         'Introduction',
     cfg_tab_su_gs_desc:                         'View brief introduction to getting started with this plugin',
+    cfg_tab_su_doc_name:                        'Documentation',
+    cfg_tab_su_doc_desc:                        'View the official Gistr documentation',
     cfg_tab_su_gs_btn:                          'Open',
     cfg_tab_su_repo_label:                      'Plugin repo',
     cfg_tab_su_repo_url:                        'https://github.com/Aetherinox/obsidian-gistr',
