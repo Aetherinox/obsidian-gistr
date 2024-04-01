@@ -117,14 +117,14 @@ export default class GistrPlugin extends Plugin
 
         if ( process.env.ENV === "dev" )
         {
-            console.log( process.env.NODE_ENV )
-            console.log( process.env.ENV )
-            console.log( process.env.BUILD )
-            console.log( process.env.PLUGIN_VERSION )
-            console.log( process.env.BUILD_GUID )
-            console.log( process.env.BUILD_UUID )
-            console.log( process.env.BUILD_DATE )
-            console.log( process.env.AUTHOR )
+            //console.log( process.env.NODE_ENV )
+            //console.log( process.env.ENV )
+            //console.log( process.env.BUILD )
+            //console.log( process.env.PLUGIN_VERSION )
+            //console.log( process.env.BUILD_GUID )
+            //console.log( process.env.BUILD_UUID )
+            //console.log( process.env.BUILD_DATE )
+            //console.log( process.env.AUTHOR )
         }
 
         await this.loadSettings     ( )
