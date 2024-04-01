@@ -42,24 +42,19 @@ The following is an outline of what Gistr can do for you:
 **Supported Services**:
 - [Github Gists](https://gist.github.com)
 - [OpenGist Server](https://github.com/thomiceli/opengist)
-
-<br />
-
-**Themes**:
-- Includes **Light** & **Dark** mode for both services
-- Ability to customize individual colors
-- CSS stylesheet override
-- Thin and customizable scrollbar
-- Force theme on each individual gist paste
+- _As of v1.6.x_: Any website
 
 <br />
 
 **Functionality**:
-- Supports embedding Gist mermaid graphs
-- Integrated a secondary method of viewing gists which makes gists appear in a frame which acts as a browser window. Allows you to read gists, as well as sign into Github or Opengist and edit your owned gists.
-  - `raw` mode supports the ability to specify additional properties:
+- Gistr now includes an integrated browser feture which allows you to embed any website into your notes, including Github and Opengist.
+  - This can be used for embedding gists  containing mermaid graphs
+  - Feature allows you to not only view the website in your notes, but also sign into websites such as Github / Opengist and make edits.
+  - Can be activated with `raw` property
+  - `raw` property supports the ability to specify additional properties:
     - `zoom`
     - `height`
+    - `css`
 - Save notes from Obsidian as public or secret gists
   - Choose when you want to save a gist, or enable autosave to track changes
   - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta) (free). Open Gistr settings in Obsidian to configure.
@@ -69,6 +64,15 @@ The following is an outline of what Gistr can do for you:
 - Enable / Disable text wrapping and horizontal scrollbar
 - Auto-refresh any edits to your settings in reading mode
 - Complete customization, including changing the keyword that triggers a codeblock to show gists.
+
+<br />
+
+**Themes**:
+- Includes **Light** & **Dark** mode for both services
+- Ability to customize individual colors
+- CSS stylesheet override
+- Thin and customizable scrollbar
+- Force theme on each individual gist paste
 
 <br />
 
