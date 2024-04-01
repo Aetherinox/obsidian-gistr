@@ -22,6 +22,7 @@ You have numerous properties you can set for each embedded gist:
 | `raw` | Allows you to integrate gists with mermaid graphs as a actual website instead of a codeblock. This property also works with normal gists. Gives you the ability to sign in to Github, as well as edit gists. |
 | `zoom` | _**(Raw Mode Only)**_: Determines how big the content and text will appear in the gist window. Default value: `1`. 50% would be `0.5`|
 | `height` | _**(Raw Mode Only)**_: Specify the height of the window when displaying a gist. |
+| `css` | _**(Raw Mode Only)**_: Allows you to override any website's default CSS. |
 
 <br />
 <br />
