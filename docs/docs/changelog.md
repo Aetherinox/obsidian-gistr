@@ -7,7 +7,13 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
-### <!-- md:version stable- --> 1.6.2 <small>March 30, 2024</small> { id="1.6.2" }
+### <!-- md:version stable- --> 1.6.3 <small>April 01, 2024</small> { id="1.6.3" }
+
+- `dep`: update rollup 3.29.3 -> 4.13.2
+- `dep`: added `@rollup/plugin-replace`
+- `remove`: `rollup-plugin-define`
+
+### <!-- md:version stable- --> 1.6.2 <small>March 31, 2024</small> { id="1.6.2" }
 
 - `fix`: update language entries, fixed a few typos
 - `fix`: update leaf header icon tooltip
