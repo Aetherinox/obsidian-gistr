@@ -14,19 +14,18 @@ You have numerous properties you can set for each embedded gist:
 
 | Property | Description |
 | --- | --- |
-| `url` | Path to the gist you want to link to |
-| `file` | Specify a target file for gists which contain multiple files |
-| `theme` | Theme to use for a specific embedded gist block |
-| `color` | Text color to use for non syntax-highlighted code |
-| `background` | Direct URL to image which will be used as the background for the codeblock. |
-| `raw` | Allows you to integrate gists with mermaid graphs as a actual website instead of a codeblock. This property also works with normal gists. Gives you the ability to sign in to Github, as well as edit gists. |
-| `zoom` | _**(Raw Mode Only)**_: Determines how big the content and text will appear in the gist window. Default value: `1`. 50% would be `0.5`|
-| `height` | _**(Raw Mode Only)**_: Specify the height of the window when displaying a gist. |
-| `css` | _**(Raw Mode Only)**_: Allows you to override any website's default CSS. |
+| [url](#url) | Path to the gist you want to link to |
+| [file](#file) | Specify a target file for gists which contain multiple files |
+| [theme](#theme) | Theme to use for a specific embedded gist block |
+| [color](#color) | Text color to use for non syntax-highlighted code |
+| [background](#background) | Direct URL to image which will be used as the background for the codeblock. |
+| [raw](#raw) | Allows you to integrate gists with mermaid graphs as a actual website instead of a codeblock. This property also works with normal gists. Gives you the ability to sign in to Github, as well as edit gists. |
+| [zoom](#property-zoom) | _**(Raw Mode Only)**_: Determines how big the content and text will appear in the gist window. Default value: `1`. 50% would be `0.5`|
+| [height](#property-height) | _**(Raw Mode Only)**_: Specify the height of the window when displaying a gist. |
+| [css](#property-css) | _**(Raw Mode Only)**_: Allows you to override any website's default CSS. |
 
 <br />
 <br />
-
 
 ### URL
 <!-- md:version stable-1.0.0 -->
