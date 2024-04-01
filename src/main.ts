@@ -47,43 +47,43 @@ export default class GistrPlugin extends Plugin
         Rehash Reading View
     */
 
-	renderModeReading( ): void
+    renderModeReading( ): void
     {
-		this.app.workspace.iterateRootLeaves( ( leaf: WorkspaceLeaf ) =>
+        this.app.workspace.iterateRootLeaves( ( leaf: WorkspaceLeaf ) =>
         {
-			if ( leaf.view instanceof MarkdownView && leaf.view.getMode( ) === "preview" )
-				leaf.view.previewMode.rerender( true )
-		} )
-	}
+            if ( leaf.view instanceof MarkdownView && leaf.view.getMode( ) === "preview" )
+                leaf.view.previewMode.rerender( true )
+        } )
+    }
 
     /*
         Development use re-rendering
     */
 
-	async renderDevelopment( )
+    async renderDevelopment( )
     {
-		for ( const leaf of this.app.workspace.getLeavesOfType( 'markdown' ) )
+        for ( const leaf of this.app.workspace.getLeavesOfType( 'markdown' ) )
         {
-			const view          = leaf.view as MarkdownView
-			const state         = view.getState( )
-			const etateEph      = view.getEphemeralState( )
+            const view          = leaf.view as MarkdownView
+            const state         = view.getState( )
+            const etateEph      = view.getEphemeralState( )
 
-			view.previewMode.rerender( true )
+            view.previewMode.rerender( true )
 
-			const editor        = view.editor
-			editor.setValue     ( editor.getValue( ) )
+            const editor        = view.editor
+            editor.setValue     ( editor.getValue( ) )
     
-			if ( state.mode === 'preview' )
+            if ( state.mode === 'preview' )
             {
-				state.mode = 'source'
-				await view.setState( state, { history: false } )
-				state.mode = 'preview'
-				await view.setState( state, { history: false } )
-			}
+                state.mode = 'source'
+                await view.setState( state, { history: false } )
+                state.mode = 'preview'
+                await view.setState( state, { history: false } )
+            }
 
-			view.setEphemeralState( etateEph )
-		}
-	}
+            view.setEphemeralState( etateEph )
+        }
+    }
 
     /*
         Portal > Initialize
@@ -115,13 +115,25 @@ export default class GistrPlugin extends Plugin
     {
         console.debug( lng( "base_debug_loading", process.env.NAME, process.env.PLUGIN_VERSION, process.env.AUTHOR ) )
 
+        if ( process.env.ENV === "dev" )
+        {
+            console.log( process.env.NODE_ENV )
+            console.log( process.env.ENV )
+            console.log( process.env.BUILD )
+            console.log( process.env.PLUGIN_VERSION )
+            console.log( process.env.BUILD_GUID )
+            console.log( process.env.BUILD_UUID )
+            console.log( process.env.BUILD_DATE )
+            console.log( process.env.AUTHOR )
+        }
+
         await this.loadSettings     ( )
         await this.InitializePortal ( )
         this.addSettingTab          ( new SettingsSection( this.app, this ) )
         this.registerPortal         ( )
         SaturynCodeblock            ( this )
 
-		this.app.workspace.onLayoutReady( async ( ) =>
+        this.app.workspace.onLayoutReady( async ( ) =>
         {
             if ( this.settings.firststart === true )
             {
@@ -167,7 +179,7 @@ export default class GistrPlugin extends Plugin
                 } )
             )
 
-		} )
+        } )
 
         /*
             Command Palette Items
@@ -399,7 +411,6 @@ export default class GistrPlugin extends Plugin
             const { sy_enable_autosave } = await SettingsGet( this )
             if ( sy_enable_autosave )
             {
-
                 await denounce_register[ file.path ]( note_full, file )
 
                 if ( process.env.ENV === "dev" )
@@ -438,11 +449,11 @@ export default class GistrPlugin extends Plugin
         Ribbon > Unregister
     */
 
-	async unregisterRibbon( )
+    async unregisterRibbon( )
     {
-		this.ribbonIcon_pub.remove( )
+        this.ribbonIcon_pub.remove( )
         this.ribbonIcon_sec.remove( )
-	}
+    }
 
     /*
         Ribbon > Register > Debug
@@ -484,88 +495,88 @@ export default class GistrPlugin extends Plugin
                       removeButtonFromAllLeaves
     */
 
-	async addHeaderButtons( viewActions: Element, button: LeafButtonBase )
+    async addHeaderButtons( viewActions: Element, button: LeafButtonBase )
     {
-		const { id, icon, name }    = button
-		const iconSize              = GetIconSize( )
-		const classNames            = [ 'view-action', 'clickable-icon', Env.pluginId ]
-		const btn_Ico               = GetButtonIcon( name, id, icon, iconSize, classNames )
+        const { id, icon, name }    = button
+        const iconSize              = GetIconSize( )
+        const classNames            = [ 'view-action', 'clickable-icon', Env.pluginId ]
+        const btn_Ico               = GetButtonIcon( name, id, icon, iconSize, classNames )
 
-		btn_Ico.addEventListener( 'click', ( ) =>
+        btn_Ico.addEventListener( 'click', ( ) =>
         {
             this.reloadPlugin( this.app, this )
-		})
+        })
 
-		viewActions.prepend( btn_Ico )
-	}
+        viewActions.prepend( btn_Ico )
+    }
 
     /*
         Leafy > Remove button from header leaf
     */
 
-	async removeButtonFromLeaf( leaf: WorkspaceLeaf, button: LeafButtonBase )
+    async removeButtonFromLeaf( leaf: WorkspaceLeaf, button: LeafButtonBase )
     {
-		const activeLeaf    = leaf?.view.containerEl
-		const viewActions   = activeLeaf?.getElementsByClassName( 'view-actions' )[ 0 ]
+        const activeLeaf    = leaf?.view.containerEl
+        const viewActions   = activeLeaf?.getElementsByClassName( 'view-actions' )[ 0 ]
 
-		if ( !viewActions ) return
+        if ( !viewActions ) return
 
         /*
             Remove existing elements
         */
 
-		viewActions.getElementsByClassName( `view-action ${ Env.pluginId } ${ button.id }` )[ 0 ]?.detach( )
-	}
+        viewActions.getElementsByClassName( `view-action ${ Env.pluginId } ${ button.id }` )[ 0 ]?.detach( )
+    }
 
     /*
         Leafy > Add button to header leaf
     */
 
-	async addButtonToLeaf( leaf: WorkspaceLeaf, button: LeafButtonBase )
+    async addButtonToLeaf( leaf: WorkspaceLeaf, button: LeafButtonBase )
     {
-		const activeLeaf    = leaf?.view.containerEl
-		const viewActions   = activeLeaf?.getElementsByClassName( 'view-actions' )[ 0 ]
+        const activeLeaf    = leaf?.view.containerEl
+        const viewActions   = activeLeaf?.getElementsByClassName( 'view-actions' )[ 0 ]
 
-		if ( !viewActions ) return
+        if ( !viewActions ) return
 
         /*
             Remove existing elements
         */
 
-		viewActions.getElementsByClassName( `view-action ${ Env.pluginId } ${ button.id }` )[ 0 ]?.detach( )
+        viewActions.getElementsByClassName( `view-action ${ Env.pluginId } ${ button.id }` )[ 0 ]?.detach( )
 
         /*
             Add new button
         */
 
-		this.addHeaderButtons( viewActions, button )
-	}
+        this.addHeaderButtons( viewActions, button )
+    }
 
     /*
         Leafy > Add button to all leafs
     */
 
-	async addButtonToAllLeaves( )
+    async addButtonToAllLeaves( )
     {
-		this.app.workspace.iterateAllLeaves( ( leaf ) =>
-			this.addButtonToLeaf( leaf, LeafButton_Refresh )
-		)
+        this.app.workspace.iterateAllLeaves( ( leaf ) =>
+            this.addButtonToLeaf( leaf, LeafButton_Refresh )
+        )
 
-		this.app.workspace.onLayoutChange( )
-	}
+        this.app.workspace.onLayoutChange( )
+    }
 
     /*
         Leafy > remove button from all leafs
     */
 
-	async removeButtonFromAllLeaves( )
+    async removeButtonFromAllLeaves( )
     {
-		this.app.workspace.iterateAllLeaves( ( leaf ) =>
-			this.removeButtonFromLeaf( leaf, LeafButton_Refresh )
-		)
+        this.app.workspace.iterateAllLeaves( ( leaf ) =>
+            this.removeButtonFromLeaf( leaf, LeafButton_Refresh )
+        )
 
-		this.app.workspace.onLayoutChange( )
-	}
+        this.app.workspace.onLayoutChange( )
+    }
 
     /*
         Settings > Load
@@ -630,26 +641,26 @@ export default class GistrPlugin extends Plugin
         utilizes env variables in rollup.config.js
     */
 
-	async versionCheck( )
+    async versionCheck( )
     {
-		const ver_running   = this.manifest.version
-		const ver_stable    = await requestUrl( lng( "ver_url", "main" ) ).then( async ( res ) =>
+        const ver_running   = this.manifest.version
+        const ver_stable    = await requestUrl( lng( "ver_url", "main" ) ).then( async ( res ) =>
         {
-			if ( res.status === 200 )
+            if ( res.status === 200 )
             {
-				const resp = await res.json
-				return resp.version
-			}
-		} )
+                const resp = await res.json
+                return resp.version
+            }
+        } )
 
-		const ver_beta = await requestUrl( lng( "ver_url", "beta" ) ).then( async ( res ) =>
+        const ver_beta = await requestUrl( lng( "ver_url", "beta" ) ).then( async ( res ) =>
         {
-			if ( res.status === 200 )
+            if ( res.status === 200 )
             {
-				const resp = await res.json
-				return resp.version
-			}
-		} )
+                const resp = await res.json
+                return resp.version
+            }
+        } )
 
         /*
             Output notice to user on possible updates
@@ -682,13 +693,15 @@ export default class GistrPlugin extends Plugin
                 badge:  AssetGithubIcon,
             } )
         }
-	}
+    }
 
     /*
-        Portal > Generate UUID
+        Generate UUID
+
+        utilized to generate temp ids for portal and gist embed frame ids
     */
 
-    private generateUuid( )
+    public generateUuid( )
     {
         const uuid = crypto.randomUUID( );
         return `${ uuid }`
