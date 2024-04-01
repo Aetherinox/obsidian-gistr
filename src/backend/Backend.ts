@@ -94,8 +94,9 @@ export class BackendCore
         let n_raw               = undefined
         let n_height            = undefined
         let n_zoom              = undefined
+        let n_css               = undefined
 
-        const pattern_new       = /^(?=\b(?:url|file|background|color|theme|title|raw|height|zoom):)(?=(?:[^`]*?\burl:? +(?<url>[^`\n]*)|))(?=(?:[^`]*?\bfile:? +(?<file>[^`\n]*)|))(?=(?:[^`]*?\bbackground:? +(?<background>[^`\n]*)|))(?=(?:[^`]*?\bcolor:? +(?<color>[^`\n]*)|))(?=(?:[^`]*?\btheme:? +(?<theme>[^`\n]*)|))(?=(?:[^`]*?\btitle:? +(?<title>[^`\n]*)|))(?=(?:[^`]*?\braw:? +(?<raw>[^`\n]*)|))(?=(?:[^`]*?\bheight:? +(?<height>[^`\n]*)|))(?=(?:[^`]*?\bzoom:? +(?<zoom>[^`\n]*)|))(?:.+\n){0,8}.+/
+        const pattern_new       = /^(?=\b(?:url|file|background|color|theme|title|raw|height|zoom|css):)(?=(?:[^`]*?\burl:? +(?<url>[^`\n]*)|))(?=(?:[^`]*?\bfile:? +(?<file>[^`\n]*)|))(?=(?:[^`]*?\bbackground:? +(?<background>[^`\n]*)|))(?=(?:[^`]*?\bcolor:? +(?<color>[^`\n]*)|))(?=(?:[^`]*?\btheme:? +(?<theme>[^`\n]*)|))(?=(?:[^`]*?\btitle:? +(?<title>[^`\n]*)|))(?=(?:[^`]*?\braw:? +(?<raw>[^`\n]*)|))(?=(?:[^`]*?\bheight:? +(?<height>[^`\n]*)|))(?=(?:[^`]*?\bzoom:? +(?<zoom>[^`\n]*)|))(?=(?:[^`]*?\bcss:? +(?<css>[^`]*)|))(?:.+\n){0,9}.+/
 
         if ( data.match( pattern_new ) && data.match( pattern_new ).groups )
         {
@@ -109,6 +110,7 @@ export class BackendCore
             n_raw               = find_new.raw ?? false
             n_height            = find_new.height ?? 700
             n_zoom              = find_new.zoom ?? 1
+            n_css               = find_new.css ?? ""
         }
 
         /*
@@ -128,12 +130,18 @@ export class BackendCore
         if ( n_raw )
         {
 
+            n_css = n_css.replace( /(\r\n|\n|\r|\||\s)/gm, "" );
+
             const raw_output =
             `
-url:  ${n_url}
-height: ${n_height}
-zoom:  ${n_zoom}
+url:  ${ n_url }
+height: ${ n_height }
+zoom:  ${ n_zoom }
+css: |
+   ${ n_css }
             `
+
+            console.log( raw_output )
 
             const pnl = SaturynHandleSyntax( plugin, raw_output )
             el.appendChild( pnl )
