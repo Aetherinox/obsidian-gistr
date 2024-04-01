@@ -7,6 +7,16 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.6.2 <small>March 30, 2024</small> { id="1.6.2" }
+
+- `fix`: update language entries, fixed a few typos
+- `fix`: update leaf header icon tooltip
+- `change`: time formatting link in settings changed to: https://aetherinox.github.io/obsidian-gistr/cheatsheets/datetime/
+- `change`: default autosave duration, 15 -> 120 seconds
+- `change`: datetime format url switched over to mkdocs
+- `dep`: update electron 23.3.13 -> 29.1.6
+- `dep`: update typescript 4.9.5 -> 5.4.3
+
 ### <!-- md:version stable- --> 1.6.1 <small>March 30, 2024</small> { id="1.6.1" }
 
 - `feat`: added new header ribbon button `refresh` which can be enabled in Gistr Global Settings
