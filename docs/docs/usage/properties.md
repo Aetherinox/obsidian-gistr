@@ -356,6 +356,14 @@ The default value is `1` which equals `100%`. If you would like to use `50%`, th
 <!-- md:version stable-1.6.0 -->
 <!-- md:default `600` -->
 
+The `height` property allows you to specify how tall the window will be within your Obsidian note. If you do not specify a custom height, then it will default to `600`, which represents 600 **pixels**.
+
+<br />
+
+#### Property: CSS
+<!-- md:version stable-1.6.3 -->
+<!-- md:default `none` -->
+
 The `css` property allows you to override any website's default CSS.
 
 ````
@@ -374,7 +382,7 @@ css: |
 
 The above example will force all `h1` headers to use a larger font size, and change the text color to black, as well as make the entire website background color white.
 
-CSS rules can be on their own lines, or all-together:
+CSS rules can be on their own lines, or on the same line as the property name.
 
 ````
 ```gistr
@@ -391,12 +399,6 @@ css:    body { background-color: #FFF !important; }
     You must use `!important` at the end of your property to attempt overriding Github's rule. 
 
 <br />
-
-#### Property: CSS
-<!-- md:version stable-1.6.3 -->
-<!-- md:default `none` -->
-
-The `height` property allows you to specify how tall the window will be within your Obsidian note. If you do not specify a custom height, then it will default to `600`, which represents 600 **pixels**.
 
 <br />
 <br />
