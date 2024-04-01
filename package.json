@@ -52,7 +52,6 @@
     "@simonwep/pickr": "github:simonwep/pickr",
     "colortranslator": "^4.1.0",
     "front-matter": "^4.0.2",
-    "nanoid": "^5.0",
     "semver": "^7.6.0",
     "uuid": "^9.0.1",
     "yaml": "^2.3.4"
