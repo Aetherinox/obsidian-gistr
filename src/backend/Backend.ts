@@ -8,7 +8,6 @@ import { Env, PID } from 'src/api'
 import { GistrSettings } from 'src/settings/settings'
 import { lng } from 'src/lang'
 import { SaturynHandleSyntax } from 'src/api/Saturyn'
-import { nanoid } from 'nanoid'
 
 /*
     Basic Declrations
@@ -177,7 +176,7 @@ zoom:  ${n_zoom}
             compile url to gist
         */
 
-        let gistSrcURL  = !bIsEmpty( file ) ? `https://${host}${username}/${uuid}.json?file=${file}` : `https://${host}${username}/${uuid}.json`
+        let gistSrcURL  = !bIsEmpty( file ) ? `https://${ host }${ username }/${ uuid }.json?file=${ file }` : `https://${ host }${ username }/${ uuid }.json`
 
         /*
             This should be a theme specified by the user in the codeblock; NOT their theme setting
@@ -206,11 +205,11 @@ zoom:  ${n_zoom}
             const req       = await request( reqUrlParams )
             const json      = JSON.parse( req ) as ItemJSON
 
-            return this.GistGenerate( el, host, uuid, json, bMatchGithub, styles )
+            return this.GistGenerate( plugin, el, host, uuid, json, bMatchGithub, styles )
         }
         catch ( err )
         {
-            return this.ThrowError( el, data, `Invalid gist url ${gistSrcURL} ( ${err} )` )
+            return this.ThrowError( el, data, `Invalid gist url ${ gistSrcURL } ( ${ err } )` )
         }
     }
 
@@ -243,14 +242,14 @@ zoom:  ${n_zoom}
         create new iframe for each gist, assign it a uid, set the needed attributes, and generate the css, js
     */
 
-    private async GistGenerate( el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, style: StyleProperties )
+    private async GistGenerate( plugin: GistrPlugin, el: HTMLElement, host: string, uuid: string, json: ItemJSON, bGithub: boolean, style: StyleProperties )
     {
 
         /*
             create uuid and iframe
         */
 
-        const gid               = `${ sender }-${ uuid }-${ nanoid( ) }`
+        const gid               = `${ sender }-${ uuid }-${ plugin.generateUuid( ) }`
         const ct_iframe         = document.createElement( 'iframe' )
         ct_iframe.id            = gid
     
@@ -265,26 +264,26 @@ zoom:  ${n_zoom}
             policy directive error if certain attributes arent used. doesnt affect the plugin, but erors are bad
         */
 
-        ct_iframe.setAttribute  ( 'csp', "default-src * data: blob: 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';" )
+        ct_iframe.setAttribute      ( 'csp', "default-src * data: blob: 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';" )
 
         /*
             assign css, body, js
         */
 
-        let css_theme_ovr           = ( style.theme !== "" ) ? style.theme.toLowerCase( ) : ""
-        let css_theme_sel           = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme.toLowerCase( ) == "dark" ) ? "dark" : ( this.settings.theme.toLowerCase( ) == "light" ) ? "light"  : "light"
-        let css_og                  = ""
-        let css_gh                  = ""
+        let css_theme_ovr       = ( style.theme !== "" ) ? style.theme.toLowerCase( ) : ""
+        let css_theme_sel       = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme.toLowerCase( ) == "dark" ) ? "dark" : ( this.settings.theme.toLowerCase( ) == "light" ) ? "light"  : "light"
+        let css_og              = ""
+        let css_gh              = ""
 
-        const content_css           = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
-        const content_body          = ( bGithub ? json.div : "" )
-        const content_js            = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( css_theme_sel == "dark" ? json.embed.js_dark : json.embed.js ) ) )
+        const content_css       = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
+        const content_body      = ( bGithub ? json.div : "" )
+        const content_js        = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( css_theme_sel == "dark" ? json.embed.js_dark : json.embed.js ) ) )
 
         /*
             Declare custom css override
         */
 
-        const css_override          = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
+        const css_override      = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
 
         /*
             Update style theme value
@@ -348,7 +347,7 @@ zoom:  ${n_zoom}
 
             </head>
 
-            <body class="gistr-theme-${css_theme_sel}">
+            <body class="gistr-theme-${ css_theme_sel }">
                 ${ content_body }
             </body>
         </html>
@@ -379,64 +378,64 @@ zoom:  ${n_zoom}
         return `
         ::-webkit-scrollbar
         {
-            width:              6px;
-            height:             10px;
+            width:                  6px;
+            height:                 10px;
         }
         
         ::-webkit-scrollbar-track
         {
-            background-color:   transparent;
-            border-radius:      5px;
-            margin:             1px;
+            background-color:       transparent;
+            border-radius:          5px;
+            margin:                 1px;
         }
         
         ::-webkit-scrollbar-thumb
         {
-            border-radius:      10px;
-            background-color:   ${css_og_sb_color};
+            border-radius:          10px;
+            background-color:       ${ css_og_sb_color };
         }
 
         .opengist-embed .code
         {
-            padding-top:        ${this.settings.blk_pad_t}px;
-            padding-bottom:     ${this.settings.blk_pad_b}px;
-            border-top:         ${css_og_bg_header_bor};
-            background-color:   ${css_og_bg_color};
-            width:              fit-content;
-            margin-top:         -1px;
-            background:         ${css_og_bg};
-            background-size:    cover;
+            padding-top:            ${ this.settings.blk_pad_t }px;
+            padding-bottom:         ${ this.settings.blk_pad_b }px;
+            border-top:             ${ css_og_bg_header_bor };
+            background-color:       ${ css_og_bg_color };
+            width:                  fit-content;
+            margin-top:             -1px;
+            background:             ${ css_og_bg };
+            background-size:        cover;
         }
 
         .opengist-embed .mb-4
         {
-            margin-bottom:      1rem;
-            backdrop-filter:    opacity(0);
-            --tw-bg-opacity:    1;
-            background-color:   ${css_og_bg_header_bg};
-            opacity:            ${css_og_opacity};
+            margin-bottom:          1rem;
+            backdrop-filter:        opacity(0);
+            --tw-bg-opacity:        1;
+            background-color:       ${ css_og_bg_header_bg };
+            opacity:                ${ css_og_opacity };
         }
 
         .opengist-embed .line-code
         {
-            color:              #${css_og_tx_color_user};
+            color:                  #${ css_og_tx_color_user };
         }
 
         .opengist-embed .code .line-num
         {
-            color:              #${css_og_tx_color_user};
-            opacity:            0.5;
+            color:                  #${ css_og_tx_color_user };
+            opacity:                0.5;
         }
 
         .opengist-embed .code .line-num:hover
         {
-            color:              #${css_og_tx_color_user};
-            opacity:            1;
+            color:                  #${ css_og_tx_color_user };
+            opacity:                1;
         }
 
         .opengist-embed .whitespace-pre
         {
-            white-space:        ${css_og_wrap};
+            white-space:            ${ css_og_wrap };
         }
         `
     }
@@ -476,7 +475,7 @@ zoom:  ${n_zoom}
         ::-webkit-scrollbar-thumb
         {
             border-radius:          10px;
-            background-color:       ${css_gh_sb_color};
+            background-color:       ${ css_gh_sb_color };
         }
 
         body
@@ -490,7 +489,7 @@ zoom:  ${n_zoom}
             backdrop-filter:        opacity( 0 );
             background-color:       rgb( 35 36 41/var( --tw-bg-opacity ) );
             border:                 2px solid rgba( 255, 255, 255, 0.1 );
-            opacity:                ${css_gh_opacity};
+            opacity:                ${ css_gh_opacity };
         }
 
         body .gist .gist-data
@@ -499,9 +498,9 @@ zoom:  ${n_zoom}
             padding-right:          12px;
             padding-top:            15px;
             padding-bottom:         6px;
-            border-color:           ${css_gh_bg_header_bor};
-            background-color:       ${css_gh_bg_color};
-            background:             ${css_gh_bg};
+            border-color:           ${ css_gh_bg_header_bor };
+            background-color:       ${ css_gh_bg_color };
+            background:             ${ css_gh_bg };
             background-size:        cover;
             background-size:        cover;
         }
@@ -514,7 +513,7 @@ zoom:  ${n_zoom}
 
         body .gist .markdown-body
         {
-            color:                  ${css_gh_tx_color};
+            color:                  ${ css_gh_tx_color };
             line-height:            18.2px;
             font-size:              0.8em;
             border-spacing:         0;
@@ -525,8 +524,8 @@ zoom:  ${n_zoom}
         body .gist .gist-meta
         {
             color:                  #6b869f;
-            border-top:             ${css_gh_bg_header_bor};
-            background-color:       ${css_gh_bg_header_bg};
+            border-top:             ${ css_gh_bg_header_bor };
+            background-color:       ${ css_gh_bg_header_bg };
             padding-left:           22px;
             padding-right:          16px;
             padding-top:            8px;
@@ -541,7 +540,7 @@ zoom:  ${n_zoom}
 
         body .gist .gist-meta a.Link--inTextBlock:hover
         {
-            color:                  ${css_gh_tx_color};
+            color:                  ${ css_gh_tx_color };
             opacity:                0.5;
         }
 
@@ -549,7 +548,7 @@ zoom:  ${n_zoom}
         {
             padding-left:           0px;
             padding-right:          7px;
-            color:                  ${css_gh_tx_color};
+            color:                  ${ css_gh_tx_color };
         }
 
         body .gist .gist-meta > a:nth-child( 3 )
@@ -575,29 +574,29 @@ zoom:  ${n_zoom}
         body .gist .pl-s2, body .gist .pl-stj, body .gist .pl-vo,
         body .gist .pl-id, body .gist .pl-ii
         {
-            color:                  #${css_gh_tx_color_user};
+            color:                  #${ css_gh_tx_color_user };
         }
 
         body .gist .blob-code
         {
-            color:                  #${css_gh_tx_color_user};
+            color:                  #${ css_gh_tx_color_user };
         }
 
         body .gist .blob-num, body .gist .blob-code-inner,
         {
-            color:                  #${css_gh_tx_color_user};
+            color:                  #${ css_gh_tx_color_user };
             opacity:                0.5;
         }
 
         body .gist .blob-num:hover
         {
-            color:                  #${css_gh_tx_color_user};
+            color:                  #${ css_gh_tx_color_user };
             opacity:                1;
         }
 
         body .gist .blob-wrapper tr:first-child td
         {
-            text-wrap:              ${css_gh_wrap};
+            text-wrap:              ${ css_gh_wrap };
         }
 
         body.gistr-theme-dark .gist .pl-s1
@@ -788,7 +787,7 @@ zoom:  ${n_zoom}
 
         const uuid                          = evn.data.gid
         const scrollHeight                  = evn.data.scrollHeight
-        
+
         const gist_Container: HTMLElement   = document.querySelector( 'iframe#' + uuid )
 
         gist_Container.setAttribute( 'height', scrollHeight )
