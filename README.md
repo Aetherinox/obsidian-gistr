@@ -47,32 +47,31 @@ The following is an outline of what Gistr can do for you:
 <br />
 
 **Functionality**:
-- Gistr now includes an integrated browser feture which allows you to embed any website into your notes, including Github and Opengist.
-  - This can be used for embedding gists  containing mermaid graphs
-  - Feature allows you to not only view the website in your notes, but also sign into websites such as Github / Opengist and make edits.
-  - Can be activated with `raw` property
-  - `raw` property supports the ability to specify additional properties:
-    - `zoom`
-    - `height`
-    - `css`
+- Embed any website into your Obsidian notes. Fully functioning browser with ability to sign in to accounts and navigate.
+  - Can be used for Github / Gist mermaid graphs
+  - Activated with [raw](https://aetherinox.github.io/obsidian-gistr/usage/properties/#raw) property
+  - [raw](https://aetherinox.github.io/obsidian-gistr/usage/properties/#raw) property supports the ability to specify additional properties:
+    - [zoom](https://aetherinox.github.io/obsidian-gistr/usage/properties/#property-zoom): change the size of the website
+    - [height](https://aetherinox.github.io/obsidian-gistr/usage/properties/#property-height): change the height of the website frame
+    - [css](https://aetherinox.github.io/obsidian-gistr/usage/properties/#property-css): override existing CSS on the embedded website
 - Save notes from Obsidian as public or secret gists
-  - Choose when you want to save a gist, or enable autosave to track changes
-  - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta) (free). Open Gistr settings in Obsidian to configure.
-- Line numbering
-- Open embedded Github Gist or Opengist snippets from your notes in your browser
-- Filter out specific snippets from a gist which contain multiple files
+  - Manual and autosave settings available
+  - Requires Github [Personal Access Token](https://github.com/settings/tokens?type=beta) (free).
+    - [Click here to read setup instructions](https://aetherinox.github.io/obsidian-gistr/settings/github/)
+- Line numbering & syntax highlighting
+- Open embedded Github Gist or Opengist snippets from your notes in your device browser
+- Filter out gists that contain more than one file
 - Enable / Disable text wrapping and horizontal scrollbar
-- Auto-refresh any edits to your settings in reading mode
-- Complete customization, including changing the keyword that triggers a codeblock to show gists.
+- Fast performance and caching
+- Complete customization for almost every aspect of the plugin and the sites you embed
 
 <br />
 
 **Themes**:
-- Includes **Light** & **Dark** mode for both services
-- Ability to customize individual colors
-- CSS stylesheet override
+- Includes **Light** & **Dark** themes for Github and Opengist
+- Customize individual colors through Gistr settings, or use CSS stylesheet override
 - Thin and customizable scrollbar
-- Force theme on each individual gist paste
+- Force amy theme on each individual gist paste
 
 <br />
 
