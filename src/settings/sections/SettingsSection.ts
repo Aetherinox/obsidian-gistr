@@ -2316,8 +2316,6 @@ export class SettingsSection extends PluginSettingTab
                     } )
                 } )
 
-            elm.createEl( 'div', { cls: "gistr-settings-section-separator-15", text: "" } )
-
             /*
                 Button -> Plugin Repo
             */
