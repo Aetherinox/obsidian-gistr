@@ -159,7 +159,7 @@ export default class GistrPlugin extends Plugin
                 Manage leaf header icon
             */
 
-            addIcon( 'gistr-github-refresh', IconGithubReload )
+            addIcon( 'gistr-plugin-refresh', IconGithubReload )
 
             if ( this.settings.ge_enable_ribbon_icons )
                 this.addButtonToAllLeaves( )
@@ -286,7 +286,7 @@ export default class GistrPlugin extends Plugin
 
     private registerPortal( )
     {
-        this.registerObsidianProtocolHandler( 'saturyn', this.handlePortal.bind( this ) )
+        this.registerObsidianProtocolHandler( 'gistr-web', this.handlePortal.bind( this ) )
     }
 
     /*
