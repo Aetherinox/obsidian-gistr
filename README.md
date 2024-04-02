@@ -47,7 +47,8 @@ The following is an outline of what Gistr can do for you:
 <br />
 
 **Functionality**:
-- Embed any website into your Obsidian notes. Fully functioning browser with ability to sign in to accounts and navigate.
+- Two modes for embedding: **Codeblock mode** and **Website mode**.
+- (**Website Mode**): Embed any website into your Obsidian notes. Fully functioning browser with ability to sign in to accounts and navigate.
   - Can be used for Github / Gist mermaid graphs
   - Activated with [raw](https://aetherinox.github.io/obsidian-gistr/usage/properties/#raw) property
   - [raw](https://aetherinox.github.io/obsidian-gistr/usage/properties/#raw) property supports the ability to specify additional properties:
