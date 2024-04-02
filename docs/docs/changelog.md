@@ -7,6 +7,18 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.6.4 <small>April 02, 2024</small> { id="1.6.4" }
+
+- `feat`: add `gistr-web` codeblock as alternative to `raw: true`
+- `change`: remove spacer from documentation button in Gistr settings
+- `chore`: clean up developer prints
+- `chore`: give integrated browser unique id as to not conflict with other plugins
+- `fix`: report latest version in settings tab with alternative vars
+- `fix`: update checker getting stuck when it cannot contact the github branch
+- `tests`: bump demo vault 1.6.4
+- `dep`: update @types/node 20.11.30 -> 20.12.3
+- `build`: bump version v1.6.4
+
 ### <!-- md:version stable- --> 1.6.3 <small>April 01, 2024</small> { id="1.6.3" }
 
 - `feat`: added property `css` for **raw mode**
