@@ -5,10 +5,6 @@
             "labels": [ "kind/feature", "feature", "feat" ]
         },
         {
-            "title": "\n\n<br>\n\nn#### ✨ Optimizations",
-            "labels": [ "kind/perf", "optimization", "perf", "optimize" ]
-        },
-        {
             "title": "\n\n<br>\n\n#### 🐛 Bugfixes",
             "labels": [ "kind/bug", "fix", "bug" ]
         },
@@ -17,16 +13,8 @@
             "labels": [ "kind/chore", "change", "chore" ]
         },
         {
-            "title": "\n\n<br>\n\n#### ✏️ Docs",
-            "labels": [ "kind/docs", "doc", "docs", "wiki" ]
-        },
-        {
-            "title": "\n\n<br>\n\n#### 🧪 Tests",
-            "labels": [ "kind/test", "test" ]
-        },
-        {
-            "title": "\n\n<br>\n\n#### 📦 Build & Dependencies",
-            "labels": [ "kind/build", "build", "dependency", "package" ]
+            "title": "\n\n<br>\n\nn#### ✨ Optimizations",
+            "labels": [ "kind/perf", "optimization", "perf", "optimize" ]
         },
         {
             "title": "\n\n<br>\n\n#### 🚨 Security ",
@@ -47,6 +35,18 @@
         {
             "title": "\n\n<br>\n\n#### ⛔ Removed",
             "labels": [ "kind/remove", "remove" ]
+        },
+        {
+            "title": "\n\n<br>\n\n#### 📦 Build & Dependencies",
+            "labels": [ "kind/build", "build", "dependency", "dep", "package" ]
+        },
+        {
+            "title": "\n\n<br>\n\n#### ✏️ Docs",
+            "labels": [ "kind/docs", "doc", "docs", "wiki" ]
+        },
+        {
+            "title": "\n\n<br>\n\n#### 🧪 Tests & Demo Vault",
+            "labels": [ "kind/test", "test", "tests", "vault" ]
         }
     ],
     "sort": "ASC",
@@ -65,11 +65,11 @@
       ],
     "label_extractor": [
         {
-        "pattern": "^(build|ci|change|chore|doc|docs|wiki||remove|deprecate|security|dependency|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|revert|style|test):(.*)",
+        "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|revert|style|test|tests|vault):(.*)",
         "target": "$1"
         },
         {
-        "pattern": "^(build|ci|change|chore|doc|docs|wiki||remove|deprecate|security|dependency|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|revert|style|test){1}(\\([\\w\\-\\.]+\\))?(!)?:(.*)",
+        "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|revert|style|test|tests|vault){1}(\\([\\w\\-\\.]+\\))?(!)?:(.*)",
         "target": "$1"
         }
     ],
