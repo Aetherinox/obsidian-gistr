@@ -1,6 +1,10 @@
 {
     "categories": [
         {
+            "title": "\n\n<br>\n\n#### 🪛 Continuous integration",
+            "labels": [ "kind/ci", "ci" ]
+        },
+        {
             "title": "\n\n<br>\n\n#### 🚀 Features",
             "labels": [ "kind/feature", "feature", "feat" ]
         },
