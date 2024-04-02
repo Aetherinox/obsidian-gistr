@@ -141,8 +141,6 @@ css: |
    ${ n_css }
             `
 
-            console.log( raw_output )
-
             const pnl = SaturynHandleSyntax( plugin, raw_output )
             el.appendChild( pnl )
             return
