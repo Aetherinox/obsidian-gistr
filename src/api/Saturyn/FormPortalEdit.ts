@@ -153,7 +153,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                 .onChange( async ( val ) =>
                 {
                     if ( val === '' )
-                        val = 'saturyn'
+                        val = 'gistr-web'
 
                     params.profileKey = val
                 }),

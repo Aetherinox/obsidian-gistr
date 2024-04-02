@@ -10,7 +10,7 @@ export const SaturynTemplate = ( ): SaturynParams =>
         url:        '',
         hasRibbon:  true,
         dock:       'right',
-        profileKey: 'saturyn',
+        profileKey: 'gistr-web',
         zoom:       1.0,
         userAgent:  PortalUseragent
     }
