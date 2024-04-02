@@ -2074,8 +2074,8 @@ export class SettingsSection extends PluginSettingTab
                     el.addClass( "gistr-settings-status-connecting" )
 
                     let ver_running     = this.plugin.manifest.version
-                    let ver_stable      = await get_ver_stable
-                    let ver_beta        = await get_ver_beta
+                    let ver_stable      = await get_ver_stable ?? process.env.PLUGIN_VERSION
+                    let ver_beta        = await get_ver_beta ?? process.env.PLUGIN_VERSION
 
                     setTimeout( function( )
                     {
@@ -2140,8 +2140,8 @@ export class SettingsSection extends PluginSettingTab
                     btn.extraSettingsEl.classList.add( "gistr-settings-status-connecting" )
 
                     let ver_running     = this.plugin.manifest.version
-                    let ver_stable      = await get_ver_stable
-                    let ver_beta        = await get_ver_beta
+                    let ver_stable      = await get_ver_stable ?? process.env.PLUGIN_VERSION
+                    let ver_beta        = await get_ver_beta ?? process.env.PLUGIN_VERSION
 
                     setTimeout( function( )
                     {
