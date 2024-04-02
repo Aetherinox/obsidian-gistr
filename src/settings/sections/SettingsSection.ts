@@ -2010,22 +2010,40 @@ export class SettingsSection extends PluginSettingTab
         Tab_Support_ShowSettings( elm: HTMLElement )
         {
 
-            let json_delay = 0.5 * 1000
-            const get_ver_stable = requestUrl( lng( "ver_url", "main" ) ).then( ( res ) =>
-            {
-                if ( res.status === 200 )
-                    return res.json.version || lng( "cfg_tab_su_ver_connection_issues" )
-                else
-                    return lng( "cfg_tab_su_ver_connection_issues" )
-            } )
+            let json_delay      = 0.5 * 1000
+            let get_ver_stable: Promise< any >
+            let get_ver_beta:   Promise< any >
 
-            const get_ver_beta = requestUrl( lng( "ver_url", "beta" ) ).then( ( res ) =>
+            try
             {
-                if ( res.status === 200 )
-                    return res.json.version || lng( "cfg_tab_su_ver_connection_issues" )
-                else
-                    return lng( "cfg_tab_su_ver_connection_issues" )
-            } )
+                get_ver_stable: requestUrl( lng( "ver_url", "main" ) ).then( ( res ) =>
+                {
+                    if ( res.status === 200 )
+                        return res.json.version ?? lng( "cfg_tab_su_ver_connection_issues" )
+                    else
+                        return lng( "cfg_tab_su_ver_connection_issues" )
+                })
+                .catch( ( err ) =>
+                {
+                    console.error( `Promise rejected: ${ err }` );
+                } )
+
+                get_ver_beta: requestUrl( lng( "ver_url", "beta" ) ).then( ( res ) =>
+                {
+                    if ( res.status === 200 )
+                        return res.json.version ?? lng( "cfg_tab_su_ver_connection_issues" )
+                    else
+                        return lng( "cfg_tab_su_ver_connection_issues" )
+                } )
+                .catch( ( err ) =>
+                {
+                    console.error( `Promise rejected: ${ err }` );
+                } )
+            }
+            catch ( exception )
+            {
+                console.error( `Could not fetch version information: ${ exception }\n` )
+            }
 
             /*
                 Section -> Support Buttons

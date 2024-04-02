@@ -643,55 +643,76 @@ export default class GistrPlugin extends Plugin
 
     async versionCheck( )
     {
-        const ver_running   = this.manifest.version
-        const ver_stable    = await requestUrl( lng( "ver_url", "main" ) ).then( async ( res ) =>
+
+        try
         {
-            if ( res.status === 200 )
+            const ver_running = this.manifest.version
+            let ver_stable = await requestUrl( lng( "ver_url", "main" ) ).then( async ( res ) =>
             {
-                const resp = await res.json
-                return resp.version
-            }
-        } )
-
-        const ver_beta = await requestUrl( lng( "ver_url", "beta" ) ).then( async ( res ) =>
-        {
-            if ( res.status === 200 )
-            {
-                const resp = await res.json
-                return resp.version
-            }
-        } )
-
-        /*
-            Output notice to user on possible updates
-        */
-
-        console.debug( lng( "base_debug_updater_1", process.env.NAME ) )
-        console.debug( lng( "base_debug_updater_2", "Current : ..... ", ver_running ) )
-        console.debug( lng( "base_debug_updater_2", "Stable  : ..... ", ver_stable ) )
-        console.debug( lng( "base_debug_updater_2", "Beta    : ..... ", ver_beta ) )
-
-        if ( gt( ver_beta, ver_stable ) && lt( ver_running, ver_beta ) )
-        {
-            new Notice( lng( "ver_update_beta" ), 0 )
-
-            new Notification( lng( "ver_update_beta_dn_title", this.manifest.name ),
-            {
-                body:   lng( "ver_update_beta_dn_msg", ver_running, ver_beta ),
-                icon:   AssetGithubIcon,
-                badge:  AssetGithubIcon,
+                if ( res.status === 200 )
+                {
+                    const resp = await res.json
+                    return resp.version
+                }
             } )
+            .catch( ( err ) =>
+            {
+                console.error( `Failed to fetch version (stable): ${ err }` )
+            } )
+    
+            let ver_beta = await requestUrl( lng( "ver_url", "beta" ) ).then( async ( res ) =>
+            {
+                if ( res.status === 200 )
+                {
+                    const resp = await res.json
+                    return resp.version
+                }
+            } )
+            .catch( ( err ) =>
+            {
+                console.error( `Failed to fetch version (beta): ${ err }` )
+            } )
+
+            /*
+                Version > Set defaults
+            */
+
+            if ( ver_stable === undefined )
+                ver_stable = process.env.PLUGIN_VERSION
+
+            if ( ver_beta === undefined )
+                ver_beta = process.env.PLUGIN_VERSION
+    
+            /*
+                Output notice to user on possible updates
+            */
+    
+            if ( gt( ver_beta, ver_stable ) && lt( ver_running, ver_beta ) )
+            {
+                new Notice( lng( "ver_update_beta" ), 0 )
+    
+                new Notification( lng( "ver_update_beta_dn_title", this.manifest.name ),
+                {
+                    body:   lng( "ver_update_beta_dn_msg", ver_running, ver_beta ),
+                    icon:   AssetGithubIcon,
+                    badge:  AssetGithubIcon,
+                } )
+            }
+            else if ( lt( ver_beta, ver_stable ) && lt( ver_running, ver_stable ) )
+            {
+                new Notice( lng( "ver_update_stable" ), 0 )
+    
+                new Notification( lng( "ver_update_stable_dn_title", this.manifest.name ),
+                {
+                    body:   lng( "ver_update_stable_dn_msg", ver_running, ver_stable ),
+                    icon:   AssetGithubIcon,
+                    badge:  AssetGithubIcon,
+                } )
+            }
         }
-        else if ( lt( ver_beta, ver_stable ) && lt( ver_running, ver_stable ) )
+        catch ( exception )
         {
-            new Notice( lng( "ver_update_stable" ), 0 )
-
-            new Notification( lng( "ver_update_stable_dn_title", this.manifest.name ),
-            {
-                body:   lng( "ver_update_stable_dn_msg", ver_running, ver_stable ),
-                icon:   AssetGithubIcon,
-                badge:  AssetGithubIcon,
-            } )
+            console.error( `Could not fetch version information: ${ exception }\n` )
         }
     }
 
