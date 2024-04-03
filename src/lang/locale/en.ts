@@ -23,6 +23,12 @@ export default
     base_debug_updater_2:                       '{0} {1}',
     base_context_nofocus:                       'Obsidian does not have focus, please open a file',
     base_reload_notice:                         'Successfully reloaded Gistr',
+    base_saturyn_define:                        'Plugin attempted to define data more than once',
+    base_saturyn_obsidianver_notinitialized:    'Obsidian version not set. Env._Initialize() has not fired.',
+    base_saturyn_pluginmanifest_notinitialized: 'Plugin manifest not set. Ensure Env._Initialize() has fired.',
+    base_promise_rejected:                      'Promise rejected: {0}',
+    base_ver_nofind:                            'Could not fetch version information: {0}',
+    base_ver_nofetch:                           'Failed to fetch version ({0}): {1}',
 
     /*
         Context menu options
