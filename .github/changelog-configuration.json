@@ -69,11 +69,11 @@
       ],
     "label_extractor": [
         {
-        "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|revert|style|test|tests|vault):(.*)",
+        "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|style|test|tests|vault):(.*)",
         "target": "$1"
         },
         {
-        "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|revert|style|test|tests|vault){1}(\\([\\w\\-\\.]+\\))?(!)?:(.*)",
+        "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|style|test|tests|vault){1}(\\([\\w\\-\\.]+\\))?(!)?:(.*)",
         "target": "$1"
         }
     ],
