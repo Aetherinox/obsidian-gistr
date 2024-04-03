@@ -23,6 +23,12 @@ export default
     base_debug_updater_2:                       '{0} {1}',
     base_context_nofocus:                       'Obsidian does not have focus, please open a file',
     base_reload_notice:                         'Successfully reloaded Gistr',
+    base_saturyn_define:                        'Plugin attempted to define data more than once',
+    base_saturyn_obsidianver_notinitialized:    'Obsidian version not set. Env._Initialize() has not fired.',
+    base_saturyn_pluginmanifest_notinitialized: 'Plugin manifest not set. Ensure Env._Initialize() has fired.',
+    base_promise_rejected:                      'Promise rejected: {0}',
+    base_ver_nofind:                            'Could not fetch version information: {0}',
+    base_ver_nofetch:                           'Failed to fetch version ({0}): {1}',
 
     /*
         Context menu options
@@ -143,15 +149,15 @@ export default
     */
 
     cfg_tab_su_desc:                            'The following buttons are associated to useful resources for this plugin.',
-    cfg_tab_su_doc_name:                        'Documentation',
-    cfg_tab_su_doc_desc:                        'View the official Gistr documentation',
-    cfg_tab_su_doc_btn:                         'View',
     cfg_tab_su_gs_name:                         'Introduction',
     cfg_tab_su_gs_desc:                         'View brief introduction to getting started with this plugin',
     cfg_tab_su_gs_btn:                          'Open',
-    cfg_tab_su_repo_label:                      'Plugin repo',
+    cfg_tab_su_repo_label:                      'Gistr repo',
     cfg_tab_su_repo_btn:                        'View',
-    cfg_tab_su_vault_label:                     'Plugin demo vault',
+    cfg_tab_su_doc_name:                        'Gistr Documentation',
+    cfg_tab_su_doc_desc:                        'View the official Gistr documentation',
+    cfg_tab_su_doc_btn:                         'View',
+    cfg_tab_su_vault_label:                     'Gistr demo vault',
     cfg_tab_su_vault_btn:                       'View',
     cfg_tab_su_ogrepo_label:                    'OpenGist: download',
     cfg_tab_su_ogrepo_url:                      'https://github.com/thomiceli/opengist/releases',
@@ -249,7 +255,7 @@ export default
         Tab > Sync
     */
 
-    cfg_tab_sy_list_save_showall_name:          'Save list: Show All Saves',
+    cfg_tab_sy_list_save_showall_name:          'Save list: Show all saves',
     cfg_tab_sy_list_save_showall_desc:          'This setting effects how the gist save list displays saved gists.<br><br><span class="gistr-settings-elm-note">Enabled</span>: When saving an existing gist, the suggestion box will display ALL saves for that note in the same list; both public and secret.<br><br><span class="gistr-settings-elm-important">Disabled</span>: Public and secret gist saves will be separated when being displayed in the existing gist save list.',
 
     cfg_tab_sy_list_icon_name:                  'Save list: Icon color',

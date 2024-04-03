@@ -4,6 +4,7 @@
 
 import { App, Modal, ButtonComponent, Setting, requestUrl, MarkdownRenderer } from "obsidian"
 import GistrPlugin from "src/main"
+import { Env } from 'src/api'
 import { GistrSettings } from 'src/settings/'
 import { lng } from 'src/lang'
 
@@ -115,7 +116,7 @@ export default class ModalGettingStarted extends Modal
 		*/
 
 		let json_delay 	= 1 * 1000
-		const gh_status = requestUrl( "https://www.githubstatus.com/api/v2/summary.json" ).then( ( res ) =>
+		const gh_status = requestUrl( Env.Api[ "github" ] ).then( ( res ) =>
 		{
 			if ( res.status === 200 )
 				return res.json.components[ 0 ].status || lng( "gist_status_issues" )

@@ -1,4 +1,5 @@
 import { App, PluginManifest, apiVersion } from 'obsidian'
+import { lng } from 'src/lang'
 
 /*
     Plugin ID
@@ -30,8 +31,18 @@ type Repo =
     urlWiki?:       HttpsUrl
     urlIssues?:     HttpsUrl
     urlReleases?:   HttpsUrl
-    urlPackage?:    HttpsUrl
+    urlBranchMain?: HttpsUrl
+    urlBranchBeta?: HttpsUrl
     urlDemoVault?:  HttpsUrl
+}
+
+/*
+    Api Strings
+*/
+
+type Api =
+{
+    github?:        HttpsUrl
 }
 
 /*
@@ -44,6 +55,10 @@ export abstract class Env
     private static _obsidianApiVer:     string
     private static _manifest:           PluginManifest
 
+    /*
+        Repo Links
+    */
+
     public static readonly Links: Repo =
     {
         urlDocs:        'https://aetherinox.github.io/obsidian-gistr',
@@ -51,8 +66,18 @@ export abstract class Env
         urlWiki:        'https://github.com/Aetherinox/obsidian-gistr/wiki',
         urlIssues:      'https://github.com/Aetherinox/obsidian-gistr/issues',
         urlReleases:    'https://github.com/Aetherinox/obsidian-gistr/releases',
-        urlPackage:     'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/{0}/package.json',
+        urlBranchMain:  'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/main/package.json',
+        urlBranchBeta:  'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/beta/package.json',
         urlDemoVault:   'https://github.com/Aetherinox/obsidian-gistr/tree/main/tests/gistr-vault',
+    }
+
+    /*
+        Api
+    */
+
+    public static readonly Api: Api =
+    {
+        github:         'https://www.githubstatus.com/api/v2/summary.json',
     }
 
     /*
@@ -62,7 +87,7 @@ export abstract class Env
     static _Initialize( app: App, manifest: PluginManifest )
     {
         if ( this._manifest || this._obsidianApiVer )
-            throw console.log( 'Plugin attempted to define data more than once' )
+            throw console.log( lng( 'base_saturyn_define' ) )
 
         this._obsidianApiVer    = apiVersion
         this._manifest          = manifest
@@ -75,9 +100,18 @@ export abstract class Env
     static get obsidianVersion( )
     {
         if ( !this._obsidianApiVer )
-            throw console.log( 'Obsidian version not set. Ensure Env._Initialize() has fired. ' )
+            throw console.log( lng( 'base_saturyn_obsidianver_notinitialized' ) )
 
         return this._obsidianApiVer
+    }
+
+    /*
+        Base
+    */
+
+    static get pluginBase( ): string
+    {
+        return 'app://obsidian.md'
     }
 
     /*
@@ -105,7 +139,7 @@ export abstract class Env
     static get manifest( ): PluginManifest
     {
         if ( !this._manifest )
-            throw console.log( 'Plugin manifest not set. Ensure Env._Initialize() has fired.' )
+            throw console.log( lng( 'base_saturyn_pluginmanifest_notinitialized' ) )
 
         return this._manifest
     }

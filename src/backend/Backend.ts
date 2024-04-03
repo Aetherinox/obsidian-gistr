@@ -14,7 +14,6 @@ import { SaturynHandleSyntax } from 'src/api/Saturyn'
 */
 
 const sender        = PID( )
-const AppBase       = 'app://obsidian.md'
 
 /*
     Interface > Json
@@ -236,7 +235,7 @@ css: |
                     sender:         '${ sender }',
                     gid:            '${ uuid }',
                     scrollHeight:   document.body.scrollHeight
-                }, '${ AppBase }')
+                }, '${ Env.pluginBase }')
             } )
         </script>
         `
@@ -378,7 +377,7 @@ css: |
         const css_og_tx_color       = ( style.theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
         let css_og_tx_color_user    = ( !bIsEmpty( style.color_text ) ? style.color_text : css_og_tx_color )
         css_og_tx_color_user        = css_og_tx_color_user.replace( "#", "" );
-        const css_og_wrap           = ( this.settings.textwrap == "Enabled" ? "normal" : "pre" )
+        const css_og_wrap           = ( this.settings.textwrap == "Enabled" ? "pre-wrap" : "pre" )
         const css_og_opacity        = ( this.settings.og_opacity ) || 1
 
         return `
