@@ -48,7 +48,7 @@ const ColorPickrDefaults: Record< string, Color > =
 	"og_clr_bg_light":      "#CBCBCB",
 	"og_clr_bg_dark":       "#121315",
 	"og_clr_sb_light":      "#BA4956",
-	"og_clr_sb_dark":       "#4960ba",
+	"og_clr_sb_dark":       "#4960BA",
 	"og_clr_tx_light":      "#2A2626",
 	"og_clr_tx_dark":       "#CAD3F5",
 
@@ -2016,7 +2016,7 @@ export class SettingsSection extends PluginSettingTab
 
             try
             {
-                get_ver_stable: requestUrl( lng( "ver_url", "main" ) ).then( ( res ) =>
+                get_ver_stable: requestUrl( Env.Links[ 'urlBranchMain' ] ).then( ( res ) =>
                 {
                     if ( res.status === 200 )
                         return res.json.version ?? lng( "cfg_tab_su_ver_connection_issues" )
@@ -2025,10 +2025,10 @@ export class SettingsSection extends PluginSettingTab
                 })
                 .catch( ( err ) =>
                 {
-                    console.error( `Promise rejected: ${ err }` );
+                    console.error(  lng( 'base_promise_rejected', err ) )
                 } )
 
-                get_ver_beta: requestUrl( lng( "ver_url", "beta" ) ).then( ( res ) =>
+                get_ver_beta: requestUrl( Env.Links[ 'urlBranchBeta' ] ).then( ( res ) =>
                 {
                     if ( res.status === 200 )
                         return res.json.version ?? lng( "cfg_tab_su_ver_connection_issues" )
@@ -2037,12 +2037,12 @@ export class SettingsSection extends PluginSettingTab
                 } )
                 .catch( ( err ) =>
                 {
-                    console.error( `Promise rejected: ${ err }` );
+                    console.error(  lng( 'base_promise_rejected', err ) )
                 } )
             }
             catch ( exception )
             {
-                console.error( `Could not fetch version information: ${ exception }\n` )
+                console.error( lng( 'base_ver_nofind', exception ) )
             }
 
             /*

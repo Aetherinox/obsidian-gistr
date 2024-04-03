@@ -38,7 +38,7 @@ export interface GistrSettings
     gh_clr_bg_light:            string | "E5E5E5"
     gh_clr_bg_dark:             string | "121315"
     gh_clr_sb_light:            string | "3D85C4"
-    gh_clr_sb_dark:             string | "4960ba"
+    gh_clr_sb_dark:             string | "4960BA"
     gh_clr_tx_light:            string | "2A2626"
     gh_clr_tx_dark:             string | "CAD3F5"
     gh_opacity:                 number | 1

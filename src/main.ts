@@ -647,7 +647,7 @@ export default class GistrPlugin extends Plugin
         try
         {
             const ver_running = this.manifest.version
-            let ver_stable = await requestUrl( lng( "ver_url", "main" ) ).then( async ( res ) =>
+            let ver_stable = await requestUrl( Env.Links[ 'urlBranchMain' ] ).then( async ( res ) =>
             {
                 if ( res.status === 200 )
                 {
@@ -657,10 +657,10 @@ export default class GistrPlugin extends Plugin
             } )
             .catch( ( err ) =>
             {
-                console.error( `Failed to fetch version (stable): ${ err }` )
+                console.error( lng( 'base_ver_nofetch', 'stable', err ) )
             } )
     
-            let ver_beta = await requestUrl( lng( "ver_url", "beta" ) ).then( async ( res ) =>
+            let ver_beta = await requestUrl( Env.Links[ 'urlBranchBeta' ] ).then( async ( res ) =>
             {
                 if ( res.status === 200 )
                 {
@@ -670,7 +670,7 @@ export default class GistrPlugin extends Plugin
             } )
             .catch( ( err ) =>
             {
-                console.error( `Failed to fetch version (beta): ${ err }` )
+                console.error( lng( 'base_ver_nofetch', 'beta', err ) )
             } )
 
             /*
@@ -712,7 +712,7 @@ export default class GistrPlugin extends Plugin
         }
         catch ( exception )
         {
-            console.error( `Could not fetch version information: ${ exception }\n` )
+            console.error( lng( 'base_ver_nofind', exception ) )
         }
     }
 
