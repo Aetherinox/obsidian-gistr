@@ -1158,7 +1158,7 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
 .pcr-app .pcr-swatches > button::before
 {
     background-size: 6px;
-    background: url('data:image/svg+xml; border-radius:.15em; content:''; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    background: url('data:image/svg+xml; border-radius:.15em; content:""; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
     width: 100%;
     z-index: -1;
 }
@@ -1270,7 +1270,7 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
 .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-palette .pcr-palette::before
 {
     background-size: .5em;
-    background: url('data:image/svg+xml; border-radius:.15em; content:''; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    background: url('data:image/svg+xml; border-radius:.15em; content:""; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
     width: 100%;
     z-index: -1;
 }
@@ -1299,7 +1299,7 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
 .pcr-app[data-theme='nano'] .pcr-selection .pcr-color-preview .pcr-current-color::before
 {
     background-size: .5em;
-    background: url('data:image/svg+xml; border-radius:.15em; content:''; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    background: url('data:image/svg+xml; border-radius:.15em; content:""; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
     width: 100%;
     z-index: -1;
 }
@@ -1374,7 +1374,7 @@ h2.gistr-settings-header + div > div > div > .setting-item-description
 .pickr .pcr-button::before
 {
     background-size: .5em;
-    background: url('data:image/svg+xml; border-radius:.15em; content:''; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
+    background: url('data:image/svg+xml; border-radius:.15em; content:""; height:100%; left:0; position:absolute; top:0; utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2 2"><path fill="white" d="M1,0H2V1H1V0ZM0,1H1V2H0V1Z"/><path fill="gray" d="M0,0H1V1H0V0ZM1,1H2V2H1V1Z"/></svg>');
     width: 100%;
     z-index: -1;
 }
