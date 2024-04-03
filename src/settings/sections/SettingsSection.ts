@@ -867,7 +867,7 @@ export class SettingsSection extends PluginSettingTab
             */
 
             let json_delay = 0.5 * 1000
-            const gh_status = requestUrl( "https://www.githubstatus.com/api/v2/summary.json" ).then( ( res ) =>
+            const gh_status = requestUrl( Env.Api[ "github" ] ).then( ( res ) =>
             {
                 if ( res.status === 200 )
                     return res.json.components[ 0 ].status || lng( "gist_status_issues" )

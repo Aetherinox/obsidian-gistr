@@ -37,6 +37,15 @@ type Repo =
 }
 
 /*
+    Api Strings
+*/
+
+type Api =
+{
+    github?:        HttpsUrl
+}
+
+/*
     Class > Env
 */
 
@@ -45,6 +54,10 @@ export abstract class Env
 
     private static _obsidianApiVer:     string
     private static _manifest:           PluginManifest
+
+    /*
+        Repo Links
+    */
 
     public static readonly Links: Repo =
     {
@@ -56,6 +69,15 @@ export abstract class Env
         urlBranchMain:  'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/main/package.json',
         urlBranchBeta:  'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/beta/package.json',
         urlDemoVault:   'https://github.com/Aetherinox/obsidian-gistr/tree/main/tests/gistr-vault',
+    }
+
+    /*
+        Api
+    */
+
+    public static readonly Api: Api =
+    {
+        github:         'https://www.githubstatus.com/api/v2/summary.json',
     }
 
     /*
