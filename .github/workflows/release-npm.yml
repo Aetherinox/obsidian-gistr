@@ -169,6 +169,8 @@ jobs:
                 tag: ${{ env.PACKAGE_VERSION }}
                 tag_exists_error: false
                 message: "Latest release"
+                gpg_private_key: ${{ secrets.ADMINSERV_GPG_KEY_ASC }}
+                gpg_passphrase: ${{ secrets.ADMINSERV_GPG_PASSPHRASE }}
 
             # ---------------------------------------------------------------------------------------
             #   [ Tag ]: Confirm

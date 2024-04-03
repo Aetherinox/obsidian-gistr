@@ -23,7 +23,7 @@ type Options = SaturynParams &
 
 export function SaturynCodeblock( plugin: GistrPlugin )
 {
-    plugin.registerMarkdownCodeBlockProcessor( 'saturyn', ( code, el, arg ) =>
+    plugin.registerMarkdownCodeBlockProcessor( 'gistr-web', ( code, el, arg ) =>
     {
         el.addClass( 'saturyn-view' )
         const pnl = SaturynHandleSyntax( plugin, code )

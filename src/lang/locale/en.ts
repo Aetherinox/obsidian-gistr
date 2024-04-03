@@ -143,16 +143,15 @@ export default
     */
 
     cfg_tab_su_desc:                            'The following buttons are associated to useful resources for this plugin.',
-    cfg_tab_su_gs_name:                         'Introduction',
-    cfg_tab_su_gs_desc:                         'View brief introduction to getting started with this plugin',
     cfg_tab_su_doc_name:                        'Documentation',
     cfg_tab_su_doc_desc:                        'View the official Gistr documentation',
+    cfg_tab_su_doc_btn:                         'View',
+    cfg_tab_su_gs_name:                         'Introduction',
+    cfg_tab_su_gs_desc:                         'View brief introduction to getting started with this plugin',
     cfg_tab_su_gs_btn:                          'Open',
     cfg_tab_su_repo_label:                      'Plugin repo',
-    cfg_tab_su_repo_url:                        'https://github.com/Aetherinox/obsidian-gistr',
     cfg_tab_su_repo_btn:                        'View',
     cfg_tab_su_vault_label:                     'Plugin demo vault',
-    cfg_tab_su_vault_url:                       'https://github.com/Aetherinox/obsidian-gistr/tree/main/tests/gistr-vault',
     cfg_tab_su_vault_btn:                       'View',
     cfg_tab_su_ogrepo_label:                    'OpenGist: download',
     cfg_tab_su_ogrepo_url:                      'https://github.com/thomiceli/opengist/releases',
@@ -185,7 +184,6 @@ export default
     cfg_tab_su_ver_status_new_stable_btn_tip:   'A newer stable release of Gistr is available',
     cfg_tab_su_ver_status_new_beta_btn_tip:     'A newer beta release of Gistr is available',
     cfg_tab_su_ver_status_error_btn_tip:        'Could not communicate with the gistr server, retrying later',
-    cfg_tab_su_ver_releases:                    'https://github.com/Aetherinox/obsidian-gistr/releases',
 
     /*
         Portal

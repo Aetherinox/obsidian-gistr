@@ -5,7 +5,7 @@ import { ColorPicker, GetColor, RemoveLeafButtonsAll } from 'src/utils'
 import { GHStatusAPI, GHTokenSet, GHTokenGet } from 'src/backend/services'
 import { SaturynTemplate, SaturynModalPortalEdit, SaturynParams } from 'src/api/Saturyn'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
-import { NoxComponent, LeafButton_Refresh } from 'src/api'
+import { Env, NoxComponent, LeafButton_Refresh } from 'src/api'
 import { lng } from 'src/lang'
 import Pickr from "@simonwep/pickr"
 import lt from 'semver/functions/lt'
@@ -2010,22 +2010,40 @@ export class SettingsSection extends PluginSettingTab
         Tab_Support_ShowSettings( elm: HTMLElement )
         {
 
-            let json_delay = 0.5 * 1000
-            const get_ver_stable = requestUrl( lng( "ver_url", "main" ) ).then( ( res ) =>
-            {
-                if ( res.status === 200 )
-                    return res.json.version || lng( "cfg_tab_su_ver_connection_issues" )
-                else
-                    return lng( "cfg_tab_su_ver_connection_issues" )
-            } )
+            let json_delay      = 0.5 * 1000
+            let get_ver_stable: Promise< any >
+            let get_ver_beta:   Promise< any >
 
-            const get_ver_beta = requestUrl( lng( "ver_url", "beta" ) ).then( ( res ) =>
+            try
             {
-                if ( res.status === 200 )
-                    return res.json.version || lng( "cfg_tab_su_ver_connection_issues" )
-                else
-                    return lng( "cfg_tab_su_ver_connection_issues" )
-            } )
+                get_ver_stable: requestUrl( lng( "ver_url", "main" ) ).then( ( res ) =>
+                {
+                    if ( res.status === 200 )
+                        return res.json.version ?? lng( "cfg_tab_su_ver_connection_issues" )
+                    else
+                        return lng( "cfg_tab_su_ver_connection_issues" )
+                })
+                .catch( ( err ) =>
+                {
+                    console.error( `Promise rejected: ${ err }` );
+                } )
+
+                get_ver_beta: requestUrl( lng( "ver_url", "beta" ) ).then( ( res ) =>
+                {
+                    if ( res.status === 200 )
+                        return res.json.version ?? lng( "cfg_tab_su_ver_connection_issues" )
+                    else
+                        return lng( "cfg_tab_su_ver_connection_issues" )
+                } )
+                .catch( ( err ) =>
+                {
+                    console.error( `Promise rejected: ${ err }` );
+                } )
+            }
+            catch ( exception )
+            {
+                console.error( `Could not fetch version information: ${ exception }\n` )
+            }
 
             /*
                 Section -> Support Buttons
@@ -2056,8 +2074,8 @@ export class SettingsSection extends PluginSettingTab
                     el.addClass( "gistr-settings-status-connecting" )
 
                     let ver_running     = this.plugin.manifest.version
-                    let ver_stable      = await get_ver_stable
-                    let ver_beta        = await get_ver_beta
+                    let ver_stable      = await get_ver_stable ?? process.env.PLUGIN_VERSION
+                    let ver_beta        = await get_ver_beta ?? process.env.PLUGIN_VERSION
 
                     setTimeout( function( )
                     {
@@ -2122,8 +2140,8 @@ export class SettingsSection extends PluginSettingTab
                     btn.extraSettingsEl.classList.add( "gistr-settings-status-connecting" )
 
                     let ver_running     = this.plugin.manifest.version
-                    let ver_stable      = await get_ver_stable
-                    let ver_beta        = await get_ver_beta
+                    let ver_stable      = await get_ver_stable ?? process.env.PLUGIN_VERSION
+                    let ver_beta        = await get_ver_beta ?? process.env.PLUGIN_VERSION
 
                     setTimeout( function( )
                     {
@@ -2181,7 +2199,7 @@ export class SettingsSection extends PluginSettingTab
 
                         btn.onClick( ( ) =>
                         {
-                            window.open( lng( "cfg_tab_su_ver_releases" ) )
+                            window.open( Env.Links[ 'urlReleases' ] )
                         } )
 
                     }, json_delay )
@@ -2284,17 +2302,32 @@ export class SettingsSection extends PluginSettingTab
                 } )
 
             /*
+                Button > Documentation
+            */
+
+            new Setting( elm )
+                .setName( lng( "cfg_tab_su_doc_name" ) )
+                .setDesc( lng( "cfg_tab_su_doc_desc" ) )
+                .addButton( btn =>
+                {
+                    btn.setButtonText( lng( "cfg_tab_su_doc_btn" ) ).onClick( ( ) =>
+                    {
+                        window.open( Env.Links[ 'urlDocs' ] )
+                    } )
+                } )
+
+            /*
                 Button -> Plugin Repo
             */
 
             new Setting( elm )
                 .setName( lng( "cfg_tab_su_repo_label" ) )
-                .setDesc( lng( "cfg_tab_su_repo_url" ) )
+                .setDesc( Env.Links[ 'urlRepo' ] )
                 .addButton( ( btn ) =>
                 {
                     btn.setButtonText( lng( "cfg_tab_su_repo_btn" ) ).onClick( ( ) =>
                     {
-                        window.open( lng( "cfg_tab_su_repo_url" ) )
+                        window.open( Env.Links[ 'urlRepo' ] )
                     } )
                 } )
 
@@ -2304,12 +2337,12 @@ export class SettingsSection extends PluginSettingTab
 
             new Setting( elm )
                 .setName( lng( "cfg_tab_su_vault_label" ) )
-                .setDesc( lng( "cfg_tab_su_vault_url" ) )
+                .setDesc( Env.Links[ 'urlDemoVault' ] )
                 .addButton( ( btn ) =>
                 {
                     btn.setButtonText( lng( "cfg_tab_su_vault_btn" ) ).onClick( ( ) =>
                     {
-                        window.open( lng( "cfg_tab_su_vault_url" ) )
+                        window.open( Env.Links[ 'urlDemoVault' ] )
                     } )
                 } )
 

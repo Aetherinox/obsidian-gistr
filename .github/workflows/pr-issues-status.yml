@@ -557,9 +557,9 @@ jobs:
 
           <sub>I am a bot reaching out to you with an automated response.</sub>
 
-        stale-issue-label: 'Status ↯ Stale'
-        close-issue-label: 'Status ↯ Autoclosed'
-        exempt-issue-labels: 'feature,Type ⇴ Feature,bug,Type ⇴ Bug'
+        stale-issue-label: 'Status 𐄂 Stale'
+        close-issue-label: 'Status 𐄂 '
+        exempt-issue-labels: 'feature,Type ◦ Feature,bug,Type ◦ Bug'
         days-before-stale: 30
         days-before-close: 7
         days-before-pr-stale: -1
