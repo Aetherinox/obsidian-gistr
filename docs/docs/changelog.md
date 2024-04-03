@@ -7,6 +7,17 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.6.5 <small>April 02, 2024</small> { id="1.6.5" }
+
+- `chore`: update language entries
+- `chore`: update environment vars for branch main and stable
+- `change`: github default dark theme scrollbar color
+- `change`: add Env.Api to store api links
+- `change`: remove 'AppBase' declaration, migrated to pluginBase
+- `tests`: bump version 1.6.5
+- `fix`: opengist bug improperly formatting text
+- `fix`: css syntax errors
+
 ### <!-- md:version stable- --> 1.6.4 <small>April 02, 2024</small> { id="1.6.4" }
 
 - `feat`: add `gistr-web` codeblock as alternative to `raw: true`
