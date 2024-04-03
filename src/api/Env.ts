@@ -106,6 +106,15 @@ export abstract class Env
     }
 
     /*
+        Base
+    */
+
+    static get pluginBase( ): string
+    {
+        return 'app://obsidian.md'
+    }
+
+    /*
         Plugin ID
     */
 

@@ -14,7 +14,6 @@ import { SaturynHandleSyntax } from 'src/api/Saturyn'
 */
 
 const sender        = PID( )
-const AppBase       = 'app://obsidian.md'
 
 /*
     Interface > Json
@@ -236,7 +235,7 @@ css: |
                     sender:         '${ sender }',
                     gid:            '${ uuid }',
                     scrollHeight:   document.body.scrollHeight
-                }, '${ AppBase }')
+                }, '${ Env.pluginBase }')
             } )
         </script>
         `
