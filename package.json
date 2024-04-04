@@ -13,8 +13,10 @@
     "build": "rollup --config rollup.config.mjs --environment BUILD:production",
     "release": "rollup --config rollup.config.mjs --environment BUILD,MINIFY,TEST",
     "test": "rollup --config rollup.config.mjs --environment TEST",
-    "id": "npx --quiet env-cmd --no-override node .env ${UUID}",
-    "version": "npm run build && auto-changelog && git add ."
+    "gistr": "npx --quiet env-cmd --no-override node gistr.js",
+    "uuid": "npx --quiet env-cmd --no-override node gistr.js uuid",
+    "guid": "npx --quiet env-cmd --no-override node gistr.js guid",
+    "version": "node -p require('./package.json').version;"
   },
   "keywords": [
     "obsidian",
