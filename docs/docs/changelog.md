@@ -7,6 +7,11 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.6.7 <small>April 05, 2024</small> { id="1.6.7" }
+
+- `dep`: bump @types/chrome from 0.0.263 to 0.0.265
+- `dep`: bump @types/node from 20.12.4 to 20.12.5
+
 ### <!-- md:version stable- --> 1.6.6 <small>April 04, 2024</small> { id="1.6.6" }
 
 - `dep`: bump @types/node from 20.12.3 to 20.12.4
