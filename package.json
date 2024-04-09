@@ -29,7 +29,7 @@
     "url": "https://github.com/Aetherinox/obsidian-gistr/issues"
   },
   "devDependencies": {
-    "@codemirror/view": "^6.26.1",
+    "@codemirror/view": "^6.26.2",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-image": "^3.0.3",
     "@rollup/plugin-node-resolve": "^15.2.3",
