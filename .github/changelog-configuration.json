@@ -69,12 +69,14 @@
       ],
     "label_extractor": [
         {
-        "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|style|test|tests|vault):(.*)",
-        "target": "$1"
+            "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|style|test|tests|vault):(.*)",
+            "target": "$1",
+            "on_property": "title"
         },
         {
-        "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|style|test|tests|vault){1}(\\([\\w\\-\\.]+\\))?(!)?:(.*)",
-        "target": "$1"
+            "pattern": "^(build|ci|change|chore|doc|docs|wiki|remove|deprecate|security|dependency|dep|package|feat|feature|fix|bug|perf|optimize|optimization|refactor|style|test|tests|vault){1}(\\([\\w\\-\\.]+\\))?(!)?:(.*)",
+            "target": "$1",
+            "on_property": "title"
         }
     ],
     "duplicate_filter": {
