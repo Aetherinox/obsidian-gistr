@@ -14,6 +14,12 @@
 !*CONTRIBUTING.md
 
 # ----------------------------------------
+# [WL]: Electron
+# ----------------------------------------
+!/electron
+
+
+# ----------------------------------------
 # [WL]: Test Folder
 # ----------------------------------------
 !/Tests
@@ -61,6 +67,9 @@
 # ----------------------------------------
 # [WL]: Base Files
 # ----------------------------------------
+!*.all-contributorsrc
+!*.editorconfig
+!*gistr.js
 !*manifest.json
 !*package.json
 !*package-lock.json
@@ -72,3 +81,4 @@
 !*SHA*.asc
 !*SHA*.sig
 !*styles.css
+
