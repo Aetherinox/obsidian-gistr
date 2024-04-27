@@ -1,11 +1,26 @@
-<p align="center"><img src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/106bcb32-6c6f-423c-a8c6-c6aee3d31c65" width="860"></p>
-<h1 align="center"><b>Obsidian: Gistr</b></h1>
-
 <div align="center">
+<h1>♾️ Gistr Plugin ♾️</h1>
+<br />
+<p>A plugin for Obsidian.md which allows you to create, convert, and update notes from Obsidian to Github or Opengist.</p>
 
-![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
+<br />
+
+<img src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/106bcb32-6c6f-423c-a8c6-c6aee3d31c65" width="630">
+
+<br />
+
+<!-- prettier-ignore-start -->
+[![Version][badge-version-gh]][link-version-gh]
+[![Build Status][badge-build]][link-build]
+[![Downloads][badge-downloads-gh]][link-downloads-gh]
+[![Size][badge-size-gh]][badge-size-gh]
+[![Last Commit][badge-commit]][badge-commit]
+[![Contributors][badge-all-contributors]](#contributors-)
+<!-- prettier-ignore-end -->
 
 </div>
+
+<br />
 
 ---
 
@@ -26,6 +41,7 @@
 - [Build](#build)
 - [OpenGist - How It Works](#opengist---how-it-works)
 - [Shoutouts](#shoutouts)
+  - [Contributors ✨](#contributors-)
 
 
 <br />
@@ -361,3 +377,118 @@ You will be presented with JSON which defines the values associated to your crea
 # Shoutouts
 - [thomiceli](https://github.com/thomiceli)  over at [OpenGist](https://github.com/thomiceli/opengist) for implementing the JSON functionality request.
 - [linjunpop](https://github.com/linjunpop) for developing the first Obsidian [Gist](https://github.com/linjunpop/obsidian-gist) plugin. It was a top choice in my list of plugins used.
+
+
+<br />
+
+---
+
+<br />
+
+## Contributors ✨
+We are always looking for contributors. If you feel that you can provide something useful to Gistr, then we'd love to review your suggestion. Before submitting your contribution, please review the following resources:
+
+- [Pull Request Procedure](.github/PULL_REQUEST_TEMPLATE.md)
+- [Contributor Policy](CONTRIBUTING.md)
+
+<br />
+
+Want to help but can't write code?
+- Review [active questions by our community](https://github.com/Aetherinox/obsidian-gistr/labels/help%20wanted) and answer the ones you know.
+
+<br />
+
+The following people have helped get this project going:
+
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![Contributors][badge-all-contributors]](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://gitlab.com/Aetherinox"><img src="https://avatars.githubusercontent.com/u/118329232?v=4?s=40" width="40px;" alt="Aetherinox"/><br /><sub><b>Aetherinox</b></sub></a><br /><a href="https://github.com/Aetherinox/obsidian-gistr/commits?author=Aetherinox" title="Code">💻</a> <a href="#projectManagement-Aetherinox" title="Project Management">📆</a> <a href="#fundingFinding-Aetherinox" title="Funding Finding">🔍</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+
+
+<br />
+<br />
+
+<!-- prettier-ignore-start -->
+
+<!-- BADGE > GENERAL -->
+[link-general-npm]: https://npmjs.com
+[link-general-nodejs]: https://nodejs.org
+[link-npmtrends]: http://npmtrends.com/obsidian-gistr
+
+<!-- BADGE > VERSION > GITHUB -->
+[badge-version-gh]: https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=Version&color=ba5225
+[link-version-gh]: https://github.com/Aetherinox/obsidian-gistr/releases
+
+<!-- BADGE > VERSION > NPMJS -->
+[badge-version-npm]: https://img.shields.io/npm/v/obsidian-gistr?logo=npm&label=Version&color=ba5225
+[link-version-npm]: https://npmjs.com/package/obsidian-gistr
+
+<!-- BADGE > LICENSE -->
+[badge-license-mit]: https://img.shields.io/badge/MIT-FFF?logo=creativecommons&logoColor=FFFFFF&label=License&color=9d29a0
+[link-license-mit]: https://github.com/Aetherinox/obsidian-gistr/blob/main/LICENSE
+
+<!-- BADGE > BUILD -->
+
+[badge-build]: https://img.shields.io/github/actions/workflow/status/Aetherinox/obsidian-gistr/release-npm.yml?logo=github&logoColor=FFFFFF&label=Build&color=%23278b30
+[link-build]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/release-npm.yml
+
+<!-- BADGE > DOWNLOAD COUNT -->
+[badge-downloads-gh]: https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total?logo=github&logoColor=FFFFFF&label=Downloads&color=376892
+[link-downloads-gh]: https://github.com/Aetherinox/obsidian-gistr/releases
+
+[badge-downloads-npm]: https://img.shields.io/npm/dw/%40aetherinox%2Fmarked-alert-fa?logo=npm&&label=Downloads&color=376892
+[link-downloads-npm]: https://npmjs.com/package/obsidian-gistr
+
+<!-- BADGE > DOWNLOAD SIZE -->
+[badge-size-gh]: https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?logo=github&label=Size&color=59702a
+[link-size-gh]: https://github.com/Aetherinox/obsidian-gistr/releases
+
+[badge-size-npm]: https://img.shields.io/npm/unpacked-size/obsidian-gistr/latest?logo=npm&label=Size&color=59702a
+[link-size-npm]: https://npmjs.com/package/obsidian-gistr
+
+<!-- BADGE > COVERAGE -->
+[badge-coverage]: https://img.shields.io/codecov/c/github/Aetherinox/obsidian-gistr?token=MPAVASGIOG&logo=codecov&logoColor=FFFFFF&label=Coverage&color=354b9e
+[link-coverage]: https://codecov.io/github/Aetherinox/obsidian-gistr
+
+<!-- BADGE > ALL CONTRIBUTORS -->
+[badge-all-contributors]: https://img.shields.io/github/all-contributors/Aetherinox/obsidian-gistr?logo=contributorcovenant&color=de1f6f&label=contributors
+[link-all-contributors]: https://github.com/all-contributors/all-contributors
+
+[badge-tests]: https://img.shields.io/github/actions/workflow/status/Aetherinox/marked-alert-fa/npm-tests.yml?logo=github&label=Tests&color=2c6488
+[link-tests]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/tests.yml
+
+[badge-commit]: https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?logo=conventionalcommits&logoColor=FFFFFF&label=Last%20Commit&color=313131
+[link-commit]: https://github.com/Aetherinox/obsidian-gistr/commits/main/
+
+<!-- prettier-ignore-end -->
