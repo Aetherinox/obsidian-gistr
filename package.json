@@ -1,6 +1,6 @@
 {
   "name": "gistr",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "Integrate Opengist and Github gists into your notes, allowing you to create, update, and share between your notes and gist services",
   "main": "main.js",
   "repository": {
@@ -13,10 +13,14 @@
     "build": "rollup --config rollup.config.mjs --environment BUILD:production",
     "release": "rollup --config rollup.config.mjs --environment BUILD,MINIFY,TEST",
     "test": "rollup --config rollup.config.mjs --environment TEST",
-    "gistr": "npx --quiet env-cmd --no-override node gistr.js",
-    "uuid": "npx --quiet env-cmd --no-override node gistr.js uuid",
-    "guid": "npx --quiet env-cmd --no-override node gistr.js guid",
-    "version": "node -p require('./package.json').version;"
+    "contrib:add": "all-contributors add",
+    "contrib:generate": "all-contributors generate",
+    "gistr": "node gistr.js",
+    "generate": "node gistr.js generate",
+    "env-gistr": "npx --quiet env-cmd --no-override node gistr.js",
+    "env-uuid": "npx --quiet env-cmd --no-override node gistr.js uuid",
+    "env-guid": "npx --quiet env-cmd --no-override node gistr.js guid",
+    "env-version": "node -p require('./package.json').version;"
   },
   "keywords": [
     "obsidian",
@@ -46,7 +50,8 @@
     "rollup-plugin-license": "^3.3.1",
     "simple-git": "^3.24.0",
     "tslib": "^2.2.0",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "all-contributors-cli": "^6.26.1"
   },
   "dependencies": {
     "@aetherinox/noxkit": "https://github.com/Aetherinox/noxkit",
