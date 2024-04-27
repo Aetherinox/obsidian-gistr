@@ -9,13 +9,12 @@
 
 <br />
 
+</div>
+
+<div align="center">
+
 <!-- prettier-ignore-start -->
-[![Version][badge-version-gh]][link-version-gh]
-[![Build Status][badge-build]][link-build]
-[![Downloads][badge-downloads-gh]][link-downloads-gh]
-[![Size][badge-size-gh]][badge-size-gh]
-[![Last Commit][badge-commit]][badge-commit]
-[![Contributors][badge-all-contributors]](#contributors-)
+[![Version][badge-version-gh]][link-version-gh] [![Build Status][badge-build]][link-build] [![Downloads][badge-downloads-gh]][link-downloads-gh] [![Size][badge-size-gh]][badge-size-gh] [![Last Commit][badge-commit]][badge-commit] [![Contributors][badge-all-contributors]](#contributors-)
 <!-- prettier-ignore-end -->
 
 </div>
@@ -492,3 +491,4 @@ The following people have helped get this project going:
 [link-commit]: https://github.com/Aetherinox/obsidian-gistr/commits/main/
 
 <!-- prettier-ignore-end -->
+
