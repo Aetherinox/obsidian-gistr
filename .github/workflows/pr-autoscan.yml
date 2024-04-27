@@ -64,7 +64,7 @@ jobs:
       actions: read
       issues: write
       pull-requests: read
-      
+
     steps:
 
       # ---------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ jobs:
                     }
                 }
             }
-  
+
       # ---------------------------------------------------------------------------------------
       #   set issue number
       # ---------------------------------------------------------------------------------------
@@ -147,7 +147,7 @@ jobs:
       # ---------------------------------------------------------------------------------------
       #   checkout
       # ---------------------------------------------------------------------------------------
-        
+
       - name: "☑️ Checkout"
         id: task_autoscan_checkout
         uses: actions/checkout@v4
@@ -160,7 +160,7 @@ jobs:
       # ---------------------------------------------------------------------------------------
       #   nodejs
       # ---------------------------------------------------------------------------------------
-  
+
       - name: "⚙️ Setup Node"
         id: task_autocheck_nodejs
         uses: actions/setup-node@v4
@@ -174,7 +174,7 @@ jobs:
         uses: tj-actions/changed-files@v44
         with:
           separator: ","
-  
+
       # ---------------------------------------------------------------------------------------
       #   list of changed files
       # ---------------------------------------------------------------------------------------
@@ -252,7 +252,7 @@ jobs:
             }
 
             let date_created    = dateTimeformat( date ) + " UTC";
-            
+
             /*
                 context.payload.pull_request.base.repo.owner.login
             */
@@ -273,18 +273,18 @@ jobs:
               | Copied Files | ${{ steps.task_autocheck_changed_files_get.outputs.deleted_files_count }} |
               | Deleted Files | ${{ steps.task_autocheck_changed_files_get.outputs.deleted_files_count }} |
             `;
-            
+
             message.push        ( md_table );
 
-            let error_Generic = "\n" + 
-            "- `MyPlugin`\n" + 
-            "- `MyPluginSettings`\n" + 
+            let error_Generic = "\n" +
+            "- `MyPlugin`\n" +
+            "- `MyPluginSettings`\n" +
             "- `SampleSettings`\n" +
             "- `SampleSettingTab`\n" +
             "- `SampleModal`\n"
 
-            let warn_BadWords = "\n" + 
-            "- `Obsidian`\n" + 
+            let warn_BadWords = "\n" +
+            "- `Obsidian`\n" +
             "- `Settings`\n"
 
             /*
@@ -322,6 +322,7 @@ jobs:
                 "package-lock.json",
                 "rollup.config.js",
                 "index.js",
+                "gistr.js",
                 "Docs/",
                 "tests/"
             ];
@@ -675,7 +676,7 @@ jobs:
 
             if (context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_STATUS_CHGMADE }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_STATUS_CHGMADE }}" );
-            
+
             if ( context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_SCAN_SKIPPED }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_SCAN_SKIPPED }}" );
 
