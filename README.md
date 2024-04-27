@@ -106,7 +106,7 @@ This option displays gists in a codeblock with line numbers, and the text of the
 <br /><br />
 
 ### Method 2: Integrated Browser
-This option displays gists in a browser-like environment. This method allows you to sign into Github and view, or edit your gists.
+This option displays gists in a browser-like environment. It allows you to sign into Github or your Opengist site and view / edit your gists.
 
 <br />
 
@@ -116,15 +116,15 @@ This option displays gists in a browser-like environment. This method allows you
 <br />
 
 ## Convert Note to Gist:
-This feature allows you to take notes currently in Obsidian and convert them over to gists which will be hosted on services like Github.
+This feature allows you to take notes in your Obsidian vault and upload them as gists to Github or Opengist.
 
 <br />
 
-After writing your note in Obsidian, right-click anywhere in your note and select **Save Gist** as either a public or secret note.
+After writing your note in Obsidian, right-click anywhere in your note and select **Save Gist**, then choose the type: `public` or `secret`.
 
 <br />
 
-If you have a note as an existing gist saved, Gistr will confirm you wanting to save your gist by listing it in the suggestion box.  Click the note name to push your changes.
+If you have already uploaded an Obsidian note as a gist, you can update the gist right from Obsidian. Either manually save, or allow the plugint o automatically update your gist every x minutes (can be changed in the plugin settings).
 
 <br />
 
@@ -132,7 +132,9 @@ If you have a note as an existing gist saved, Gistr will confirm you wanting to 
 
 <br />
 
-To convert your notes into gists, you must register for a [Personal Access Token](https://github.com/settings/tokens?type=beta) on Github.
+> [!NOTE]
+>
+> To convert your notes into gists, you must register for a [Personal Access Token](https://github.com/settings/tokens?type=beta) on Github.
 
 <br />
 
@@ -141,7 +143,7 @@ To convert your notes into gists, you must register for a [Personal Access Token
 <br />
 
 # Usage
-To embed a Github Gist snippet or OpenGist, add a new code block:
+To embed a snippet from Github or OpenGist, add a new code block:
 
 <br />
 
@@ -155,15 +157,12 @@ url:    https://gist.github.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 <br />
 
-This plugin can also fetch a Gist which contains multiple notes in a single gist collection:
-
-<br />
-
 <p align="center"><img style="width: 85%;text-align: center;border: 1px solid #353535;" src="https://github.com/Aetherinox/obsidian-gistr/assets/118329232/062f2dc0-c14a-4d4f-a3e0-5358458a528a"></p>
 
 <br />
 
-If your gist contains multiple files, you may  target a specific note inside a gist, append `#filename` to the end of your gist url:
+This plugin can also fetch a Gist which contains multiple notes in a single collection. If your gist contains multiple files, you can target a specific note to show by using the `file`
+property:
 
 ````shell
 ```gistr
@@ -178,15 +177,7 @@ If you do not target a specific file on a gist which contains multiple files, al
 
 <br />
 
-Despite whatever theme you have selected in the Gistr settings, you can force a gist note to use a specific theme by appending `&themename` to the end of the url
-
-<br />
-
-**Theme Options:**
-- `dark`
-- `light`
-
-<br />
+You can force an individual gist to use a specific theme. You may choose the theme `dark` or `light`:
 
 ````shell
 ```gistr
@@ -216,13 +207,7 @@ url:    https://gist.yourdomain.com/username/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 <br />
 
-You may also force an individual gist to use a specific theme:
-
-<br />
-
-**Theme Options:**
-- `dark`
-- `light`
+You can force an individual gist to use a specific theme. You may choose the theme `dark` or `light`:
 
 <br />
 
