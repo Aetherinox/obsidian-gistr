@@ -1,6 +1,6 @@
 {
   "name": "gistr",
-  "version": "1.6.5",
+  "version": "1.6.8",
   "description": "Integrate Opengist and Github gists into your notes, allowing you to create, update, and share between your notes and gist services",
   "main": "main.js",
   "repository": {
@@ -13,8 +13,14 @@
     "build": "rollup --config rollup.config.mjs --environment BUILD:production",
     "release": "rollup --config rollup.config.mjs --environment BUILD,MINIFY,TEST",
     "test": "rollup --config rollup.config.mjs --environment TEST",
-    "id": "npx --quiet env-cmd --no-override node .env ${UUID}",
-    "version": "npm run build && auto-changelog && git add ."
+    "contrib:add": "all-contributors add",
+    "contrib:generate": "all-contributors generate",
+    "gistr": "node gistr.js",
+    "generate": "node gistr.js generate",
+    "env-gistr": "npx --quiet env-cmd --no-override node gistr.js",
+    "env-uuid": "npx --quiet env-cmd --no-override node gistr.js uuid",
+    "env-guid": "npx --quiet env-cmd --no-override node gistr.js guid",
+    "env-version": "node -p require('./package.json').version;"
   },
   "keywords": [
     "obsidian",
@@ -27,28 +33,29 @@
     "url": "https://github.com/Aetherinox/obsidian-gistr/issues"
   },
   "devDependencies": {
-    "@codemirror/view": "^6.26.1",
+    "@codemirror/view": "^6.26.3",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-image": "^3.0.3",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-replace": "^5.0.5",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/chrome": "^0.0.263",
-    "@types/node": "^20.12.3",
+    "@types/chrome": "^0.0.266",
+    "@types/node": "^20.12.7",
     "@types/semver": "^7.5.8",
     "@types/uuid": "^9.0.8",
-    "electron": "^29.1.6",
+    "electron": "^30.0.1",
     "obsidian": "^1.0.0",
-    "rollup": "^4.13.2",
+    "rollup": "^4.16.4",
     "rollup-plugin-license": "^3.3.1",
     "simple-git": "^3.24.0",
     "tslib": "^2.2.0",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.3",
+    "all-contributors-cli": "^6.26.1"
   },
   "dependencies": {
-    "@aetherinox/noxkit": "^1.1.0",
-    "@octokit/rest": "^20.0.2",
+    "@aetherinox/noxkit": "https://github.com/Aetherinox/noxkit",
+    "@octokit/rest": "^20.1.0",
     "@simonwep/pickr": "github:simonwep/pickr",
     "colortranslator": "^4.1.0",
     "front-matter": "^4.0.2",
