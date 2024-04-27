@@ -377,7 +377,6 @@ You will be presented with JSON which defines the values associated to your crea
 - [thomiceli](https://github.com/thomiceli)  over at [OpenGist](https://github.com/thomiceli/opengist) for implementing the JSON functionality request.
 - [linjunpop](https://github.com/linjunpop) for developing the first Obsidian [Gist](https://github.com/linjunpop/obsidian-gist) plugin. It was a top choice in my list of plugins used.
 
-
 <br />
 
 ---
@@ -432,8 +431,6 @@ The following people have helped get this project going:
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-
 
 <br />
 <br />
