@@ -44,15 +44,18 @@ jobs:
       name: Orion
       
     steps:
-      - name: "Checkout"
+      - name: "☑️ Checkout"
         uses: actions/checkout@v4
 
-      - name: "Setup Python"
+      - name: "🐍 Setup Python"
+        id: task_build_python_setup
         uses: actions/setup-python@v5
         with:
           python-version: 3.x
 
-      - name: "Build Documentation"
+      - name: >-
+          📕 Build Documentation
+        id: task_build_docs
         run: |
           export DOCS_NAME=${{ secrets.DOCS_NAME }}
           export DOCS_SECRET_L1=${{ secrets.DOCS_SECRET_L1 }}
@@ -69,10 +72,10 @@ jobs:
           mkdocs build
           dir
         env:
-          # Note: It is not the same as ${{ secrets.ADMINSERV_TOKEN }} !
           GH_TOKEN: ${{ secrets.ADMINSERV_TOKEN }}
 
-      - name: Deploy
+      - name: "💽 Deploy"
+        id: task_build_deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           personal_token: ${{ secrets.ADMINSERV_TOKEN_CL }}
