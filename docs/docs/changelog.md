@@ -7,15 +7,24 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.6.8 <small>April 26, 2024</small> { id="1.6.8" }
+
+- `build`: updated main gistr.js build script
+- `dep`: bump `rollup` from 4.14.0 to 4.16.4
+- `dep`: bump `electron` from 29.2.0 to 30.0.1
+- `dep`: bump `@codemirror/view` from 6.26.1 to 6.26.3
+- `dep`: bump `@types/node` from 20.12.5 to 20.12.7
+- `dep`: bump `@types/chrome` from 0.0.265 to 0.0.266
+
 ### <!-- md:version stable- --> 1.6.7 <small>April 05, 2024</small> { id="1.6.7" }
 
-- `dep`: bump @types/chrome from 0.0.263 to 0.0.265
-- `dep`: bump @types/node from 20.12.4 to 20.12.5
+- `dep`: bump `@types/chrome` from 0.0.263 to 0.0.265
+- `dep`: bump `@types/node` from 20.12.4 to 20.12.5
 
 ### <!-- md:version stable- --> 1.6.6 <small>April 04, 2024</small> { id="1.6.6" }
 
-- `dep`: bump @types/node from 20.12.3 to 20.12.4
-- `dep`: bump @octokit/rest from 20.0.2 to 20.1.0
+- `dep`: bump `@types/node` from 20.12.3 to 20.12.4
+- `dep`: bump `@octokit/rest` from 20.0.2 to 20.1.0
 - `build`: update rollup build scripts
 
 ### <!-- md:version stable- --> 1.6.5 <small>April 04, 2024</small> { id="1.6.5" }
@@ -62,8 +71,8 @@ tags:
 - `change`: time formatting link in settings changed to: https://aetherinox.github.io/obsidian-gistr/cheatsheets/datetime/
 - `change`: default autosave duration, 15 -> 120 seconds
 - `change`: datetime format url switched over to mkdocs
-- `dep`: update electron 23.3.13 -> 29.1.6
-- `dep`: update typescript 4.9.5 -> 5.4.3
+- `dep`: bump `electron` from 23.3.13 to 29.1.6
+- `dep`: bump `typescript` from 4.9.5 to 5.4.3
 
 ### <!-- md:version stable- --> 1.6.1 <small>March 30, 2024</small> { id="1.6.1" }
 
@@ -79,7 +88,7 @@ tags:
     - added property `height`
     - added property `zoom`
     - `height` and `zoom` only available in **raw mode**
-- `feat`: added ability to view gists with a secondary method which acts as a browser. gives the ability to sign into Github, view, and edit gists. 
+- `feat`: added ability to view gists with a secondary method which acts as a browser. gives the ability to sign into Github, view, and edit gists.
 - `feat`: added compatibility for Gist **mermaid graphs**
 - `dep`: added **Saturyn** package for Chromium integration
 - `perf` optimizations for loading gists and caching information
