@@ -67,6 +67,8 @@
 # ----------------------------------------
 # [WL]: Base Files
 # ----------------------------------------
+!*.all-contributorsrc
+!*.editorconfig
 !*gistr.js
 !*manifest.json
 !*package.json
@@ -79,3 +81,4 @@
 !*SHA*.asc
 !*SHA*.sig
 !*styles.css
+

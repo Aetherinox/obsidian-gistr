@@ -2,19 +2,28 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 
 /*
+    build gistr by running
+        npm run build
+
+    guid and uuid will be automatically generated and placed
+    inside .env file which will then be read by the github workflow
+    build script.
+*/
+
+/*
     This script handles the following:
         - read package.json
         - create .env file
         - return uuid, guid, version
 
     can be called with the following external commands:
-        - node gistr.js
-        - node gistr.js generate
-        - node gistr.js uuid
-        - node gistr.js guid
-        - node gistr.js versiom
+        - node gistr.js                 returns version of gistr
+        - node gistr.js generate        generates uuid / guid and shows all env vars in console
+        - node gistr.js uuid            returns gistr uuid
+        - node gistr.js guid            returns gistr guid
+        - node gistr.js versiom         returns version of gistr
 
-    can be called with the following KeeWeb commands:
+    can be called with the following gistr commands:
         - npm run gistr
         - npm run gistr:generate
         - npm run env-gistr
@@ -74,12 +83,3 @@ UUID=${buildUuid}
 }
 
 process.exit(0);
-
-
-
-
-
-
-
-
-
