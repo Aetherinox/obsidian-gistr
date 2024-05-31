@@ -41,7 +41,7 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
     "@types/chrome": "^0.0.266",
-    "@types/node": "^20.12.7",
+    "@types/node": "^20.13.0",
     "@types/semver": "^7.5.8",
     "@types/uuid": "^9.0.8",
     "electron": "^30.0.1",
