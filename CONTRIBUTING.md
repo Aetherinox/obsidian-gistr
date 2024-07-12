@@ -258,13 +258,13 @@ let secondVar = 'two';
 [link-license-mit]: https://github.com/Aetherinox/obsidian-gistr/blob/main/LICENSE
 
 <!-- BADGE > BUILD -->
-[badge-build]: https://img.shields.io/github/actions/workflow/status/Aetherinox/obsidian-gistr/release-npm.yml?logo=github&logoColor=FFFFFF&label=Build&color=%23278b30
-[link-build]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/release-npm.yml
+[badge-build]: https://img.shields.io/github/actions/workflow/status/Aetherinox/obsidian-gistr/npm-release.yml?logo=github&logoColor=FFFFFF&label=Build&color=%23278b30
+[link-build]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/npm-release.yml
 
 <!-- BADGE > DOWNLOAD COUNT -->
 [badge-downloads-gh]: https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total?logo=github&logoColor=FFFFFF&label=Downloads&color=376892
 [link-downloads-gh]: https://github.com/Aetherinox/obsidian-gistr/releases
-[badge-downloads-npm]: https://img.shields.io/npm/dw/%40aetherinox%2Fmarked-alert-fa?logo=npm&&label=Downloads&color=376892
+[badge-downloads-npm]: https://img.shields.io/npm/dw/%40aetherinox%2Fntfy-desktop?logo=npm&&label=Downloads&color=376892
 [link-downloads-npm]: https://npmjs.com/package/obsidian-gistr
 
 <!-- BADGE > DOWNLOAD SIZE -->
@@ -280,7 +280,7 @@ let secondVar = 'two';
 <!-- BADGE > ALL CONTRIBUTORS -->
 [badge-all-contributors]: https://img.shields.io/github/all-contributors/Aetherinox/obsidian-gistr?logo=contributorcovenant&color=de1f6f&label=contributors
 [link-all-contributors]: https://github.com/all-contributors/all-contributors
-[badge-tests]: https://img.shields.io/github/actions/workflow/status/Aetherinox/marked-alert-fa/npm-tests.yml?logo=github&label=Tests&color=2c6488
+[badge-tests]: https://img.shields.io/github/actions/workflow/status/Aetherinox/ntfy-desktop/npm-tests.yml?logo=github&label=Tests&color=2c6488
 [link-tests]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/tests.yml
 [badge-commit]: https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?logo=conventionalcommits&logoColor=FFFFFF&label=Last%20Commit&color=313131
 [link-commit]: https://github.com/Aetherinox/obsidian-gistr/commits/main/
