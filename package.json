@@ -78,7 +78,7 @@
         "typescript-eslint": "^7.14.0",
         "@typescript-eslint/parser": "^7.16.0",
         "@typescript-eslint/eslint-plugin": "^7.16.0",
-        "electron": "^30.2.0",
+        "electron": "^31.1.0",
         "obsidian": "^1.0.0",
         "rollup": "^4.16.4",
         "rollup-plugin-license": "^3.3.1",
