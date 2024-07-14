@@ -36,8 +36,9 @@
     "scripts": {
         "pretest": "npm run lint",
         "lint": "eslint src/**/*.ts",
-        "pretty": "prettier . --write",
-        "pretty:check": "prettier . --check",
+        "lint:fix": "eslint --fix src/**/*.ts",
+        "pretty": "prettier . --check",
+        "pretty:fix": "prettier . --write",
         "pretty:ignore": "prettier . --write --ignore-unknown",
         "start": "rollup --watch --config rollup.config.mjs --environment BUILD,TEST",
         "dev": "rollup --watch --config rollup.config.mjs --environment BUILD:dev",
