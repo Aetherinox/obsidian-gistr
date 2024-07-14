@@ -3,8 +3,17 @@
     "version": "1.6.8",
     "description": "Integrate Opengist and Github gists into your notes, allowing you to create, update, and share between your notes and gist services",
     "author": "Aetherinox",
-    "main": "main.js",
     "license": "MIT",
+    "main": "main.js",
+    "build": {
+        "appId": "com.gistr.id"
+    },
+    "funding": [
+        {
+            "type": "individual",
+            "url": "https://buymeacoffee.com/aetherinox"
+        }
+    ],
     "bugs": {
         "url": "https://github.com/Aetherinox/obsidian-gistr/issues"
     },
@@ -15,18 +24,21 @@
     "contributors": [
         {
             "name": "Aetherinox",
-            "email": "adminservx@proton.me",
-            "url": "118329232+Aetherinox@users.noreply.github.com"
+            "email": "118329232+Aetherinox@users.noreply.github.com",
+            "url": "https://github.com/Aetherinox"
         },
         {
             "name": "EuropaServ",
             "email": "161414668+EuropaServ@users.noreply.github.com",
-            "url": "https://github.com/AdminServ"
+            "url": "https://github.com/EuropaServ"
         }
     ],
     "scripts": {
         "pretest": "npm run lint",
         "lint": "eslint src/**/*.ts",
+        "pretty": "prettier . --write",
+        "pretty:check": "prettier . --check",
+        "pretty:ignore": "prettier . --write --ignore-unknown",
         "start": "rollup --watch --config rollup.config.mjs --environment BUILD,TEST",
         "dev": "rollup --watch --config rollup.config.mjs --environment BUILD:dev",
         "build": "rollup --config rollup.config.mjs --environment BUILD:production",
@@ -42,9 +54,13 @@
         "env-version": "node -p require('./package.json').version;"
     },
     "keywords": [
+        "markdown",
+        "obsidian.md",
         "obsidian",
         "gist",
-        "opengist"
+        "gistr",
+        "opengist",
+        "github"
     ],
     "devDependencies": {
         "@aetherinox/noxenv": "^1.0.0",
@@ -81,5 +97,13 @@
         "semver": "^7.6.0",
         "uuid": "^9.0.1",
         "yaml": "^2.3.4"
-    }
+    },
+    "files": [
+        "tests/",
+        "LICENSE.md",
+        "README.md",
+        "main.js",
+        "styles.css",
+        "manifest.json"
+    ]
 }
