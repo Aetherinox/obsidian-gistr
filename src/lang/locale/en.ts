@@ -380,6 +380,6 @@ export default
     */
 
     lst_repotype_pub:                           'Public',
-    lst_repotype_pri:                           'Secret',
+    lst_repotype_pri:                           'Secret'
 
 }

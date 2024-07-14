@@ -35,7 +35,7 @@ export default class GistrPlugin extends Plugin
     private ribbonIcon_reload:  HTMLElement
     private leaf:               WorkspaceLeaf
     settings:                   GistrSettings
-    buttons                     = new WeakMap<ItemView, Map<string, HTMLElement>>();
+    buttons                     = new WeakMap<ItemView, Map<string, HTMLElement>>()
 
     constructor( app: App, manifest: PluginManifest )
     {
@@ -99,10 +99,10 @@ export default class GistrPlugin extends Plugin
         SaturynRegister(
             this, SaturynParamsHandle(
             {
-                title:  'Satuyrn',
-                id:     PortalID,
-                icon:   'globe',
-                url:    PortalURLDefault
+                title: 'Satuyrn',
+                id:    PortalID,
+                icon:  'globe',
+                url:   PortalURLDefault
             } )
         )
     }
@@ -117,14 +117,14 @@ export default class GistrPlugin extends Plugin
 
         if ( process.env.ENV === 'dev' )
         {
-            //console.log( process.env.NODE_ENV )
-            //console.log( process.env.ENV )
-            //console.log( process.env.BUILD )
-            //console.log( process.env.PLUGIN_VERSION )
-            //console.log( process.env.BUILD_GUID )
-            //console.log( process.env.BUILD_UUID )
-            //console.log( process.env.BUILD_DATE )
-            //console.log( process.env.AUTHOR )
+            // console.log( process.env.NODE_ENV )
+            // console.log( process.env.ENV )
+            // console.log( process.env.BUILD )
+            // console.log( process.env.PLUGIN_VERSION )
+            // console.log( process.env.BUILD_GUID )
+            // console.log( process.env.BUILD_UUID )
+            // console.log( process.env.BUILD_DATE )
+            // console.log( process.env.AUTHOR )
         }
 
         await this.loadSettings     ( )
@@ -200,7 +200,7 @@ export default class GistrPlugin extends Plugin
             {
                 id:                 'gistr-github-gist-secret-save',
                 name:               lng( 'cfg_context_gist_secret' ),
-                callback:           GHGistGet( { plugin: this, app: this.app, is_public: false } ),
+                callback:           GHGistGet( { plugin: this, app: this.app, is_public: false } )
             }
         )
 
@@ -209,7 +209,7 @@ export default class GistrPlugin extends Plugin
             {
                 id:                 'gistr-github-gist-copy',
                 name:               lng( 'cfg_context_gist_copy' ),
-                callback:           GHGistCopy( { plugin: this, app: this.app } ),
+                callback:           GHGistCopy( { plugin: this, app: this.app } )
             }
         )
 
@@ -303,10 +303,12 @@ export default class GistrPlugin extends Plugin
             targetPortal = this.settings.portals[ id ]
 
         if ( targetPortal === undefined && title )
-            targetPortal = Object.values( this.settings.portals ).find(( portal ) => portal.title.toLowerCase( ) === title.toLowerCase( ) )
+            targetPortal = Object.values( this.settings.portals ).find( ( portal ) =>
+                portal.title.toLowerCase( ) === title.toLowerCase( ) )
 
         if ( targetPortal === undefined && url )
-            targetPortal = Object.values( this.settings.portals ).find( ( portal ) => portal.url.toLowerCase( ) === url.toLowerCase( ) )
+            targetPortal = Object.values( this.settings.portals ).find( ( portal ) =>
+                portal.url.toLowerCase( ) === url.toLowerCase( ) )
 
         if ( targetPortal !== undefined && url )
             targetPortal.url = url
@@ -331,7 +333,7 @@ export default class GistrPlugin extends Plugin
 
     async handlePortal( data: ObsidianProtocolData )
     {
-        const targetPortal= this.getPortalParams( data )
+        const targetPortal = this.getPortalParams( data )
         if ( targetPortal === undefined )
         {
             if ( !data.url )
@@ -429,7 +431,7 @@ export default class GistrPlugin extends Plugin
 
     async registerRibbon( )
     {
-        if ( this.settings.sy_enable_ribbon_icons == true )
+        if ( this.settings.sy_enable_ribbon_icons === true )
         {
             addIcon( 'gistr-github-public', IconGithubPublic )
             this.ribbonIcon_pub = this.addRibbonIcon( 'gistr-github-public', lng( 'cfg_context_gist_public' ), ( ) =>
@@ -467,7 +469,7 @@ export default class GistrPlugin extends Plugin
 
     async registerRibbonDebug( )
     {
-        if ( this.settings.ge_enable_ribbon_icons == true )
+        if ( this.settings.ge_enable_ribbon_icons === true )
         {
             addIcon( 'gistr-github-reload', IconGithubReload )
             this.ribbonIcon_reload = this.addRibbonIcon( 'gistr-github-reload', lng( 'cfg_context_gist_reload' ), ( ) =>
@@ -505,7 +507,7 @@ export default class GistrPlugin extends Plugin
         btn_Ico.addEventListener( 'click', ( ) =>
         {
             this.reloadPlugin( this.app, this )
-        })
+        } )
 
         viewActions.prepend( btn_Ico )
     }
@@ -616,9 +618,9 @@ export default class GistrPlugin extends Plugin
         Reload plugin
     */
 
-    async reloadPlugin(app: App, plugin: GistrPlugin )
+    async reloadPlugin( app: App, plugin: GistrPlugin )
     {
-        await ( app as any).plugins.disablePlugin( plugin.manifest.id )
+        await ( app as any ).plugins.disablePlugin( plugin.manifest.id )
         this.app.workspace.updateOptions( )
         await ( app as any ).plugins.enablePlugin( plugin.manifest.id )
         this.app.workspace.updateOptions( )
@@ -695,7 +697,7 @@ export default class GistrPlugin extends Plugin
                 {
                     body:   lng( 'ver_update_beta_dn_msg', ver_running, ver_beta ),
                     icon:   AssetGithubIcon,
-                    badge:  AssetGithubIcon,
+                    badge:  AssetGithubIcon
                 } )
             }
             else if ( lt( ver_beta, ver_stable ) && lt( ver_running, ver_stable ) )
@@ -706,7 +708,7 @@ export default class GistrPlugin extends Plugin
                 {
                     body:   lng( 'ver_update_stable_dn_msg', ver_running, ver_stable ),
                     icon:   AssetGithubIcon,
-                    badge:  AssetGithubIcon,
+                    badge:  AssetGithubIcon
                 } )
             }
         }
@@ -724,7 +726,7 @@ export default class GistrPlugin extends Plugin
 
     public generateUuid( )
     {
-        const uuid = crypto.randomUUID( );
+        const uuid = crypto.randomUUID( )
         return `${ uuid }`
     }
 

@@ -42,7 +42,7 @@ export class SaturynPortalInitialize extends ItemView
                 this.frame.src = this.params?.url ?? 'about:blank'
             else
                 this.frame.loadURL( this.params?.url ?? 'about:blank' )
-        })
+        } )
     }
 
     /*

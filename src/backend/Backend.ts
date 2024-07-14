@@ -4,7 +4,7 @@
     Import
 */
 
-import { request, RequestUrlParam  } from "obsidian"
+import { request, RequestUrlParam  } from 'obsidian'
 import GistrPlugin from 'src/main'
 import { Env, PID } from 'src/api'
 import { GistrSettings } from 'src/settings/settings'
@@ -104,7 +104,7 @@ export class BackendCore
             n_raw               = find_new.raw ?? false
             n_height            = find_new.height ?? 700
             n_zoom              = find_new.zoom ?? 1
-            n_css               = find_new.css ?? ""
+            n_css               = find_new.css ?? ''
         }
 
         /*
@@ -124,7 +124,7 @@ export class BackendCore
         if ( n_raw )
         {
 
-            n_css = n_css.replace( /(\r\n|\n|\r|\||\s)/gm, "" );
+            n_css = n_css.replace( /(\r\n|\n|\r|\||\s)/gm, '' )
 
             const raw_output =
             `
@@ -170,7 +170,7 @@ css: |
         */
 
         if ( bIsEmpty( host ) || bIsEmpty( uuid ) )
-            return this.ThrowError( el, data, lng( "err_gist_loading_fail_url", host ) )
+            return this.ThrowError( el, data, lng( 'err_gist_loading_fail_url', host ) )
 
         /*
             compile url to gist
@@ -182,8 +182,8 @@ css: |
             Dev > print gist url
         */
 
-        if (process.env.BUILD === 'dev')
-            console.log(gistSrcURL);
+        if ( process.env.BUILD === 'dev' )
+            console.log( gistSrcURL )
 
         /*
             This should be a theme specified by the user in the codeblock; NOT their theme setting
@@ -191,7 +191,7 @@ css: |
             blank if none
         */
 
-        const og_ThemeOV = !bIsEmpty( theme ) ? theme : ""
+        const og_ThemeOV = !bIsEmpty( theme ) ? theme : ''
 
         /*
             assign style values
@@ -206,7 +206,7 @@ css: |
             handle error
         */
 
-        const reqUrlParams: RequestUrlParam = { url: gistSrcURL, method: "GET", headers: { "Accept": "application/json" } }
+        const reqUrlParams: RequestUrlParam = { url: gistSrcURL, method: 'GET', headers: { Accept: 'application/json' } }
         try
         {
             const req       = await request( reqUrlParams )
@@ -271,26 +271,26 @@ css: |
             policy directive error if certain attributes arent used. doesnt affect the plugin, but erors are bad
         */
 
-        ct_iframe.setAttribute      ( 'csp', "default-src * data: blob: 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';" )
+        ct_iframe.setAttribute      ( 'csp', 'default-src * data: blob: \'unsafe-inline\' \'unsafe-eval\'; script-src * \'unsafe-inline\' \'unsafe-eval\'; connect-src * \'unsafe-inline\'; img-src * data: blob: \'unsafe-inline\'; frame-src *; style-src * \'unsafe-inline\';' )
 
         /*
             assign css, body, js
         */
 
-        const css_theme_ovr     = ( style.theme !== "" ) ? style.theme.toLowerCase( ) : ""
-        const css_theme_sel     = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme.toLowerCase( ) == "dark" ) ? "dark" : ( this.settings.theme.toLowerCase( ) == "light" ) ? "light"  : "light"
-        let css_og              = ""
-        let css_gh              = ""
+        const css_theme_ovr     = ( style.theme !== '' ) ? style.theme.toLowerCase( ) : ''
+        const css_theme_sel     = ( css_theme_ovr !== '' ) ? css_theme_ovr : ( this.settings.theme.toLowerCase( ) === 'dark' ) ? 'dark' : ( this.settings.theme.toLowerCase( ) === 'light' ) ? 'light'  : 'light'
+        let css_og              = ''
+        let css_gh              = ''
 
-        const content_css       = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet: json.embed.css ) )
-        const content_body      = ( bGithub ? json.div : "" )
-        const content_js        = ( bGithub ? "" : await this.GetJavascript( el, uuid, ( css_theme_sel == "dark" ? json.embed.js_dark : json.embed.js ) ) )
+        const content_css       = await this.GetCSS( el, uuid, ( bGithub ? json.stylesheet : json.embed.css ) )
+        const content_body      = ( bGithub ? json.div : '' )
+        const content_js        = ( bGithub ? '' : await this.GetJavascript( el, uuid, ( css_theme_sel === 'dark' ? json.embed.js_dark : json.embed.js ) ) )
 
         /*
             Declare custom css override
         */
 
-        const css_override      = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ""
+        const css_override      = ( ( bGithub && this.settings.css_gh && this.settings.css_gh.length > 0 ) ? ( this.settings.css_gh ) : ( this.settings.css_og && this.settings.css_og.length > 0 && this.settings.css_og ) ) || ''
 
         /*
             Update style theme value
@@ -371,15 +371,15 @@ css: |
     private CSS_Get_OpenGist( style: StyleProperties )
     {
 
-        const css_og_bg_color       = ( style.theme == "dark" ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
-        const css_og_sb_color       = ( style.theme == "dark" ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
-        const css_og_bg_header_bg   = ( style.theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
-        const css_og_bg_header_bor  = ( style.theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
-        const css_og_bg             = ( !bIsEmpty( style.background ) ? "url(" + style.background + ")" : css_og_bg_color )
-        const css_og_tx_color       = ( style.theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
+        const css_og_bg_color       = ( style.theme === 'dark' ? this.settings.og_clr_bg_dark : this.settings.og_clr_bg_light )
+        const css_og_sb_color       = ( style.theme === 'dark' ? this.settings.og_clr_sb_dark : this.settings.og_clr_sb_light )
+        const css_og_bg_header_bg   = ( style.theme === 'dark' ? 'rgb( 35 36 41/var( --tw-bg-opacity ) )' : 'rgb( 238 239 241/var( --tw-bg-opacity ) )' )
+        const css_og_bg_header_bor  = ( style.theme === 'dark' ? '1px solid rgb( 54 56 64/var( --tw-border-opacity ) )' : 'rgb( 222 223 227/var( --tw-border-opacity ) )' )
+        const css_og_bg             = ( !bIsEmpty( style.background ) ? 'url(' + style.background + ')' : css_og_bg_color )
+        const css_og_tx_color       = ( style.theme === 'dark' ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
         let css_og_tx_color_user    = ( !bIsEmpty( style.color_text ) ? style.color_text : css_og_tx_color )
-        css_og_tx_color_user        = css_og_tx_color_user.replace( "#", "" );
-        const css_og_wrap           = ( this.settings.textwrap == "Enabled" ? "pre-wrap" : "pre" )
+        css_og_tx_color_user        = css_og_tx_color_user.replace( '#', '' )
+        const css_og_wrap           = ( this.settings.textwrap === 'Enabled' ? 'pre-wrap' : 'pre' )
         const css_og_opacity        = ( this.settings.og_opacity ) || 1
 
         return `
@@ -454,15 +454,15 @@ css: |
     private CSS_Get_Github( style: StyleProperties )
     {
 
-        const css_gh_bg_color       = ( style.theme == "dark" ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
-        const css_gh_sb_color       = ( style.theme == "dark" ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
-        const css_gh_bg_header_bg   = ( style.theme == "dark" ? "rgb( 35 36 41/var( --tw-bg-opacity ) )" : "rgb( 238 239 241/var( --tw-bg-opacity ) )" )
-        const css_gh_bg_header_bor  = ( style.theme == "dark" ? "1px solid rgb( 54 56 64/var( --tw-border-opacity ) )" : "rgb( 222 223 227/var( --tw-border-opacity ) )" )
-        const css_gh_bg             = ( !bIsEmpty( style.background ) ? "url(" + style.background + ")" : css_gh_bg_color )
-        const css_gh_tx_color       = ( style.theme == "dark" ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
+        const css_gh_bg_color       = ( style.theme === 'dark' ? this.settings.gh_clr_bg_dark : this.settings.gh_clr_bg_light )
+        const css_gh_sb_color       = ( style.theme === 'dark' ? this.settings.gh_clr_sb_dark : this.settings.gh_clr_sb_light )
+        const css_gh_bg_header_bg   = ( style.theme === 'dark' ? 'rgb( 35 36 41/var( --tw-bg-opacity ) )' : 'rgb( 238 239 241/var( --tw-bg-opacity ) )' )
+        const css_gh_bg_header_bor  = ( style.theme === 'dark' ? '1px solid rgb( 54 56 64/var( --tw-border-opacity ) )' : 'rgb( 222 223 227/var( --tw-border-opacity ) )' )
+        const css_gh_bg             = ( !bIsEmpty( style.background ) ? 'url(' + style.background + ')' : css_gh_bg_color )
+        const css_gh_tx_color       = ( style.theme === 'dark' ? this.settings.og_clr_tx_dark : this.settings.og_clr_tx_light )
         let css_gh_tx_color_user    = ( !bIsEmpty( style.color_text ) ? style.color_text : css_gh_tx_color )
-        css_gh_tx_color_user        = css_gh_tx_color_user.replace( "#", "" );
-        const css_gh_wrap           = ( this.settings.textwrap.toLowerCase( ) == "enabled" ? "wrap" : "nowrap" )
+        css_gh_tx_color_user        = css_gh_tx_color_user.replace( '#', '' )
+        const css_gh_wrap           = ( this.settings.textwrap.toLowerCase( ) === 'enabled' ? 'wrap' : 'nowrap' )
         const css_gh_opacity        = ( this.settings.gh_opacity ) || 1
 
         return `
@@ -749,10 +749,10 @@ css: |
 
     private async ThrowError( el: HTMLElement, gistInfo: string, err = '' )
     {
-        const div_Error = el.createEl( 'div',   { text: "", cls: 'gistr-container-error' } )
-        div_Error.createEl( 'div',              { text: lng( "err_gist_loading_fail_name" ), cls: 'gistr-load-error-l1' } )
-        div_Error.createEl( 'div',              { text: gistInfo, cls: "gistr-load-error-l2" } )
-        div_Error.createEl( 'small',            { text: lng( "err_gist_loading_fail_resp", err ) } )
+        const div_Error = el.createEl( 'div',   { text: '', cls: 'gistr-container-error' } )
+        div_Error.createEl( 'div',              { text: lng( 'err_gist_loading_fail_name' ), cls: 'gistr-load-error-l1' } )
+        div_Error.createEl( 'div',              { text: gistInfo, cls: 'gistr-load-error-l2' } )
+        div_Error.createEl( 'small',            { text: lng( 'err_gist_loading_fail_resp', err ) } )
     }
 
     /*
@@ -761,11 +761,11 @@ css: |
 
     private async GetJavascript( el: HTMLElement, data: string, url: string )
     {
-        const reqUrlParams: RequestUrlParam = { url: url, method: "GET", headers: { "Accept": "text/javascript" } }
+        const reqUrlParams: RequestUrlParam = { url: url, method: 'GET', headers: { Accept: 'text/javascript' } }
         try { return await request( reqUrlParams ) }
         catch ( err )
         {
-            return this.ThrowError( el, data, lng( "err_gist_loading_fail_detail", err ) )
+            return this.ThrowError( el, data, lng( 'err_gist_loading_fail_detail', err ) )
         }
     }
 
@@ -775,11 +775,11 @@ css: |
 
     private async GetCSS( el: HTMLElement, data: string, url: string )
     {
-        const reqUrlParams: RequestUrlParam = { url : url, method: "GET", headers: { "Accept": "text/css" } }
+        const reqUrlParams: RequestUrlParam = { url : url, method: 'GET', headers: { Accept: 'text/css' } }
         try { return await request( reqUrlParams ) }
         catch ( err )
         {
-            return this.ThrowError( el, data, lng( "err_gist_loading_fail_detail", err ) )
+            return this.ThrowError( el, data, lng( 'err_gist_loading_fail_detail', err ) )
         }
     }
 

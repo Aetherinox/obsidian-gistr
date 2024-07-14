@@ -28,7 +28,7 @@ export function SaturynCodeblock( plugin: GistrPlugin )
         el.addClass( 'saturyn-view' )
         const pnl = SaturynHandleSyntax( plugin, code )
         el.appendChild( pnl )
-    })
+    } )
 }
 
 /*

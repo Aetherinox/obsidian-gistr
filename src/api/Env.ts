@@ -68,7 +68,7 @@ export abstract class Env
         urlReleases:    'https://github.com/Aetherinox/obsidian-gistr/releases',
         urlBranchMain:  'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/main/package.json',
         urlBranchBeta:  'https://raw.githubusercontent.com/Aetherinox/obsidian-gistr/beta/package.json',
-        urlDemoVault:   'https://github.com/Aetherinox/obsidian-gistr/tree/main/tests/gistr-vault',
+        urlDemoVault:   'https://github.com/Aetherinox/obsidian-gistr/tree/main/tests/gistr-vault'
     }
 
     /*
@@ -77,7 +77,7 @@ export abstract class Env
 
     public static readonly Api: Api =
     {
-        github:         'https://www.githubstatus.com/api/v2/summary.json',
+        github:         'https://www.githubstatus.com/api/v2/summary.json'
     }
 
     /*
@@ -109,7 +109,7 @@ export abstract class Env
         Base
     */
 
-    static readonly pluginBase = 'app://obsidian.md';
+    static readonly pluginBase = 'app://obsidian.md'
 
     /*
         Plugin ID
