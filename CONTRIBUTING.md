@@ -163,7 +163,7 @@ Description:    The description of your commit
 
 This repo utilizes [prettier](https://npmjs.com/package/prettier) and [eslint](https://npmjs.com/package/eslint) for formatting. Prior to a pull request being approved; ensure you lint your code with the following settings for prettier:
 
-```json
+```YAML
 printWidth: 120,
 tabWidth: 4,
 useTabs: false,
