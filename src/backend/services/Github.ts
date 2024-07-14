@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 import { App, Notice, SuggestModal, MarkdownView, TFile } from 'obsidian'
 import GistrPlugin from 'src/main'
 import { GistrSettings, SettingsGet } from 'src/settings/settings'
@@ -265,7 +267,7 @@ const Create = async ( args: OptionsCreate ): Promise< ResultsCreateGist > =>
     }
     catch ( e )
     {
-        return{ status: Status.fail, gistArray: null, errorMessage: e.message }
+        return { status: Status.fail, gistArray: null, errorMessage: e.message }
     }
 }
 
@@ -303,7 +305,7 @@ class SelectExistingModal extends SuggestModal < GistData >
         Suggestion > Get
     */
 
-    getSuggestions( ): Array < GistData | null >
+    getSuggestions( ): (GistData | null)[]
     {
         if ( this.bAllowGistCreateNew )
             return this.gists.concat( null )
@@ -326,7 +328,7 @@ class SelectExistingModal extends SuggestModal < GistData >
         {
             const div_Create        = el.createEl( 'div', { text: "", cls: 'gistr-suggest-create' } )
             div_Create.createEl     ( 'div', { text: lng( "gist_btn_create_new" ) } )
-    
+
             return
         }
 
@@ -335,7 +337,7 @@ class SelectExistingModal extends SuggestModal < GistData >
         */
 
         const div_scope             = gistArray.is_public ? lng( "lst_repotype_pub" ) : lng( "lst_repotype_pri" )
-        let date_created            = moment( gistArray.updated_at ).format( this.settings.sy_save_list_datetime )
+        const date_created          = moment( gistArray.updated_at ).format( this.settings.sy_save_list_datetime )
 
         const div_Parent            = el.createEl( 'div',   { text: "", cls: 'gistr-suggest-container' } )
         const svg_Icon              = div_Parent.createEl   ( 'div', { text: "", cls: 'gistr-suggest-icon' } )
@@ -408,14 +410,17 @@ export const GHGistGet = ( args: ArgsGet ) => async ( ) =>
     const noteOrig              = editor.getValue( )
 
     // populate suggestion box when saving gists
-    const ExistingGist          = ( plugin.settings.sy_save_list_showall && FindExistingGist( noteOrig ) || FindExistingGist( noteOrig ).filter( ( gistArray ) => gistArray.is_public === is_public ) )
+    const ExistingGist = (
+        (plugin.settings.sy_save_list_showall && FindExistingGist(noteOrig)) ||
+        FindExistingGist(noteOrig).filter((gistArray) => gistArray.is_public === is_public)
+    );
     const gistContent           = sy_add_frontmatter ? noteOrig : FrontmatterPrepare( noteOrig )
 
     if ( ExistingGist.length && sy_enable_autoupdate )
     {
 
         new SelectExistingModal
-        ( 
+        (
             app, plugin.settings, ExistingGist, true, async ( gistArray ) =>
             {
 
@@ -446,7 +451,7 @@ export const GHGistGet = ( args: ArgsGet ) => async ( ) =>
                         new Notice( lng( "gist_not_found" ), notitime * 1000 )
 
                     new Notice( lng( "gist_upload_fail_api", output.errorMessage ), notitime * 1000 )
-                    
+
                     return
                 }
 
@@ -599,17 +604,17 @@ export const GHGistUpdate = async ( args: ParamsAutosave ) =>
     */
 
     const token = GHTokenGet( )
-    
+
     if ( !token )
         return new Notice( lng( "err_gist_token_missing" ), notitime * 1000 )
-  
+
     /*
         Find existing notes
     */
 
     const note_existing         = FindExistingGist( note_full )
     const content               = sy_add_frontmatter ? note_full : FrontmatterPrepare( note_full )
-  
+
     /*
         Validate
     */
@@ -638,14 +643,13 @@ export const GHGistUpdate = async ( args: ParamsAutosave ) =>
 
             const note_updated = InsertFrontmatter( res.gistArray, note_full )
             await file.vault.adapter.write( file.path, note_updated )
-    
+
             /*
                 Save Notice Enabled
             */
-    
+
             if ( sy_enable_autosave_notice )
                 new Notice( lng( "gist_upload_success", file.path ), notitime * 1000 )
         }
     }
 }
-  

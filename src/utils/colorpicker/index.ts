@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /*
     Import
 */
@@ -67,20 +68,20 @@ export class ColorPicker extends Pickr
 
 		if ( el.parentElement !== null )
 			settings.container = el.parentElement
-    
+
         super( settings )
 
         /*
             Colorpicker > Save
         */
-    
+
         this.ActionSave = ( ActionSave: Color ) =>
         {
             (
                 async ( ) =>
                 {
                     await plugin.saveSettings( )
-                } 
+                }
             )( )
         }
 
@@ -114,7 +115,7 @@ export function ConvertColor( str : string ) : string
 {
 	const strSplit = str.trim( ).replace( /(\d*)%/g, "$1" ).split( " " )
 
-	const operators: { [ key: string ] : ( n1 : number, n2 : number ) => number } =
+	const operators: Record<string, ( n1 : number, n2 : number ) => number> =
     {
 		"+" : ( n1 : number, n2 : number ) : number => Math.max( n1 + n2, 0 ),
 		"-" : ( n1 : number, n2 : number ) : number => Math.max( n1 - n2, 0 ),
@@ -155,7 +156,7 @@ export function CSS_GetValue( property: CLR_VAR ): CLR_HEX
 
 	else if ( value.startsWith( "hsl" ) )
 		return `#${ ColorTranslator.toHEXA
-        ( 
+        (
             value.replace( /ConvertColor\((.*?)\)/g, ( match, capture ) =>
             ConvertColor( capture ) )
         ).substring( 1 ) }`
@@ -177,6 +178,7 @@ export function CSS_GetValue( property: CLR_VAR ): CLR_HEX
     */
 
 	else
+		// eslint-disable-next-line no-console
 		console.warn( lng( "pickr_dev_unknown", value ) )
 
 	return `#${ ColorTranslator.toHEXA( value ).substring( 1 ) }`

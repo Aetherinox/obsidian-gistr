@@ -4,6 +4,7 @@
 
 declare module 'obsidian'
 {
+	// eslint-disable-next-line no-unused-vars
 	interface App
 	{
 		commands:
@@ -12,6 +13,7 @@ declare module 'obsidian'
 		}
 	}
 
+	// eslint-disable-next-line no-unused-vars
 	interface Workspace
 	{
 		onLayoutChange( ): void

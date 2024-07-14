@@ -1,6 +1,6 @@
 process.env.DIST    = join( __dirname, '../..' )
 process.env.PUBLIC  = app.isPackaged ? process.env.DIST : join( process.env.DIST, '../public' )
-process.env[ 'ELECTRON_DISABLE_SECURITY_WARNINGS' ] = 'true'
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
 import {createMenu} from './menu'
 import { app, BrowserWindow, shell, ipcMain, dialog, webContents, nativeTheme } from 'electron'
@@ -137,7 +137,7 @@ ipcMain.handle( 'moveToTrash', ( e, path: string ) =>
     return shell.trashItem(path)
 } )
 
-ipcMain.handle( 'appInfo', (e) =>
+ipcMain.handle( 'appInfo', () =>
 {
     return {
         index:      app.isPackaged ? indexHtml : url,

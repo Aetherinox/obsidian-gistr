@@ -6,11 +6,11 @@ import { SaturynParams } from './Parameters'
 export class SaturynModalPortalEdit extends Modal
 {
     portalOptions:          SaturynParams
-    onSubmit:               ( result: SaturynParams ) => void
+    onSubmit:               ( _result: SaturynParams ) => void
     readonly plugin:        GistrPlugin
     private cblk_preview: 	HTMLElement
 
-    constructor( app: App, plugin: GistrPlugin, portalOptions: SaturynParams, onSubmit: ( res: SaturynParams ) => void )
+    constructor( app: App, plugin: GistrPlugin, portalOptions: SaturynParams, onSubmit: ( _res: SaturynParams ) => void )
     {
         super( app )
 
@@ -26,7 +26,7 @@ export class SaturynModalPortalEdit extends Modal
     onOpen( )
     {
         const { contentEl } = this
-        
+
 		/*
 			Style main modal
 		*/

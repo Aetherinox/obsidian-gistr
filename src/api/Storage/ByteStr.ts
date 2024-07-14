@@ -43,8 +43,8 @@
     Convert hexString
 */
 
-const revMap: { [ key: string ]: number } = { }
-const numMap: { [ key: number ]: string } = { }
+const revMap: Record<string, number> = { }
+const numMap: Record<number, string> = { }
 for ( let i = 0; i < 256; i++ )
 {
     revMap[ ( `00${ i.toString( 16 ) }`.slice( -2 ) ) ] = i
@@ -58,7 +58,7 @@ export function hexStringToUint8Array( src: string ): Uint8Array
 
     for ( let i = 0; i < len; i++ )
     {
-        ret[ i ] = revMap[ src[ i * 2 ] + src[ i * 2 + 1 ] ]
+        ret[ i ] = revMap[ (src[ i * 2 ]) + src[ (i * 2) + 1 ] ]
     }
 
     return ret;
@@ -171,17 +171,17 @@ export const readString = ( buffer: Uint8Array ) =>
             else if ( ( chr & 0xE0 ) === 0xC0 )
             {
                 // 2 bytes
-                chunk.push( ( chr & 0x1F ) << 6 | ( buffer[ index++ ] & 0x3F ) )
+                chunk.push( ((chr & 0x1F) << 6) | (buffer[ index++ ] & 0x3F) )
             }
             else if ( ( chr & 0xF0 ) === 0xE0 )
-            { 
+            {
                 // 3 bytes
-                chunk.push( ( chr & 0x0F ) << 12 | ( buffer[ index++ ] & 0x3F ) << 6 | ( buffer[ index++ ] & 0x3F ) )
+                chunk.push( ((chr & 0x0F) << 12) | ((buffer[index++] & 0x3F) << 6) | (buffer[index++] & 0x3F) )
             }
             else if ( ( chr & 0xF8 ) === 0xF0 )
             {
                 // 4 bytes
-                let code = ( chr & 0x07 ) << 18 | ( buffer[ index++ ] & 0x3F ) << 12 | ( buffer[ index++ ] & 0x3F ) << 6 | ( buffer[ index++ ] & 0x3F )
+                let code = ((chr & 0x07) << 18) | ((buffer[index++] & 0x3F) << 12) | ((buffer[index++] & 0x3F) << 6) | (buffer[index++] & 0x3F);
 
                 if ( code < 0x010000 )
                 {
@@ -296,7 +296,7 @@ export function base64ToArrayBuffer( base64: string | string[] ): ArrayBuffer
     if ( typeof ( base64 ) == "string" ) return base64ToArrayBufferInternal( base64 )
 
     const bufItems      = base64.map( e => base64ToArrayBufferInternal( e ) )
-    const len           = bufItems.reduce( ( p , c ) => p + c.byteLength, 0 )
+    const len           = bufItems.reduce( ( p, c ) => p + c.byteLength, 0 )
     const joinedArray   = new Uint8Array( len );
     let offset          = 0;
 
@@ -339,7 +339,7 @@ function base64ToArrayBufferInternalBrowser(base64: string): ArrayBuffer
         return bytes.buffer
 
     }
-    catch ( ex ) 
+    catch ( ex )
     {
         const len       = base64.length
         const bytes     = new Uint8Array( len )
@@ -384,7 +384,7 @@ function* pickPiece( leftData: string[], minimumChunkSize: number ): Generator< 
 
                 buffer += curPx + ( leftData.length != 0 ? "\n" : "" )
             }
-            
+
             while ( leftData.length > 0 && !( leftData[ 0 ].startsWith( "```" ) || leftData[ 0 ].startsWith( " ```" ) || leftData[ 0 ].startsWith( "  ```" ) || leftData[ 0 ].startsWith( "   ```" ) ) )
 
             const isLooksLikeBASE64     = buffer.endsWith( "=" )
@@ -419,7 +419,7 @@ function* pickPiece( leftData: string[], minimumChunkSize: number ): Generator< 
         {
 
             buffer += curLine + ( leftData.length != 0 ? "\n" : "" )
-            if ( buffer.length >= minimumChunkSize || leftData.length == 0 || leftData[ 0 ] == "#" || buffer[ 0 ] == "#" )
+            if ( buffer.length >= minimumChunkSize || leftData.length == 0 || leftData[ 0 ] == "#" || buffer.startsWith("#") )
             {
                 yield buffer
                 buffer = ""
@@ -427,7 +427,7 @@ function* pickPiece( leftData: string[], minimumChunkSize: number ): Generator< 
 
         }
     }
-    
+
     while (leftData.length > 0)
 }
 
@@ -435,7 +435,7 @@ function* pickPiece( leftData: string[], minimumChunkSize: number ): Generator< 
     split string into pieces within specific length of characters
 */
 
-export function splitPieces2( dataSrc: string | string[], pieceSize: number, plainSplit: boolean, minimumChunkSize: number, longLineThreshold: number )
+export function splitPieces2( dataSrc: string | string[], pieceSize: number, plainSplit: boolean, minimumChunkSize: number )
 {
     return function* pieces( ): Generator<string>
     {
@@ -465,7 +465,7 @@ export function splitPieces2( dataSrc: string | string[], pieceSize: number, pla
                         buffer = buffer.substring( ps )
 
                     }
-                    
+
                     while ( buffer != "" )
                 }
             }
@@ -491,7 +491,7 @@ export function versionNumberString2Number( ver: string ): number
     return ver // "1.23.45"
         .split( "." ) // 1  23  45
         .reverse( ) // 45  23  1
-        .map( ( e, i ) => ( ( e as any ) / 1) * 1000 ** i ) // 45 23000 1000000
+        .map( ( e, i ) => ( ( e as any ) / 1 ) * (1000 ** i) ) // 45 23000 1000000
         .reduce( ( prev, current ) => prev + current, 0 ); // 1023045
 }
 

@@ -21,7 +21,7 @@ export class NoxComponent extends Setting
 
 		return this
     }
-	
+
     public setName( name: string | DocumentFragment ): this
 	{
         super.setName( name )
@@ -44,8 +44,8 @@ export class NoxComponent extends Setting
 
 	public addNoxTextbox
 	(
-		cb: 		( comp: TextComponent ) => unknown,
-		onReset: 	( comp: TextComponent ) => string,
+        cb:         ( _comp: TextComponent ) => unknown,
+		onReset: 	( _comp: TextComponent ) => string,
 	): this
 	{
 		return super.addText( ( comp ) =>
@@ -61,8 +61,8 @@ export class NoxComponent extends Setting
 
 	public addNoxTextarea
 	(
-		cb: 		( comp: TextAreaComponent ) => unknown,
-		onReset: 	( comp: TextAreaComponent ) => string,
+		cb: 		( _comp: TextAreaComponent ) => unknown,
+		onReset: 	( _comp: TextAreaComponent ) => string,
 	): this
 	{
 		return super.addTextArea( ( comp ) =>
@@ -78,8 +78,8 @@ export class NoxComponent extends Setting
 
 	public addNoxToggle
 	(
-		cb: 		( comp: ToggleComponent ) => unknown,
-		onReset: 	( comp: ToggleComponent ) => boolean,
+		cb: 		( _comp: ToggleComponent ) => unknown,
+		onReset: 	( _comp: ToggleComponent ) => boolean,
 	): this
 	{
 		return super.addToggle( ( comp ) =>
@@ -95,8 +95,8 @@ export class NoxComponent extends Setting
 
 	public addNoxDropdown< T extends string = string >
 	(
-		cb: 		( comp: DropdownComponent ) => unknown,
-		onReset: 	( comp: DropdownComponent ) => T,
+		cb: 		( _comp: DropdownComponent ) => unknown,
+		onReset: 	( _comp: DropdownComponent ) => T,
 	): this
 	{
 		return super.addDropdown( ( comp ) =>
@@ -112,8 +112,8 @@ export class NoxComponent extends Setting
 
 	public addNoxSlider
 	(
-		cb: 		( comp: SliderComponent ) => unknown,
-		onReset: 	( comp: SliderComponent ) => number,
+		cb: 		( _comp: SliderComponent ) => unknown,
+		onReset: 	( _comp: SliderComponent ) => number,
 	): this
 	{
 		return super.addSlider( ( comp ) =>
@@ -129,8 +129,8 @@ export class NoxComponent extends Setting
 
 	public addNoxMomentFormat
 	(
-		cb: 		( comp: MomentFormatComponent ) => unknown,
-		onReset: 	( comp: MomentFormatComponent ) => string,
+		cb: 		( _comp: MomentFormatComponent ) => unknown,
+		onReset: 	( _comp: MomentFormatComponent ) => string,
 	): this
 	{
 		return super.addMomentFormat( ( comp ) =>
@@ -144,7 +144,7 @@ export class NoxComponent extends Setting
 		Reset button functionality
 	*/
 
-	private addReset< T, V extends ValueComponent< T > >( comp: V, onReset: ( comp: V ) => T ): V
+	private addReset< T, V extends ValueComponent< T > >( comp: V, onReset: ( _comp: V ) => T ): V
 	{
 		this.addExtraButton( ( btn ) =>
 		{

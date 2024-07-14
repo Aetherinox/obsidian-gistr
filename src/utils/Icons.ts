@@ -51,16 +51,13 @@ export function RemoveLeafButtonsAll( )
 		activeLeaves.push( leaf.view.containerEl )
 	})
 
-	for ( let i = 0; i < activeLeaves.length; i++ )
-	{
-		const leaf 		= activeLeaves[ i ]
-		const element 	= leaf.getElementsByClassName( Env.pluginId )
+    for (const leaf of activeLeaves) {
+        const element = leaf.getElementsByClassName(Env.pluginId);
 
-		if ( element.length > 0 )
-		{
-			RemoveElements( element )
-		}
-	}
+        if (element.length > 0) {
+            RemoveElements(element);
+        }
+    }
 }
 
 /*

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /*
 	Modal > Getting Started
 */
@@ -28,6 +29,7 @@ export interface ManifestJson
 
 export default class ModalGettingStarted extends Modal
 {
+	// eslint-disable-next-line no-unused-vars
 	private resolve: 		( ( value: string ) => void )
 	private plugin: 		GistrPlugin
 	private manifest: 		ManifestJson
@@ -115,8 +117,8 @@ export default class ModalGettingStarted extends Modal
 			Get github api status
 		*/
 
-		let json_delay 	= 1 * 1000
-		const gh_status = requestUrl( Env.Api[ "github" ] ).then( ( res ) =>
+		const json_delay = 1 * 1000
+		const gh_status = requestUrl( Env.Api.github ).then( ( res ) =>
 		{
 			if ( res.status === 200 )
 				return res.json.components[ 0 ].status || lng( "gist_status_issues" )
@@ -135,7 +137,7 @@ export default class ModalGettingStarted extends Modal
 					const controlEl = Tab_GH_R.querySelector( ".setting-item-control" )
 					controlEl.addClass( "gistr-settings-status-connecting" )
 
-				let github_status = await gh_status
+				const github_status = await gh_status
 
 				setTimeout( function( )
 				{
@@ -165,7 +167,7 @@ export default class ModalGettingStarted extends Modal
 				btn.extraSettingsEl.classList.add( "gistr-anim-spin" )
 				btn.extraSettingsEl.classList.add( "gistr-settings-status-connecting" )
 
-				let github_status = await gh_status
+				const github_status = await gh_status
 
 				setTimeout( function( )
 				{

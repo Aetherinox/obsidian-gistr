@@ -1,3 +1,7 @@
+/* eslint-disable prefer-const */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
+
 import { App, PluginSettingTab, Setting, sanitizeHTMLToDom, ExtraButtonComponent, MarkdownRenderer, Notice, requestUrl, View } from 'obsidian'
 import GistrPlugin from "src/main"
 import { SettingsDefaults } from 'src/settings/defaults'
@@ -5,7 +9,7 @@ import { ColorPicker, GetColor, RemoveLeafButtonsAll } from 'src/utils'
 import { GHStatusAPI, GHTokenSet, GHTokenGet } from 'src/backend/services'
 import { SaturynTemplate, SaturynModalPortalEdit, SaturynParams } from 'src/api/Saturyn'
 import ModalGettingStarted from "src/modals/GettingStartedModal"
-import { Env, NoxComponent, LeafButton_Refresh } from 'src/api'
+import { Env, NoxComponent, LeafButtonRefresh } from 'src/api'
 import { lng } from 'src/lang'
 import Pickr from "@simonwep/pickr"
 import lt from 'semver/functions/lt'
@@ -162,7 +166,7 @@ export class SettingsSection extends PluginSettingTab
 
             .on( "show", ( color: Pickr.HSVaColor, instance: Pickr ) =>
             {
-                if ( typeof bHidden !== "undefined" && bHidden( ) )
+                if ( bHidden?.( ) )
                     instance.hide( )
             } )
 
@@ -283,7 +287,7 @@ export class SettingsSection extends PluginSettingTab
         {
             this.Tab_Global.empty( )
             if ( this.Hide_Global ) return
-            
+
             this.Tab_Global_ShowSettings( this.Tab_Global )
         }
 
@@ -303,7 +307,7 @@ export class SettingsSection extends PluginSettingTab
 
                 This determines what color scheme will be used for gists. You can however, customize the
                 colors in the Github and OpenGist categories below.
-                
+
                 Note:           When this is changed, place your cursor in the codeblock and then leave the
                                 codeblock to refresh it. Automatic refreshing only works in reading mode
             */
@@ -328,7 +332,7 @@ export class SettingsSection extends PluginSettingTab
                         this.plugin.renderModeReading( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.theme as string
                     ),
                 )
@@ -363,7 +367,7 @@ export class SettingsSection extends PluginSettingTab
                         this.plugin.renderModeReading( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.textwrap as string
                     ),
                 )
@@ -374,7 +378,7 @@ export class SettingsSection extends PluginSettingTab
                 Command Keyword
 
                 Word to use inside codeblocks to designate as a portal for showing gists
-                
+
                 changing this will cause all opengist portals to not function until the keyword is changed
                 within the box.
             */
@@ -383,7 +387,7 @@ export class SettingsSection extends PluginSettingTab
                 cfg_tab_ge_keyword_desc.append(
                     sanitizeHTMLToDom( `${ lng( "cfg_tab_ge_keyword_desc" ) }` ),
                 )
-    
+
                 new NoxComponent( elm )
                     .setName( lng( "cfg_tab_ge_keyword_name" ) )
                     .setDesc( cfg_tab_ge_keyword_desc )
@@ -396,7 +400,7 @@ export class SettingsSection extends PluginSettingTab
                             this.plugin.renderModeReading( )
                         }),
                         ( ) =>
-                        ( 
+                        (
                             SettingsDefaults.keyword.toString( ) as string
                         ),
                     )
@@ -409,10 +413,10 @@ export class SettingsSection extends PluginSettingTab
                 Enabled:        When launching Obsidian, you will get a notification if a new
                                 version of Gistr is available. This includes beta releases not
                                 available to the public yet.
-                                
+
                 Disabled:       You will not get any notifications alerting you to new Gistr updates.
                                 You must manually check or use the Obsidian plugin checker.
-                                
+
                 Note:           This update notification includes beta releases of Gistr.
                                 The Obsidian plugin updater does not track beta.
             */
@@ -433,7 +437,7 @@ export class SettingsSection extends PluginSettingTab
                         await this.plugin.saveSettings( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.ge_enable_updatenoti as boolean
                     ),
                 )
@@ -469,7 +473,7 @@ export class SettingsSection extends PluginSettingTab
                         await this.plugin.saveSettings( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.notitime as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
@@ -494,6 +498,7 @@ export class SettingsSection extends PluginSettingTab
                 sanitizeHTMLToDom(`${ lng( "cfg_tab_ge_tog_enable_ribbon_debug_desc" ) }`),
             )
 
+            // eslint-disable-next-line prefer-const
             setting_enable_ribbon_debug = new NoxComponent( elm )
                 .setName( lng( "cfg_tab_ge_tog_enable_ribbon_debug_name" ) )
                 .setDesc( cfg_tab_ge_tog_enable_ribbon_debug_desc )
@@ -509,7 +514,7 @@ export class SettingsSection extends PluginSettingTab
                             const activeLeaf = this.app.workspace.getActiveViewOfType( View )
                             if (!activeLeaf) return
 
-                            this.plugin.addButtonToLeaf(activeLeaf.leaf, LeafButton_Refresh )
+                            this.plugin.addButtonToLeaf(activeLeaf.leaf, LeafButtonRefresh )
                             this.plugin.addButtonToAllLeaves( )
                             //await this.plugin.registerRibbonDebug( )
                         }
@@ -518,7 +523,7 @@ export class SettingsSection extends PluginSettingTab
                             const activeLeaf = this.app.workspace.getActiveViewOfType( View )
                             if (!activeLeaf) return
 
-                            this.plugin.removeButtonFromLeaf( activeLeaf.leaf, LeafButton_Refresh )
+                            this.plugin.removeButtonFromLeaf( activeLeaf.leaf, LeafButtonRefresh )
 
                             await this.plugin.removeButtonFromAllLeaves( )
                             RemoveLeafButtonsAll( )
@@ -526,11 +531,11 @@ export class SettingsSection extends PluginSettingTab
                         }
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_enable_ribbon_icons as boolean
                     ),
                 )
-                
+
             elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
 
             /*
@@ -559,7 +564,7 @@ export class SettingsSection extends PluginSettingTab
         {
             this.Tab_OpenGist.empty( )
             if ( this.Hide_Opengist ) return
-            
+
             this.Tab_OpenGist_ShowSettings( this.Tab_OpenGist )
         }
 
@@ -728,7 +733,7 @@ export class SettingsSection extends PluginSettingTab
                         this.plugin.renderModeReading( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.og_opacity as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
@@ -768,7 +773,7 @@ export class SettingsSection extends PluginSettingTab
                         this.plugin.renderModeReading( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.blk_pad_t as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
@@ -808,7 +813,7 @@ export class SettingsSection extends PluginSettingTab
                         this.plugin.renderModeReading( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.blk_pad_b as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
@@ -843,7 +848,7 @@ export class SettingsSection extends PluginSettingTab
                         this.plugin.renderModeReading( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.css_og.toString( ) as string
                     ),
                 )
@@ -861,13 +866,13 @@ export class SettingsSection extends PluginSettingTab
 
         Tab_Github_New( elm: HTMLElement )
         {
-            
+
             /*
                 Get github api status
             */
 
-            let json_delay = 0.5 * 1000
-            const gh_status = requestUrl( Env.Api[ "github" ] ).then( ( res ) =>
+            const json_delay = 0.5 * 1000
+            const gh_status = requestUrl( Env.Api.github ).then( ( res ) =>
             {
                 if ( res.status === 200 )
                     return res.json.components[ 0 ].status || lng( "gist_status_issues" )
@@ -899,7 +904,7 @@ export class SettingsSection extends PluginSettingTab
                             - major_outage
                     */
 
-                    let github_status = await gh_status
+                    const github_status = await gh_status
 
                     setTimeout( function( )
                     {
@@ -975,7 +980,7 @@ export class SettingsSection extends PluginSettingTab
                             - major_outage
                     */
 
-                    let github_status = await gh_status
+                    const github_status = await gh_status
 
                     setTimeout( function( )
                     {
@@ -994,11 +999,11 @@ export class SettingsSection extends PluginSettingTab
                             {
                                 btn.setIcon     ( "circle-off" )
                                 btn.setTooltip  ( lng( "gist_status_no_api_btn_tip" ) )
-    
+
                                 btn.extraSettingsEl.classList.remove     ( "gistr-settings-status-connecting" )
                                 btn.extraSettingsEl.classList.add        ( "gistr-settings-icon-error" )
                                 btn.extraSettingsEl.classList.remove     ( "gistr-settings-icon-ok" )
-    
+
                                 return
                             }
 
@@ -1050,7 +1055,7 @@ export class SettingsSection extends PluginSettingTab
         {
             this.Tab_Github.empty( )
             if ( this.Hide_Github ) return
-            
+
             this.Tab_Github_ShowSettings( this.Tab_Github )
         }
 
@@ -1245,7 +1250,7 @@ export class SettingsSection extends PluginSettingTab
                             {
                                 btn_Github.setIcon      ( 'github' )
                                 btn_Github.setTooltip   ( lng( "cfg_tab_gh_pat_bad_btn_tip" ) )
-                                
+
                                 btn_Github.extraSettingsEl.classList.add        ( "gistr-settings-icon-github" )
                                 btn_Github.extraSettingsEl.classList.remove     ( "gistr-settings-icon-ok" )
                             }
@@ -1410,7 +1415,7 @@ export class SettingsSection extends PluginSettingTab
                         this.plugin.renderModeReading( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.gh_opacity as number
                     ),
                 ).settingEl.createDiv( '', ( el ) =>
@@ -1431,7 +1436,7 @@ export class SettingsSection extends PluginSettingTab
                 sanitizeHTMLToDom( `${ lng( "cfg_tab_gh_css_desc" ) }` ),
             )
 
-            let gh_css = new NoxComponent( elm )
+            const gh_css = new NoxComponent( elm )
                 .setName( lng( "cfg_tab_gh_css_name" ) )
                 .setDesc( cfg_tab_gh_css_desc )
                 .setClass( "gistr-settings-elm-textarea" )
@@ -1445,11 +1450,11 @@ export class SettingsSection extends PluginSettingTab
                         this.plugin.renderModeReading( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.css_gh.toString( ) as string
                     ),
                 )
-                
+
             /*
                 Tab Footer Spacer
             */
@@ -1476,7 +1481,7 @@ export class SettingsSection extends PluginSettingTab
         {
             this.Tab_SaveSync.empty( )
             if ( this.Hide_SaveSync ) return
-            
+
             this.Tab_SaveSync_ShowSettings( this.Tab_SaveSync )
         }
 
@@ -1528,19 +1533,19 @@ export class SettingsSection extends PluginSettingTab
                             await this.plugin.unregisterRibbon( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_enable_ribbon_icons as boolean
                     ),
                 )
-                
+
             elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
 
             /*
                 Enable Allow Gist Updates
 
                 Enabled:            After you initially create a new gist, the note can be updated with newer revisions.
-                Disabled:           Gists can only be created; no updates are allowed. 
-                
+                Disabled:           Gists can only be created; no updates are allowed.
+
                 To update a gist after enabling this setting, right-click on the note, or open the Obsidian command palette
                 and select "Save Gist"
             */
@@ -1561,11 +1566,11 @@ export class SettingsSection extends PluginSettingTab
                         await this.plugin.saveSettings( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_enable_autoupdate as boolean
                     ),
                 )
-                
+
             elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
 
             /*
@@ -1573,9 +1578,9 @@ export class SettingsSection extends PluginSettingTab
 
                 Enabled:            This will allow gists to be updated once they are created. It will also enable autosaving which
                                     will detect new changes and push them.
-                                    
+
                 Disabled:           You will only be able to create gists by manually doing so; there will be no way to update them.
-                
+
                 If you wish to keep this disabled, you can create gists by right-clicking in the note and selecting "Save Gist".
                 Or opening your command palette and selecting the save option from there.
             */
@@ -1605,7 +1610,7 @@ export class SettingsSection extends PluginSettingTab
                         setting_autosave_dur.settingEl.style.opacity = ( val == false ? this.Opacity_Disabled : this.Opacity_Enabled )
                     } ),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_enable_autosave as boolean
                     ),
                 )
@@ -1617,10 +1622,10 @@ export class SettingsSection extends PluginSettingTab
 
                 Enabled:            Your notes will be saved to the gist service precisely on time every {0} seconds,
                                     whether you are still typing or not.
-                                    
+
                 Disabled:           Time until save will not start until you have finished typing in that note. If you
                                     continue typing, the saving countdown will not start until your final key is pressed.
-                                    
+
                 Autosave duration can be modified further down in these settings.
             */
 
@@ -1640,14 +1645,14 @@ export class SettingsSection extends PluginSettingTab
                         await this.plugin.saveSettings( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_enable_autosave_strict as boolean
                     ),
                 )
 
                 setting_autosave_strict.setDisabled( !bAutosaveEnabled )
                 setting_autosave_strict.settingEl.style.opacity = ( bAutosaveEnabled == false ? this.Opacity_Disabled : this.Opacity_Enabled )
-                
+
             elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
 
             /*
@@ -1673,7 +1678,7 @@ export class SettingsSection extends PluginSettingTab
                         await this.plugin.saveSettings( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_enable_autosave_notice as boolean
                     ),
                 )
@@ -1688,9 +1693,9 @@ export class SettingsSection extends PluginSettingTab
 
                 How often autosave will execute in seconds. Set this to a fair amount so that the calls aren't
                 being ran excessively to the gist API server (Github or OpenGist).
-                
+
                 The save countdown timer will begin shortly after you stop typing.
-                
+
                 If you wish to change this to save precisely every {0} seconds, enable the setting "Autosave Strict Saving" located above.
             */
 
@@ -1724,17 +1729,17 @@ export class SettingsSection extends PluginSettingTab
                         setting_autosave_dur.setDesc        ( lng_desc_autosave_duration )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_save_duration as number
                     ),
                 )
-                
+
                 setting_autosave_dur.settingEl.createDiv( '', ( el ) =>
                 {
                     val_save_dur        = el
                     el.innerText        = " " + this.plugin.settings.sy_save_duration.toString( ) + "s"
                 } ).classList.add( 'gistr-settings-elm-slider-preview' )
-                    
+
                 setting_autosave_dur.setDisabled( !bAutosaveEnabled )
                 setting_autosave_dur.settingEl.style.opacity = ( bAutosaveEnabled == false ? this.Opacity_Disabled : this.Opacity_Enabled )
 
@@ -1744,12 +1749,12 @@ export class SettingsSection extends PluginSettingTab
                 Include frontmatter when gist saved online
 
                 When saving a note as a new gist, frontmatter will be added to the top of your note with information about the gist.
-                
+
                 Enabled:            the note will be cleaned before it is pushed to the gist service and no frontmatter fields will
                                     be present in the online version.
-                                    
+
                 Disabled:           frontmatter added to your notes will be included when your note is pushed to a gist service.
-                
+
                 Frontmatter can be found at the very top of each note, in-between `---`
             */
 
@@ -1769,7 +1774,7 @@ export class SettingsSection extends PluginSettingTab
                         await this.plugin.saveSettings( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_add_frontmatter as boolean
                     ),
                 )
@@ -1780,10 +1785,10 @@ export class SettingsSection extends PluginSettingTab
                 Save > List > Show All
 
                 This setting effects how the gist save list displays saved gists.
-                
+
                 Enabled:            When saving an existing gist, the suggestion box will display ALL saves for that note in
                                     the same list; both public and secret.
-                                    
+
                 Disabled:           Public and secret gist saves will be separated when being displayed in the existing gist save list.
             */
 
@@ -1803,7 +1808,7 @@ export class SettingsSection extends PluginSettingTab
                         await this.plugin.saveSettings( )
                     }),
                     ( ) =>
-                    ( 
+                    (
                         SettingsDefaults.sy_save_list_showall as boolean
                     ),
                 )
@@ -1821,7 +1826,7 @@ export class SettingsSection extends PluginSettingTab
                 cfg_tab_sy_list_datetime_desc.append(
                     sanitizeHTMLToDom( `${ lng( "cfg_tab_sy_list_datetime_desc" ) }` ),
                 )
-    
+
                 new NoxComponent( elm )
                     .setName( lng( "cfg_tab_sy_list_datetime_name" ) )
                     .setDesc( cfg_tab_sy_list_datetime_desc )
@@ -1834,7 +1839,7 @@ export class SettingsSection extends PluginSettingTab
                             this.plugin.renderModeReading( )
                         }),
                         ( ) =>
-                        ( 
+                        (
                             SettingsDefaults.sy_save_list_datetime.toString( ) as string
                         ),
                     )
@@ -1889,7 +1894,7 @@ export class SettingsSection extends PluginSettingTab
         {
             this.Tab_Portal.empty( )
             if ( this.Hide_Portal ) return
-            
+
             this.Tab_Portal_ShowSettings( this.Tab_Portal )
         }
 
@@ -1983,7 +1988,7 @@ export class SettingsSection extends PluginSettingTab
             elm.createEl( 'div', { cls: "gistr-settings-section-footer", text: "" } )
         }
 
-        
+
     /*
         Tab > Support > New
     */
@@ -2003,7 +2008,7 @@ export class SettingsSection extends PluginSettingTab
         {
             this.Tab_Support.empty( )
             if ( this.Hide_Support ) return
-            
+
             this.Tab_Support_ShowSettings( this.Tab_Support )
         }
 
@@ -2016,7 +2021,7 @@ export class SettingsSection extends PluginSettingTab
 
             try
             {
-                get_ver_stable: requestUrl( Env.Links[ 'urlBranchMain' ] ).then( ( res ) =>
+                requestUrl( Env.Links.urlBranchMain ).then( ( res ) =>
                 {
                     if ( res.status === 200 )
                         return res.json.version ?? lng( "cfg_tab_su_ver_connection_issues" )
@@ -2028,7 +2033,7 @@ export class SettingsSection extends PluginSettingTab
                     console.error(  lng( 'base_promise_rejected', err ) )
                 } )
 
-                get_ver_beta: requestUrl( Env.Links[ 'urlBranchBeta' ] ).then( ( res ) =>
+                requestUrl( Env.Links.urlBranchBeta ).then( ( res ) =>
                 {
                     if ( res.status === 200 )
                         return res.json.version ?? lng( "cfg_tab_su_ver_connection_issues" )
@@ -2126,7 +2131,7 @@ export class SettingsSection extends PluginSettingTab
                             }
                         }
 
-                        
+
                     }, json_delay )
                 } )
                 .addExtraButton( async ( btn ) =>
@@ -2199,7 +2204,7 @@ export class SettingsSection extends PluginSettingTab
 
                         btn.onClick( ( ) =>
                         {
-                            window.open( Env.Links[ 'urlReleases' ] )
+                            window.open( Env.Links.urlReleases )
                         } )
 
                     }, json_delay )
@@ -2312,7 +2317,7 @@ export class SettingsSection extends PluginSettingTab
                 {
                     btn.setButtonText( lng( "cfg_tab_su_doc_btn" ) ).onClick( ( ) =>
                     {
-                        window.open( Env.Links[ 'urlDocs' ] )
+                        window.open( Env.Links.urlDocs )
                     } )
                 } )
 
@@ -2322,12 +2327,12 @@ export class SettingsSection extends PluginSettingTab
 
             new Setting( elm )
                 .setName( lng( "cfg_tab_su_repo_label" ) )
-                .setDesc( Env.Links[ 'urlRepo' ] )
+                .setDesc( Env.Links.urlRepo )
                 .addButton( ( btn ) =>
                 {
                     btn.setButtonText( lng( "cfg_tab_su_repo_btn" ) ).onClick( ( ) =>
                     {
-                        window.open( Env.Links[ 'urlRepo' ] )
+                        window.open( Env.Links.urlRepo )
                     } )
                 } )
 
@@ -2337,12 +2342,12 @@ export class SettingsSection extends PluginSettingTab
 
             new Setting( elm )
                 .setName( lng( "cfg_tab_su_vault_label" ) )
-                .setDesc( Env.Links[ 'urlDemoVault' ] )
+                .setDesc( Env.Links.urlDemoVault )
                 .addButton( ( btn ) =>
                 {
                     btn.setButtonText( lng( "cfg_tab_su_vault_btn" ) ).onClick( ( ) =>
                     {
-                        window.open( Env.Links[ 'urlDemoVault' ] )
+                        window.open( Env.Links.urlDemoVault )
                     } )
                 } )
 
@@ -2419,7 +2424,7 @@ export class SettingsSection extends PluginSettingTab
                     </a>
                 `),
             )
-        
+
             new Setting( div_Donate ).setDesc( lnk_Donate )
         }
 }

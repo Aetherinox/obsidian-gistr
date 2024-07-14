@@ -39,5 +39,5 @@ export const SaturynParamsHandle = ( portal: Partial< SaturynParams > ): Saturyn
         portal.title = portal.url
     }
 
-    return <SaturynParams>portal
+    return portal as SaturynParams
 }

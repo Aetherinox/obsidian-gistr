@@ -1,4 +1,4 @@
-import {Menu, app, BrowserWindow, shell, MenuItemConstructorOptions, nativeImage, ipcMain} from 'electron'
+import {Menu, app, BrowserWindow, shell, nativeImage} from 'electron'
 import {join} from 'path'
 export const createMenu = (win: BrowserWindow) => {
   // const devMenu = [

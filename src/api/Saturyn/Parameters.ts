@@ -16,7 +16,7 @@ export type SaturynParamsType = 'left' | 'center' | 'right'
     dock:           'left' || 'center' || 'right'
 */
 
-export type SaturynParams =
+export interface SaturynParams
 {
     id:             string,
     icon:           string,

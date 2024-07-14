@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 /*
     Import
 */
@@ -22,13 +24,9 @@ const sender        = PID( )
 export interface ItemJSON
 {
     embed:
-    {
-        [ key: string ]: string
-    },
+    Record<string, string>,
     files:
-    {
-        [ key: string ]: string
-    },
+    Record<string, string>,
     description:    string,
     created_at:     string,
     id:             string,
@@ -44,10 +42,7 @@ export interface ItemJSON
     Interface > User Style Properties
 */
 
-interface StyleProperties
-{
-    [ key: string ]: string
-}
+type StyleProperties = Record<string, string>;
 
 /*
     Is Empty
@@ -97,7 +92,7 @@ export class BackendCore
 
         const pattern_new       = /^(?=\b(?:url|file|background|color|theme|title|raw|height|zoom|css):)(?=(?:[^`]*?\burl:? +(?<url>[^`\n]*)|))(?=(?:[^`]*?\bfile:? +(?<file>[^`\n]*)|))(?=(?:[^`]*?\bbackground:? +(?<background>[^`\n]*)|))(?=(?:[^`]*?\bcolor:? +(?<color>[^`\n]*)|))(?=(?:[^`]*?\btheme:? +(?<theme>[^`\n]*)|))(?=(?:[^`]*?\btitle:? +(?<title>[^`\n]*)|))(?=(?:[^`]*?\braw:? +(?<raw>[^`\n]*)|))(?=(?:[^`]*?\bheight:? +(?<height>[^`\n]*)|))(?=(?:[^`]*?\bzoom:? +(?<zoom>[^`\n]*)|))(?=(?:[^`]*?\bcss:? +(?<css>[^`]*)|))(?:.+\n){0,9}.+/
 
-        if ( data.match( pattern_new ) && data.match( pattern_new ).groups )
+        if ( data.match( pattern_new )?.groups )
         {
             const find_new      = data.match( pattern_new ).groups
 
@@ -150,7 +145,7 @@ css: |
             A single-lined URL for an embedded gist
         */
 
-        const pattern       = /(?<protocol>https?:\/\/)?(?<host>[^/]+\/)?((?<username>[\w-]+)\/)?(?<uuid>\w+)(\#(?<filename>\w+))?(\&(?<theme>\w+))?/
+        const pattern       = /(?<protocol>https?:\/\/)?(?<host>[^/]+\/)?((?<username>[\w-]+)\/)?(?<uuid>\w+)(#(?<filename>.+))?(&(?<theme>\w+))?/
         const find          = source.match( pattern ).groups
 
         /*
@@ -168,7 +163,7 @@ css: |
             Since opengist can really be any website, check for matching github links
         */
 
-        const bMatchGithub  = /((https?:\/\/)?(.+?\.)?github\.com(\/[A-Za-z0-9\-\._~:\/\?#\[\]@!$&'\(\)\*\+,;\=]*)?)/g.test( host )
+        const bMatchGithub  = /((https?:\/\/)?(.+?\.)?github\.com(\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;=]*)?)/g.test( host )
 
         /*
             No UUID match
@@ -181,7 +176,10 @@ css: |
             compile url to gist
         */
 
-        let gistSrcURL  = !bIsEmpty( file ) ? `https://${ host }${ username }/${ uuid }.json?file=${ file }` : `https://${ host }${ username }/${ uuid }.json`
+        const gistSrcURL  = !bIsEmpty( file ) ? `https://${ host }${ username }/${ uuid }.json?file=${ file }` : `https://${ host }${ username }/${ uuid }.json`
+
+        if (process.env.BUILD === 'dev')
+            console.log(gistSrcURL);
 
         /*
             This should be a theme specified by the user in the codeblock; NOT their theme setting
@@ -189,16 +187,16 @@ css: |
             blank if none
         */
 
-        let og_ThemeOV  = !bIsEmpty( theme ) ? theme : ""
+        const og_ThemeOV = !bIsEmpty( theme ) ? theme : ""
 
         /*
             assign style values
         */
 
-        let styles:StyleProperties  = { }
-        styles[ 'background' ]      = n_bg
-        styles[ 'theme' ]           = og_ThemeOV
-        styles[ 'color_text' ]      = n_textcolor
+        const styles:StyleProperties  = { }
+        styles.background   = n_bg
+        styles.theme        = og_ThemeOV
+        styles.color_text   = n_textcolor
 
         /*
             handle error
@@ -257,7 +255,7 @@ css: |
         const gid               = `${ sender }-${ uuid }-${ plugin.generateUuid( ) }`
         const ct_iframe         = document.createElement( 'iframe' )
         ct_iframe.id            = gid
-    
+
         ct_iframe.classList.add ( `${ sender }-container` )
         ct_iframe.setAttribute  ( 'sandbox',    'allow-scripts allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation' )
         ct_iframe.setAttribute  ( 'loading',    'lazy' )
@@ -275,8 +273,8 @@ css: |
             assign css, body, js
         */
 
-        let css_theme_ovr       = ( style.theme !== "" ) ? style.theme.toLowerCase( ) : ""
-        let css_theme_sel       = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme.toLowerCase( ) == "dark" ) ? "dark" : ( this.settings.theme.toLowerCase( ) == "light" ) ? "light"  : "light"
+        const css_theme_ovr     = ( style.theme !== "" ) ? style.theme.toLowerCase( ) : ""
+        const css_theme_sel     = ( css_theme_ovr !== "" ) ? css_theme_ovr : ( this.settings.theme.toLowerCase( ) == "dark" ) ? "dark" : ( this.settings.theme.toLowerCase( ) == "light" ) ? "light"  : "light"
         let css_og              = ""
         let css_gh              = ""
 
@@ -294,7 +292,7 @@ css: |
             Update style theme value
         */
 
-        style[ "theme" ]        = css_theme_sel
+        style.theme = css_theme_sel
 
         /*
             OpenGist & Github specific CSS
@@ -315,7 +313,7 @@ css: |
         /*
             Github > Dark Theme
         */
-    
+
         if ( bGithub === false )
             css_og = css_og_append
         else
@@ -386,14 +384,14 @@ css: |
             width:                  6px;
             height:                 10px;
         }
-        
+
         ::-webkit-scrollbar-track
         {
             background-color:       transparent;
             border-radius:          5px;
             margin:                 1px;
         }
-        
+
         ::-webkit-scrollbar-thumb
         {
             border-radius:          10px;
@@ -570,7 +568,7 @@ css: |
         {
             background:             transparent;
         }
-        
+
         body .gist .blob-wrapper
         {
             padding-bottom:         6px !important;
@@ -666,7 +664,7 @@ css: |
         {
             font-weight:           400;
         }
-        
+
         body .gist .pl-mi, body .gist .pl-pdi
         {
             color:                 #ffe5bb;
@@ -722,7 +720,7 @@ css: |
         {
                 color: #a5c261;
         }
-        
+
         body .gist .pl-e, body .gist .pl-en, body .gist .pl-entl,
         body .gist .pl-mo, body .gist .pl-sc, body .gist .pl-sf,
         body .gist .pl-smi, body .gist .pl-smp, body .gist .pl-mdh,
@@ -745,7 +743,7 @@ css: |
         Throw Error
     */
 
-    private async ThrowError( el: HTMLElement, gistInfo: string, err: string = '' )
+    private async ThrowError( el: HTMLElement, gistInfo: string, err = '' )
     {
         const div_Error = el.createEl( 'div',   { text: "", cls: 'gistr-container-error' } )
         div_Error.createEl( 'div',              { text: lng( "err_gist_loading_fail_name" ), cls: 'gistr-load-error-l1' } )
@@ -780,7 +778,7 @@ css: |
             return this.ThrowError( el, data, lng( "err_gist_loading_fail_detail", err ) )
         }
     }
-    
+
     /*
         Collect message data from JS_EventListener
     */

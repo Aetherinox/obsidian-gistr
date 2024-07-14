@@ -29,7 +29,7 @@ export const PortalSVG = ( siteUrl: string ): string =>
     Github Custom CSS
 */
 
-export const GithubCSS = 
+export const GithubCSS =
 `
 .footer { display: none; }
 `;
@@ -38,7 +38,7 @@ export const GithubCSS =
     Leaf header button
 */
 
-export const LeafButton_Refresh =
+export const LeafButtonRefresh =
 {
 	id:     "GISTR",
 	icon:   'gistr-plugin-refresh',

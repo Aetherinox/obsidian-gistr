@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { App, PluginManifest, apiVersion } from 'obsidian'
 import { lng } from 'src/lang'
 
@@ -24,8 +26,7 @@ type HttpsUrl = `https://${ string }`
     Repository Strings
 */
 
-type Repo =
-{
+interface Repo {
     urlDocs?:       HttpsUrl
     urlRepo?:       HttpsUrl
     urlWiki?:       HttpsUrl
@@ -40,8 +41,7 @@ type Repo =
     Api Strings
 */
 
-type Api =
-{
+interface Api {
     github?:        HttpsUrl
 }
 
@@ -109,10 +109,7 @@ export abstract class Env
         Base
     */
 
-    static get pluginBase( ): string
-    {
-        return 'app://obsidian.md'
-    }
+    static readonly pluginBase = 'app://obsidian.md';
 
     /*
         Plugin ID

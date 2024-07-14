@@ -37,6 +37,7 @@ export default function ShowContextMenu( plugin: GistrPlugin, settings: GistrSet
 		Text Selection
 	*/
 
+	// eslint-disable-next-line no-unused-vars
 	const selection = editor.getSelection( )
 
 	/*
@@ -50,10 +51,10 @@ export default function ShowContextMenu( plugin: GistrPlugin, settings: GistrSet
 		item
 			.setTitle( lng( "cfg_context_gist_public" ) )
 			.setIcon( "github" )
-			.onClick( async ( e ) =>
+			.onClick( async ( ) =>
 			{
 				await GHGistGet(
-				{ 
+				{
 					plugin: 		plugin,
 					app: 			plugin.app,
 					is_public: 		true
@@ -72,10 +73,10 @@ export default function ShowContextMenu( plugin: GistrPlugin, settings: GistrSet
 		item
 			.setTitle( lng( "cfg_context_gist_secret" ) )
 			.setIcon( "github" )
-			.onClick( async ( e ) =>
+			.onClick( async ( ) =>
 			{
 				await GHGistGet(
-				{ 
+				{
 					plugin: 		plugin,
 					app: 			plugin.app,
 					is_public: 		false

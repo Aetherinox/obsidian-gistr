@@ -1,3 +1,5 @@
+/* eslint-disable no-import-assign */
+/* eslint-disable no-redeclare */
 import { Menu, Notice } from 'obsidian'
 import { GistrSettings } from 'src/settings/'
 import { GistrAPI, GistrEditor, ContextMenu, Coords } from 'src/api'

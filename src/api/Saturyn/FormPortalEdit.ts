@@ -6,7 +6,7 @@ import { SettingsDefaults } from 'src/settings/defaults'
 import { NoxComponent } from 'src/api'
 import { lng } from 'src/lang'
 
-export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLElement, params: SaturynParams, onSubmit?: ( result: SaturynParams ) => void ) =>
+export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLElement, params: SaturynParams, onSubmit?: ( _result: SaturynParams ) => void ) =>
 {
 
     const elm = contentEl
@@ -38,7 +38,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.url = val
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.sy_save_list_datetime.toString( ) as string
                 ),
             )
@@ -66,7 +66,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.title = val
                 }),
                 ( ) =>
-                ( 
+                (
                     params.title.toString( ) as string
                 ),
             )
@@ -76,7 +76,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
             MarkdownRenderer.render( plugin.app, md_notFinished, ct_Note, "" + md_notFinished, plugin )
 
         elm.createEl( 'div', { cls: "gistr-settings-section-separator-15", text: "" } )
-            
+
     /*
         Dock
     */
@@ -100,13 +100,13 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.dock = val as SaturynParamsType
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.theme as string
                 ),
             )
 
         elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
-            
+
     /*
         PIN to Menu
     */
@@ -127,7 +127,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.hasRibbon = val
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.ge_enable_updatenoti as boolean
                 ),
             )
@@ -158,7 +158,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.profileKey = val
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.sy_save_list_datetime.toString( ) as string
                 ),
             )
@@ -190,7 +190,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.zoom = val
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.og_opacity as number
                 ),
             ).settingEl.createDiv( '', ( el ) =>
@@ -226,13 +226,13 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                         advancedOptions.removeClass( 'saturyn--advanced-options--show' )
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.ge_enable_updatenoti as boolean
                 ),
             )
 
         elm.createEl( 'div', { cls: "gistr-settings-section-separator", text: "" } )
-            
+
     /*
         Advanced Toggle
     */
@@ -260,7 +260,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.icon = val
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.css_og.toString( ) as string
                 ),
             )
@@ -286,7 +286,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.userAgent = val
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.css_og.toString( ) as string
                 ),
             )
@@ -312,7 +312,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.css = val
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.css_og.toString( ) as string
                 ),
             )
@@ -338,7 +338,7 @@ export const SaturynFormPortalEdit = ( plugin: GistrPlugin, contentEl: HTMLEleme
                     params.js = val
                 }),
                 ( ) =>
-                ( 
+                (
                     SettingsDefaults.css_og.toString( ) as string
                 ),
             )
