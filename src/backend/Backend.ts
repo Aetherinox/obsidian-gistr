@@ -23,10 +23,8 @@ const sender        = PID( )
 
 export interface ItemJSON
 {
-    embed:
-    Record<string, string>,
-    files:
-    Record<string, string>,
+    embed:          Record<string, string>,
+    files:          Record<string, string>,
     description:    string,
     created_at:     string,
     id:             string,
@@ -42,7 +40,7 @@ export interface ItemJSON
     Interface > User Style Properties
 */
 
-type StyleProperties = Record<string, string>;
+type StyleProperties = Record<string, string>
 
 /*
     Is Empty

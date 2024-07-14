@@ -19,7 +19,7 @@ import moment from 'moment'
 enum Status
 {
     success     = 'succeeded',
-    fail        = 'failed',
+    fail        = 'failed'
 }
 
 /*

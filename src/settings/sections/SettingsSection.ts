@@ -24,21 +24,21 @@ import gt from 'semver/functions/gt'
 
 export interface ColorPickrOpts
 {
-    'sy_clr_lst_icon'?:     string
+    sy_clr_lst_icon?:   string
 
-    'og_clr_bg_light'?:     string
-    'og_clr_bg_dark'?:      string
-    'og_clr_sb_light'?:     string
-    'og_clr_sb_dark'?:      string
-    'og_clr_tx_light'?:     string
-    'og_clr_tx_dark'?:      string
+    og_clr_bg_light?:   string
+    og_clr_bg_dark?:    string
+    og_clr_sb_light?:   string
+    og_clr_sb_dark?:    string
+    og_clr_tx_light?:   string
+    og_clr_tx_dark?:    string
 
-    'gh_clr_bg_light'?:     string
-    'gh_clr_bg_dark'?:      string
-    'gh_clr_sb_light'?:     string
-    'gh_clr_sb_dark'?:      string
-    'gh_clr_tx_light'?:     string
-    'gh_clr_tx_dark'?:      string
+    gh_clr_bg_light?:   string
+    gh_clr_bg_dark?:    string
+    gh_clr_sb_light?:   string
+    gh_clr_sb_dark?:    string
+    gh_clr_tx_light?:   string
+    gh_clr_tx_dark?:    string
 }
 
 /*

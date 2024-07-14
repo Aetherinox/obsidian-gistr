@@ -26,7 +26,8 @@ type HttpsUrl = `https://${ string }`
     Repository Strings
 */
 
-interface Repo {
+interface Repo
+{
     urlDocs?:       HttpsUrl
     urlRepo?:       HttpsUrl
     urlWiki?:       HttpsUrl
@@ -41,7 +42,8 @@ interface Repo {
     Api Strings
 */
 
-interface Api {
+interface Api
+{
     github?:        HttpsUrl
 }
 
