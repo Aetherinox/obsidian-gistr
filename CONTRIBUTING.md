@@ -34,11 +34,38 @@
 
 ## Submitting Bugs
 
+Stuff happens, and sometimes as best as we try, there may be issues with this project that we are unaware of. That is the great thing about open-source; anyone can use the program and contribute to making it better.
+
+<br />
+
+If you have found a bug, have an issue with this project, or maybe even a cool idea; you can let us know by [submitting it](https://github.com/Aetherinox/obsidian-gistr/issues). However, before you submit your new issue, bug report, or feature request; head over to the [Issues Section](https://github.com/Aetherinox/obsidian-gistr/issues) and ensure nobody else has already submitted it.
+
+<br />
+
 Please ensure that when you submit bugs; you are detailed.
 
--   Explain the issue
--   Describe how the function should operate, and what you are experiencing instead.
--   Provide possible options for a resolution or insight
+- Explain the issue
+- Describe how you expect for a feature to work, and what you're seeing instead of what you expected.
+- List possible options for a resolution or insight
+- Provide screenshots, logs, or anything else that can visually help track down the issue.
+
+<br />
+
+<br />
+
+<div align="center">
+
+[![Submit Issue](https://img.shields.io/badge/submit%20new%20issue-de1f5c?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/Aetherinox/obsidian-gistr/issues)
+
+</div>
+
+<br />
+
+<div align="center">
+
+**[`^        back to top        ^`](#submitting-bugs)**
+
+</div>
 
 <br />
 
@@ -50,7 +77,7 @@ Please ensure that when you submit bugs; you are detailed.
 
 The source is here for everyone to collectively share and colaborate on. If you think you have a possible solution to a problem; don't be afraid to get your hands dirty.
 
-Unless you are fixing a known bug, we strongly recommend discussing it with the core team via a GitHub issue before getting started to ensure your work does not conflict with future plans.
+Unless you are fixing a known bug, we strongly recommend discussing it with our team via a GitHub issue before getting started to ensure your work does not conflict with future plans.
 
 All contributions are made via pull requests. To make a pull request, you will need a GitHub account; if you are unclear on this process, see [GitHub's documentation on forking and pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork). Pull requests should be targeted at the master branch.
 
@@ -236,6 +263,19 @@ When writing your code, ensure you stick to `camelCase`
 let myVar = 'one';
 let secondVar = 'two';
 ```
+
+<br />
+
+---
+
+<br />
+
+<div align="center">
+
+**[`^        back to top        ^`](#submitting-bugs)**
+
+</div>
+
 
 <br />
 
