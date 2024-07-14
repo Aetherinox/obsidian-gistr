@@ -156,7 +156,7 @@ css: |
         const host          = find.host                 // gist.github.com/
         const username      = find.username             // Username
         const uuid          = find.uuid                 // 5100a123b1cdef1a2b3c4d58fe54ffacd
-        const file          = find.filename ?? n_file   // file1
+        const file          = find.filename ?? n_file   // file1.md
         const theme         = find.theme ?? n_theme     // light || dark
 
         /*
@@ -177,6 +177,10 @@ css: |
         */
 
         const gistSrcURL  = !bIsEmpty( file ) ? `https://${ host }${ username }/${ uuid }.json?file=${ file }` : `https://${ host }${ username }/${ uuid }.json`
+
+        /*
+            Dev > print gist url
+        */
 
         if (process.env.BUILD === 'dev')
             console.log(gistSrcURL);
