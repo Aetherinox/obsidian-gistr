@@ -2,8 +2,8 @@
     Allow use of PNGs
 */
 
-declare module "*.png"
+declare module '*.png'
 {
-    const data: string;
-    export default data;
+    const data: string
+    export default data
 }

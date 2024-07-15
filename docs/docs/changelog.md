@@ -7,6 +7,23 @@ tags:
 
 ![Version](https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=version&color=ba5225) ![Downloads](https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total) ![Repo Size](https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?label=size&color=59702a) ![Last Commit)](https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?color=b43bcc)
 
+### <!-- md:version stable- --> 1.7.0 <small>July 13, 2024</small> { id="1.7.0" }
+
+- `refactor`: performed linting on all files
+- `build`: updated main gistr.js build script
+- `dep`: bump `@types/node` from 20.12.7 to 20.14.10
+- `dep`: bump `electron` from 30.0.1 to 31.1.0
+- `dep`: bump `@types/chrome` from 0.0.266 to 0.0.268
+- `dep`: bump `rollup` from 4.16.4 to 4.18.0
+- `dep`: bump `yaml` from 2.3.4 to 2.4.5
+- `dep`: add `@aetherinox/noxenv`
+- `dep`: add `typescript-eslint`
+- `dep`: add `@typescript-eslint/parser`
+- `dep`: add `@typescript-eslint/eslint-plugin`
+- `dep`: add `prettier`
+- `fix`: fixed bug with calling target file using legacy format
+- `tests`: bump version 1.7.0
+
 ### <!-- md:version stable- --> 1.6.8 <small>April 26, 2024</small> { id="1.6.8" }
 
 - `build`: updated main gistr.js build script

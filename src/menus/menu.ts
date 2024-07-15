@@ -1,3 +1,5 @@
+/* eslint-disable no-import-assign */
+/* eslint-disable no-redeclare */
 import { Menu, Notice } from 'obsidian'
 import { GistrSettings } from 'src/settings/'
 import { GistrAPI, GistrEditor, ContextMenu, Coords } from 'src/api'
@@ -11,14 +13,14 @@ const ContextMenu = ( app: GistrAPI, cfg: GistrSettings, editor: GistrEditor ): 
 {
 
     if ( !editor || !editor.hasFocus() )
-        throw new Notice( lng( "base_context_nofocus" ))
+        throw new Notice( lng( 'base_context_nofocus' ) )
 
     let coords:         Coords
-    const cursor        = editor.getCursor( "from" )
+    const cursor        = editor.getCursor( 'from' )
     const menu          = new Menu( ) as unknown as ContextMenu
 
     const elm = menu.DOM
-    elm.addClass( "gistr-container" )
+    elm.addClass( 'gistr-container' )
 
     cfg.ge_contextmenu_sorting.forEach( ( obj ) =>
     {
@@ -29,12 +31,12 @@ const ContextMenu = ( app: GistrAPI, cfg: GistrSettings, editor: GistrEditor ): 
             menuItem.onClick( ( ) =>
         {
             app.Commands.RunCommandByID( `gistr-plugin:${ obj }` )
-        })
-        })
-    })
+        } )
+        } )
+    } )
 
     if ( editor.coordsCur )
-        coords = editor.coordsCur( true, "window" )
+        coords = editor.coordsCur( true, 'window' )
 
     else if ( editor.coordsPos )
     {
@@ -46,7 +48,7 @@ const ContextMenu = ( app: GistrAPI, cfg: GistrSettings, editor: GistrEditor ): 
     menu.showAtPosition(
     {
         x:  coords.right + 25,
-        y:  coords.top + 20,
+        y:  coords.top + 20
     } )
 }
 

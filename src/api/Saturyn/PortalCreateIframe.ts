@@ -31,7 +31,7 @@ export const SaturynCreateIframe = ( params: Partial< SaturynParams >, onReady?:
 
             iframe.contentDocument?.head.appendChild( script )
         }
-    })
+    } )
 
     return iframe
 }

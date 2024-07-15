@@ -10,7 +10,7 @@ export class SaturynPortalInitialize extends ItemView
     private frame:                  WebviewTag | HTMLIFrameElement
     private readonly bUseIframe:    boolean = false
     private IframeCB:               Function[]
-    private bFrameReady:            boolean = false
+    private bFrameReady             = false
 
     constructor( leaf: WorkspaceLeaf, params: SaturynParams )
     {
@@ -42,7 +42,7 @@ export class SaturynPortalInitialize extends ItemView
                 this.frame.src = this.params?.url ?? 'about:blank'
             else
                 this.frame.loadURL( this.params?.url ?? 'about:blank' )
-        })
+        } )
     }
 
     /*

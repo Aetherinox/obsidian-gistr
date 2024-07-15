@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*
     Import
 
@@ -9,13 +10,12 @@ import { App, Plugin, WorkspaceLeaf, Debouncer, debounce, TFile, Menu, MarkdownV
 import { GistrSettings, SettingsGet, SettingsDefaults, SettingsSection } from 'src/settings/'
 import { BackendCore } from 'src/backend'
 import { GHGistGet, GHGistCopy, GHGistUpdate } from 'src/backend/services'
-import { Env, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconGithubSecret, IconGithubReload, AssetGithubIcon, PortalID, PortalURLDefault, LeafButton_Refresh } from 'src/api'
-import { SaturynRegister, SaturynParams, SaturynParamsHandle, SaturynUnload, SaturynPortalInitialize, SaturynModalPortalEdit, SaturynCodeblock, SaturynOpen, SaturynIsOpen } from 'src/api/Saturyn'
+import { Env, FrontmatterPrepare, GistrAPI, GistrEditor, IconGithubPublic, IconGithubSecret, IconGithubReload, AssetGithubIcon, PortalID, PortalURLDefault, LeafButtonRefresh } from 'src/api'
+import { SaturynRegister, SaturynParams, SaturynParamsHandle, SaturynUnload, SaturynPortalInitialize, SaturynCodeblock, SaturynOpen } from 'src/api/Saturyn'
 import { lng } from 'src/lang'
-import type {  LeafButtonBase  } from 'src/types'
-import { base64ToArrayBuffer, arrayBufferToBase64, readString, writeString, uint8ArrayToHexString } from "src/api/Storage/ByteStr";
+import type { LeafButtonBase } from 'src/types'
 import { GetButtonIcon, GetIconSize, RemoveLeafButtonsAll } from 'src/utils'
-import ModalGettingStarted from "src/modals/GettingStartedModal"
+import ModalGettingStarted from 'src/modals/GettingStartedModal'
 import ShowContextMenu from 'src/menus/context'
 import lt from 'semver/functions/lt'
 import gt from 'semver/functions/gt'
@@ -35,7 +35,7 @@ export default class GistrPlugin extends Plugin
     private ribbonIcon_reload:  HTMLElement
     private leaf:               WorkspaceLeaf
     settings:                   GistrSettings
-    buttons                     = new WeakMap<ItemView, Map<string, HTMLElement>>();
+    buttons                     = new WeakMap<ItemView, Map<string, HTMLElement>>()
 
     constructor( app: App, manifest: PluginManifest )
     {
@@ -51,7 +51,7 @@ export default class GistrPlugin extends Plugin
     {
         this.app.workspace.iterateRootLeaves( ( leaf: WorkspaceLeaf ) =>
         {
-            if ( leaf.view instanceof MarkdownView && leaf.view.getMode( ) === "preview" )
+            if ( leaf.view instanceof MarkdownView && leaf.view.getMode( ) === 'preview' )
                 leaf.view.previewMode.rerender( true )
         } )
     }
@@ -72,7 +72,7 @@ export default class GistrPlugin extends Plugin
 
             const editor        = view.editor
             editor.setValue     ( editor.getValue( ) )
-    
+
             if ( state.mode === 'preview' )
             {
                 state.mode = 'source'
@@ -99,10 +99,10 @@ export default class GistrPlugin extends Plugin
         SaturynRegister(
             this, SaturynParamsHandle(
             {
-                title:  'Satuyrn',
-                id:     PortalID,
-                icon:   'globe',
-                url:    PortalURLDefault
+                title: 'Satuyrn',
+                id:    PortalID,
+                icon:  'globe',
+                url:   PortalURLDefault
             } )
         )
     }
@@ -113,18 +113,18 @@ export default class GistrPlugin extends Plugin
 
     async onload( )
     {
-        console.debug( lng( "base_debug_loading", process.env.NAME, process.env.PLUGIN_VERSION, process.env.AUTHOR ) )
+        console.debug( lng( 'base_debug_loading', process.env.NAME, process.env.PLUGIN_VERSION, process.env.AUTHOR ) )
 
-        if ( process.env.ENV === "dev" )
+        if ( process.env.ENV === 'dev' )
         {
-            //console.log( process.env.NODE_ENV )
-            //console.log( process.env.ENV )
-            //console.log( process.env.BUILD )
-            //console.log( process.env.PLUGIN_VERSION )
-            //console.log( process.env.BUILD_GUID )
-            //console.log( process.env.BUILD_UUID )
-            //console.log( process.env.BUILD_DATE )
-            //console.log( process.env.AUTHOR )
+            // console.log( process.env.NODE_ENV )
+            // console.log( process.env.ENV )
+            // console.log( process.env.BUILD )
+            // console.log( process.env.PLUGIN_VERSION )
+            // console.log( process.env.BUILD_GUID )
+            // console.log( process.env.BUILD_UUID )
+            // console.log( process.env.BUILD_DATE )
+            // console.log( process.env.AUTHOR )
         }
 
         await this.loadSettings     ( )
@@ -137,20 +137,20 @@ export default class GistrPlugin extends Plugin
         {
             if ( this.settings.firststart === true )
             {
-                const opt_selected = await new ModalGettingStarted( this.app, this.plugin, this.manifest, this.settings, true ).openAndAwait( )
-                if ( opt_selected === "settings-open" )
+                const optSelected = await new ModalGettingStarted( this.app, this.plugin, this.manifest, this.settings, true ).openAndAwait( )
+                if ( optSelected === 'settings-open' )
                 {
-    
+
                     /*
                         open settings
                     */
-    
-                    // @ts-ignore
+
+                    // @ts-expect-error linting
                     this.app.setting.open( this.manifest.id )
-                    // @ts-ignore
+                    // @ts-expect-error linting
                     this.app.setting.openTabById( this.manifest.id )
                 }
-    
+
                 this.settings.firststart = false
                 this.saveSettings( )
             }
@@ -171,11 +171,11 @@ export default class GistrPlugin extends Plugin
                 {
                     const activeLeaf = this.app.workspace.getActiveViewOfType( View )
                     if ( !activeLeaf ) return
-    
+
                     if ( this.settings.ge_enable_ribbon_icons )
-                        this.addButtonToLeaf( activeLeaf.leaf, LeafButton_Refresh )
+                        this.addButtonToLeaf( activeLeaf.leaf, LeafButtonRefresh )
                     else
-                        this.removeButtonFromLeaf( activeLeaf.leaf, LeafButton_Refresh )
+                        this.removeButtonFromLeaf( activeLeaf.leaf, LeafButtonRefresh )
                 } )
             )
 
@@ -190,26 +190,26 @@ export default class GistrPlugin extends Plugin
         (
             {
                 id:                 'gistr-github-gist-public-save',
-                name:               lng( "cfg_context_gist_public" ),
+                name:               lng( 'cfg_context_gist_public' ),
                 editorCallback:     GHGistGet( { plugin: this, app: this.app, is_public: true } )
             }
         )
-        
+
         this.addCommand
         (
             {
                 id:                 'gistr-github-gist-secret-save',
-                name:               lng( "cfg_context_gist_secret" ),
-                callback:           GHGistGet( { plugin: this, app: this.app, is_public: false } ),
+                name:               lng( 'cfg_context_gist_secret' ),
+                callback:           GHGistGet( { plugin: this, app: this.app, is_public: false } )
             }
         )
-        
+
         this.addCommand
         (
             {
                 id:                 'gistr-github-gist-copy',
-                name:               lng( "cfg_context_gist_copy" ),
-                callback:           GHGistCopy( { plugin: this, app: this.app } ),
+                name:               lng( 'cfg_context_gist_copy' ),
+                callback:           GHGistCopy( { plugin: this, app: this.app } )
             }
         )
 
@@ -230,9 +230,9 @@ export default class GistrPlugin extends Plugin
         */
 
         const gistBackend                       = new BackendCore( this.settings, this )
-        this.registerDomEvent                   ( window, "message", gistBackend.messageEventHandler )
+        this.registerDomEvent                   ( window, 'message', gistBackend.messageEventHandler )
         this.registerMarkdownCodeBlockProcessor ( this.settings.keyword, gistBackend.processor )
-        this.registerEvent                      ( this.app.workspace.on( "editor-menu", this.GetContextMenu ) )
+        this.registerEvent                      ( this.app.workspace.on( 'editor-menu', this.GetContextMenu ) )
 
         /*
             Version checking
@@ -303,10 +303,12 @@ export default class GistrPlugin extends Plugin
             targetPortal = this.settings.portals[ id ]
 
         if ( targetPortal === undefined && title )
-            targetPortal = Object.values( this.settings.portals ).find(( portal ) => portal.title.toLowerCase( ) === title.toLowerCase( ) )
+            targetPortal = Object.values( this.settings.portals ).find( ( portal ) =>
+                portal.title.toLowerCase( ) === title.toLowerCase( ) )
 
         if ( targetPortal === undefined && url )
-            targetPortal = Object.values( this.settings.portals ).find( ( portal ) => portal.url.toLowerCase( ) === url.toLowerCase( ) )
+            targetPortal = Object.values( this.settings.portals ).find( ( portal ) =>
+                portal.url.toLowerCase( ) === url.toLowerCase( ) )
 
         if ( targetPortal !== undefined && url )
             targetPortal.url = url
@@ -331,7 +333,7 @@ export default class GistrPlugin extends Plugin
 
     async handlePortal( data: ObsidianProtocolData )
     {
-        let targetPortal= this.getPortalParams( data )
+        const targetPortal = this.getPortalParams( data )
         if ( targetPortal === undefined )
         {
             if ( !data.url )
@@ -353,10 +355,11 @@ export default class GistrPlugin extends Plugin
     /*
         Unload
     */
-    
+
     async onunload( )
     {
-        console.debug( "Unloaded " + this.manifest.name )
+        // eslint-disable no-console
+        console.debug( 'Unloaded ' + this.manifest.name )
         RemoveLeafButtonsAll( )
     }
 
@@ -367,10 +370,9 @@ export default class GistrPlugin extends Plugin
     gistMonitorChanges( )
     {
 
-        const note_previous:        Record< string, string > = { }
-        const denounce_register:    Record< string, Debouncer< [ string, TFile ], Promise< Notice > > > = { }
+        const note_previous:            Record< string, string > = { }
+        const register_denounce:        Record< string, Debouncer< [ string, TFile ], Promise< Notice > > > = { }
 
-        let last = +new Date( )
         this.app.vault.on( 'modify', async( file: TFile ) =>
         {
             /*
@@ -399,26 +401,26 @@ export default class GistrPlugin extends Plugin
                 Initialize bouncer
             */
 
-            if ( !denounce_register[ file.path ] )
+            if ( !register_denounce[ file.path ] )
             {
-                if ( process.env.ENV === "dev" )
-                    console.debug( "gistMonitorChanges.modify: Denouncer does not exist, creating" )   
+                if ( process.env.ENV === 'dev' )
+                    console.debug( 'gistMonitorChanges.modify: Denouncer does not exist, creating' )
 
-                denounce_register[ file.path ] = debounce( async ( note_full: string, file: TFile ) =>
+                register_denounce[ file.path ] = debounce( async ( note_full: string, file: TFile ) =>
                 await GHGistUpdate( { plugin: this, app: this.app, note_full, file } ), this.settings.sy_save_duration * 1000, this.settings.sy_enable_autosave_strict )
             }
 
             const { sy_enable_autosave } = await SettingsGet( this )
             if ( sy_enable_autosave )
             {
-                await denounce_register[ file.path ]( note_full, file )
+                await register_denounce[ file.path ]( note_full, file )
 
-                if ( process.env.ENV === "dev" )
-                    console.debug( "gistMonitorChanges.modify: Autosave Denouncer" )         
+                if ( process.env.ENV === 'dev' )
+                    console.debug( 'gistMonitorChanges.modify: Autosave Denouncer' )
             }
         } )
     }
-    
+
     /*
         Ribbon > Register
 
@@ -429,16 +431,16 @@ export default class GistrPlugin extends Plugin
 
     async registerRibbon( )
     {
-        if ( this.settings.sy_enable_ribbon_icons == true )
+        if ( this.settings.sy_enable_ribbon_icons === true )
         {
             addIcon( 'gistr-github-public', IconGithubPublic )
-            this.ribbonIcon_pub = this.addRibbonIcon( "gistr-github-public", lng( "cfg_context_gist_public" ), ( ) =>
+            this.ribbonIcon_pub = this.addRibbonIcon( 'gistr-github-public', lng( 'cfg_context_gist_public' ), ( ) =>
             {
                 GHGistGet( { plugin: this, app: this.app, is_public: true } )( )
             } )
 
             addIcon( 'gistr-github-secret', IconGithubSecret )
-            this.ribbonIcon_sec = this.addRibbonIcon( "gistr-github-secret", lng( "cfg_context_gist_secret" ), ( ) =>
+            this.ribbonIcon_sec = this.addRibbonIcon( 'gistr-github-secret', lng( 'cfg_context_gist_secret' ), ( ) =>
             {
                 GHGistGet( { plugin: this, app: this.app, is_public: false } )( )
             } )
@@ -467,10 +469,10 @@ export default class GistrPlugin extends Plugin
 
     async registerRibbonDebug( )
     {
-        if ( this.settings.ge_enable_ribbon_icons == true )
+        if ( this.settings.ge_enable_ribbon_icons === true )
         {
             addIcon( 'gistr-github-reload', IconGithubReload )
-            this.ribbonIcon_reload = this.addRibbonIcon( "gistr-github-reload", lng( "cfg_context_gist_reload" ), ( ) =>
+            this.ribbonIcon_reload = this.addRibbonIcon( 'gistr-github-reload', lng( 'cfg_context_gist_reload' ), ( ) =>
             {
                 this.reloadPlugin( this.app, this )
             } )
@@ -505,7 +507,7 @@ export default class GistrPlugin extends Plugin
         btn_Ico.addEventListener( 'click', ( ) =>
         {
             this.reloadPlugin( this.app, this )
-        })
+        } )
 
         viewActions.prepend( btn_Ico )
     }
@@ -559,7 +561,7 @@ export default class GistrPlugin extends Plugin
     async addButtonToAllLeaves( )
     {
         this.app.workspace.iterateAllLeaves( ( leaf ) =>
-            this.addButtonToLeaf( leaf, LeafButton_Refresh )
+            this.addButtonToLeaf( leaf, LeafButtonRefresh )
         )
 
         this.app.workspace.onLayoutChange( )
@@ -572,7 +574,7 @@ export default class GistrPlugin extends Plugin
     async removeButtonFromAllLeaves( )
     {
         this.app.workspace.iterateAllLeaves( ( leaf ) =>
-            this.removeButtonFromLeaf( leaf, LeafButton_Refresh )
+            this.removeButtonFromLeaf( leaf, LeafButtonRefresh )
         )
 
         this.app.workspace.onLayoutChange( )
@@ -585,7 +587,7 @@ export default class GistrPlugin extends Plugin
     async loadSettings( )
     {
         this.settings = await this.loadData( )
-        
+
         this.settings =
         {
             ...SettingsDefaults,
@@ -616,9 +618,9 @@ export default class GistrPlugin extends Plugin
         Reload plugin
     */
 
-    async reloadPlugin(app: App, plugin: GistrPlugin )
+    async reloadPlugin( app: App, plugin: GistrPlugin )
     {
-        await ( app as any).plugins.disablePlugin( plugin.manifest.id )
+        await ( app as any ).plugins.disablePlugin( plugin.manifest.id )
         this.app.workspace.updateOptions( )
         await ( app as any ).plugins.enablePlugin( plugin.manifest.id )
         this.app.workspace.updateOptions( )
@@ -629,7 +631,7 @@ export default class GistrPlugin extends Plugin
     /*
         Right-click context menu
     */
-    
+
     GetContextMenu = ( menu: Menu, editor: GistrEditor ): void =>
     {
         ShowContextMenu( this, this.settings, this.api, menu, editor )
@@ -647,7 +649,7 @@ export default class GistrPlugin extends Plugin
         try
         {
             const ver_running = this.manifest.version
-            let ver_stable = await requestUrl( Env.Links[ 'urlBranchMain' ] ).then( async ( res ) =>
+            let ver_stable = await requestUrl( Env.Links.urlBranchMain ).then( async ( res ) =>
             {
                 if ( res.status === 200 )
                 {
@@ -659,8 +661,8 @@ export default class GistrPlugin extends Plugin
             {
                 console.error( lng( 'base_ver_nofetch', 'stable', err ) )
             } )
-    
-            let ver_beta = await requestUrl( Env.Links[ 'urlBranchBeta' ] ).then( async ( res ) =>
+
+            let ver_beta = await requestUrl( Env.Links.urlBranchBeta ).then( async ( res ) =>
             {
                 if ( res.status === 200 )
                 {
@@ -682,31 +684,31 @@ export default class GistrPlugin extends Plugin
 
             if ( ver_beta === undefined )
                 ver_beta = process.env.PLUGIN_VERSION
-    
+
             /*
                 Output notice to user on possible updates
             */
-    
+
             if ( gt( ver_beta, ver_stable ) && lt( ver_running, ver_beta ) )
             {
-                new Notice( lng( "ver_update_beta" ), 0 )
-    
-                new Notification( lng( "ver_update_beta_dn_title", this.manifest.name ),
+                new Notice( lng( 'ver_update_beta' ), 0 )
+
+                new Notification( lng( 'ver_update_beta_dn_title', this.manifest.name ),
                 {
-                    body:   lng( "ver_update_beta_dn_msg", ver_running, ver_beta ),
+                    body:   lng( 'ver_update_beta_dn_msg', ver_running, ver_beta ),
                     icon:   AssetGithubIcon,
-                    badge:  AssetGithubIcon,
+                    badge:  AssetGithubIcon
                 } )
             }
             else if ( lt( ver_beta, ver_stable ) && lt( ver_running, ver_stable ) )
             {
-                new Notice( lng( "ver_update_stable" ), 0 )
-    
-                new Notification( lng( "ver_update_stable_dn_title", this.manifest.name ),
+                new Notice( lng( 'ver_update_stable' ), 0 )
+
+                new Notification( lng( 'ver_update_stable_dn_title', this.manifest.name ),
                 {
-                    body:   lng( "ver_update_stable_dn_msg", ver_running, ver_stable ),
+                    body:   lng( 'ver_update_stable_dn_msg', ver_running, ver_stable ),
                     icon:   AssetGithubIcon,
-                    badge:  AssetGithubIcon,
+                    badge:  AssetGithubIcon
                 } )
             }
         }
@@ -724,7 +726,7 @@ export default class GistrPlugin extends Plugin
 
     public generateUuid( )
     {
-        const uuid = crypto.randomUUID( );
+        const uuid = crypto.randomUUID( )
         return `${ uuid }`
     }
 

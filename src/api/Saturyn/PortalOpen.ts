@@ -4,7 +4,7 @@ import { SaturynParamsType } from './Parameters'
 export const SaturynOpen = async ( workspace: Workspace, id: string, dock?: SaturynParamsType ): Promise< WorkspaceLeaf > =>
 {
     let leaf:   WorkspaceLeaf
-    let leafs   = workspace.getLeavesOfType( id )
+    const leafs   = workspace.getLeavesOfType( id )
 
     if ( leafs.length > 0 )
     {
@@ -12,6 +12,7 @@ export const SaturynOpen = async ( workspace: Workspace, id: string, dock?: Satu
         return leafs[ 0 ]
     }
 
+    // eslint-disable-next-line prefer-const
     leaf = await createView( workspace, id, dock )
     workspace.revealLeaf( leaf )
 
@@ -20,7 +21,7 @@ export const SaturynOpen = async ( workspace: Workspace, id: string, dock?: Satu
 
 export const SaturynIsOpen = ( workspace: Workspace, id: string ): boolean =>
 {
-    let leafs = workspace.getLeavesOfType( id )
+    const leafs = workspace.getLeavesOfType( id )
     return leafs.length > 0
 }
 
@@ -38,6 +39,7 @@ const createView = async ( workspace: Workspace, id: string, dock?: SaturynParam
             break
 
         case 'right':
+            break
 
         default:
             leaf = workspace.getRightLeaf( false )

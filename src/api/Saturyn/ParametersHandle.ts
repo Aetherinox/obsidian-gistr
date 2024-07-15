@@ -11,7 +11,7 @@ export const SaturynParamsHandle = ( portal: Partial< SaturynParams > ): Saturyn
     if ( portal.id === '' || portal.id === undefined )
     {
         let key_id = portal.url!
-        if ( portal.profileKey != undefined && portal.profileKey !== 'gistr-web' && portal.profileKey !== '' )
+        if ( portal.profileKey !== undefined && portal.profileKey !== 'gistr-web' && portal.profileKey !== '' )
         {
             key_id += portal.profileKey
         }
@@ -39,5 +39,5 @@ export const SaturynParamsHandle = ( portal: Partial< SaturynParams > ): Saturyn
         portal.title = portal.url
     }
 
-    return <SaturynParams>portal
+    return portal as SaturynParams
 }
