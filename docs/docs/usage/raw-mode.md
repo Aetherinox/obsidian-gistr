@@ -5,7 +5,7 @@ tags:
 ---
 
 # Raw Mode
-Setting a codeblock to run in `raw mode` is a unique feature introduced in [v1.6.0](../changelog.md#160-march-29-2024--id160).
+Setting a codeblock to run in `raw mode` is a unique feature introduced in [v1.6.0](../changelog/#1.6.0).
 
 It allows you to display a gist in a web-browser environment instead of as a simple codeblock. This is useful for gists which include mermaid graphs.
 
