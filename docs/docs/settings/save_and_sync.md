@@ -127,6 +127,8 @@ Each time your note is saved automatically, a notice will appear on-screen infor
 
 :   Autosave will complete silently.
 
+<br />
+
 ## Autosave Duration
 <!-- md:version stable-1.4.0 -->
 <!-- md:default `120` -->
