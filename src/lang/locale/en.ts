@@ -74,7 +74,7 @@ export default
     cfg_tab_ge_tog_enable_ribbon_debug_name:    'Enable refresh icon',
     cfg_tab_ge_tog_enable_ribbon_debug_desc:    '<span class="gistr-settings-elm-note">Enabled</span>: Adds a special icon to your top header ribbon which allows you to force all embedded gists to be refreshed.<br>This is useful when modifying the colors / settings for Gistr, since all codeblocks are cached and changes do not appear immediately. The button added to your ribbon will force-refresh all codeblocks and immediately show new changes.',
     cfg_tab_ge_tog_enable_ribbon_debug_tip:     '',
-    
+
     /*
         Tab > Settings > OpenGist
     */
@@ -295,7 +295,7 @@ export default
         Gists
     */
 
-    gist_upload_req_allowupload:                'Must enable \"Allow Uploading Gists\" in the Gistr settings before you can use this command.',
+    gist_upload_req_allowupload:                'Must enable "Allow Uploading Gists" in the Gistr settings before you can use this command.',
     gist_upload_no_active_file:                 'No active file present. Open a note in Obsidian before continuing.',
     gist_copy_fail_notagist:                    'No URL to copy. You must turn your note into a gist first.',
     gist_copy_success_file:                     `Copied {0} URL to your clipboard`,
@@ -380,6 +380,6 @@ export default
     */
 
     lst_repotype_pub:                           'Public',
-    lst_repotype_pri:                           'Secret',
+    lst_repotype_pri:                           'Secret'
 
 }

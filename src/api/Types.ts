@@ -1,4 +1,4 @@
-import { App, Editor, Menu } from "obsidian"
+import { App, Editor, Menu } from 'obsidian'
 
 /*
     Cursor Coordinates

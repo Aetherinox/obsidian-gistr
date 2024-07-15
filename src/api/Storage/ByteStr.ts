@@ -43,8 +43,8 @@
     Convert hexString
 */
 
-const revMap: { [ key: string ]: number } = { }
-const numMap: { [ key: number ]: string } = { }
+const revMap: Record<string, number> = { }
+const numMap: Record<number, string> = { }
 for ( let i = 0; i < 256; i++ )
 {
     revMap[ ( `00${ i.toString( 16 ) }`.slice( -2 ) ) ] = i
@@ -58,29 +58,29 @@ export function hexStringToUint8Array( src: string ): Uint8Array
 
     for ( let i = 0; i < len; i++ )
     {
-        ret[ i ] = revMap[ src[ i * 2 ] + src[ i * 2 + 1 ] ]
+        ret[ i ] = revMap[ ( src[ i * 2 ] ) + src[ ( i * 2 ) + 1 ] ]
     }
 
-    return ret;
+    return ret
 }
 
 export function uint8ArrayToHexString( src: Uint8Array ): string
 {
-    return [ ...src ].map( e => numMap[ e ] ).join( "" )
+    return [ ...src ].map( ( e ) => numMap[ e ] ).join( '' )
 }
 
 function btoa_node( src: string ): string
 {
-    return Buffer.from( src, "binary" ).toString( "base64" )
+    return Buffer.from( src, 'binary' ).toString( 'base64' )
 }
 
 function atob_node( src: string ): string
 {
-    return Buffer.from( src, "base64" ).toString( "binary" )
+    return Buffer.from( src, 'base64' ).toString( 'binary' )
 }
 
-export const btoa = typeof window !== "undefined" ? window.btoa : btoa_node;
-export const atob = typeof window !== "undefined" ? window.atob : atob_node;
+export const btoa = typeof window !== 'undefined' ? window.btoa : btoa_node
+export const atob = typeof window !== 'undefined' ? window.atob : atob_node
 
 /*
     Safari JavaScriptCOre hardcoded argument limit
@@ -153,7 +153,7 @@ export const readString = ( buffer: Uint8Array ) =>
     const length    = buffer.length
     let index       = 0
     const end       = length
-    let string      = ""
+    let string      = ''
 
     while ( index < end )
     {
@@ -171,17 +171,17 @@ export const readString = ( buffer: Uint8Array ) =>
             else if ( ( chr & 0xE0 ) === 0xC0 )
             {
                 // 2 bytes
-                chunk.push( ( chr & 0x1F ) << 6 | ( buffer[ index++ ] & 0x3F ) )
+                chunk.push( ( ( chr & 0x1F ) << 6 ) | ( buffer[ index++ ] & 0x3F ) )
             }
             else if ( ( chr & 0xF0 ) === 0xE0 )
-            { 
+            {
                 // 3 bytes
-                chunk.push( ( chr & 0x0F ) << 12 | ( buffer[ index++ ] & 0x3F ) << 6 | ( buffer[ index++ ] & 0x3F ) )
+                chunk.push( ( ( chr & 0x0F ) << 12 ) | ( ( buffer[ index++ ] & 0x3F ) << 6 ) | ( buffer[ index++ ] & 0x3F ) )
             }
             else if ( ( chr & 0xF8 ) === 0xF0 )
             {
                 // 4 bytes
-                let code = ( chr & 0x07 ) << 18 | ( buffer[ index++ ] & 0x3F ) << 12 | ( buffer[ index++ ] & 0x3F ) << 6 | ( buffer[ index++ ] & 0x3F )
+                let code = ( ( chr & 0x07 ) << 18 ) | ( ( buffer[ index++ ] & 0x3F ) << 12 ) | ( ( buffer[ index++ ] & 0x3F ) << 6 ) | ( buffer[ index++ ] & 0x3F )
 
                 if ( code < 0x010000 )
                 {
@@ -190,7 +190,7 @@ export const readString = ( buffer: Uint8Array ) =>
                 else
                 {
                     // surrogate pair
-                    code -= 0x010000;
+                    code -= 0x010000
                     chunk.push( ( code >>> 10 ) + 0xD800, ( code & 0x3FF ) + 0xDC00 )
                 }
             }
@@ -207,7 +207,7 @@ export function binaryToBinaryString( src: Uint8Array ): string
     const len = src.length
     if ( len < QUANTUM ) return String.fromCharCode( ...src )
 
-    let ret = ""
+    let ret = ''
     for ( let i = 0; i < len; i += QUANTUM )
     {
         ret += String.fromCharCode( ...src.slice( i, i + QUANTUM ) )
@@ -221,17 +221,17 @@ function arrayBufferToBase64internalBrowser( buffer: DataView ): Promise< string
 {
     return new Promise( ( res, rej ) =>
     {
-        const blob      = new Blob( [ buffer ], { type: "application/octet-binary" } )
+        const blob      = new Blob( [ buffer ], { type: 'application/octet-binary' } )
         const reader    = new FileReader( )
 
         reader.onload = function ( evt )
         {
-            const dataURI = evt.target?.result?.toString( ) || ""
+            const dataURI = evt.target?.result?.toString( ) || ''
 
-            if ( buffer.byteLength != 0 && ( dataURI == "" || dataURI == "data:" ) )
-                return rej( new TypeError( "Could not parse the encoded string" ) )
+            if ( buffer.byteLength !== 0 && ( dataURI === '' || dataURI === 'data:' ) )
+                return rej( new TypeError( 'Could not parse the encoded string' ) )
 
-            const result = dataURI.substring( dataURI.indexOf( "," ) + 1 )
+            const result = dataURI.substring( dataURI.indexOf( ',' ) + 1 )
 
             res( result )
         }
@@ -242,11 +242,11 @@ function arrayBufferToBase64internalBrowser( buffer: DataView ): Promise< string
 
 function arrayBufferToBase64internalNode( buffer: DataView ): string
 {
-    const ret = Buffer.from( buffer.buffer ).toString( "base64" )
+    const ret = Buffer.from( buffer.buffer ).toString( 'base64' )
     return ret
 }
 
-const arrayBufferToBase64internal = typeof ( window ) !== "undefined" ? arrayBufferToBase64internalBrowser : arrayBufferToBase64internalNode
+const arrayBufferToBase64internal = typeof ( window ) !== 'undefined' ? arrayBufferToBase64internalBrowser : arrayBufferToBase64internalNode
 
 export async function arrayBufferToBase64( buffer: ArrayBuffer ): Promise< string[] >
 {
@@ -271,13 +271,13 @@ export function base64ToString( base64: string | string[] ): string
 {
     try
     {
-        if (typeof base64 != "string") return base64.map( e => base64ToString(e)).join( "" )
+        if ( typeof base64 != 'string' ) return base64.map( ( e ) => base64ToString( e ) ).join( '' )
 
         const binary_string     = atob( base64 )
         const len               = binary_string.length
         const bytes             = new Uint8Array( len )
 
-        for (let i = 0; i < len; i++)
+        for ( let i = 0; i < len; i++ )
         {
             bytes[ i ] = binary_string.charCodeAt( i )
         }
@@ -286,21 +286,21 @@ export function base64ToString( base64: string | string[] ): string
     }
     catch ( ex )
     {
-        if ( typeof base64 != "string" ) return base64.join( "" )
+        if ( typeof base64 != 'string' ) return base64.join( '' )
         return base64
     }
 }
 
 export function base64ToArrayBuffer( base64: string | string[] ): ArrayBuffer
 {
-    if ( typeof ( base64 ) == "string" ) return base64ToArrayBufferInternal( base64 )
+    if ( typeof ( base64 ) == 'string' ) return base64ToArrayBufferInternal( base64 )
 
-    const bufItems      = base64.map( e => base64ToArrayBufferInternal( e ) )
-    const len           = bufItems.reduce( ( p , c ) => p + c.byteLength, 0 )
-    const joinedArray   = new Uint8Array( len );
-    let offset          = 0;
+    const bufItems      = base64.map( ( e ) => base64ToArrayBufferInternal( e ) )
+    const len           = bufItems.reduce( ( p, c ) => p + c.byteLength, 0 )
+    const joinedArray   = new Uint8Array( len )
+    let offset          = 0
 
-    bufItems.forEach( e =>
+    bufItems.forEach( ( e ) =>
     {
         joinedArray.set( new Uint8Array( e ), offset )
         offset += e.byteLength
@@ -309,13 +309,13 @@ export function base64ToArrayBuffer( base64: string | string[] ): ArrayBuffer
     return joinedArray
 }
 
-const base64ToArrayBufferInternal = typeof ( window ) !== "undefined" ? base64ToArrayBufferInternalBrowser : base64ToArrayBufferInternalNode
+const base64ToArrayBufferInternal = typeof ( window ) !== 'undefined' ? base64ToArrayBufferInternalBrowser : base64ToArrayBufferInternalNode
 
 function base64ToArrayBufferInternalNode( base64: string ): ArrayBuffer
 {
     try
     {
-        return Buffer.from( base64, "base64" ).buffer
+        return Buffer.from( base64, 'base64' ).buffer
     }
     catch ( ex )
     {
@@ -323,7 +323,7 @@ function base64ToArrayBufferInternalNode( base64: string ): ArrayBuffer
     }
 }
 
-function base64ToArrayBufferInternalBrowser(base64: string): ArrayBuffer
+function base64ToArrayBufferInternalBrowser( base64: string ): ArrayBuffer
 {
     try
     {
@@ -339,7 +339,7 @@ function base64ToArrayBufferInternalBrowser(base64: string): ArrayBuffer
         return bytes.buffer
 
     }
-    catch ( ex ) 
+    catch ( ex )
     {
         const len       = base64.length
         const bytes     = new Uint8Array( len )
@@ -353,55 +353,55 @@ function base64ToArrayBufferInternalBrowser(base64: string): ArrayBuffer
     }
 }
 
-/// Chunk utilities
+// / Chunk utilities
 function* pickPiece( leftData: string[], minimumChunkSize: number ): Generator< string >
 {
-    let buffer = "";
+    let buffer = ''
     L1:
     do
     {
         const curLine = leftData.shift( )
-        if ( typeof (curLine) === "undefined" )
+        if ( typeof ( curLine ) === 'undefined' )
         {
             yield buffer
             break L1
         }
 
         // Do not use regexp for performance.
-        if (curLine.startsWith( "```" ) || curLine.startsWith( " ```" ) || curLine.startsWith( "  ```" ) || curLine.startsWith("   ```"))
+        if ( curLine.startsWith( '```' ) || curLine.startsWith( ' ```' ) || curLine.startsWith( '  ```' ) || curLine.startsWith( '   ```' ) )
         {
             yield buffer
-            buffer = curLine + ( leftData.length != 0 ? "\n" : "" )
+            buffer = curLine + ( leftData.length !== 0 ? '\n' : '' )
 
             L2:
             do
             {
                 const curPx = leftData.shift( )
-                if ( typeof ( curPx ) === "undefined" )
+                if ( typeof ( curPx ) === 'undefined' )
                 {
                     break L2
                 }
 
-                buffer += curPx + ( leftData.length != 0 ? "\n" : "" )
+                buffer += curPx + ( leftData.length !== 0 ? '\n' : '' )
             }
-            
-            while ( leftData.length > 0 && !( leftData[ 0 ].startsWith( "```" ) || leftData[ 0 ].startsWith( " ```" ) || leftData[ 0 ].startsWith( "  ```" ) || leftData[ 0 ].startsWith( "   ```" ) ) )
 
-            const isLooksLikeBASE64     = buffer.endsWith( "=" )
+            while ( leftData.length > 0 && !( leftData[ 0 ].startsWith( '```' ) || leftData[ 0 ].startsWith( ' ```' ) || leftData[ 0 ].startsWith( '  ```' ) || leftData[ 0 ].startsWith( '   ```' ) ) )
+
+            const isLooksLikeBASE64     = buffer.endsWith( '=' )
             const maybeUneditable       = buffer.length > 2048
 
             // concat code block end mark
             const endOfCodeBlock = leftData.shift( )
-            if ( typeof ( endOfCodeBlock ) !== "undefined" )
+            if ( typeof ( endOfCodeBlock ) !== 'undefined' )
             {
                 buffer += endOfCodeBlock
-                buffer += ( leftData.length != 0 ? "\n" : "" )
+                buffer += ( leftData.length !== 0 ? '\n' : '' )
             }
 
             if ( !isLooksLikeBASE64 && !maybeUneditable )
             {
                 const splitExpr     = /(.*?[;,:<])/g
-                const sx            = buffer.split( splitExpr ).filter( e => e != '' )
+                const sx            = buffer.split( splitExpr ).filter( ( e ) => e !== '' )
 
                 for ( const v of sx )
                 {
@@ -413,38 +413,38 @@ function* pickPiece( leftData: string[], minimumChunkSize: number ): Generator< 
                 yield buffer
             }
 
-            buffer = ""
+            buffer = ''
         }
         else
         {
 
-            buffer += curLine + ( leftData.length != 0 ? "\n" : "" )
-            if ( buffer.length >= minimumChunkSize || leftData.length == 0 || leftData[ 0 ] == "#" || buffer[ 0 ] == "#" )
+            buffer += curLine + ( leftData.length !== 0 ? '\n' : '' )
+            if ( buffer.length >= minimumChunkSize || leftData.length === 0 || leftData[ 0 ] === '#' || buffer.startsWith( '#' ) )
             {
                 yield buffer
-                buffer = ""
+                buffer = ''
             }
 
         }
     }
-    
-    while (leftData.length > 0)
+
+    while ( leftData.length > 0 )
 }
 
 /*
     split string into pieces within specific length of characters
 */
 
-export function splitPieces2( dataSrc: string | string[], pieceSize: number, plainSplit: boolean, minimumChunkSize: number, longLineThreshold: number )
+export function splitPieces2( dataSrc: string | string[], pieceSize: number, plainSplit: boolean, minimumChunkSize: number )
 {
     return function* pieces( ): Generator<string>
     {
-        const dataList = typeof ( dataSrc ) == "string" ? [ dataSrc ] : dataSrc
+        const dataList = typeof ( dataSrc ) == 'string' ? [ dataSrc ] : dataSrc
         for ( const data of dataList )
         {
             if ( plainSplit )
             {
-                const leftData      = data.split( "\n" ) //use memory
+                const leftData      = data.split( '\n' )
                 const f             = pickPiece( leftData, minimumChunkSize )
 
                 for ( const piece of f )
@@ -454,8 +454,8 @@ export function splitPieces2( dataSrc: string | string[], pieceSize: number, pla
                     do
                     {
                         // split to within maximum pieceSize
-                        let ps = pieceSize;
-                        if ( buffer.charCodeAt( ps - 1 ) != buffer.codePointAt( ps - 1 ) )
+                        let ps = pieceSize
+                        if ( buffer.charCodeAt( ps - 1 ) !== buffer.codePointAt( ps - 1 ) )
                         {
                             // If the char at the end of the chunk has been part of the surrogate pair, grow the piece size a bit.
                             ps++
@@ -465,21 +465,22 @@ export function splitPieces2( dataSrc: string | string[], pieceSize: number, pla
                         buffer = buffer.substring( ps )
 
                     }
-                    
-                    while ( buffer != "" )
+
+                    while ( buffer !== '' )
                 }
             }
             else
             {
-                let leftData = data;
-                do {
-                    const piece = leftData.substring(0, pieceSize);
-                    leftData = leftData.substring(pieceSize);
-                    yield piece;
-                } while (leftData != "");
+                let leftData = data
+                do
+                {
+                    const piece = leftData.substring( 0, pieceSize )
+                    leftData = leftData.substring( pieceSize )
+                    yield piece
+                } while ( leftData !== '' )
             }
         }
-    };
+    }
 }
 
 /*
@@ -489,27 +490,27 @@ export function splitPieces2( dataSrc: string | string[], pieceSize: number, pla
 export function versionNumberString2Number( ver: string ): number
 {
     return ver // "1.23.45"
-        .split( "." ) // 1  23  45
+        .split( '.' ) // 1  23  45
         .reverse( ) // 45  23  1
-        .map( ( e, i ) => ( ( e as any ) / 1) * 1000 ** i ) // 45 23000 1000000
-        .reduce( ( prev, current ) => prev + current, 0 ); // 1023045
+        .map( ( e, i ) => ( ( e as any ) / 1 ) * ( 1000 ** i ) ) // 45 23000 1000000
+        .reduce( ( prev, current ) => prev + current, 0 ) // 1023045
 }
 
 export const escapeStringToHTML = ( str: string ) =>
 {
-    if ( !str ) return ""
+    if ( !str ) return ''
 
     return str.replace( /[<>&"'`]/g, ( match ) =>
     {
         const escape: any =
         {
-            "<": "&lt;",
-            ">": "&gt;",
-            "&": "&amp;",
-            '"': "&quot;",
-            "'": "&#39;",
-            "`": "&#x60;",
-        };
+            '<': '&lt;',
+            '>': '&gt;',
+            '&': '&amp;',
+            '"': '&quot;',
+            '\'': '&#39;',
+            '`': '&#x60;'
+        }
 
         return escape[ match ]
     } )

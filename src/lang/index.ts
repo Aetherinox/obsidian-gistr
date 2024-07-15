@@ -1,17 +1,18 @@
+/* eslint-disable no-console */
 /*
     Languages Helper
 */
 
-import { moment } from "obsidian"
-import en from "./locale/en"
+import { moment } from 'obsidian'
+import en from './locale/en'
 
 /*
     Language entries
 */
 
-const SetupLocale: { [ i: string ]: Partial< typeof en > } =
+const SetupLocale: Record<string, Partial< typeof en >> =
 {
-    en,
+    en
 }
 
 /*
@@ -27,9 +28,9 @@ const locale = SetupLocale[ moment.locale( ) ]
 export function lng( item: keyof typeof en, ...args: string[] ) : string
 {
     if ( !locale )
-        console.error( "Gistr language not found", moment.locale( ) )
+        console.error( 'Gistr language not found', moment.locale( ) )
 
-    let val = ( locale && locale[ item ] ) || en[ item ]
+    const val = ( locale?.[ item ] ) || en[ item ]
     return val.replace( /{(\d+)}/g, ( match, index ) =>
     {
         const replace = args[ index ]

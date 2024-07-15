@@ -81,4 +81,6 @@
 !*SHA*.asc
 !*SHA*.sig
 !*styles.css
-
+!*eslint.config.js
+!*.prettierignore
+!*.prettierrc

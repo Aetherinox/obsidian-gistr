@@ -38,7 +38,7 @@
               "type": "markdown",
               "state": {
                 "file": "2. Github.md",
-                "mode": "preview",
+                "mode": "source",
                 "source": false
               }
             }
@@ -177,8 +177,8 @@
   "active": "fd79962cd61072a6",
   "lastOpenFiles": [
     "3. OpenGist.md",
-    "4. Mermaid Charts & Advanced Embeds.md",
     "2. Github.md",
+    "4. Mermaid Charts & Advanced Embeds.md",
     "1. Methods.md",
     "0. Official Documentation.md"
   ]

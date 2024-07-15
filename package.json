@@ -1,66 +1,115 @@
 {
-  "name": "gistr",
-  "version": "1.6.8",
-  "description": "Integrate Opengist and Github gists into your notes, allowing you to create, update, and share between your notes and gist services",
-  "main": "main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Aetherinox/obsidian-gistr.git"
-  },
-  "scripts": {
-    "start": "rollup --watch --config rollup.config.mjs --environment BUILD,TEST",
-    "dev": "rollup --watch --config rollup.config.mjs --environment BUILD:dev",
-    "build": "rollup --config rollup.config.mjs --environment BUILD:production",
-    "release": "rollup --config rollup.config.mjs --environment BUILD,MINIFY,TEST",
-    "test": "rollup --config rollup.config.mjs --environment TEST",
-    "contrib:add": "all-contributors add",
-    "contrib:generate": "all-contributors generate",
-    "gistr": "node gistr.js",
-    "generate": "node gistr.js generate",
-    "env-gistr": "npx --quiet env-cmd --no-override node gistr.js",
-    "env-uuid": "npx --quiet env-cmd --no-override node gistr.js uuid",
-    "env-guid": "npx --quiet env-cmd --no-override node gistr.js guid",
-    "env-version": "node -p require('./package.json').version;"
-  },
-  "keywords": [
-    "obsidian",
-    "gist",
-    "opengist"
-  ],
-  "author": "Aetherinox",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Aetherinox/obsidian-gistr/issues"
-  },
-  "devDependencies": {
-    "@codemirror/view": "^6.26.3",
-    "@rollup/plugin-commonjs": "^25.0.7",
-    "@rollup/plugin-image": "^3.0.3",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-replace": "^5.0.5",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@types/chrome": "^0.0.266",
-    "@types/node": "^20.12.7",
-    "@types/semver": "^7.5.8",
-    "@types/uuid": "^9.0.8",
-    "electron": "^30.0.1",
-    "obsidian": "^1.0.0",
-    "rollup": "^4.16.4",
-    "rollup-plugin-license": "^3.3.1",
-    "simple-git": "^3.24.0",
-    "tslib": "^2.2.0",
-    "typescript": "^5.4.3",
-    "all-contributors-cli": "^6.26.1"
-  },
-  "dependencies": {
-    "@aetherinox/noxkit": "https://github.com/Aetherinox/noxkit",
-    "@octokit/rest": "^20.1.0",
-    "@simonwep/pickr": "github:simonwep/pickr",
-    "colortranslator": "^4.1.0",
-    "front-matter": "^4.0.2",
-    "semver": "^7.6.0",
-    "uuid": "^9.0.1",
-    "yaml": "^2.3.4"
-  }
+    "name": "gistr",
+    "version": "1.7.0",
+    "description": "Integrate Opengist and Github gists into your notes, allowing you to create, update, and share between your notes and gist services",
+    "author": "Aetherinox",
+    "license": "MIT",
+    "main": "main.js",
+    "build": {
+        "appId": "com.gistr.id"
+    },
+    "funding": [
+        {
+            "type": "individual",
+            "url": "https://buymeacoffee.com/aetherinox"
+        }
+    ],
+    "bugs": {
+        "url": "https://github.com/Aetherinox/obsidian-gistr/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Aetherinox/obsidian-gistr.git"
+    },
+    "contributors": [
+        {
+            "name": "Aetherinox",
+            "email": "118329232+Aetherinox@users.noreply.github.com",
+            "url": "https://github.com/Aetherinox"
+        },
+        {
+            "name": "EuropaServ",
+            "email": "161414668+EuropaServ@users.noreply.github.com",
+            "url": "https://github.com/EuropaServ"
+        }
+    ],
+    "scripts": {
+        "pretest": "npm run lint",
+        "lint": "eslint src/**/*.ts",
+        "lint:fix": "eslint --fix src/**/*.ts",
+        "pretty": "prettier . --check",
+        "pretty:fix": "prettier . --write",
+        "pretty:ignore": "prettier . --write --ignore-unknown",
+        "start": "rollup --watch --config rollup.config.mjs --environment BUILD,TEST",
+        "dev": "rollup --watch --config rollup.config.mjs --environment BUILD:dev",
+        "build": "rollup --config rollup.config.mjs --environment BUILD:production",
+        "release": "rollup --config rollup.config.mjs --environment BUILD,MINIFY,TEST",
+        "test": "rollup --config rollup.config.mjs --environment TEST",
+        "contrib:add": "all-contributors add",
+        "contrib:generate": "all-contributors generate",
+        "gistr": "node gistr.js",
+        "generate": "node gistr.js generate",
+        "env-gistr": "npx --quiet env-cmd --no-override node gistr.js",
+        "env-uuid": "npx --quiet env-cmd --no-override node gistr.js uuid",
+        "env-guid": "npx --quiet env-cmd --no-override node gistr.js guid",
+        "env-version": "node -p require('./package.json').version;"
+    },
+    "keywords": [
+        "markdown",
+        "obsidian.md",
+        "obsidian",
+        "gist",
+        "gistr",
+        "opengist",
+        "github"
+    ],
+    "devDependencies": {
+        "@aetherinox/noxenv": "^1.0.0",
+        "@codemirror/view": "^6.26.3",
+        "@rollup/plugin-commonjs": "^25.0.7",
+        "@rollup/plugin-image": "^3.0.3",
+        "@rollup/plugin-node-resolve": "^15.2.3",
+        "@rollup/plugin-replace": "^5.0.5",
+        "@rollup/plugin-terser": "^0.4.4",
+        "@rollup/plugin-typescript": "^11.1.6",
+        "@types/chrome": "^0.0.268",
+        "@types/node": "^20.14.10",
+        "@types/semver": "^7.5.8",
+        "@types/uuid": "^9.0.8",
+        "typescript-eslint": "^7.14.0",
+        "@typescript-eslint/parser": "^7.16.0",
+        "@typescript-eslint/eslint-plugin": "^7.16.0",
+        "eslint-config-prettier": "^9.1.0",
+        "eslint-plugin-prettier": "^5.1.3",
+        "@stylistic/eslint-plugin-js": "^2.3.0",
+        "@stylistic/eslint-plugin-ts": "^2.3.0",
+        "@stylistic/eslint-plugin-plus": "^2.3.0",
+        "electron": "^31.1.0",
+        "obsidian": "^1.0.0",
+        "rollup": "^4.18.0",
+        "rollup-plugin-license": "^3.3.1",
+        "simple-git": "^3.24.0",
+        "tslib": "^2.2.0",
+        "typescript": "^5.4.3",
+        "all-contributors-cli": "^6.26.1",
+        "prettier": "^3.2.5"
+    },
+    "dependencies": {
+        "@aetherinox/noxkit": "https://github.com/Aetherinox/noxkit",
+        "@octokit/rest": "^20.1.0",
+        "@simonwep/pickr": "1.9.0",
+        "colortranslator": "^4.1.0",
+        "front-matter": "^4.0.2",
+        "semver": "^7.6.0",
+        "uuid": "^9.0.1",
+        "yaml": "^2.4.5"
+    },
+    "files": [
+        "tests/",
+        "LICENSE.md",
+        "README.md",
+        "main.js",
+        "styles.css",
+        "manifest.json"
+    ]
 }

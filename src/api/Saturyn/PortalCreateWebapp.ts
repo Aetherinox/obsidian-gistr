@@ -8,7 +8,7 @@ export const SaturynCreateWebapp = ( params: Partial< SaturynParams >, onReady?:
     viewer.setAttribute     ( 'partition',          'persist:' + params.profileKey )
     viewer.setAttribute     ( 'src',                params.url ?? PortalURLDefault )
     viewer.setAttribute     ( 'httpreferrer',       params.url ?? PortalURLDefault )
-    viewer.setAttribute     ( 'crossorigin',        'anonymous')
+    viewer.setAttribute     ( 'crossorigin',        'anonymous' )
     viewer.setAttribute     ( 'disablewebsecurity', 'true' )
     viewer.setAttribute     ( 'allowpopups',        'true' )
     viewer.addClass         ( PortalClass )
