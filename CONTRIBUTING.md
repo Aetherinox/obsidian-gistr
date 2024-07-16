@@ -41,7 +41,7 @@ Please review everything on this page before you submit your contribution.
     - [Types](#types)
       - [Example 1:](#example-1)
       - [Example 2:](#example-2)
-  - [Referencing Issues](#referencing-issues)
+  - [Commiting](#commiting)
   - [ESLint \& Prettier](#eslint--prettier)
     - [Packages](#packages)
     - [Configs](#configs)
@@ -174,8 +174,10 @@ When commiting your changes, we require you to follow the [Conventional Commit S
 ##### Example 1:
 
 ```
-feat(core): allow overriding of webpack config
-^───^────^  ^────────────────────────────────^
+feat(core): bug affecting menu [#22]
+^───^────^  ^────────────────^ ^───^
+|   |       |                  |
+|   |       |                  └───⫸ (ISSUE):   Reference issue ID
 │   │       │
 │   │       └───⫸ (DESC):   Summary in present tense. Use lower case not title case!
 │   │
@@ -188,7 +190,9 @@ feat(core): allow overriding of webpack config
 
 ##### Example 2:
 ```
-<type>(<scope>): <short summary>
+<type>(<scope>): <short summary> [issue]
+  |       |             |           |
+  |       |             |           └─⫸ Reference issue id (optional)
   │       │             │
   │       │             └─⫸ Summary in present tense. Not capitalized. No period at the end.
   │       │
@@ -204,7 +208,7 @@ feat(core): allow overriding of webpack config
 
 <br />
 
-### Referencing Issues
+### Commiting
 If you are pushing a commit which addresses a submitted issue, reference your issue at the end of the commit message. You may also optionally add the major issue to the end of your commit body.
 
 References should be on their own line, following the word `Ref` or `Refs`
@@ -232,7 +236,7 @@ We use the following packages for linting and prettier.
 
 | Package | Repo File | Description |
 | --- | --- | --- |
-| [typescript-eslint](https://npmjs.com/package/typescript-eslint) | [package.json](./blob/main/package.json) | Tooling which enables you to use TypeScript with ESLint |
+| [typescript-eslint](https://npmjs.com/package/typescript-eslint) | [package.json](./package.json) | Tooling which enables you to use TypeScript with ESLint |
 | [eslint-plugin-prettier](https://npmjs.com/package/eslint-plugin-prettier) | [package.json](./blob/main/package.json) | Runs Prettier as an ESLint rule and reports differences as individual ESLint issues. |
 | [@typescript-eslint/parser](https://npmjs.com/package/@typescript-eslint/parser) | [package.json](./blob/main/package.json) | An ESLint parser which leverages TypeScript ESTree to allow for ESLint to lint TypeScript source code. |
 | [@typescript-eslint/eslint-plugin](https://npmjs.com/package/@typescript-eslint/eslint-plugin) | [package.json](./blob/main/package.json) | An ESLint plugin which provides lint rules for TypeScript codebases. |
@@ -288,7 +292,7 @@ Pick the config file below depending on which version of ESLint you are using. T
     printWidth: 120,
     tabWidth: 4,
     useTabs: false,
-    semi: true,
+    semi: false,
     singleQuote: true,
     quoteProps: 'preserve',
     jsxSingleQuote: true,
@@ -300,7 +304,8 @@ Pick the config file below depending on which version of ESLint you are using. T
     htmlWhitespaceSensitivity: 'ignore',
     endOfLine: 'auto',
     embeddedLanguageFormatting: 'auto',
-    singleAttributePerLine: false
+    singleAttributePerLine: false,
+    experimentalTernaries: false
     ```
 
 <br />
