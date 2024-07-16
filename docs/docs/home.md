@@ -33,7 +33,7 @@ Gistr is a plugin built for [Obsidian.md](https://obsidian.md) which fully integ
 
 <figure markdown="span">
   ![Github Dark](https://github.com/Aetherinox/obsidian-gistr/assets/118329232/bc526f16-37c7-46fa-9953-687555175f3b){ width="100%" }
-  <figcaption>Github Dark Them</figcaption>
+  <figcaption>Github Dark Theme</figcaption>
 </figure>
 
 <br />

@@ -45,7 +45,7 @@ The above code will create an embedded gist, targeting the file `obsidian_demo_d
 
     The `single-line nethod` does **not** support specifying a background image or text color.
 
-    You must use the [#block-style] explained below.
+    You must use the [#property-method] explained below.
 
 
 <br />
