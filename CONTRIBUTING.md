@@ -1,48 +1,85 @@
 <div align="center">
-<h1>Obsidian Gistr 🔅</h1>
+<h1>♾️ Contributing ♾️</h1>
 <br />
-<p>Contributor Documentation</p>
+<p>Thank you for your interest in contributing!</p>
 
 <br />
 
 <!-- prettier-ignore-start -->
-[![Version][badge-version-gh]][link-version-gh] [![Build Status][badge-build]][link-build] [![Downloads][badge-downloads-gh]][link-downloads-gh] [![Size][badge-size-gh]][badge-size-gh] [![Last Commit][badge-commit]][badge-commit] [![Contributors][badge-all-contributors]](#contributors-)
+[![Version][github-version-img]][github-version-uri]
+[![Build Status][github-build-img]][github-build-uri]
+[![Downloads][github-downloads-img]][github-downloads-uri]
+[![Size][github-size-img]][github-size-img]
+[![Last Commit][github-commit-img]][github-commit-img]
+[![Contributors][contribs-all-img]](#contributors-)
 <!-- prettier-ignore-end -->
 
 </div>
 
+<br />
+
 ---
 
 <br />
 
-- [Submitting Bugs](#submitting-bugs)
+## About
+
+Below are a list of ways that you can help contribute to this project, as well as policies and guides that explain how to get started.
+
+Please review everything on this page before you submit your contribution.
+
+<br />
+
+---
+
+<br />
+
+- [About](#about)
+- [Issues, Bugs, Ideas](#issues-bugs-ideas)
 - [Contributing](#contributing)
-  - [Pull requests eligible for review](#pull-requests-eligible-for-review)
+  - [Before Submitting Pull Requests](#before-submitting-pull-requests)
   - [Conventional Commit Specification](#conventional-commit-specification)
     - [Types](#types)
       - [Example 1:](#example-1)
       - [Example 2:](#example-2)
-  - [References](#references)
-  - [Code Styling](#code-styling)
-  - [Spaces Instead Of Tabs](#spaces-instead-of-tabs)
+  - [Referencing Issues](#referencing-issues)
+  - [ESLint \& Prettier](#eslint--prettier)
+    - [Packages](#packages)
+    - [Configs](#configs)
+      - [ESLint \>= v9 Config](#eslint--v9-config)
+      - [ESLint \< v9 Config](#eslint--v9-config-1)
+      - [Prettier](#prettier)
   - [Commenting](#commenting)
   - [Casing](#casing)
+  - [Indentation Style](#indentation-style)
+  - [Spaces Instead Of Tabs](#spaces-instead-of-tabs)
+
+<br />
 
 ---
 
 <br />
 
-## Submitting Bugs
-
-Stuff happens, and sometimes as best as we try, there may be issues with this project that we are unaware of. That is the great thing about open-source; anyone can use the program and contribute to making it better.
-
-<br />
-
-If you have found a bug, have an issue with this project, or maybe even a cool idea; you can let us know by [submitting it](https://github.com/Aetherinox/obsidian-gistr/issues). However, before you submit your new issue, bug report, or feature request; head over to the [Issues Section](https://github.com/Aetherinox/obsidian-gistr/issues) and ensure nobody else has already submitted it.
+## Issues, Bugs, Ideas
+Stuff happens, and sometimes as best as we try, there may be issues within this project that we are unaware of. That is the great thing about open-source; anyone can use the program and contribute to making it better.
 
 <br />
 
-Please ensure that when you submit bugs; you are detailed.
+If you have found a bug, have an issue, or maybe even a cool idea; you can let us know by [submitting it](https://github.com/aetherinox/obsidian-gistr/issues). However, before you submit your new issue, bug report, or feature request; head over to the [Issues Section](https://github.com/aetherinox/obsidian-gistr/issues) and ensure nobody else has already submitted it.
+
+<br />
+
+Once you are sure that your issue has not already being dealt with; you may submit a new issue at [here](https://github.com/aetherinox/obsidian-gistr/issues/new/choose). You'll be asked to specify exactly what your new submission targets, such as:
+- Bug report
+- Feature Suggestion
+
+<br />
+
+When writing a new submission; ensure you fill out any of the questions asked of you. If you do not provide enough information, we cannot help. Be as detailed as possible, and provide any logs or screenshots you may have to help us better understand what you mean. Failure to fill out the submission properly may result in it being closed without a response.
+
+<br />
+
+If you are submitting a bug report:
 
 - Explain the issue
 - Describe how you expect for a feature to work, and what you're seeing instead of what you expected.
@@ -51,11 +88,9 @@ Please ensure that when you submit bugs; you are detailed.
 
 <br />
 
-<br />
-
 <div align="center">
 
-[![Submit Issue](https://img.shields.io/badge/submit%20new%20issue-de1f5c?style=for-the-badge&logo=github&logoColor=FFFFFF)](https://github.com/Aetherinox/obsidian-gistr/issues)
+[![Submit Issue](https://img.shields.io/badge/submit%20new%20issue-de1f5c?style=for-the-badge&logo=github&logoColor=FFFFFF&link=mailto%3Aantelle.net%40gmail.com)](https://github.com/aetherinox/obsidian-gistr/issues)
 
 </div>
 
@@ -63,7 +98,7 @@ Please ensure that when you submit bugs; you are detailed.
 
 <div align="center">
 
-**[`^        back to top        ^`](#submitting-bugs)**
+**[`^        back to top        ^`](#about)**
 
 </div>
 
@@ -74,36 +109,36 @@ Please ensure that when you submit bugs; you are detailed.
 <br />
 
 ## Contributing
+If you are looking to contribute to this project by actually submit your own code; please review this section completely. There is important information and policies provided below that you must follow for your pull request to get accepted.
 
 The source is here for everyone to collectively share and colaborate on. If you think you have a possible solution to a problem; don't be afraid to get your hands dirty.
 
-Unless you are fixing a known bug, we strongly recommend discussing it with our team via a GitHub issue before getting started to ensure your work does not conflict with future plans.
-
-All contributions are made via pull requests. To make a pull request, you will need a GitHub account; if you are unclear on this process, see [GitHub's documentation on forking and pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork). Pull requests should be targeted at the master branch.
+All contributions are made via pull requests. To create a pull request, you need a GitHub account. If you are unclear on this process, see [GitHub's documentation on forking and pull requests](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork). Pull requests should be targeted at the master branch.
 
 <br />
 
-### Pull requests eligible for review
+### Before Submitting Pull Requests
 
--   Follow the repository's code formatting conventions (see below);
--   Include tests that prove that the change works as intended and does not add regressions;
--   Document the changes in the code and/or the project's documentation;
--   Pass the CI pipeline;
--   Include a proper git commit message following the [Conventional Commit Specification](https://conventionalcommits.org/en/v1.0.0/#specification).
+- Follow the repository's code formatting conventions (see below);
+- Include tests that prove that the change works as intended and does not add regressions;
+- Document the changes in the code and/or the project's documentation;
+- Your PR must pass the CI pipeline;
+- When submitting your Pull Request, use one of the following branches:
+  - For bug fixes: `main` branch
+  - For features & functionality: `development` branch
+- Include a proper git commit message following the [Conventional Commit Specification](https://www.conventionalcommits.org/en/v1.0.0/#specification).
 
 <br />
 
-If all of these items are checked, the pull request is ready to be reviewed and you should change the status to "Ready for review" and request review from a maintainer.
+If you have completed the above tasks, the pull request is ready to be reviewed and your pull request's label will be changed to "Ready for Review". At this point, a human will need to step in and manually verify your submission.
 
-Reviewers will approve the pull request once they are satisfied with the patch.
+Reviewers will approve the pull request once they are satisfied with the patch it will be merged.
 
 <br />
 
 ### Conventional Commit Specification
 
-When commiting your changes, we require you to follow the Conventional Commit Specification, described below.
-
-**The Conventional Commits** is a specification for the format and content of a commit message. The concept behind Conventional Commits is to provide a rich commit history that can be read and understood by both humans and automated tools. Conventional Commits have the following format:
+When commiting your changes, we require you to follow the [Conventional Commit Specification](https://www.conventionalcommits.org/en/v1.0.0/#specification). The **Conventional Commits** is a specification for the format and content of a commit message. The concept behind Conventional Commits is to provide a rich commit history that can be read and understood by both humans and automated tools. Conventional Commits have the following format:
 
 <br />
 
@@ -116,24 +151,24 @@ When commiting your changes, we require you to follow the Conventional Commit Sp
 ```
 
 #### Types
-
-| Type        | Description                                                                                                                                                                                                                                        |
-| ----------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `feat`      | Introduces a new feature                                                                                                                                                                                                                           |
-| `fix`       | A bug fix for the end user                                                                                                                                                                                                                         |
-| `docs`      | A change to the website or Markdown documents                                                                                                                                                                                                      |
-| `build`     | The commit alters the build process. E.g: creating a new build task, updating the release script, editing Makefile.                                                                                                                                |
-| `test`      | Adds missing tests, refactoring tests; no production code change. Usually changes the suite of automated tests for the product.                                                                                                                    |
-| `perf`      | Improves performance of algorithms or general execution time of the product, but does not fundamentally change an existing feature.                                                                                                                |
-| `style`     | Updates or reformats the style of the source code, but does not otherwise change the product implementation. Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)                                |
-| `refactor`  | A change to production code that leads to no behavior difference, e.g. splitting files, renaming internal variables, improving code style, etc.                                                                                                    |
-| `change`    | Changes the implementation of an existing feature.                                                                                                                                                                                                 |
-| `chore`     | Includes a technical or preventative maintenance task that is necessary for managing the product or the repository, but is not tied to any specific feature. E.g. updating dependencies. These are usually done for maintanence purposes.          |
-| `ci`        | Changes related to Continuous Integration (usually `yml` and other configuration files).                                                                                                                                                           |
-| `misc`      | Anything else that doesn't change production code, yet is not ci, test or chore.                                                                                                                                                                   |
-| `revert`    | Revert to a previous commit                                                                                                                                                                                                                        |
-| `remove`    | Removes a feature from the product. Typically features are deprecated first for a period of time before being removed. Removing a feature from the product may be considered a breaking change that will require a major version number increment. |
-| `deprecate` | Deprecates existing functionality, but does not remove it from the product.                                                                                                                                                                        |
+| Type | Description |
+| --- | --- |
+| `feat` | Introduces a new feature |
+| `fix` | Bug fix for the end-user |
+| `deps` | Specifically targets adding new or updating existing dependencies |
+| `docs` | Change to the website or Markdown documents |
+| `build` | Alters the build process. E.g: creating a new build task, updating the release script, etc. |
+| `test` | Adds or refactors tests, no production code change. Usually changes the suite of automated tests for the app. |
+| `perf` | Improves performance of algorithms or general execution time of the app, but does not fundamentally change an existing feature. |
+| `style` | Updates or reformats the style of the source code, but does not otherwise change the way the app is implemented. Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) |
+| `refactor` | Change to production code that leads to no behavior difference, E.g. splitting files, renaming internal variables, improving code style, etc. |
+| `change` | Changes to an existing feature. |
+| `chore` | Includes a technical or preventative maintenance task that is necessary for managing the app or the repo, such as updating grunt tasks, but is not tied to any specific feature. Usually done for maintanence purposes. |
+| `ci` | Changes related to Continuous Integration (usually `yml` and other configuration files). |
+| `misc` | Anything else that doesn't fit into another commit type. Usually doesn't change production code; yet is not ci, test or chore. |
+| `revert` | Revert a previous commit |
+| `remove` | Removes a feature from the app. Typically features are deprecated first for a period of time before being removed. Removing a feature from the app may be considered a breaking change that will require a major version number increment. |
+| `deprecate` | Deprecates existing functionality, but does not remove it from the app. |
 
 <br />
 
@@ -153,7 +188,6 @@ feat(core): allow overriding of webpack config
 <br />
 
 ##### Example 2:
-
 ```
 <type>(<scope>): <short summary>
   │       │             │
@@ -171,9 +205,8 @@ feat(core): allow overriding of webpack config
 
 <br />
 
-### References
-
-If you are pushing a commit which addresses a submitted issue, reference your issue in the description of your commit. You may also optionally add the major issue to the end of your commit title.
+### Referencing Issues
+If you are pushing a commit which addresses a submitted issue, reference your issue at the end of the commit message. You may also optionally add the major issue to the end of your commit body.
 
 References should be on their own line, following the word `Ref` or `Refs`
 
@@ -186,34 +219,94 @@ Description:    The description of your commit
 
 <br />
 
-### Code Styling
+<br />
 
-This repo utilizes [prettier](https://npmjs.com/package/prettier) and [eslint](https://npmjs.com/package/eslint) for formatting. Prior to a pull request being approved; ensure you lint your code with the following settings for prettier:
+### ESLint & Prettier
+The following allows you to configure ESLint and Prettier.
 
-```YAML
-printWidth: 120,
-tabWidth: 4,
-useTabs: false,
-semi: true,
-singleQuote: true,
-quoteProps: 'preserve',
-jsxSingleQuote: true,
-trailingComma: 'none',
-bracketSpacing: true,
-bracketSameLine: false,
-arrowParens: 'always',
-proseWrap: 'preserve',
-htmlWhitespaceSensitivity: 'ignore',
-endOfLine: 'auto',
-embeddedLanguageFormatting: 'auto',
-singleAttributePerLine: false
+<br />
+
+#### Packages
+We use the following packages for linting and prettier.
+
+<br />
+
+| Package | Repo File | Description |
+| --- | --- | --- |
+| [typescript-eslint](https://npmjs.com/package/typescript-eslint) | [package.json](./blob/main/package.json) | Tooling which enables you to use TypeScript with ESLint |
+| [eslint-plugin-prettier](https://npmjs.com/package/eslint-plugin-prettier) | [package.json](./blob/main/package.json) | Runs Prettier as an ESLint rule and reports differences as individual ESLint issues. |
+| [@typescript-eslint/parser](https://npmjs.com/package/@typescript-eslint/parser) | [package.json](./blob/main/package.json) | An ESLint parser which leverages TypeScript ESTree to allow for ESLint to lint TypeScript source code. |
+| [@typescript-eslint/eslint-plugin](https://npmjs.com/package/@typescript-eslint/eslint-plugin) | [package.json](./blob/main/package.json) | An ESLint plugin which provides lint rules for TypeScript codebases. |
+| [@stylistic/eslint-plugin-js](https://npmjs.com/package/@stylistic/eslint-plugin-js) | [package.json](./blob/main/package.json) | JavaScript stylistic rules for ESLint, migrated from eslint core. |
+| [@stylistic/eslint-plugin-ts](https://npmjs.com/package/@stylistic/eslint-plugin-ts) | [package.json](./blob/main/package.json) | TypeScript stylistic rules for ESLint, migrated from typescript-eslint. |
+| [@stylistic/eslint-plugin-plus](https://npmjs.com/package/@stylistic/eslint-plugin-plus) | [package.json](./blob/main/package.json) | Supplementary rules introduced by ESLint Stylistic. |
+| [prettier](https://npmjs.com/package/prettier) | [package.json](./blob/main/package.json) | Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary. |
+
+<br />
+
+You can add the following to your `package.json` file:
+```yml
+"devDependencies": {
+    "eslint-plugin-prettier": "^5.1.3",
+    "typescript-eslint": "^7.14.0",
+    "@typescript-eslint/parser": "^7.16.0",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@stylistic/eslint-plugin-js": "^2.3.0",
+    "@stylistic/eslint-plugin-ts": "^2.3.0",
+    "@stylistic/eslint-plugin-plus": "^2.3.0",
+    "prettier": "^3.2.5"
+},
 ```
 
 <br />
 
-### Spaces Instead Of Tabs
+#### Configs
+Within the root folder of the repo, there are several configuration files which you should be using within the project. These files dictate how prettier and eslint will behave and what is acceptable / not acceptable.
 
-When writing your code, set your IDE to utilize **spaces**, with a configured tab size of `4 characters`.
+<br />
+
+Pick the config file below depending on which version of ESLint you are using. The v8 and older `.eslint` may not be there if we have migrated over to an Eslint v9 flat config file:
+
+<br />
+
+##### ESLint >= v9 Config
+- [eslint.config.mjs](https://github.com/aetherinox/obsidian-gistr/blob/main/eslint.config.mjs)
+- [eslint.config.js](https://github.com/aetherinox/obsidian-gistr/blob/main/eslint.config.js)
+
+    https://github.com/Aetherinox/obsidian-gistr/blob/eff2d544adb7d0390bef2db9c58b86cbcce4582c/eslint.config.js
+
+<br />
+
+##### ESLint < v9 Config
+- [.eslintrc](https://github.com/aetherinox/obsidian-gistr/blob/main/.eslintrc)
+
+<br />
+
+##### Prettier
+- [.prettierrc](https://github.com/aetherinox/obsidian-gistr/blob/main/.prettierrc)
+
+    ```yml
+    printWidth: 120,
+    tabWidth: 4,
+    useTabs: false,
+    semi: true,
+    singleQuote: true,
+    quoteProps: 'preserve',
+    jsxSingleQuote: true,
+    trailingComma: 'none',
+    bracketSpacing: true,
+    bracketSameLine: false,
+    arrowParens: 'always',
+    proseWrap: 'preserve',
+    htmlWhitespaceSensitivity: 'ignore',
+    endOfLine: 'auto',
+    embeddedLanguageFormatting: 'auto',
+    singleAttributePerLine: false
+    ```
+
+<br />
+
+When submitting your pull request, these linting and style rules will be verified with all of your files. If you did not follow these rules; the linter tests on your pull request will fail; and you'll be expected to correct these issues before your submission will be transferred over for human review.
 
 <br />
 
@@ -266,62 +359,103 @@ let secondVar = 'two';
 
 <br />
 
----
+### Indentation Style
+For files that are not controlled by prettier or eslint; you should be using the `Allman Style`.  This style puts the brace associated with a control statement on the next line, indented. Statements within the braces are indented to the same level as the braces.
+
+<br />
+
+```javascript
+return {
+    status: "failure",
+    user:
+    {
+        id: "1aaa35aa-fb3a-62ae-ffec-a14g7fc401ac",
+        label: "Test String",
+    }
+};
+```
+
+<br />
+
+### Spaces Instead Of Tabs
+When writing your code, set your IDE to utilize **spaces**, with a configured size of `4 characters`. If this project utilizes ESLint, you should find the file `.editorconfig` in the root directory of the repo which defines how the file should be formatted. Load that file into programs such as Visual Studio Code.
+
+<br />
 
 <br />
 
 <div align="center">
 
-**[`^        back to top        ^`](#submitting-bugs)**
+**[`^        back to top        ^`](#about)**
 
 </div>
 
-
+<br />
 <br />
 
 <!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
 <!-- BADGE > GENERAL -->
-[link-general-npm]: https://npmjs.com
-[link-general-nodejs]: https://nodejs.org
-[link-npmtrends]: http://npmtrends.com/obsidian-gistr
+  [general-npmjs-uri]: https://npmjs.com
+  [general-nodejs-uri]: https://nodejs.org
+  [general-npmtrends-uri]: http://npmtrends.com/obsidian-gistr
 
 <!-- BADGE > VERSION > GITHUB -->
-[badge-version-gh]: https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=Version&color=ba5225
-[link-version-gh]: https://github.com/Aetherinox/obsidian-gistr/releases
+  [github-version-img]: https://img.shields.io/github/v/tag/Aetherinox/obsidian-gistr?logo=GitHub&label=Version&color=ba5225
+  [github-version-uri]: https://github.com/Aetherinox/obsidian-gistr/releases
 
 <!-- BADGE > VERSION > NPMJS -->
-[badge-version-npm]: https://img.shields.io/npm/v/obsidian-gistr?logo=npm&label=Version&color=ba5225
-[link-version-npm]: https://npmjs.com/package/obsidian-gistr
+  [npm-version-img]: https://img.shields.io/npm/v/obsidian-gistr?logo=npm&label=Version&color=ba5225
+  [npm-version-uri]: https://npmjs.com/package/obsidian-gistr
 
-<!-- BADGE > LICENSE -->
-[badge-license-mit]: https://img.shields.io/badge/MIT-FFF?logo=creativecommons&logoColor=FFFFFF&label=License&color=9d29a0
-[link-license-mit]: https://github.com/Aetherinox/obsidian-gistr/blob/main/LICENSE
+<!-- BADGE > VERSION > PYPI -->
+  [pypi-version-img]: https://img.shields.io/pypi/v/obsidian-gistr-plugin
+  [pypi-version-uri]: https://pypi.org/project/obsidian-gistr-plugin/
 
-<!-- BADGE > BUILD -->
-[badge-build]: https://img.shields.io/github/actions/workflow/status/Aetherinox/obsidian-gistr/npm-release.yml?logo=github&logoColor=FFFFFF&label=Build&color=%23278b30
-[link-build]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/npm-release.yml
+<!-- BADGE > LICENSE > MIT -->
+  [license-mit-img]: https://img.shields.io/badge/MIT-FFF?logo=creativecommons&logoColor=FFFFFF&label=License&color=9d29a0
+  [license-mit-uri]: https://github.com/Aetherinox/obsidian-gistr/blob/main/LICENSE
 
-<!-- BADGE > DOWNLOAD COUNT -->
-[badge-downloads-gh]: https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total?logo=github&logoColor=FFFFFF&label=Downloads&color=376892
-[link-downloads-gh]: https://github.com/Aetherinox/obsidian-gistr/releases
-[badge-downloads-npm]: https://img.shields.io/npm/dw/%40aetherinox%2Fntfy-desktop?logo=npm&&label=Downloads&color=376892
-[link-downloads-npm]: https://npmjs.com/package/obsidian-gistr
+<!-- BADGE > GITHUB > DOWNLOAD COUNT -->
+  [github-downloads-img]: https://img.shields.io/github/downloads/Aetherinox/obsidian-gistr/total?logo=github&logoColor=FFFFFF&label=Downloads&color=376892
+  [github-downloads-uri]: https://github.com/Aetherinox/obsidian-gistr/releases
 
-<!-- BADGE > DOWNLOAD SIZE -->
-[badge-size-gh]: https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?logo=github&label=Size&color=59702a
-[link-size-gh]: https://github.com/Aetherinox/obsidian-gistr/releases
-[badge-size-npm]: https://img.shields.io/npm/unpacked-size/obsidian-gistr/latest?logo=npm&label=Size&color=59702a
-[link-size-npm]: https://npmjs.com/package/obsidian-gistr
+<!-- BADGE > NPMJS > DOWNLOAD COUNT -->
+  [npmjs-downloads-img]: https://img.shields.io/npm/dw/%40aetherinox%2Fmkdocs-link-embeds?logo=npm&&label=Downloads&color=376892
+  [npmjs-downloads-uri]: https://npmjs.com/package/obsidian-gistr
 
-<!-- BADGE > COVERAGE -->
-[badge-coverage]: https://img.shields.io/codecov/c/github/Aetherinox/obsidian-gistr?token=MPAVASGIOG&logo=codecov&logoColor=FFFFFF&label=Coverage&color=354b9e
-[link-coverage]: https://codecov.io/github/Aetherinox/obsidian-gistr
+<!-- BADGE > GITHUB > DOWNLOAD SIZE -->
+  [github-size-img]: https://img.shields.io/github/repo-size/Aetherinox/obsidian-gistr?logo=github&label=Size&color=59702a
+  [github-size-uri]: https://github.com/Aetherinox/obsidian-gistr/releases
+
+<!-- BADGE > NPMJS > DOWNLOAD SIZE -->
+  [npmjs-size-img]: https://img.shields.io/npm/unpacked-size/obsidian-gistr/latest?logo=npm&label=Size&color=59702a
+  [npmjs-size-uri]: https://npmjs.com/package/obsidian-gistr
+
+<!-- BADGE > CODECOV > COVERAGE -->
+  [codecov-coverage-img]: https://img.shields.io/codecov/c/github/Aetherinox/obsidian-gistr?token=MPAVASGIOG&logo=codecov&logoColor=FFFFFF&label=Coverage&color=354b9e
+  [codecov-coverage-uri]: https://codecov.io/github/Aetherinox/obsidian-gistr
 
 <!-- BADGE > ALL CONTRIBUTORS -->
-[badge-all-contributors]: https://img.shields.io/github/all-contributors/Aetherinox/obsidian-gistr?logo=contributorcovenant&color=de1f6f&label=contributors
-[link-all-contributors]: https://github.com/all-contributors/all-contributors
-[badge-tests]: https://img.shields.io/github/actions/workflow/status/Aetherinox/ntfy-desktop/npm-tests.yml?logo=github&label=Tests&color=2c6488
-[link-tests]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/tests.yml
-[badge-commit]: https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?logo=conventionalcommits&logoColor=FFFFFF&label=Last%20Commit&color=313131
-[link-commit]: https://github.com/Aetherinox/obsidian-gistr/commits/main/
+  [contribs-all-img]: https://img.shields.io/github/all-contributors/Aetherinox/obsidian-gistr?logo=contributorcovenant&color=de1f6f&label=contributors
+  [contribs-all-uri]: https://github.com/all-contributors/all-contributors
+
+<!-- BADGE > GITHUB > BUILD > NPM -->
+  [github-build-img]: https://img.shields.io/github/actions/workflow/status/Aetherinox/obsidian-gistr/npm-release.yml?logo=github&logoColor=FFFFFF&label=Build&color=%23278b30
+  [github-build-uri]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/npm-release.yml
+
+<!-- BADGE > GITHUB > BUILD > Pypi -->
+  [github-build-pypi-img]: https://img.shields.io/github/actions/workflow/status/Aetherinox/obsidian-gistr/release-pypi.yml?logo=github&logoColor=FFFFFF&label=Build&color=%23278b30
+  [github-build-pypi-uri]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/pypi-release.yml
+
+<!-- BADGE > GITHUB > TESTS -->
+  [github-tests-img]: https://img.shields.io/github/actions/workflow/status/Aetherinox/obsidian-gistr/npm-tests.yml?logo=github&label=Tests&color=2c6488
+  [github-tests-uri]: https://github.com/Aetherinox/obsidian-gistr/actions/workflows/npm-tests.yml
+
+<!-- BADGE > GITHUB > COMMIT -->
+  [github-commit-img]: https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?logo=conventionalcommits&logoColor=FFFFFF&label=Last%20Commit&color=313131
+  [github-commit-uri]: https://github.com/Aetherinox/obsidian-gistr/commits/main/
+
 <!-- prettier-ignore-end -->
+<!-- markdownlint-restore -->
