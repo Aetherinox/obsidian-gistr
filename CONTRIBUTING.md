@@ -237,13 +237,13 @@ We use the following packages for linting and prettier.
 | Package | Repo File | Description |
 | --- | --- | --- |
 | [typescript-eslint](https://npmjs.com/package/typescript-eslint) | [package.json](./package.json) | Tooling which enables you to use TypeScript with ESLint |
-| [eslint-plugin-prettier](https://npmjs.com/package/eslint-plugin-prettier) | [package.json](./blob/main/package.json) | Runs Prettier as an ESLint rule and reports differences as individual ESLint issues. |
-| [@typescript-eslint/parser](https://npmjs.com/package/@typescript-eslint/parser) | [package.json](./blob/main/package.json) | An ESLint parser which leverages TypeScript ESTree to allow for ESLint to lint TypeScript source code. |
-| [@typescript-eslint/eslint-plugin](https://npmjs.com/package/@typescript-eslint/eslint-plugin) | [package.json](./blob/main/package.json) | An ESLint plugin which provides lint rules for TypeScript codebases. |
-| [@stylistic/eslint-plugin-js](https://npmjs.com/package/@stylistic/eslint-plugin-js) | [package.json](./blob/main/package.json) | JavaScript stylistic rules for ESLint, migrated from eslint core. |
-| [@stylistic/eslint-plugin-ts](https://npmjs.com/package/@stylistic/eslint-plugin-ts) | [package.json](./blob/main/package.json) | TypeScript stylistic rules for ESLint, migrated from typescript-eslint. |
-| [@stylistic/eslint-plugin-plus](https://npmjs.com/package/@stylistic/eslint-plugin-plus) | [package.json](./blob/main/package.json) | Supplementary rules introduced by ESLint Stylistic. |
-| [prettier](https://npmjs.com/package/prettier) | [package.json](./blob/main/package.json) | Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary. |
+| [eslint-plugin-prettier](https://npmjs.com/package/eslint-plugin-prettier) | [package.json](./package.json) | Runs Prettier as an ESLint rule and reports differences as individual ESLint issues. |
+| [@typescript-eslint/parser](https://npmjs.com/package/@typescript-eslint/parser) | [package.json](./package.json) | An ESLint parser which leverages TypeScript ESTree to allow for ESLint to lint TypeScript source code. |
+| [@typescript-eslint/eslint-plugin](https://npmjs.com/package/@typescript-eslint/eslint-plugin) | [package.json](./package.json) | An ESLint plugin which provides lint rules for TypeScript codebases. |
+| [@stylistic/eslint-plugin-js](https://npmjs.com/package/@stylistic/eslint-plugin-js) | [package.json](./package.json) | JavaScript stylistic rules for ESLint, migrated from eslint core. |
+| [@stylistic/eslint-plugin-ts](https://npmjs.com/package/@stylistic/eslint-plugin-ts) | [package.json](./package.json) | TypeScript stylistic rules for ESLint, migrated from typescript-eslint. |
+| [@stylistic/eslint-plugin-plus](https://npmjs.com/package/@stylistic/eslint-plugin-plus) | [package.json](./package.json) | Supplementary rules introduced by ESLint Stylistic. |
+| [prettier](https://npmjs.com/package/prettier) | [package.json](./package.json) | Prettier is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary. |
 
 <br />
 
