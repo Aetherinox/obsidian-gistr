@@ -145,7 +145,6 @@ module.exports = [
         '@stylistic/plus/type-generic-spacing': ["error"],
 
         // 'prettier/prettier': ['error'],
-
         // @typescript-eslint rules
         '@typescript-eslint/prefer-nullish-coalescing': 'off' // require `strictNullChecks`
     },
