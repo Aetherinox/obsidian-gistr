@@ -89,7 +89,7 @@ If you are submitting a bug report:
 
 <div align="center">
 
-[![Submit Issue](https://img.shields.io/badge/submit%20new%20issue-de1f5c?style=for-the-badge&logo=github&logoColor=FFFFFF&link=mailto%3Aantelle.net%40gmail.com)](https://github.com/aetherinox/obsidian-gistr/issues)
+[![Submit Issue][btn-github-submit-img]][btn-github-submit-uri]
 
 </div>
 
@@ -149,25 +149,27 @@ When commiting your changes, we require you to follow the [Conventional Commit S
 [optional <footer(s)>]
 ```
 
+<br />
+
 #### Types
 | Type | Description |
 | --- | --- |
-| `feat` | Introduces a new feature |
-| `fix` | Bug fix for the end-user |
-| `deps` | Specifically targets adding new or updating existing dependencies |
-| `docs` | Change to the website or Markdown documents |
-| `build` | Alters the build process. E.g: creating a new build task, updating the release script, etc. |
-| `test` | Adds or refactors tests, no production code change. Usually changes the suite of automated tests for the app. |
-| `perf` | Improves performance of algorithms or general execution time of the app, but does not fundamentally change an existing feature. |
-| `style` | Updates or reformats the style of the source code, but does not otherwise change the way the app is implemented. Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc) |
-| `refactor` | Change to production code that leads to no behavior difference, E.g. splitting files, renaming internal variables, improving code style, etc. |
-| `change` | Changes to an existing feature. |
-| `chore` | Includes a technical or preventative maintenance task that is necessary for managing the app or the repo, such as updating grunt tasks, but is not tied to any specific feature. Usually done for maintanence purposes. |
-| `ci` | Changes related to Continuous Integration (usually `yml` and other configuration files). |
-| `misc` | Anything else that doesn't fit into another commit type. Usually doesn't change production code; yet is not ci, test or chore. |
-| `revert` | Revert a previous commit |
-| `remove` | Removes a feature from the app. Typically features are deprecated first for a period of time before being removed. Removing a feature from the app may be considered a breaking change that will require a major version number increment. |
-| `deprecate` | Deprecates existing functionality, but does not remove it from the app. |
+| `feat` | <br/> Introduce new feature <br/><br/> |
+| `fix` | <br/> Bug fix <br/><br/> |
+| `deps` | <br/> Add or update existing dependencies <br/><br/> |
+| `docs` | <br/> Change website or markdown documents. Does not mean changes to the documentation generator script itself, only the documents created from the generator. <br/><br/><small>E.g: documentation, readme.md or markdown</small> <br /><br /> |
+| `build` | <br/> Changes to the build / compilation / packaging process or auxiliary tools such as doc generation<br /><br/><small>E.g: create new build tasks, update release script, etc.</small> <br/><br/> |
+| `test` | <br/> Add or refactor tests, no production code change. Changes the suite of automated tests for the app. <br/><br/> |
+| `perf` | <br/> Performance improvement of algorithms or execution time of the app. Does not change an existing feature. <br/><br/> |
+| `style` | <br/> Update / reformat style of source code. Does not change the way app is implemented. Changes that do not affect the meaning of the code<br /><br/><small>E.g: white-space, formatting, missing semi-colons, change tabs to spaces, etc)</small> <br/><br/> |
+| `refactor` | <br/> Change to production code that leads to no behavior difference,<br/><br/><small>E.g: split files, rename variables, rename package, improve code style, etc.</small> <br/><br/> |
+| `change` | <br/> Change an existing feature. <br/><br/> |
+| `chore` | <br/> Includes technical or preventative maintenance task that is necessary for managing the app or repo, such as updating grunt tasks, but is not tied to any specific feature. Usually done for maintanence purposes.<br/><br/><small>E.g: .gitignore file or .prettierrc file</small> <br/><br/> |
+| `ci` | <br/> Changes related to Continuous Integration (usually `yml` and other configuration files). <br/><br/> |
+| `misc` | <br/> Anything that doesn't fit into another commit type. Usually doesn't change production code; yet is not ci, test or chore. <br/><br/> |
+| `revert` | <br/> Revert a previous commit <br/><br/> |
+| `remove` | <br/> Remove a feature from app. Features are usually first deprecated for a period of time before being removed. Removing a feature from the app may be considered a breaking change that will require a major version number increment.<br/><br/> |
+| `deprecate` | <br/> Deprecate existing functionality, but does not remove it from the app.<br/><br/> |
 
 <br />
 
@@ -460,6 +462,10 @@ When writing your code, set your IDE to utilize **spaces**, with a configured si
 <!-- BADGE > GITHUB > COMMIT -->
   [github-commit-img]: https://img.shields.io/github/last-commit/Aetherinox/obsidian-gistr?logo=conventionalcommits&logoColor=FFFFFF&label=Last%20Commit&color=313131
   [github-commit-uri]: https://github.com/Aetherinox/obsidian-gistr/commits/main/
+
+<!-- BADGE > BUTTON > SUBMIT ISSUES -->
+  [btn-github-submit-img]: https://img.shields.io/badge/submit%20new%20issue-de1f5c?style=for-the-badge&logo=github&logoColor=FFFFFF
+  [btn-github-submit-uri]: https://github.com/aetherinox/obsidian-gistr/issues
 
 <!-- prettier-ignore-end -->
 <!-- markdownlint-restore -->
