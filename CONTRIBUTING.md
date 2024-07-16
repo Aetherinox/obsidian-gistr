@@ -272,11 +272,7 @@ Pick the config file below depending on which version of ESLint you are using. T
 - [eslint.config.mjs](https://github.com/aetherinox/obsidian-gistr/blob/main/eslint.config.mjs)
 - [eslint.config.js](https://github.com/aetherinox/obsidian-gistr/blob/main/eslint.config.js)
 
-https://github.com/Aetherinox/obsidian-gistr/blob/eff2d544adb7d0390bef2db9c58b86cbcce4582c/eslint.config.js#L1-L6
-
-https://github.com/Aetherinox/obsidian-gistr/blob/eff2d544adb7d0390bef2db9c58b86cbcce4582c/eslint.config.js
-
-https://github.com/Aetherinox/obsidian-gistr/blob/eff2d544adb7d0390bef2db9c58b86cbcce4582c/eslint.config.js#L
+https://github.com/Aetherinox/obsidian-gistr/blob/eff2d544adb7d0390bef2db9c58b86cbcce4582c/eslint.config.js#L1-L300
 
 <br />
 
