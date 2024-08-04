@@ -47,6 +47,8 @@
   - [Manual](#manual)
   - [BRAT Plugin Manager](#brat-plugin-manager)
 - [Build](#build)
+  - [Gistr](#gistr)
+  - [Documentation](#documentation)
 - [OpenGist - How It Works](#opengist---how-it-works)
 - [Shoutouts](#shoutouts)
   - [Contributors ✨](#contributors-)
@@ -314,8 +316,111 @@ Plugin can also be installed utilizing the [BRAT](https://github.com/TfTHacker/o
 <br />
 
 # Build
+Instructions for building various aspects of Gistr:
+
+<br />
+
+## Gistr
 For a detailed set of instructions on how to download this plugin's source files and compile your own version, check out the wiki link below:
 - [How to Build Gistr](https://aetherinox.github.io/obsidian-gistr/advanced/build/)
+
+<br />
+
+## Documentation
+This project uses [mkdocs]() for its documentation.
+
+<br />
+
+To install mkdocs and the required plugins:
+```shell ignore
+pip install mkdocs
+pip install mkdocs-material
+pip install mike
+pip install mkdocs-encryptcontent-plugin
+pip install mkdocs-git-committers-plugin-2
+pip install mkdocs-glightbox
+pip install mkdocs-material
+pip install mkdocs-redirects
+pip install pymdown-extensions
+pip install mkdocs-git-revision-date-localized-plugin
+pip install mkdocs-git-authors-plugin
+pip install mkdocs-exclude-search
+pip install mkdocs-minify-plugin
+```
+
+<br />
+
+Change over to the `docs/` directory. 
+
+```shell ignore
+cd docs/
+```
+
+<br />
+
+To build your mkdocs documentation, type:
+```shell ignore
+mkdocs build
+```
+
+<br />
+
+To start mkdocs and serve the documentation locally (IF you are not using the Mike plugin), run
+```shell ignore
+mkdocs serve
+```
+
+<br />
+
+Or you can start mkdocs with the `--clean` argument:
+```shell ignore
+mkdocs serve --clean
+```
+
+<br />
+
+You will then be able to access your documentation by opening your browser and going to:
+```shell ignore
+http://127.0.0.1:8000/
+```
+
+<br />
+
+If using the **[Mike](https://github.com/jimporter/mike)** plugin. The Mike plugin allows you to manage multiple versions of your MkDocs-powered documentation via Git  
+
+```shell ignore
+mike serve
+```
+
+<br />
+
+To deploy with Mike:
+```shell ignore
+mike deploy [version]
+mike deploy [version] [alias]...
+```
+
+<br />
+
+To display versions with Mike:
+```shell ignore
+mike list
+mike list [identifier]
+```
+
+<br />
+
+To set the default version for Mike:
+```shell ignore
+mike set-default [identifier]
+```
+
+<br />
+
+Changing a version title for Mike:
+```shell ignore
+mike retitle [identifier] [title]
+```
 
 <br />
 
