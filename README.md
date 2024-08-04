@@ -18,7 +18,12 @@
 <div align="center">
 
 <!-- prettier-ignore-start -->
-[![Version][github-version-img]][github-version-uri] [![Build Status][github-build-img]][github-build-uri] [![Downloads][github-downloads-img]][github-downloads-uri] [![Size][github-size-img]][github-size-img] [![Last Commit][github-commit-img]][github-commit-img] [![Contributors][contribs-all-img]](#contributors-)
+[![Version][github-version-img]][github-version-uri]
+[![Build Status][github-build-img]][github-build-uri]
+[![Downloads][github-downloads-img]][github-downloads-uri]
+[![Size][github-size-img]][github-size-img]
+[![Last Commit][github-commit-img]][github-commit-img]
+[![Contributors][contribs-all-img]](#contributors-)
 <!-- prettier-ignore-end -->
 
 </div>
