@@ -27,13 +27,12 @@ on:
   release:
     types:
       - published
-  push:
-    branches:
-      - main
-      - master
   workflow_dispatch:
   schedule:
     - cron: "0 */12 * * *"
+  push:
+    paths:
+      - docs/**
 
 # ---------------------------------------------------------------------------------------
 #   jobs
