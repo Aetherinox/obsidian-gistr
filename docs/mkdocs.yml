@@ -151,7 +151,6 @@ extra_javascript:
   - javascripts/tablesort.js
 nav:
   - Home: 'home.md'
-  - Changelog: 'changelog.md'
   - Install:
     - Using Obsidian: 'install/obsidian.md'
     - Using BRAT: 'install/brat.md'
@@ -171,6 +170,7 @@ nav:
   - Cheatsheets:
     - Datetime Format: 'cheatsheets/datetime.md'
   - About:
+    - Changelog: 'about/changelog.md'
     - License: 'about/license.md'
     - Conventions: 'about/conventions.md'
     - Tags: 'about/tags.md'
