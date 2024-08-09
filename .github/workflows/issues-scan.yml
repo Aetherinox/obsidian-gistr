@@ -5,8 +5,8 @@
 #   @url        : https://github.com/Aetherinox
 # ---------------------------------------------------------------------------------------
 
-name: "⚡ PR › Autoscan"
-run-name: "⚡ PR › Autoscan"
+name: "🎫 Issues › Scan"
+run-name: "🎫 Issues › Scan"
 
 # ---------------------------------------------------------------------------------------
 #   triggers
@@ -167,10 +167,15 @@ jobs:
         uses: actions/setup-node@v4
 
       # ---------------------------------------------------------------------------------------
-      #   get list of changed files
+      #     get list of changed files
+      #
+      #     Effortlessly track all changed files and directories relative to a target branch,
+      #     the current branch (preceding commit or the last remote commit), multiple branches,
+      #     or custom commits returning relative paths from the project root using this
+      #     GitHub action.
       # ---------------------------------------------------------------------------------------
 
-      - name: Get changed files
+      - name: "📄 Get changed files"
         id: task_autocheck_changed_files_get
         uses: tj-actions/changed-files@v44
         with:
@@ -195,6 +200,10 @@ jobs:
           COUNT_DELETED:    ${{ steps.task_autocheck_changed_files_get.outputs.deleted_files_count }}
           COUNT_RENAMED:    ${{ steps.task_autocheck_changed_files_get.outputs.renamed_files_count }}
           COUNT_COPIED:     ${{ steps.task_autocheck_changed_files_get.outputs.copied_files_count }}
+
+      # ---------------------------------------------------------------------------------------
+      #   List directories
+      # ---------------------------------------------------------------------------------------
 
       - name: "📂 List Directories"
         id: task_autocheck_dirs_list
@@ -285,7 +294,7 @@ jobs:
             "- `SampleModal`\n"
 
             let warn_BadWords = "\n" +
-            "- `Obsidian`\n" +
+            "- `General`\n" +
             "- `Settings`\n"
 
             /*
@@ -365,13 +374,13 @@ jobs:
                 const bAsAny                        = /\((.*? as Any\s*)\)/gi.test( filesData );
                 const bInnerHTML                    = /^\s?.*[a-zA-Z0-9_]+\.innerHTML*\s?.*$/gm.test( filesData );
                 const bOuterHTML                    = /^\s?.*[a-zA-Z0-9_]+\.outerHTML*\s?.*$/gm.test( filesData );
-                const bFuncConsoleLog               = /(console.log)\((.*)\)(\[([^\]]*)\])?/gim.test( filesData );
+             // const bFuncConsoleLog               = /(console.log)\((.*)\)(\[([^\]]*)\])?/gim.test( filesData );
                 const bFuncSetTimeout               = /(setTimeout)\((.*)\)(\[([^\]]*)\])?/gim.test( filesData );
                 const bFuncFS_Chk1                  = /(require)\s?\((\s?(?:'|")fs(?:'|"))\s?\)?/gim.test( filesData );
                 const bFuncFS_Chk2                  = /from\s+(?:'|")fs(?:'|")\s?/gim.test( filesData );
                 const bFuncFS_ExistsSync            = /(fs.existsSync)\((.*)\)(\[([^\]]*)\])?/gm.test( filesData );
                 const bFuncFS_MkdirSync             = /(fs.mkdirSync)\((.*)\)(\[([^\]]*)\])?/gm.test( filesData );
-                const bFoundBadWord                 = /(?:'|").*(Obsidian|Settings|General).*(?:'|")?/gmi.test( filesData );
+                const bFoundBadWord                 = /(?:'|").*(Settings|General).*(?:'|")?/gmi.test( filesData );
                 const bContainsGeneric              = /(?:^|(?<= ))(MyPlugin|MyPluginSettings|SampleSettings|SampleSettingTab|SampleModal|Sample Plugin|my-plugin)(?:(?= )|$)/gim.test( filesData );
                 const check_depGetUnpinnedLeaf      = "app.workspace.getUnpinnedLeaf"
 
@@ -406,10 +415,12 @@ jobs:
                     @usage  : obsidian.md
                 */
 
+                /*
                 if ( filesData.toLowerCase( ).includes( check_depGetUnpinnedLeaf.toLowerCase( ) ) )
                 {
                     addError( "This function is deprecated, use `this.app.workspace.getLeaf( false )` instead" );
                 }
+                */
 
                 /*
                     Using inline style
@@ -489,7 +500,7 @@ jobs:
 
                 if ( bInnerHTML == true )
                 {
-                    addError( `Using \`innerHTML\` is a security risk. Use the DOM API or the Obsidian helper functions: https://docs.obsidian.md/Plugins/User+interface/HTML+elements` );
+                    addError( `Using \`innerHTML\` is a security risk.` );
                 }
 
                 /*
@@ -498,7 +509,7 @@ jobs:
 
                 if ( bOuterHTML == true )
                 {
-                    addError( `Using \`outerHTML\` is a security risk. Use the DOM API or the Obsidian helper functions: https://docs.obsidian.md/Plugins/User+interface/HTML+elements` );
+                    addError( `Using \`outerHTML\` is a security risk.` );
                 }
 
                 /*
@@ -516,7 +527,7 @@ jobs:
 
                 if ( bFuncFS_Chk1 == true || bFuncFS_Chk2 == true  )
                 {
-                    addError( "`fs` import only available from Node.js runtime, this will throw errors for users running Obsidian on mobile" );
+                    addError( "`fs` import only available from Node.js runtime, this will throw errors for users running on mobile" );
                 }
 
                 /*
@@ -525,7 +536,7 @@ jobs:
 
                 if ( bFuncFS_ExistsSync == true  )
                 {
-                    addError( "`fs` import only available from Node.js runtime, this will throw errors for users running Obsidian on mobile. For `fs.existsSync( )`, utilize Obsidian API -> `this.app.vault.adapter.exists( )`" );
+                    addError( "`fs` import only available from Node.js runtime, this will throw errors for users running on mobile." );
                 }
 
                 /*
@@ -534,7 +545,7 @@ jobs:
 
                 if ( bFuncFS_MkdirSync == true  )
                 {
-                    addError( "`fs` import only available from Node.js runtime, this will throw errors for users running Obsidian on mobile. For `fs.mkdirSync( )`, utilize Obsidian API -> `this.app.vault.adapter.mkdir( )`" );
+                    addError( "`fs` import only available from Node.js runtime, this will throw errors for users running on mobile." );
                 }
 
                 /*
@@ -550,10 +561,12 @@ jobs:
                     console.log found
                 */
 
+                /*
                 if ( bFuncConsoleLog == true )
                 {
                     addWarning( "Avoid unnecessary logging or ensure logging only occurs in development environment." );
                 }
+                */
 
                 /*
                     Bad words found
@@ -561,7 +574,7 @@ jobs:
 
                 if ( bFoundBadWord == true && file != "package.json" && file != "manifest.json" )
                 {
-                    addWarning( "A restricted word was found in your code. Obsidian developers do not allow words in strings such as: " + warn_BadWords );
+                    addWarning( "A restricted word was found in your code. Generic words are not allowed in strings such as: " + warn_BadWords );
                 }
 
                 if ( errors.length > 0 || warnings.length > 0 )
