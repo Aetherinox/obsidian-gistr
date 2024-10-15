@@ -154,22 +154,22 @@ When commiting your changes, we require you to follow the [Conventional Commit S
 #### Types
 | Type | Description |
 | --- | --- |
-| `feat` | <br/> Introduce new feature <br/><br/> |
-| `fix` | <br/> Bug fix <br/><br/> |
-| `deps` | <br/> Add or update existing dependencies <br/><br/> |
-| `docs` | <br/> Change website or markdown documents. Does not mean changes to the documentation generator script itself, only the documents created from the generator. <br/><br/><small>E.g: documentation, readme.md or markdown</small> <br /><br /> |
-| `build` | <br/> Changes to the build / compilation / packaging process or auxiliary tools such as doc generation<br /><br/><small>E.g: create new build tasks, update release script, etc.</small> <br/><br/> |
-| `test` | <br/> Add or refactor tests, no production code change. Changes the suite of automated tests for the app. <br/><br/> |
-| `perf` | <br/> Performance improvement of algorithms or execution time of the app. Does not change an existing feature. <br/><br/> |
-| `style` | <br/> Update / reformat style of source code. Does not change the way app is implemented. Changes that do not affect the meaning of the code<br /><br/><small>E.g: white-space, formatting, missing semi-colons, change tabs to spaces, etc)</small> <br/><br/> |
-| `refactor` | <br/> Change to production code that leads to no behavior difference,<br/><br/><small>E.g: split files, rename variables, rename package, improve code style, etc.</small> <br/><br/> |
-| `change` | <br/> Change an existing feature. <br/><br/> |
-| `chore` | <br/> Includes technical or preventative maintenance task that is necessary for managing the app or repo, such as updating grunt tasks, but is not tied to any specific feature. Usually done for maintanence purposes.<br/><br/><small>E.g: Edit .gitignore, .prettierrc, .prettierignore, .gitignore, eslint.config.js file</small> <br/><br/> |
-| `ci` | <br/> Changes related to Continuous Integration (usually `yml` and other configuration files). <br/><br/> |
-| `misc` | <br/> Anything that doesn't fit into another commit type. Usually doesn't change production code; yet is not ci, test or chore. <br/><br/> |
-| `revert` | <br/> Revert a previous commit <br/><br/> |
-| `remove` | <br/> Remove a feature from app. Features are usually first deprecated for a period of time before being removed. Removing a feature from the app may be considered a breaking change that will require a major version number increment.<br/><br/> |
-| `deprecate` | <br/> Deprecate existing functionality, but does not remove it from the app.<br/><br/> |
+| `feat` | Introduce new feature |
+| `fix` | Bug fix |
+| `deps` | Add or update existing dependencies |
+| `docs` | Change website or markdown documents. Does not mean changes to the documentation generator script itself, only the documents created from the generator. <br/><br/><small>E.g: documentation, readme.md or markdown</small> <br /><br /> |
+| `build` | Changes to the build / compilation / packaging process or auxiliary tools such as doc generation<br /><br/><small>E.g: create new build tasks, update release script, etc.</small> |
+| `test` | Add or refactor tests, no production code change. Changes the suite of automated tests for the app. |
+| `perf` | Performance improvement of algorithms or execution time of the app. Does not change an existing feature. |
+| `style` | Update / reformat style of source code. Does not change the way app is implemented. Changes that do not affect the meaning of the code<br /><br/><small>E.g: white-space, formatting, missing semi-colons, change tabs to spaces, etc)</small> |
+| `refactor` | Change to production code that leads to no behavior difference,<br/><br/><small>E.g: split files, rename variables, rename package, improve code style, etc.</small> |
+| `change` | Change an existing feature. |
+| `chore` | Includes technical or preventative maintenance task that is necessary for managing the app or repo, such as updating grunt tasks, but is not tied to any specific feature. Usually done for maintanence purposes.<br/><br/><small>E.g: Edit .gitignore, .prettierrc, .prettierignore, .gitignore, eslint.config.js file</small> |
+| `ci` | Changes related to Continuous Integration (usually `yml` and other configuration files). |
+| `misc` | Anything that doesn't fit into another commit type. Usually doesn't change production code; yet is not ci, test or chore. |
+| `revert` | Revert a previous commit |
+| `remove` | Remove a feature from app. Features are usually first deprecated for a period of time before being removed. Removing a feature from the app may be considered a breaking change that will require a major version number increment.|
+| `deprecate` | Deprecate existing functionality, but does not remove it from the app.|
 
 <br />
 
