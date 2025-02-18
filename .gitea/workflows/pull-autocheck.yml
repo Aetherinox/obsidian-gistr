@@ -12,7 +12,7 @@ on:
   pull_request:
     branches:
       - main
-  issue_comment:                                     
+  issue_comment:
     types: [created]
 
 # ---------------------------------------------------------------------------------------
@@ -94,22 +94,22 @@ jobs:
       # ---------------------------------------------------------------------------------------
       #   action > checkout
       # ---------------------------------------------------------------------------------------
-        
+
       - uses: actions/checkout@v4
         if: ( github.event_name == 'pull_request' ) || ( github.event_name == 'issue_comment' && contains( github.event.comment.html_url, '/pull/' ) && contains( github.event.comment.body, '/rescan' ) )
         with:
           fetch-depth: 0
           ref: "refs/pull/${{ steps.get_issue_number.outputs.result }}/merge"
-          
+
       - name: Use Node.js
         uses: actions/setup-node@v4
 
       - name: Get changed files
         id: changed-files
-        uses: tj-actions/changed-files@v42
+        uses: tj-actions/changed-files@v45
         with:
           separator: ","
-  
+
       - name: List all added files
         run: |
           for file in ${CHANGED_FILES}; do
@@ -170,7 +170,7 @@ jobs:
             }
 
             let date_created    = dateTimeformat( date ) + " UTC";
-            
+
             /*
                 context.payload.pull_request.base.repo.owner.login
             */
@@ -191,18 +191,18 @@ jobs:
               | Copied Files | ${{ steps.changed-files.outputs.deleted_files_count }} |
               | Deleted Files | ${{ steps.changed-files.outputs.deleted_files_count }} |
             `;
-            
+
             message.push        ( md_table );
 
-            let error_Generic = "\n" + 
-            "- `MyPlugin`\n" + 
-            "- `MyPluginSettings`\n" + 
+            let error_Generic = "\n" +
+            "- `MyPlugin`\n" +
+            "- `MyPluginSettings`\n" +
             "- `SampleSettings`\n" +
             "- `SampleSettingTab`\n" +
             "- `SampleModal`\n"
 
-            let warn_BadWords = "\n" + 
-            "- `Obsidian`\n" + 
+            let warn_BadWords = "\n" +
+            "- `Obsidian`\n" +
             "- `Settings`\n"
 
             /*
@@ -581,7 +581,7 @@ jobs:
 
             if (context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_STATUS_CHGMADE }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_STATUS_CHGMADE }}" );
-            
+
             if ( context.payload.pull_request.labels.filter( label => label.name === "${{ env.LABEL_CHECK_SCAN_SKIPPED }}" ).length > 0 )
                 labels.push( "${{ env.LABEL_CHECK_SCAN_SKIPPED }}" );
 
