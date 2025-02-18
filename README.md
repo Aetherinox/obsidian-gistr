@@ -510,6 +510,10 @@ Want to help but can't write code?
 
 <br />
 
+![Alt](https://repobeats.axiom.co/api/embed/16df5621104abcb2d138159999114de4e95e0dfa.svg "Repobeats analytics image")
+
+<br />
+
 The following people have helped get this project going:
 
 <br />
