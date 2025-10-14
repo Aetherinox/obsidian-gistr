@@ -101,7 +101,7 @@ jobs:
 
             - name: "⚙️ Setup Node"
               id: task_release_node_setup
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
                   node-version: "20.x"
                   registry-url: https://npm.pkg.github.com/
